@@ -1,5 +1,7 @@
 <script>
   import { Link } from "svelte-routing";
+  import Button from "./Button.svelte";
+
   let url = "yoga_solo.png";
   let scroll = 0;
   window.addEventListener("scroll", function(event) {
@@ -23,7 +25,8 @@
   header.scrolled {
     opacity: 0.9;
     backdrop-filter: blur(4px);
-    box-shadow: 0px 3px 3px 0px var(--dark-grey);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px;
+    transition: box-shadow 0.3s ease-in-out;
   }
   img {
     height: 60px;
@@ -41,6 +44,7 @@
     text-decoration: none;
     margin: 0px 10px;
   }
+
   a:hover {
     color: var(--white);
     font-weight: 300;
@@ -62,10 +66,10 @@
     <Link to="einzelunterricht">
       <span class="link">Einzelunterricht</span>
     </Link>
-     <Link to="gruppen">
+    <Link to="gruppen">
       <span class="link">Gruppen</span>
     </Link>
-     <Link to="seminare">
+    <Link to="seminare">
       <span class="link">Seminare</span>
     </Link>
     <Link to="podcasts">
@@ -73,7 +77,7 @@
     </Link>
   </nav>
   <a href="/contact">
-    <button>Contact me</button>
+    <Button inverted>Contact me</Button>
   </a>
 
 </header>

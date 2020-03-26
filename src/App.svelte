@@ -16,6 +16,7 @@
     --white: white;
     --black: black;
     --text-color: #1a1b1f;
+    --light-grey: #eaeaea;
   }
   main {
     padding: 20px;

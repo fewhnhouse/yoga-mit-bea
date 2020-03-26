@@ -1,5 +1,5 @@
 <script>
-  import Divider from "./Divider.svelte";
+  import Divider from "../../components/Divider.svelte";
   import Block from "./Block.svelte";
   import CardContainer from "./CardContainer.svelte";
   import { onDestroy } from "svelte";

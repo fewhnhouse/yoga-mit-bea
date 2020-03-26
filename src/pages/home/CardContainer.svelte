@@ -1,5 +1,6 @@
 <script>
-  import Card from "../../components/Card.svelte";
+  import CourseCard from "./CourseCard.svelte";
+
   export let title;
 </script>
 
@@ -9,8 +10,13 @@
     display: flex;
     margin: 20px 0px;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
-
+  @media (max-width: 1100px) {
+    .cardContainer {
+      justify-content: center;
+    }
+  }
   .outerContainer {
     display: flex;
     align-items: center;
@@ -21,8 +27,23 @@
 <div class="outerContainer">
   <h1>{title}</h1>
   <div class="cardContainer">
-    <Card>Content</Card>
-    <Card>Content</Card>
-    <Card>Content</Card>
+    <CourseCard
+      title="Einzelunterricht"
+      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
+      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
+      id ducimus quis quae!" />
+    <CourseCard
+      title="Gruppen"
+      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
+      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
+      id ducimus quis quae!" />
+    <CourseCard
+      title="Seminare"
+      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
+      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
+      id ducimus quis quae!" />
   </div>
 </div>

@@ -1,4 +1,5 @@
 <script>
+  import ShortDivider from "../../components/ShortDivider.svelte";
   export let direction;
   export let title;
   export let text;
@@ -39,7 +40,7 @@
   }
 
   p {
-    display: block;
+    text-align: justify;
     color: var(--text-color);
     opacity: 0.6;
     line-height: 30px;
@@ -64,6 +65,7 @@
   </div>
   <div class="textContainer">
     <h1>{title}</h1>
+    <ShortDivider />
     <p>{text}</p>
   </div>
 </div>

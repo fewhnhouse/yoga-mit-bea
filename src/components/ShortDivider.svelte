@@ -1,8 +1,7 @@
 <style>
   div {
-    width: 100%;
-    height: 1px;
-    margin: 30px 0px;
+    width: 60px;
+    height: 6px;
     background: var(--primary-color);
   }
 </style>
