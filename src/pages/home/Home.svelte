@@ -2,13 +2,26 @@
   import Divider from "./Divider.svelte";
   import Block from "./Block.svelte";
   import CardContainer from "./CardContainer.svelte";
+  import { onDestroy } from "svelte";
+
+  let scale = 1.0;
+  const timeout = setTimeout(() => (scale += 0.1), 500);
+  onDestroy(() => {
+    clearTimeout(timeout);
+  });
 </script>
 
 <style>
   img {
     width: 100%;
     height: calc(100vh - 100px);
+    transition: transform 8s linear;
     object-fit: cover;
+  }
+  .imageContainer {
+    width: 100%;
+    height: calc(100vh - 100px);
+    overflow: hidden;
   }
   @media (max-width: 500px) {
     img {
@@ -17,7 +30,10 @@
   }
 </style>
 
-<img src="deggingen.jpg" alt="logo" />
+<div class="imageContainer">
+
+  <img src="deggingen.jpg" style={`transform: scale(${scale});`} alt="logo" />
+</div>
 <Block
   title="Über mich"
   text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa

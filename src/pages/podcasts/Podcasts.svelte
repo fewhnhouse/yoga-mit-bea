@@ -1,7 +1,7 @@
 <script>
   import axios from "axios";
   import Card from "../../components/Card.svelte";
-
+  import Play from "./Play.svelte";
   let src = "favicon.png";
   let audio;
 
@@ -37,11 +37,18 @@
     display: flex;
   }
   .outerContainer {
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
   }
   .audioContainer {
-    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    position: fixed;
     bottom: 0px;
+    left: 0px;
+    height: 60px;
     width: 100%;
     background: var(--dark-grey);
   }
@@ -60,7 +67,8 @@
       </Card>
     {/each}
   </div>
-  <div class="audioContainer">
-    <audio autoplay bind:this={audio} src={audioSrc} id="audio" />
-  </div>
+</div>
+<div class="audioContainer">
+  <Play {isPlaying} />
+  <audio autoplay bind:this={audio} src={audioSrc} id="audio" />
 </div>

@@ -10,9 +10,9 @@
 <style>
   header {
     position: fixed;
-    width: 100%;
+    width: calc(100% - 20px);
+    padding: 0px 10px;
     background: var(--primary-color);
-    padding: 0px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -59,8 +59,14 @@
     <img alt="logo" src={url} />
   </a>
   <nav>
-    <Link to="about">
-      <span class="link">About me</span>
+    <Link to="einzelunterricht">
+      <span class="link">Einzelunterricht</span>
+    </Link>
+     <Link to="gruppen">
+      <span class="link">Gruppen</span>
+    </Link>
+     <Link to="seminare">
+      <span class="link">Seminare</span>
     </Link>
     <Link to="podcasts">
       <span class="link">Podcasts</span>
