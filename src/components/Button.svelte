@@ -37,7 +37,7 @@
   }
 </style>
 
-<button class={`${fullWidth ? 'fullWidth' : ''} ${inverted ? 'inverted' : ''}`}>
+<button  on:click class={`${fullWidth ? 'fullWidth' : ''} ${inverted ? 'inverted' : ''}`}>
   {label}
   <slot />
 </button>

@@ -1,3 +1,7 @@
+<script>
+  export let margin = 30;
+</script>
+
 <style>
   div {
     width: 100%;
@@ -7,4 +11,4 @@
   }
 </style>
 
-<div />
+<div style={`margin: ${margin}px 0px`} />

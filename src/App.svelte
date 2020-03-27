@@ -5,7 +5,7 @@
 
   import Home from "./pages/home/Home.svelte";
   import Podcasts from "./pages/podcasts/Podcasts.svelte";
-
+  import Offers from './pages/offers/Offers.svelte';
   export let url = "";
 </script>
 
@@ -17,6 +17,7 @@
     --black: black;
     --text-color: #1a1b1f;
     --light-grey: #eaeaea;
+    --light-background: #fafafa;
   }
   main {
     padding: 20px;
@@ -30,12 +31,13 @@
     <Route path="podcasts">
       <Podcasts />
     </Route>
-    <Route path="about">
-      <div>About</div>
+    <Route path="angebote">
+      <Offers />
     </Route>
     <Route path="/">
       <Home />
     </Route>
+
   </main>
   <Footer />
 </Router>

@@ -1,6 +1,7 @@
 <script>
   import Divider from "../../components/Divider.svelte";
   import Block from "./Block.svelte";
+  import MovingImage from "../../components/MovingImage.svelte";
   import CardContainer from "./CardContainer.svelte";
   import { onDestroy } from "svelte";
 
@@ -12,28 +13,11 @@
 </script>
 
 <style>
-  img {
-    width: 100%;
-    height: calc(100vh - 100px);
-    transition: transform 8s linear;
-    object-fit: cover;
-  }
-  .imageContainer {
-    width: 100%;
-    height: calc(100vh - 100px);
-    overflow: hidden;
-  }
-  @media (max-width: 500px) {
-    img {
-      height: 60%;
-    }
-  }
+
 </style>
 
-<div class="imageContainer">
+<MovingImage width="100%" height="calc(100vh - 100px)" src="deggingen.jpg" />
 
-  <img src="deggingen.jpg" style={`transform: scale(${scale});`} alt="logo" />
-</div>
 <Block
   title="Über mich"
   text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa

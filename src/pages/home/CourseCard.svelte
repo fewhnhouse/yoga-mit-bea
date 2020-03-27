@@ -12,6 +12,7 @@
 <style>
   .cardContent {
     min-width: 200px;
+    padding: 20px;
     flex: 1;
     max-width: 300px;
   }

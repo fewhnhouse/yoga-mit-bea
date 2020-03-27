@@ -42,19 +42,56 @@
     font-weight: 200;
     color: var(--white);
     text-decoration: none;
-    margin: 0px 10px;
+    margin: 0px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+  }
+
+  .link:before,
+  .link:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    width: 0px;
+    height: 2px;
+    margin: 5px 0 0;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+    background-color: white;
+  }
+
+  .active:before,
+  .active:after {
+    width: 50%;
+    opacity: 1;
+  }
+
+  .link:before {
+    left: 50%;
+  }
+
+  .link:after {
+    right: 50%;
+  }
+
+  .link:hover:before {
+    opacity: 1;
+    width: 50%;
+  }
+
+  .link:hover:after {
+    opacity: 1;
+    width: 50%;
+  }
+
+  .link:hover {
+    border-bottom: 1px sol;
   }
 
   a:hover {
     color: var(--white);
     font-weight: 300;
-  }
-  button {
-    background: var(--white);
-    margin: 0;
-    color: var(--primary-color);
-    text-transform: uppercase;
-    padding: 10px;
   }
 </style>
 
@@ -63,17 +100,17 @@
     <img alt="logo" src={url} />
   </a>
   <nav>
-    <Link to="einzelunterricht">
-      <span class="link">Einzelunterricht</span>
+    <Link to="/">
+      <span class="link active">Home</span>
     </Link>
-    <Link to="gruppen">
-      <span class="link">Gruppen</span>
+    <Link to="angebote">
+      <span class="link">Angebote</span>
     </Link>
-    <Link to="seminare">
-      <span class="link">Seminare</span>
+    <Link to="yoga">
+      <span class="link">Yoga</span>
     </Link>
     <Link to="podcasts">
-      <span class="link">Podcasts</span>
+      <span class="link">Zum Mitüben</span>
     </Link>
   </nav>
   <a href="/contact">
