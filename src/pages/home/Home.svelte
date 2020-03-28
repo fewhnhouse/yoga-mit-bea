@@ -1,6 +1,6 @@
 <script>
   import Divider from "../../components/Divider.svelte";
-  import Block from "./Block.svelte";
+  import Block from "../../components/Block.svelte";
   import MovingImage from "../../components/MovingImage.svelte";
   import CardContainer from "./CardContainer.svelte";
   import Card from "../../components/Card.svelte";

@@ -5,8 +5,12 @@
 
   import Home from "./pages/home/Home.svelte";
   import Podcasts from "./pages/podcasts/Podcasts.svelte";
-  import Offers from './pages/offers/Offers.svelte';
+  import Offers from "./pages/offers/Offers.svelte";
   export let url = "";
+
+  window.addEventListener("popstate", function() {
+    console.log("location changed!");
+  });
 </script>
 
 <style>

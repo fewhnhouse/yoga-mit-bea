@@ -3,6 +3,7 @@
   import ShortDivider from "../../components/ShortDivider.svelte";
   import Button from "../../components/Button.svelte";
   import Card from "../../components/Card.svelte";
+  import { Link } from "svelte-routing";
 
   export let title;
   export let description;
@@ -30,6 +31,8 @@
     <ShortDivider />
     <p>{description}</p>
     <Divider />
-    <Button fullWidth>Weitere Infos</Button>
+    <Link to={link}>
+      <Button fullWidth>Weitere Infos</Button>
+    </Link >
   </div>
 </Card>

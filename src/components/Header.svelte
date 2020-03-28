@@ -1,7 +1,15 @@
 <script>
   import { Link } from "svelte-routing";
   import Button from "./Button.svelte";
-
+  import { getContext } from "svelte";
+  import { ROUTER } from "svelte-routing/src/contexts";
+  const { activeRoute } = getContext(ROUTER);
+  let activePath = "/"
+  $: {
+    if ($activeRoute) {
+      activePath = $activeRoute.uri
+    }
+  }
   let url = "yoga2.png";
   let scroll = 0;
   window.addEventListener("scroll", function(event) {
@@ -12,6 +20,7 @@
 <style>
   header {
     position: fixed;
+    top: 0px;
     width: calc(100% - 20px);
     padding: 0px 10px;
     background: var(--white);
@@ -101,16 +110,20 @@
   </a>
   <nav>
     <Link to="/">
-      <span class="link active">Home</span>
+      <span class:active={activePath === '/'} class="link active">Home</span>
     </Link>
     <Link to="angebote">
-      <span class="link">Angebote</span>
+      <span class:active={activePath === '/angebote'} class="link">
+        Angebote
+      </span>
     </Link>
     <Link to="yoga">
-      <span class="link">Yoga</span>
+      <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
     <Link to="podcasts">
-      <span class="link">Zum Mitüben</span>
+      <span class:active={activePath === '/podcasts'} class="link">
+        Zum Mitüben
+      </span>
     </Link>
   </nav>
   <a href="/contact">

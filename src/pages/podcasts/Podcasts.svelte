@@ -77,10 +77,11 @@
 
   .loadingContainer {
     width: 100%;
-    height: 100vh;
-    padding-top: 80px;
+    height: calc(100vh - 60px);
+    padding-top: 60px;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
   .outerContainer {
     padding: 20px;

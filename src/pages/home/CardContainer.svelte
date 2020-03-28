@@ -28,18 +28,21 @@
   <h1>{title}</h1>
   <div class="cardContainer">
     <CourseCard
+      link="/angebote#einzelkurse"
       title="Einzelunterricht"
       description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
       Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
       exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
       id ducimus quis quae!" />
     <CourseCard
+      link="/angebote#gruppen"
       title="Gruppen"
       description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
       Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
       exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
       id ducimus quis quae!" />
     <CourseCard
+      link="/angebote#seminare"
       title="Seminare"
       description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
       Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
