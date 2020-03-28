@@ -35,6 +35,8 @@
   }
 
   .date {
+    display: block;
+    margin: 10px 0px;
     color: var(--text-color);
     opacity: 0.6;
     font-size: 12px;
@@ -77,11 +79,14 @@
     background-color: var(--primary-color);
     border-radius: 2px;
   }
-
 </style>
 
 <div class="cardContainer">
   <h4 class="header">{podcast.displayName}</h4>
+  <span class="date">
+    <i class="far fa-calendar-alt" />
+    {createDate(podcast.lastModified)}
+  </span>
 </div>
 <progress value={currentTime} max={duration} />
 
@@ -91,5 +96,4 @@
       class={`fas ${isPlaying && currentPodcast && podcast.etag === currentPodcast.etag ? 'fa-pause' : 'fa-play'}`} />
     {currentPodcast && podcast.etag === currentPodcast.etag ? (isPlaying ? 'Pause' : 'Play') : 'Listen'}
   </Button>
-  <span class="date">{createDate(podcast.lastModified)}</span>
 </div>

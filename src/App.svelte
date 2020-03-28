@@ -2,15 +2,13 @@
   import { Router, Route } from "svelte-routing";
   import Header from "./components/Header.svelte";
   import Footer from "./components/Footer.svelte";
-
+  import Yoga from "./pages/yoga/Yoga.svelte";
   import Home from "./pages/home/Home.svelte";
   import Podcasts from "./pages/podcasts/Podcasts.svelte";
   import Offers from "./pages/offers/Offers.svelte";
-  export let url = "";
+  import Contact from "./pages/contact/Contact.svelte";
 
-  window.addEventListener("popstate", function() {
-    console.log("location changed!");
-  });
+  export let url = "";
 </script>
 
 <style>
@@ -28,7 +26,7 @@
 <Router {url}>
   <Header />
   <main>
-    <Route path="podcasts">
+    <Route path="zum-mitueben">
       <Podcasts />
     </Route>
     <Route path="angebote">
@@ -36,6 +34,12 @@
     </Route>
     <Route path="/">
       <Home />
+    </Route>
+    <Route path="/yoga">
+      <Yoga />
+    </Route>
+    <Route path="/kontakt">
+      <Contact />
     </Route>
 
   </main>

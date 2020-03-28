@@ -98,6 +98,7 @@
   </div>
 {:else}
   <div class="outerContainer">
+    <h1>Podcasts</h1>
     <div class="podcastContainer">
       {#each podcasts as podcast}
         <Card>
@@ -111,6 +112,8 @@
         </Card>
       {/each}
     </div>
+    <h1>Videos</h1>
+
   </div>
 {/if}
 <audio autoplay bind:this={audio} src={audioSrc} id="audio" />

@@ -4,10 +4,10 @@
   import { getContext } from "svelte";
   import { ROUTER } from "svelte-routing/src/contexts";
   const { activeRoute } = getContext(ROUTER);
-  let activePath = "/"
+  let activePath = "/";
   $: {
     if ($activeRoute) {
-      activePath = $activeRoute.uri
+      activePath = $activeRoute.uri;
     }
   }
   let url = "yoga2.png";
@@ -51,6 +51,7 @@
     font-weight: 200;
     color: var(--primary-color);
     text-decoration: none;
+    letter-spacing: 2px;
     margin: 0px 20px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
@@ -110,7 +111,9 @@
   </a>
   <nav>
     <Link to="/">
-      <span class:active={activePath === '/'} class="link active">Home</span>
+      <span class:active={activePath === '/'} class="link active">
+        Übersicht
+      </span>
     </Link>
     <Link to="angebote">
       <span class:active={activePath === '/angebote'} class="link">
@@ -120,14 +123,16 @@
     <Link to="yoga">
       <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
-    <Link to="podcasts">
-      <span class:active={activePath === '/podcasts'} class="link">
+    <Link to="zum-mitueben">
+      <span class:active={activePath === '/zum-mitueben'} class="link">
         Zum Mitüben
       </span>
     </Link>
+    <Link to="kontakt">
+      <span class:active={activePath === '/kontakt'} class="link">
+        Kontakt
+      </span>
+    </Link>
   </nav>
-  <a href="/contact">
-    <Button inverted>Contact me</Button>
-  </a>
 
 </header>
