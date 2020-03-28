@@ -4,6 +4,7 @@
   import MovingImage from "../../components/MovingImage.svelte";
   import CardContainer from "./CardContainer.svelte";
   import Card from "../../components/Card.svelte";
+  import Quote from "../../components/Quote.svelte";
   import { onDestroy } from "svelte";
 
   let bgImage = "deggingen.jpg";
@@ -85,7 +86,6 @@
   {/if}
 </div>
 <div class="container">
-  <Divider />
   <Block
     imgSrc="runs-stone.jpg"
     title="Über mich"
@@ -99,7 +99,7 @@
     commodi quidem porro, molestiae mollitia accusantium laborum vitae corporis
     rem. Quam alias nemo cumque dolor, vero totam animi impedit tempora nobis."
     direction="left" />
-  <Divider />
+  <Quote quote="Lorem ipsum dolor sit amet, consectetur adipisicing elit." />
   <CardContainer title="Kurse" />
   <Divider />
   <Block

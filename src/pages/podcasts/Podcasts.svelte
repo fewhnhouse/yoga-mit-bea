@@ -1,5 +1,6 @@
 <script>
   import axios from "axios";
+  import { onDestroy } from "svelte";
   import Card from "../../components/Card.svelte";
   import Play from "./Play.svelte";
   import Button from "../../components/Button.svelte";
@@ -15,13 +16,23 @@
   let isLoading = true;
   let podcasts = [];
   let isPlaying = false;
+  let timeout = "";
+
+  const t0 = performance.now();
 
   axios.get("http://localhost:3000/api/podcasts").then(res => {
+    const t1 = performance.now();
     podcasts = res.data.map(podcast => ({
       ...podcast,
       displayName: podcast.name.split(".")[0]
     }));
-    isLoading = false;
+    if (t1 - t0 > 1000) {
+      isLoading = false;
+    } else {
+      timeout = setTimeout(() => {
+        isLoading = false;
+      }, 1000);
+    }
   });
 
   const handleClick = podcast => () => {
@@ -52,6 +63,10 @@
         });
     }
   };
+
+  onDestroy(() => {
+    clearTimeout(timeout);
+  });
 </script>
 
 <style>
@@ -62,6 +77,7 @@
 
   .loadingContainer {
     width: 100%;
+    height: 100vh;
     padding-top: 80px;
     display: flex;
     justify-content: center;
@@ -79,20 +95,21 @@
   <div class="loadingContainer">
     <LoadingIndicator />
   </div>
-{/if}
-<div class="outerContainer">
-  <div class="podcastContainer">
-    {#each podcasts as podcast}
-      <Card>
-        <PodcastCard
-          currentTime={currentPodcast && currentPodcast.etag === podcast.etag ? currentTime : 0}
-          duration={currentPodcast && currentPodcast.etag === podcast.etag ? duration : 0}
-          {isPlaying}
-          {handleClick}
-          {podcast}
-          {currentPodcast} />
-      </Card>
-    {/each}
+{:else}
+  <div class="outerContainer">
+    <div class="podcastContainer">
+      {#each podcasts as podcast}
+        <Card>
+          <PodcastCard
+            currentTime={currentPodcast && currentPodcast.etag === podcast.etag ? currentTime : 0}
+            duration={currentPodcast && currentPodcast.etag === podcast.etag ? duration : 0}
+            {isPlaying}
+            {handleClick}
+            {podcast}
+            {currentPodcast} />
+        </Card>
+      {/each}
+    </div>
   </div>
-</div>
+{/if}
 <audio autoplay bind:this={audio} src={audioSrc} id="audio" />
