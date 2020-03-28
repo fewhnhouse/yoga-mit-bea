@@ -115,6 +115,4 @@
     commodi quidem porro, molestiae mollitia accusantium laborum vitae corporis
     rem. Quam alias nemo cumque dolor, vero totam animi impedit tempora nobis."
     direction="right" />
-  <Divider />
-  <CardContainer title="Podcasts" />
 </div>
