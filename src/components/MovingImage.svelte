@@ -25,4 +25,5 @@
 
 <div class="imageContainer" style={`width:${width}; height:${height};`}>
   <img {src} style={`transform: scale(${scale});`} alt="logo" />
+  <slot />
 </div>

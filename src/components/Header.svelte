@@ -2,7 +2,7 @@
   import { Link } from "svelte-routing";
   import Button from "./Button.svelte";
 
-  let url = "yoga_solo.png";
+  let url = "yoga2.png";
   let scroll = 0;
   window.addEventListener("scroll", function(event) {
     scroll = this.scrollY;
@@ -14,7 +14,7 @@
     position: fixed;
     width: calc(100% - 20px);
     padding: 0px 10px;
-    background: var(--primary-color);
+    background: var(--white);
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -40,7 +40,7 @@
     align-items: center;
     text-transform: uppercase;
     font-weight: 200;
-    color: var(--white);
+    color: var(--primary-color);
     text-decoration: none;
     margin: 0px 20px;
     cursor: pointer;
@@ -58,7 +58,7 @@
     margin: 5px 0 0;
     transition: all 0.2s ease-in-out;
     opacity: 0;
-    background-color: white;
+    background-color: var(--primary-color);
   }
 
   .active:before,

@@ -1,6 +1,7 @@
 <script>
   import ShortDivider from "../../components/ShortDivider.svelte";
   export let direction;
+  export let imgSrc = 'placeholder.jpg'
   export let title;
   export let text;
   $: console.log(direction);
@@ -8,16 +9,17 @@
 
 <style>
   .imageContainer {
-    width: 200px;
-    height: 200px;
-    min-width: 200px;
-    min-height: 200px;
+    width: 250px;
+    height: 250px;
+    min-width: 250px;
+    min-height: 250px;
     overflow: hidden;
   }
   img {
     width: 100%;
     height: 100%;
     transform: scale(1);
+    object-fit: cover;
   }
   img:hover {
     transform: scale(1.1);
@@ -61,7 +63,7 @@
 <div
   class={`container ${direction === 'left' ? 'container-normal' : 'container-reverse'}`}>
   <div class="imageContainer">
-    <img src="placeholder.jpg" alt="logo" />
+    <img src={imgSrc} alt="logo" />
   </div>
   <div class="textContainer">
     <h1>{title}</h1>

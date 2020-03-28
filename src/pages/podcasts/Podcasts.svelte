@@ -4,118 +4,95 @@
   import Play from "./Play.svelte";
   import Button from "../../components/Button.svelte";
   import Divider from "../../components/Divider.svelte";
+  import PodcastCard from "./PodcastCard.svelte";
+  import LoadingIndicator from "../../components/LoadingIndicator.svelte";
 
-  let src = "favicon.png";
   let audio;
-
   let audioSrc = "";
-  let currentPodcast = "";
+  let currentTime = "";
+  let duration = "";
+  let currentPodcast = null;
+  let isLoading = true;
   let podcasts = [];
   let isPlaying = false;
+
   axios.get("http://localhost:3000/api/podcasts").then(res => {
     podcasts = res.data.map(podcast => ({
       ...podcast,
-      name: podcast.name.split(".")[0]
+      displayName: podcast.name.split(".")[0]
     }));
+    isLoading = false;
   });
+
   const handleClick = podcast => () => {
-    if (currentPodcast === podcast) {
+    if (currentPodcast && currentPodcast.etag === podcast.etag) {
       if (isPlaying) {
         audio.pause();
         isPlaying = false;
       } else {
-        audio.play();
-        isPlaying = true;
+        audio.play().then(() => {
+          isPlaying = true;
+        });
       }
     } else {
-      axios.get(`http://localhost:3000/api/podcasts/${podcast}`).then(res => {
-        audioSrc = res.data;
-        currentPodcast = podcast;
-        isPlaying = true;
-      });
+      axios
+        .get(`http://localhost:3000/api/podcasts/${podcast.name}`)
+        .then(res => {
+          audioSrc = res.data;
+          currentPodcast = podcast;
+          isPlaying = true;
+          audio.addEventListener(
+            "timeupdate",
+            event => {
+              currentTime = Math.floor(audio.currentTime);
+              duration = Math.floor(audio.duration);
+            },
+            false
+          );
+        });
     }
-  };
-
-  $: console.log(currentPodcast)
-
-  const createDate = lastModified => {
-    const date = new Date(lastModified);
-    return date.toLocaleDateString();
   };
 </script>
 
 <style>
   .podcastContainer {
     display: flex;
+    flex-wrap: wrap;
+  }
+
+  .loadingContainer {
+    width: 100%;
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
   }
   .outerContainer {
+    padding: 20px;
+    padding-top: 80px;
     height: 100%;
     min-height: 100vh;
     overflow: hidden;
   }
-  .audioContainer {
-    display: flex;
-    align-items: center;
-    padding: 0px 10px;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    height: 60px;
-    width: 100%;
-    background: var(--dark-grey);
-  }
-
-  .cardContainer {
-    padding: 20px;
-    width: 200px;
-  }
-  .footerContainer {
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    width: calc(100% - 40px);
-    align-items: center;
-  }
-
-  .button {
-    width: 80px;
-  }
-
-  h2 {
-    margin: 0px;
-  }
-
-  .date {
-    color: var(--text-color);
-    opacity: 0.6;
-    font-size: 12px;
-  }
-  i {
-    margin-right: 10px;
-  }
 </style>
 
+{#if isLoading}
+  <div class="loadingContainer">
+    <LoadingIndicator />
+  </div>
+{/if}
 <div class="outerContainer">
   <div class="podcastContainer">
     {#each podcasts as podcast}
       <Card>
-        <div class="cardContainer">
-          <h2>{podcast.name}</h2>
-        </div>
-        <Divider margin={5} />
-        <div class="footerContainer">
-          <Button class="button" on:click={handleClick(podcast.name)}>
-            <i
-              class={`fas ${isPlaying && podcast.name === currentPodcast ? 'fa-pause' : 'fa-play'}`} />
-            {podcast.name === currentPodcast ? (isPlaying ? 'Pause' : 'Play') : 'Listen'}
-          </Button>
-          <span class="date">{createDate(podcast.lastModified)}</span>
-        </div>
+        <PodcastCard
+          currentTime={currentPodcast && currentPodcast.etag === podcast.etag ? currentTime : 0}
+          duration={currentPodcast && currentPodcast.etag === podcast.etag ? duration : 0}
+          {isPlaying}
+          {handleClick}
+          {podcast}
+          {currentPodcast} />
       </Card>
     {/each}
   </div>
 </div>
-<div class="audioContainer">
-  <Play {isPlaying} />
-  <audio autoplay bind:this={audio} src={audioSrc} id="audio" />
-</div>
+<audio autoplay bind:this={audio} src={audioSrc} id="audio" />

@@ -19,10 +19,6 @@
     --light-grey: #eaeaea;
     --light-background: #fafafa;
   }
-  main {
-    padding: 20px;
-    padding-top: 80px;
-  }
 </style>
 
 <Router {url}>
