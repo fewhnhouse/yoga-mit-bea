@@ -6,7 +6,9 @@ import { terser } from 'rollup-plugin-terser'
 import { config } from 'dotenv'
 import replace from '@rollup/plugin-replace'
 
+config()
 const production = !process.env.ROLLUP_WATCH
+const apiUrl = process.env.API_URL
 
 export default {
   input: 'src/main.js',
@@ -22,7 +24,7 @@ export default {
       process: JSON.stringify({
         env: {
           isProd: production,
-          ...config().parsed, // attached the .env config
+          apiUrl,
         },
       }),
     }),

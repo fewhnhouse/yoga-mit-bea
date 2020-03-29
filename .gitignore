@@ -5,3 +5,4 @@
 
 .now
 .env
+.env.build

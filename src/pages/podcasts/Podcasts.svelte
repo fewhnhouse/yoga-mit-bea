@@ -18,8 +18,7 @@
   let isPlaying = false;
   let timeout = "";
 
-  const apiUrl = process.env.API_URL;
-
+  const { apiUrl } = process.env;
   const t0 = performance.now();
 
   axios.get(`${apiUrl}/api/podcasts`).then(res => {
@@ -48,21 +47,19 @@
         });
       }
     } else {
-      axios
-        .get(`${apiUrl}/api/podcasts/${podcast.name}`)
-        .then(res => {
-          audioSrc = res.data;
-          currentPodcast = podcast;
-          isPlaying = true;
-          audio.addEventListener(
-            "timeupdate",
-            event => {
-              currentTime = Math.floor(audio.currentTime);
-              duration = Math.floor(audio.duration);
-            },
-            false
-          );
-        });
+      axios.get(`${apiUrl}/api/podcasts/${podcast.name}`).then(res => {
+        audioSrc = res.data;
+        currentPodcast = podcast;
+        isPlaying = true;
+        audio.addEventListener(
+          "timeupdate",
+          event => {
+            currentTime = Math.floor(audio.currentTime);
+            duration = Math.floor(audio.duration);
+          },
+          false
+        );
+      });
     }
   };
 
