@@ -22,6 +22,16 @@
   .locationTextContainer {
     margin: 0px 20px;
   }
+
+  @media (max-width: 400px) {
+    iframe {
+      width: 0px;
+    }
+
+    .gmapsCardContainer {
+      width: 100%;
+    }
+  }
 </style>
 
 <div class="gmapsCardContainer">

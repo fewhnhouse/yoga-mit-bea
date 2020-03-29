@@ -29,6 +29,12 @@
     margin: 5px 0px;
   }
 
+  h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .innerPriceCard {
     padding: 20px;
   }

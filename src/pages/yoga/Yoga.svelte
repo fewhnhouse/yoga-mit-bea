@@ -8,10 +8,15 @@
     padding: 20px;
     padding-top: 80px;
   }
+  img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+  }
 </style>
 
 <div class="container">
-  <h1>Yoga</h1>
+  <img src="morgengruss.jpg" alt="Morgengruß"/>
   <Block
     imgSrc="runs-stone.jpg"
     title="Yoga Mutra"

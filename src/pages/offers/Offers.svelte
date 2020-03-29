@@ -23,10 +23,20 @@
 
   .pricesContainer {
     display: flex;
+    width: 100%;
+    overflow: auto;
   }
 
   .elementContainer {
     padding: 20px 0px;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      padding: 10px;
+      padding-top: 70px;
+      width: calc(100% - 20px);
+    }
   }
 </style>
 

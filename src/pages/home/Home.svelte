@@ -69,11 +69,19 @@
     padding: 20px;
     padding-top: 0px;
   }
-
   img {
-    object-fit: cover;
+    object-fit: contain;
     width: 400px;
     height: 200px;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      padding: 10px;
+    }
+    img {
+      width: 100%;
+    }
   }
 </style>
 

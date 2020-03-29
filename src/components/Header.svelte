@@ -1,9 +1,11 @@
 <script>
   import { Link } from "svelte-routing";
   import Button from "./Button.svelte";
+  import mediaStore from "../utils/mediaStore.js";
   import { getContext } from "svelte";
   import { ROUTER } from "svelte-routing/src/contexts";
   const { activeRoute } = getContext(ROUTER);
+  let isMenuExpanded = false;
   let activePath = "/";
   $: {
     if ($activeRoute) {
@@ -15,6 +17,12 @@
   window.addEventListener("scroll", function(event) {
     scroll = this.scrollY;
   });
+
+  $: isMobile = mediaStore("(max-width: 800px)");
+
+  const handleClick = () => {
+    isMenuExpanded = !isMenuExpanded;
+  };
 </script>
 
 <style>
@@ -31,6 +39,10 @@
     z-index: 100;
   }
 
+  .buttonContainer {
+    z-index: 200;
+  }
+
   header.scrolled {
     opacity: 0.9;
     backdrop-filter: blur(4px);
@@ -44,6 +56,7 @@
   nav {
     display: flex;
   }
+
   .link {
     display: flex;
     align-items: center;
@@ -103,35 +116,77 @@
     color: var(--white);
     font-weight: 300;
   }
+
+  i {
+    font-size: 20px;
+    color: var(--primary-color);
+  }
+
+  @media (max-width: 800px) {
+    nav {
+      align-items: center;
+      opacity: 0;
+      flex-direction: column;
+      position: absolute;
+      z-index: 100;
+      background: white;
+      width: 100%;
+      height: 0px;
+      transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      top: 60px;
+      left: 0px;
+    }
+
+    .nav-expanded {
+      height: 100vh;
+      opacity: 1;
+    }
+
+    .link {
+      margin: 20px;
+      padding-bottom: 5px;
+      justify-content: center;
+      width: 150px;
+    }
+  }
 </style>
 
 <header class={scroll !== 0 ? 'scrolled' : ''}>
   <a href="/">
     <img alt="logo" src={url} />
   </a>
-  <nav>
-    <Link to="/">
+  {#if $isMobile}
+    <div class="buttonContainer">
+      <Button on:click={handleClick}>
+        {#if isMenuExpanded}
+          <i class="fas fa-times" />
+        {:else}
+          <i class="fas fa-bars" />
+        {/if}
+      </Button>
+    </div>
+  {/if}
+  <nav class:nav-expanded={isMenuExpanded}>
+    <Link on:click={handleClick} to="/">
       <span class:active={activePath === '/'} class="link active">
         Übersicht
       </span>
     </Link>
-    <Link to="angebote">
+    <Link on:click={handleClick} to="angebote">
       <span class:active={activePath === '/angebote'} class="link">
         Angebote
       </span>
     </Link>
-    <Link to="yoga">
+    <Link on:click={handleClick} to="yoga">
       <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
-    <Link to="zum-mitueben">
+    <Link on:click={handleClick} to="zum-mitueben">
       <span class:active={activePath === '/zum-mitueben'} class="link">
         Zum Mitüben
       </span>
     </Link>
-    <Link to="kontakt">
-      <span class:active={activePath === '/kontakt'} class="link">
-        Kontakt
-      </span>
+    <Link on:click={handleClick} to="kontakt">
+      <span class:active={activePath === '/kontakt'} class="link">Kontakt</span>
     </Link>
   </nav>
 
