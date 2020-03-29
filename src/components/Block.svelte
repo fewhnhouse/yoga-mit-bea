@@ -31,11 +31,7 @@
     line-height: 30px;
   }
 
-  @media (max-width: 500px) {
-    img {
-      width: 80%;
-      height: 80%;
-    }
+  @media (max-width: 800px) {
     .container-normal,
     .container-reverse {
       flex-direction: column;

@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "env": {
+    "API_URL": "@api_url",
+    "MINIO_SECRET_KEY": "@minio_secret_key"
+  }
+}

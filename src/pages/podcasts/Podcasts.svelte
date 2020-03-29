@@ -18,9 +18,11 @@
   let isPlaying = false;
   let timeout = "";
 
+  const apiUrl = process.env.API_URL;
+
   const t0 = performance.now();
 
-  axios.get("http://localhost:3000/api/podcasts").then(res => {
+  axios.get(`${apiUrl}/api/podcasts`).then(res => {
     const t1 = performance.now();
     podcasts = res.data.map(podcast => ({
       ...podcast,
@@ -47,7 +49,7 @@
       }
     } else {
       axios
-        .get(`http://localhost:3000/api/podcasts/${podcast.name}`)
+        .get(`${apiUrl}/api/podcasts/${podcast.name}`)
         .then(res => {
           audioSrc = res.data;
           currentPodcast = podcast;
