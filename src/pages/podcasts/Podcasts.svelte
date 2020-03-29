@@ -90,6 +90,13 @@
     min-height: 100vh;
     overflow: hidden;
   }
+
+  @media (max-width: 500px) {
+    .podcastContainer {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 </style>
 
 {#if isLoading}
