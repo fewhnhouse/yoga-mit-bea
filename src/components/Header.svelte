@@ -135,9 +135,11 @@
       transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
       top: 60px;
       left: 0px;
+      pointer-events: none;
     }
 
     .nav-expanded {
+      pointer-events: all;
       height: 100vh;
       opacity: 1;
     }

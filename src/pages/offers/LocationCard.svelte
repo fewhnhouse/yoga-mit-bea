@@ -12,7 +12,6 @@
 <style>
   .gmapsCardContainer {
     width: 600px;
-    height: 300px;
   }
 
   .locationInnerContainer {
