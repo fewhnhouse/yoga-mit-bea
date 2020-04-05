@@ -1,10 +1,13 @@
 <script>
   import ShortDivider from "./ShortDivider.svelte";
   import HoverImage from "./HoverImage.svelte";
+  import Text from "./Text.svelte";
+
   export let direction;
-  export let imgSrc = "placeholder.jpg";
+  export let imgSrc = "";
   export let title;
   export let text;
+  export let size = "normal";
 </script>
 
 <style>
@@ -24,13 +27,6 @@
     margin: 0px 40px;
   }
 
-  p {
-    text-align: justify;
-    color: var(--text-color);
-    opacity: 0.6;
-    line-height: 30px;
-  }
-
   @media (max-width: 800px) {
     .container-normal,
     .container-reverse {
@@ -41,11 +37,21 @@
 
 <div
   class={`container ${direction === 'left' ? 'container-normal' : 'container-reverse'}`}>
-  <HoverImage src={imgSrc} alt="logo" width="250px" height="250px" />
+  {#if imgSrc}
+    <HoverImage
+      src={imgSrc}
+      alt="logo"
+      width={size === 'small' ? '200px' : '250px'}
+      height={size === 'small' ? '200px' : '250px'} />
+  {/if}
   <div class="textContainer">
-    <h1>{title}</h1>
-    <ShortDivider />
-    <p>{text}</p>
+    {#if size === 'small'}
+      <h2>{title}</h2>
+    {:else}
+      <h1>{title}</h1>
+      <ShortDivider />
+    {/if}
+    <Text>{text}</Text>
     <slot />
   </div>
 </div>

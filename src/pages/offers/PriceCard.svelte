@@ -3,14 +3,14 @@
   import Divider from "../../components/Divider.svelte";
   import Button from "../../components/Button.svelte";
 
-  export let duration = "60min";
   export let title = "Title";
-  export let price = "0€";
+  export let prices = [{ duration: "60min", price: "60€" }];
 </script>
 
 <style>
   .priceCardContainer {
-    width: 220px;
+    width: 300px;
+    height: 300px;
   }
 
   .duration {
@@ -21,7 +21,8 @@
 
   .innerFlex {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .price {
@@ -36,6 +37,7 @@
   }
 
   .innerPriceCard {
+    height: 260px;
     padding: 20px;
   }
 </style>
@@ -44,15 +46,18 @@
   <Card>
     <div class="innerPriceCard">
       <h4>{title}</h4>
-      <div class="innerFlex">
-        <span class="duration">
-          <i class="far fa-clock" />
-          {duration}
-        </span>
-        <span class="price">{price}</span>
+      <div>
+        {#each prices as price}
+          <div class="innerFlex">
+            <span class="duration">
+              <i class="far fa-clock" />
+              {price.duration}
+            </span>
+            <span class="price">{price.price}</span>
+          </div>
+          <Divider margin={10} />
+        {/each}
       </div>
-      <Divider margin={10} />
-      <Button fullWidth label="Kontakt"></Button>
     </div>
   </Card>
 </div>

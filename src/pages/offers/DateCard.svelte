@@ -9,7 +9,8 @@
 
 <style>
   .dateCardContainer {
-    width: 220px;
+    width: 300px;
+    height: 300px;
   }
 
   .duration {
@@ -31,6 +32,7 @@
 
   .innerPriceCard {
     padding: 20px;
+    height: 260px;
   }
 </style>
 

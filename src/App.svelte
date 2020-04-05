@@ -5,10 +5,10 @@
   import Yoga from "./pages/yoga/Yoga.svelte";
   import Home from "./pages/home/Home.svelte";
   import Podcasts from "./pages/podcasts/Podcasts.svelte";
-  import Offers from "./pages/offers/Offers.svelte";
   import Contact from "./pages/contact/Contact.svelte";
-
-  export let url = "";
+  import Groups from "./pages/offers/Groups.svelte";
+  import Seminars from "./pages/offers/Seminars.svelte";
+  import Individual from "./pages/offers/Individual.svelte";
 </script>
 
 <style>
@@ -17,29 +17,35 @@
     --dark-grey: #2f3640;
     --white: white;
     --black: black;
-    --text-color: #1a1b1f;
+    --text-color: rgba(26, 27, 31, 0.6);
     --light-grey: #eaeaea;
     --light-background: #fafafa;
   }
 </style>
 
-<Router {url}>
+<Router>
   <Header />
   <main>
     <Route path="zum-mitueben">
       <Podcasts />
     </Route>
-    <Route path="angebote">
-      <Offers />
+    <Route path="gruppen">
+      <Groups />
+    </Route>
+    <Route path="individuell">
+      <Individual />
+    </Route>
+    <Route path="seminare">
+      <Seminars />
+    </Route>
+    <Route path="yoga">
+      <Yoga />
+    </Route>
+    <Route path="kontakt">
+      <Contact />
     </Route>
     <Route path="/">
       <Home />
-    </Route>
-    <Route path="/yoga">
-      <Yoga />
-    </Route>
-    <Route path="/kontakt">
-      <Contact />
     </Route>
 
   </main>
