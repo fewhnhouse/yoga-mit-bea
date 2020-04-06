@@ -2,6 +2,7 @@
   import ShortDivider from "./ShortDivider.svelte";
   import HoverImage from "./HoverImage.svelte";
   import Text from "./Text.svelte";
+  import Button from "./Button.svelte";
 
   export let direction;
   export let imgSrc = "";
@@ -9,6 +10,9 @@
   export let text;
   export let size = "normal";
   export let more;
+  export let action;
+
+  const handleClick = (e) => action(e);
 </script>
 
 <style>
@@ -23,6 +27,7 @@
   }
   .container-reverse {
     flex-direction: row-reverse;
+    justify-content: space-between;
   }
   .textContainer {
     margin: 0px 40px;
@@ -57,5 +62,8 @@
     {/if}
     <Text>{text}</Text>
     <slot />
+    {#if more}
+      <Button on:click={handleClick}>Mehr erfahren</Button>
+    {/if}
   </div>
 </div>

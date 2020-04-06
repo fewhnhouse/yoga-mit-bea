@@ -5,15 +5,14 @@
 </script>
 
 <style>
-  .cardContainer {
-    width: 100%;
+  .cardsContainer {
     display: flex;
     margin: 20px 0px;
     justify-content: space-between;
     flex-wrap: wrap;
   }
   @media (max-width: 1100px) {
-    .cardContainer {
+    .cardsContainer {
       justify-content: center;
     }
   }
@@ -26,27 +25,18 @@
 
 <div class="outerContainer">
   <h1>{title}</h1>
-  <div class="cardContainer">
+  <div class="cardsContainer">
     <CourseCard
-      link="/angebote#einzelkurse"
-      title="Einzelunterricht"
-      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
-      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
-      id ducimus quis quae!" />
+      link="/individuell"
+      title="Yoga Individuell"
+      description="Yoga für dich!" />
     <CourseCard
-      link="/angebote#gruppen"
-      title="Gruppen"
-      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
-      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
-      id ducimus quis quae!" />
+      link="/gruppen"
+      title="Yogakurse"
+      description="Yoga mit Bea im Schloss. Yoga mit Bea in der Stube." />
     <CourseCard
-      link="/angebote#seminare"
-      title="Seminare"
-      description="Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      Asperiores quam animi, quod aliquam nostrum dolorem rerum similique
-      exercitationem, sapiente culpa non amet excepturi fugit provident deleniti
-      id ducimus quis quae!" />
+      link="/seminare"
+      title="Yoga Leben"
+      description="Yogawochenende" />
   </div>
 </div>

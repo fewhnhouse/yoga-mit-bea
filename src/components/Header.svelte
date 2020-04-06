@@ -174,22 +174,23 @@
         Übersicht
       </span>
     </Link>
+    <Link on:click={handleClick} to="bea">
+      <span class:active={activePath === '/bea'} class="link">Bea</span>
+    </Link>
+    <Link on:click={handleClick} to="yoga">
+      <span class:active={activePath === '/yoga'} class="link">Yoga</span>
+    </Link>
     <Link on:click={handleClick} to="angebote">
       <span class:active={activePath === '/angebote'} class="link">
         Angebote
       </span>
-    </Link>
-    <Link on:click={handleClick} to="yoga">
-      <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
     <Link on:click={handleClick} to="zum-mitueben">
       <span class:active={activePath === '/zum-mitueben'} class="link">
         Zum Mitüben
       </span>
     </Link>
-    <Link on:click={handleClick} to="kontakt">
-      <span class:active={activePath === '/kontakt'} class="link">Kontakt</span>
-    </Link>
+
   </nav>
 
 </header>

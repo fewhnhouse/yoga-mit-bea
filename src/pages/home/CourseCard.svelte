@@ -12,10 +12,14 @@
 
 <style>
   .cardContent {
-    min-width: 200px;
     padding: 20px;
-    flex: 1;
+    min-width: 200px;
     max-width: 300px;
+    height: 270px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   p {
@@ -23,16 +27,25 @@
     opacity: 0.6;
     line-height: 30px;
   }
+
+  .cardContainer {
+    flex: 1;
+    max-width: 300px;
+    height: 320px;
+  }
 </style>
 
-<Card>
-  <div class="cardContent">
-    <h2>{title}</h2>
-    <ShortDivider />
-    <p>{description}</p>
-    <Divider />
-    <Link to={link}>
-      <Button fullWidth>Weitere Infos</Button>
-    </Link >
-  </div>
-</Card>
+<div class="cardContainer">
+
+  <Card>
+    <div class="cardContent">
+      <h2>{title}</h2>
+      <ShortDivider />
+      <p>{description}</p>
+      <Divider />
+      <Link to={link}>
+        <Button fullWidth>Weitere Infos</Button>
+      </Link>
+    </div>
+  </Card>
+</div>
