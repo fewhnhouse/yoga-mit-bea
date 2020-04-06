@@ -1,10 +1,11 @@
+<script>
+  import Container from "../../components/Container.svelte";
+</script>
+
 <style>
-  .container {
-    padding: 20px;
-    padding-top: 80px;
-  }
+
 </style>
 
-<div class="container">
-    <h1>Kontakt</h1>
-</div>
+<Container>
+  <h1>Kontakt</h1>
+</Container>

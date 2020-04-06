@@ -9,6 +9,7 @@
   import Groups from "./pages/offers/Groups.svelte";
   import Seminars from "./pages/offers/Seminars.svelte";
   import Individual from "./pages/offers/Individual.svelte";
+  import Bea from "./pages/bea/Bea.svelte";
 </script>
 
 <style>
@@ -41,6 +42,10 @@
     <Route path="yoga">
       <Yoga />
     </Route>
+    <Route path="bea">
+      <Bea />
+    </Route>
+
     <Route path="kontakt">
       <Contact />
     </Route>

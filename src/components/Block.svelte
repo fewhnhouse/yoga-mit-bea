@@ -8,6 +8,7 @@
   export let title;
   export let text;
   export let size = "normal";
+  export let more;
 </script>
 
 <style>
@@ -31,6 +32,9 @@
     .container-normal,
     .container-reverse {
       flex-direction: column;
+    }
+    .container {
+      padding: 0px;
     }
   }
 </style>

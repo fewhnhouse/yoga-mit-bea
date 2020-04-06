@@ -79,7 +79,7 @@
     .container {
       padding: 10px;
     }
-    
+
     img {
       width: 100%;
     }
@@ -98,15 +98,9 @@
   <Block
     imgSrc="runs-stone.jpg"
     title="Über mich"
-    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-    necessitatibus aperiam aliquid. Numquam hic rerum ullam optio quisquam
-    voluptatum nemo, placeat quam harum labore cupiditate impedit omnis earum in
-    voluptatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-    perferendis, optio velit minima quae non quia voluptates, architecto, natus
-    magni unde? Quibusdam blanditiis voluptatem quo velit. Aliquam quis debitis
-    dolore. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta
-    commodi quidem porro, molestiae mollitia accusantium laborum vitae corporis
-    rem. Quam alias nemo cumque dolor, vero totam animi impedit tempora nobis."
+    text="Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin kann
+    es gehen."
+    more
     direction="left" />
   <Quote quote="Lorem ipsum dolor sit amet, consectetur adipisicing elit." />
   <CardContainer title="Kurse" />

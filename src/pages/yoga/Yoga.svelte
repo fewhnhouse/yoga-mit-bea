@@ -4,20 +4,16 @@
   import Divider from "../../components/Divider.svelte";
   import Quote from "../../components/Quote.svelte";
   import YogaQuote from "./YogaQuote.svelte";
+  import Container from "../../components/Container.svelte";
 </script>
 
 <style>
-  .container {
-    padding: 20px;
-    padding-top: 80px;
-  }
-
   .textContainer {
     margin: 0px 50px;
   }
 </style>
 
-<div class="container">
+<Container>
   <Block imgSrc="runs-stone.jpg" title="Yoga" text=" " direction="left">
     <Text>
       Die Quelle für ein tiefes und inniges Verständnis von Yoga ist das
@@ -84,5 +80,4 @@
       Das ist die Erfahrung von Yoga.
     </Text>
   </div>
-
-</div>
+</Container>

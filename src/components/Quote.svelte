@@ -12,9 +12,13 @@
   }
   div {
     margin: 80px 0px;
-    width: 100%;
     display: flex;
     justify-content: center;
+  }
+  @media (max-width: 800px) {
+    div {
+      margin: 20px;
+    }
   }
 </style>
 

@@ -8,36 +8,19 @@
   import PriceCard from "./PriceCard.svelte";
   import DateCard from "./DateCard.svelte";
   import LocationCard from "./LocationCard.svelte";
+  import Container from "../../components/Container.svelte";
 </script>
 
 <style>
-  .container {
-    padding: 20px;
-    padding-top: 80px;
-    width: calc(100% - 40px);
-  }
-
   .flexContainer {
     display: flex;
     width: 100%;
     overflow: auto;
     padding: 10px;
   }
-
-  .elementContainer {
-    padding: 20px 0px;
-  }
-
-  @media (max-width: 400px) {
-    .container {
-      padding: 10px;
-      padding-top: 70px;
-      width: calc(100% - 20px);
-    }
-  }
 </style>
 
-<div class="container">
+<Container>
   <div id="einzelkurse">
     <Block
       title="Yoga Leben"
@@ -62,4 +45,4 @@
     </div>
 
   </div>
-</div>
+</Container>
