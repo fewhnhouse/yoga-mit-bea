@@ -45,7 +45,11 @@
   }
 
   p {
-    line-height: 20px;
+    line-height: 30px;
+    font-weight: 300;
+  }
+  i {
+    margin-right: 5px;
   }
   h4 {
     margin: 5px 0px;
@@ -63,9 +67,17 @@
       <h4>Beate Ilg-Wohnhaas</h4>
       <p>Wacholderweg 10</p>
       <p>73326 Deggingen</p>
+    </div>
+
+    <div class="contact">
+      <h4>Kontakt</h4>
       <p>
         <i class="far fa-envelope" />
         beate.wohnhaas@t-online.de
+      </p>
+      <p>
+        <i class="fas fa-phone" />
+        0160 1578254
       </p>
     </div>
   </div>
