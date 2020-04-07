@@ -37,7 +37,6 @@
   .innerContainer {
     display: flex;
     padding: 20px;
-    width: 100%;
     justify-content: space-around;
   }
 </style>

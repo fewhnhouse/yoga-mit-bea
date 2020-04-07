@@ -99,18 +99,19 @@
 </div>
 <div class="container">
   <Block
-    imgSrc="runs-stone.jpg"
+    imgSrc="runs.jpg"
     title="Über mich"
     text="Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin kann
     es gehen."
     more
     action={link('/bea')}
     direction="left" />
-  <Quote quote="Lorem ipsum dolor sit amet, consectetur adipisicing elit." />
-  <CardContainer title="Kurse" />
+  <Quote quote="-- Teilnehmerstimmen --" />
+  <Divider />
+  <CardContainer title="Angebote" />
   <Divider />
   <Block
-    imgSrc="runs-stone.jpg"
+    imgSrc="patanjali.jpg"
     title="Yoga"
     text="Mein Verständnis zu Yoga"
     more

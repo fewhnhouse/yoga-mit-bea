@@ -118,7 +118,6 @@
         </Card>
       {/each}
     </div>
-    <h1>Videos</h1>
 
   </div>
 {/if}

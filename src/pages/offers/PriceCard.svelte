@@ -26,7 +26,8 @@
   }
 
   .price {
-    font-size: 20px;
+    opacity: 0.8;
+    font-size: 14px;
     margin: 5px 0px;
   }
 

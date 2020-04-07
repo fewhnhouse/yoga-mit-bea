@@ -33,6 +33,7 @@
   }
 </style>
 
+
 <div class="gmapsCardContainer">
   <Card>
     <div class="locationInnerContainer">

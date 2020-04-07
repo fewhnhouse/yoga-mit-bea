@@ -7,6 +7,8 @@
 <style>
   .cardsContainer {
     display: flex;
+    width: 100%;
+    max-width: 1200px;
     margin: 20px 0px;
     justify-content: space-between;
     flex-wrap: wrap;

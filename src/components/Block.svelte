@@ -36,6 +36,7 @@
   @media (max-width: 800px) {
     .container-normal,
     .container-reverse {
+      width: 100%;
       flex-direction: column;
     }
     .container {

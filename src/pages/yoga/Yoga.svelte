@@ -14,7 +14,7 @@
 </style>
 
 <Container>
-  <Block imgSrc="runs-stone.jpg" title="Yoga" text=" " direction="left">
+  <Block imgSrc="patanjali.jpg" title="Yoga" text=" " direction="left">
     <Text>
       Die Quelle für ein tiefes und inniges Verständnis von Yoga ist das
       YOGASUTRA von Patanjali. Im YOGASUTRA, übersetzt „Leitfaden des Yoga“
