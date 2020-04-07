@@ -39,7 +39,8 @@
 <div class="dateCardContainer">
   <Card>
     <div class="innerPriceCard">
-      <h4>{day}</h4>
+      <h4>Termine</h4>
+      <h5>{day}</h5>
       <div class="innerFlex">
         {#each times as time}
           <span class="duration">{time}</span>

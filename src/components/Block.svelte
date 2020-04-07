@@ -6,13 +6,13 @@
 
   export let direction;
   export let imgSrc = "";
-  export let title;
-  export let text;
+  export let title = "";
+  export let text = "";
   export let size = "normal";
   export let more;
   export let action;
 
-  const handleClick = (e) => action(e);
+  const handleClick = e => action(e);
 </script>
 
 <style>

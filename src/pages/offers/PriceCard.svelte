@@ -4,7 +4,7 @@
   import Button from "../../components/Button.svelte";
 
   export let title = "Title";
-  export let prices = [{ duration: "60min", price: "60€" }];
+  export let prices = [];
 </script>
 
 <style>
@@ -46,7 +46,8 @@
 <div class="priceCardContainer">
   <Card>
     <div class="innerPriceCard">
-      <h4>{title}</h4>
+      <h4>Preise</h4>
+      <h5>{title}</h5>
       <div>
         {#each prices as price}
           <div class="innerFlex">
