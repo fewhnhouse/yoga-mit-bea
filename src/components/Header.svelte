@@ -2,7 +2,7 @@
   import { Link } from "svelte-routing";
   import Button from "./Button.svelte";
   import mediaStore from "../utils/mediaStore.js";
-  import { getContext } from "svelte";
+  import { getContext, onDestroy } from "svelte";
   import { ROUTER } from "svelte-routing/src/contexts";
   const { activeRoute } = getContext(ROUTER);
   let isMenuExpanded = false;
@@ -14,6 +14,18 @@
   }
   let url = "yoga2.png";
   let scroll = 0;
+  let openSubmenu = false;
+
+  window.addEventListener("click", e => {
+    if (openSubmenu) {
+      openSubmenu = false;
+    }
+  });
+
+  const handleOffersClick = e => {
+    e.stopPropagation();
+    openSubmenu = !openSubmenu;
+  };
   window.addEventListener("scroll", function(event) {
     scroll = this.scrollY;
   });
@@ -23,6 +35,11 @@
   const handleClick = () => {
     isMenuExpanded = !isMenuExpanded;
   };
+
+  onDestroy(() => {
+    window.removeEventListener("scroll");
+    window.removeEventListener("click");
+  });
 </script>
 
 <style>
@@ -122,6 +139,28 @@
     color: var(--primary-color);
   }
 
+  .submenu {
+    padding: 10px;
+    position: absolute;
+    top: 40px;
+    width: 200px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
+    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .submenu .link {
+    margin: 10px;
+  }
+
+  .submenu:hover {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 10px;
+  }
+
   @media (max-width: 800px) {
     nav {
       align-items: center;
@@ -180,11 +219,50 @@
     <Link on:click={handleClick} to="yoga">
       <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
-    <Link on:click={handleClick} to="angebote">
-      <span class:active={activePath === '/angebote'} class="link">
+    {#if isMobile}
+      <Link on:click={handleClick} to="individuell">
+        <span class:active={activePath === '/individuell'} class="link">
+          Individuell
+        </span>
+      </Link>
+      <Link on:click={handleClick} to="gruppen">
+        <span class:active={activePath === '/gruppen'} class="link">
+          Yoga Gruppen
+        </span>
+      </Link>
+      <Link on:click={handleClick} to="seminare">
+        <span class:active={activePath === '/seminare'} class="link">
+          Yoga Leben
+        </span>
+      </Link>
+    {:else}
+      <span
+        on:click={handleOffersClick}
+        class:active={activePath === '/angebote'}
+        class="link">
         Angebote
+        {#if openSubmenu}
+          <div class="submenu">
+            <Link on:click={handleClick} to="individuell">
+              <span class:active={activePath === '/individuell'} class="link">
+                Yoga Individuell
+              </span>
+            </Link>
+            <Link on:click={handleClick} to="gruppen">
+              <span class:active={activePath === '/gruppen'} class="link">
+                Yoga Gruppen
+              </span>
+            </Link>
+            <Link on:click={handleClick} to="seminare">
+              <span class:active={activePath === '/seminare'} class="link">
+                Yoga Leben
+              </span>
+            </Link>
+          </div>
+        {/if}
+
       </span>
-    </Link>
+    {/if}
     <Link on:click={handleClick} to="zum-mitueben">
       <span class:active={activePath === '/zum-mitueben'} class="link">
         Zum Mitüben
