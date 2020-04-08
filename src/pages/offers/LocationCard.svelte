@@ -22,6 +22,7 @@
 
   .locationTextContainer {
     padding: 20px;
+    min-width: 150px;
   }
 
   @media (max-width: 400px) {

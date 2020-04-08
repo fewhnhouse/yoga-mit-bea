@@ -18,6 +18,7 @@
 <style>
   .container {
     padding: 10px;
+    width: calc(100% - 20px);
     display: flex;
     align-items: center;
   }

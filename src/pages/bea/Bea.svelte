@@ -8,7 +8,7 @@
 
 <style>
   .textContainer {
-    margin: 0px 50px;
+    margin: 0px 40px;
   }
 
   .image {
@@ -34,16 +34,19 @@
       margin-left: 0px;
       width: 100%;
       max-width: 300px;
+      min-width: 300px;
       height: 200px;
     }
   }
 </style>
 
 <Container>
-  <Quote
-    author="T.K.V. Desikachar"
-    quote="„Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin
-    kann es gehen.“" />
+  <div class="textContainer">
+    <Quote
+      author="T.K.V. Desikachar"
+      quote="„Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin
+      kann es gehen.“" />
+  </div>
   <Block imgSrc="runs-stone.jpg" title="Bea" text=" " direction="left">
     <Text>
       Yoga ist ein Weg der Selbsterfahrung. Mein erster Kontakt mit Yoga war ein
@@ -65,11 +68,10 @@
       Zur Freude an der Bewegung kam mehr und mehr auch das Bedürfnis nach
       Entspannung, und so entschied ich mich 2004 für eine Ausbildung zur
       Yogalehrerin am Gesundheitszentrum Ulm. Ich bedanke mich von ganzem Herzen
-      bei allen, von denen ich lernen durfte
-      und die mir ein vielseitiges Verständnis von Yoga vermittelten. Gleichwohl
-      empfand ich das Wissen und das Verständnis vom Aufbau und der Funktion des
-      menschlichen Körpers aus meinem Medizinstudium als Bereicherung bei meinem
-      Lernen im Yoga.
+      bei allen, von denen ich lernen durfte und die mir ein vielseitiges
+      Verständnis von Yoga vermittelten. Gleichwohl empfand ich das Wissen und
+      das Verständnis vom Aufbau und der Funktion des menschlichen Körpers aus
+      meinem Medizinstudium als Bereicherung bei meinem Lernen im Yoga.
       <br />
       Seit 2006 gebe ich meine Yogaerfahrung mit Freude und Hingabe in meinen
       Yogakursen weiter, in den Jahren 2007-2009 auch in Mexiko, wo ich mit

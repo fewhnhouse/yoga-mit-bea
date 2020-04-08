@@ -14,7 +14,7 @@
 <style>
   .flexContainer {
     display: flex;
-    width: 100%;
+    width: calc(100% - 20px);
     overflow: auto;
     padding: 10px;
   }

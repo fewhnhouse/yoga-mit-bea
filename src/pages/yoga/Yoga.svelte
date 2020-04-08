@@ -9,7 +9,7 @@
 
 <style>
   .textContainer {
-    margin: 0px 50px;
+    margin: 0px 40px;
   }
 </style>
 
@@ -65,7 +65,7 @@
 
   <YogaQuote
     word="atha yoganusasanam"
-    parts={[{ color: '#c27686', text: 'atha', translation: 'nun, jetzt; ein glückverheißendes Wort' }, { color: '#76c2a2', text: 'yoga', translation: '' }, { color: '#acc276', text: 'anusasana', translation: 'das, was auf Erfahrung basiert' }]} />
+    parts={[{ color: '#c27686', text: 'atha', translation: 'nun, jetzt; ein Glück verheißendes Wort' }, { color: '#76c2a2', text: 'yoga', translation: '' }, { color: '#acc276', text: 'anusasana', translation: 'das, was auf Erfahrung basiert' }]} />
   <div class="textContainer">
 
     <Text>

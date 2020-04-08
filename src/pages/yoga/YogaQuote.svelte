@@ -17,6 +17,7 @@
   }
   .partContainer {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
   }
@@ -28,6 +29,7 @@
     margin: 5px;
     font-size: 16px;
     opacity: 0.7;
+    text-align: center;
   }
   .outerContainer {
     display: flex;
@@ -38,6 +40,12 @@
     display: flex;
     padding: 20px;
     justify-content: space-around;
+  }
+
+  @media (max-width: 800px) {
+      .innerContainer {
+        padding: 0px;
+      }
   }
 </style>
 

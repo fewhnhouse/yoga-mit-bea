@@ -11,6 +11,7 @@
   .priceCardContainer {
     width: 300px;
     height: 300px;
+    min-width: 200px;
   }
 
   .duration {
