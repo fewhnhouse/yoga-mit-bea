@@ -32,6 +32,7 @@
   }
   .textContainer {
     margin: 0px 40px;
+    width: calc(100% - 80px);
   }
 
   @media (max-width: 800px) {
@@ -40,6 +41,7 @@
       width: 100%;
       flex-direction: column;
     }
+
     .container {
       padding: 0px;
     }
