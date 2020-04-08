@@ -10,12 +10,6 @@
   h1 {
     margin: 0;
   }
-  .copyright {
-    font-size: 12px;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-  }
 
   .contact {
     display: flex;
@@ -67,6 +61,19 @@
     }
     .infoContainer {
       flex-direction: column;
+    }
+
+    .titleContainer {
+      height: unset;
+      margin-top: 20px;
+    }
+
+    img {
+      margin: 0px 10px;
+    }
+
+    h1 {
+      margin: 0px 10px;
     }
 
     .contact {
