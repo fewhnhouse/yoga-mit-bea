@@ -31,6 +31,8 @@
     /* Set a specific height */
     min-height: calc(100vh - 220px);
 
+    object-fit: cover;
+
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -81,6 +83,10 @@
   @media (max-width: 400px) {
     .container {
       padding: 10px;
+    }
+
+    .parallax {
+      background-attachment: scroll;
     }
 
     img {
