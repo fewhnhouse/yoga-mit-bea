@@ -33,7 +33,8 @@
   $: isMobile = mediaStore("(max-width: 800px)");
 
   const handleClick = () => {
-    isMenuExpanded = !isMenuExpanded;
+    isMenuExpanded = $isMobile ? !isMenuExpanded : false;
+    window.scrollTop();
   };
 
   onDestroy(() => {
