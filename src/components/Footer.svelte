@@ -63,7 +63,7 @@
       align-items: center;
     }
     footer {
-      height: unset;
+      min-height: 350px;
     }
     .infoContainer {
       flex-direction: column;
