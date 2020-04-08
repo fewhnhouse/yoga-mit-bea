@@ -219,7 +219,7 @@
     <Link on:click={handleClick} to="yoga">
       <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
-    {#if isMobile}
+    {#if $isMobile}
       <Link on:click={handleClick} to="individuell">
         <span class:active={activePath === '/individuell'} class="link">
           Individuell
