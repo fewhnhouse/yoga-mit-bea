@@ -94,6 +94,6 @@
   <Button class="button" on:click={handleClick(podcast)}>
     <i
       class={`fas ${isPlaying && currentPodcast && podcast.etag === currentPodcast.etag ? 'fa-pause' : 'fa-play'}`} />
-    {currentPodcast && podcast.etag === currentPodcast.etag ? (isPlaying ? 'Pause' : 'Play') : 'Listen'}
+    {currentPodcast && podcast.etag === currentPodcast.etag ? (isPlaying ? 'Pause' : 'Play') : 'Zuhören'}
   </Button>
 </div>
