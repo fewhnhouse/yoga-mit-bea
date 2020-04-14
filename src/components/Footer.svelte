@@ -36,8 +36,8 @@
 
   img {
     object-fit: contain;
-    width: 60px;
-    height: 60px;
+    width: 200px;
+    height: 100px;
   }
 
   .titleContainer {
@@ -92,8 +92,7 @@
 <footer>
   <div class="container">
     <div class="titleContainer">
-      <img src="herzchakra.png" alt="logo" />
-      <h1>Yoga mit Bea</h1>
+      <img src="logo.png" alt="Yoga mit Bea" />
     </div>
     <div class="infoContainer">
       <div class="contact">

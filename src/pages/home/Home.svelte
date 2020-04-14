@@ -95,7 +95,7 @@
 <div class="parallax" style="background-image: url('{bgImage}')" />
 
 <div class="logoContainer">
-  <img src="yoga2.png" alt="Yoga mit Bea" />
+  <img src="logo-color.png" alt="Yoga mit Bea" />
   {#if !scrolled}
     <i class="fas fa-angle-down" />
   {/if}

@@ -12,7 +12,7 @@
       activePath = $activeRoute.uri;
     }
   }
-  let url = "yoga2.png";
+  let url = "logo-color.png";
   let scroll = 0;
   let openSubmenu = false;
 
