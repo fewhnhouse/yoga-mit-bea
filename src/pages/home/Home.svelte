@@ -118,7 +118,7 @@
     text="Mein Verständnis von Yoga"
     more
     action={link('/yoga')}
-    direction="left" />
+    direction="right" />
   <Divider />
   <Quote quote="-- Teilnehmerstimmen --" />
 
