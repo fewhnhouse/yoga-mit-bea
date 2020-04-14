@@ -1,3 +1,9 @@
+<script>
+  import Button from "../components/Button.svelte";
+  import { navigate } from "svelte-routing";
+  const link = path => () => navigate(path);
+</script>
+
 <style>
   footer {
     background: var(--primary-color);
@@ -15,6 +21,7 @@
     display: flex;
     flex-direction: column;
     margin: 0px 20px;
+    justify-content: center;
   }
 
   .container {
@@ -105,6 +112,10 @@
           <i class="fas fa-phone" />
           0160 1578254
         </p>
+      </div>
+      <div class="contact">
+        <Button on:click={link('/impressum')}>Impressum</Button>
+
       </div>
     </div>
   </div>
