@@ -47,7 +47,7 @@
       quote="„Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin
       kann es gehen.“" />
   </div>
-  <Block imgSrc="runs-stone.jpg" title="Bea" text=" " direction="left">
+  <Block fit="contain" imgSrc="runs.jpeg" title="Bea" text=" " direction="left">
     <Text>
       Yoga ist ein Weg der Selbsterfahrung. Mein erster Kontakt mit Yoga war ein
       Yogakurs während meiner ersten Schwangerschaft. Mit der Geburt unserer
@@ -108,7 +108,7 @@
         Ich kann TUN und LASSEN was ich will. Es ist meine Entscheidung und
         meine Verantwortung.
       </Text>
-      <img class="image" src="morgengruss.jpg" alt="Morgengruß" />
+      <img class="image" src="yoga-figuren-bg.png" alt="Morgengruß" />
     </div>
 
     <Quote
@@ -117,7 +117,7 @@
       author="YOGASUTRA 2.35" />
     <Text>
       Patanjali beschreibt im YOGASUTRA die Qualität von „ahimsa“, die
-      Gewaltlosigkeit: T.K.V. Desikachar übersetzt: „Je behutsamer ein Mensch
+      Gewaltlosigkeit. T.K.V. Desikachar übersetzt: „Je behutsamer ein Mensch
       handelt, desto mehr werden andere Menschen in seiner Gegenwart liebevolle
       Gefühle empfinden.“ Der behutsame und freundliche Umgang mit mir selbst
       und mit den anderen Menschen ist eine Qualität, die ich im Yoga üben und

@@ -31,7 +31,7 @@
       text="In den Gruppenkursen üben wir eine ausgewogene Yogapraxis mit dem
       Ziel, unseren Körper und unseren Geist ins Gleichgewicht zu bringen. Wir
       erfahren den Körper kraftvoll und stabil, „sthira“ und zugleich entspannt
-      und leicht, sukha“. Dabei werde ich dich darin unterstützen, in den
+      und leicht, „sukha“. Dabei werde ich dich darin unterstützen, in den
       Haltungen deine natürliche Form zu finden und die für dich „ideale
       Haltung“ einzunehmen. Die natürliche Verbindung von Körper, Atem und Geist
       nutzen wir und richten die Körperbewegungen mit umsichtigem Einfühlen auf
@@ -43,8 +43,8 @@
     <div>
       <div class="elementContainer">
         <Block
-          imgSrc="placeholder.jpg"
           size="small"
+          imgSrc="placeholder.jpg"
           title="Yoga mit Bea im Schloss"
           text="Der schöne, ehrwürdige historische Saal ganz oben im Bernstadter
           Schloss gibt uns ein wunderbares Ambiente um Yoga zu üben. Wir üben in
@@ -68,8 +68,8 @@
       <Divider />
       <div class="elementContainer">
         <Block
-          imgSrc="placeholder.jpg"
           size="small"
+          imgSrc="gruppe.jpg"
           title="Yoga mit Bea in der Stube"
           text="Wir üben in einer kleinen Gruppe(max. 6 Teilnehmer-innen) in der
           gemütlichen Stube im Holzhaus im Wacholderweg in Deggingen. Die Kosten

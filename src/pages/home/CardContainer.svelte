@@ -1,5 +1,6 @@
 <script>
   import CourseCard from "./CourseCard.svelte";
+  import Quote from "../../components/Quote.svelte";
 
   export let title;
 </script>
@@ -26,19 +27,22 @@
 </style>
 
 <div class="outerContainer">
-  <h1>{title}</h1>
+  <h1>Angebote</h1>
+  <Quote quote="Tu was du kannst, da wo du bist, mit dem was du hast." />
   <div class="cardsContainer">
     <CourseCard
       link="/individuell"
       title="Yoga Individuell"
-      description="Yoga für dich!" />
-    <CourseCard
-      link="/gruppen"
-      title="Yogakurse"
-      description="Yoga mit Bea im Schloss. Yoga mit Bea in der Stube." />
-    <CourseCard
-      link="/seminare"
-      title="Yoga Leben"
-      description="Yogawochenende" />
+      description="Yoga für dich" />
+    <CourseCard link="/gruppen" title="Yogakurse">
+      Yoga mit Bea im Schloss
+      <br />
+      Yoga mit Bea in der Stube
+    </CourseCard>
+    <CourseCard link="/seminare" title="Yoga Leben">
+      Yogatag
+      <br />
+      Yogawochenende
+    </CourseCard>
   </div>
 </div>

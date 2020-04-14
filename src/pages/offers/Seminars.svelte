@@ -23,7 +23,7 @@
 
 <Container>
   <div id="einzelkurse">
-    <Block title="Yoga Leben" imgSrc="placeholder.jpg" direction="right">
+    <Block title="Yoga Leben" imgSrc="deggingen.jpg" direction="right">
       <Text>
         Wir verbringen gemeinsam einen Yogatag im Schloss oder im Holzhaus in
         Deggingen. Im Sommer werden wir im schönen Wacholdergarten üben.

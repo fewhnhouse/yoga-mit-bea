@@ -41,7 +41,14 @@
     <div class="cardContent">
       <h2>{title}</h2>
       <ShortDivider />
-      <p>{description}</p>
+      <p>
+        {#if description}
+          {description}
+        {:else}
+          <slot />
+        {/if}
+      </p>
+
       <Divider />
       <Link to={link}>
         <Button fullWidth>Weitere Infos</Button>

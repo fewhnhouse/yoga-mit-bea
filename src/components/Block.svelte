@@ -11,6 +11,7 @@
   export let size = "normal";
   export let more;
   export let action;
+  export let fit;
 
   const handleClick = e => action(e);
 </script>
@@ -52,10 +53,11 @@
   class={`container ${direction === 'left' ? 'container-normal' : 'container-reverse'}`}>
   {#if imgSrc}
     <HoverImage
+      {fit}
       src={imgSrc}
       alt="logo"
-      width={size === 'small' ? '200px' : '250px'}
-      height={size === 'small' ? '200px' : '250px'} />
+      width={'250px'}
+      height={'250px'} />
   {/if}
   <div class="textContainer">
     {#if size === 'small'}

@@ -4,12 +4,14 @@
   export let alt = "image";
   export let height = "100%";
   export let width = "100%";
+  export let fit = "cover";
 
   $: isMobile = mediaStore("(max-width: 800px)");
 </script>
 
 <style>
   .imageContainer {
+    margin: 0px 40px;
     overflow: hidden;
   }
 
@@ -17,7 +19,6 @@
     width: 100%;
     height: 100%;
     transform: scale(1);
-    object-fit: cover;
     transition: transform 0.5s ease-in-out;
   }
   img:hover {
@@ -34,5 +35,5 @@
 <div
   class="imageContainer"
   style={`width: ${$isMobile ? 'calc(100% - 80px)' : width}; height: ${height}; min-width: ${width}; min-height: ${height};`}>
-  <img {src} {alt} />
+  <img style={`object-fit:${fit};`} {src} {alt} />
 </div>

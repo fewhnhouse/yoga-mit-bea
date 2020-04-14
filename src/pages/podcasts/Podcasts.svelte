@@ -8,14 +8,8 @@
   import PodcastCard from "./PodcastCard.svelte";
   import LoadingIndicator from "../../components/LoadingIndicator.svelte";
 
-  let audio;
-  let audioSrc = "";
-  let currentTime = "";
-  let duration = "";
-  let currentPodcast = null;
   let isLoading = true;
   let podcasts = [];
-  let isPlaying = false;
   let timeout = "";
 
   const { apiUrl } = process.env;
@@ -35,33 +29,6 @@
       }, 1000);
     }
   });
-
-  const handleClick = podcast => () => {
-    if (currentPodcast && currentPodcast.etag === podcast.etag) {
-      if (isPlaying) {
-        audio.pause();
-        isPlaying = false;
-      } else {
-        audio.play().then(() => {
-          isPlaying = true;
-        });
-      }
-    } else {
-      axios.get(`${apiUrl}/api/podcasts/${podcast.name}`).then(res => {
-        audioSrc = res.data;
-        currentPodcast = podcast;
-        isPlaying = true;
-        audio.addEventListener(
-          "timeupdate",
-          event => {
-            currentTime = Math.floor(audio.currentTime);
-            duration = Math.floor(audio.duration);
-          },
-          false
-        );
-      });
-    }
-  };
 
   onDestroy(() => {
     clearTimeout(timeout);
@@ -108,17 +75,10 @@
     <div class="podcastContainer">
       {#each podcasts as podcast}
         <Card>
-          <PodcastCard
-            currentTime={currentPodcast && currentPodcast.etag === podcast.etag ? currentTime : 0}
-            duration={currentPodcast && currentPodcast.etag === podcast.etag ? duration : 0}
-            {isPlaying}
-            {handleClick}
-            {podcast}
-            {currentPodcast} />
+          <PodcastCard podcast={podcast} />
         </Card>
       {/each}
     </div>
 
   </div>
 {/if}
-<audio autoplay bind:this={audio} src={audioSrc} id="audio" />

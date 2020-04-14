@@ -44,19 +44,15 @@
       wahrscheinlich anders aus als deine „ideale Haltung“. Es geht darum, die
       Haltung an den Menschen anzupassen und im
       <span style="color: #acc276">Asana</span>
-      deine natürliche Form zu finden. In der idealen, natürlichen Haltung
-      fließt der Atem angenehm, mühelos und leicht,
-      <span style="color: #76c2a2">sukha</span>
-      ."
+      deine natürliche Form zu finden.
       <br />
-      Im Gleichgewicht sein zwischen Kraft und Entspannung ist ein Ziel der
+      Im Gleichgewicht zu sein zwischen Kraft und Entspannung ist ein Ziel der
       körperlichen Yogapraxis. Das umsichtige Einfühlen in unseren Atem, der uns
-      wie ein ganz guter Freund durchs Üben begleitet, lässt uns präsent im
-      gegenwärtigen Moment sein. Der Atem verbindet uns mit unserem Körper und
-      mit unserem Geist und lässt uns erfahren, was ist. In der „idealen
-      Haltung“ erfahren wir in unserem Geist ( unsere Gedanken und Gefühle ) den
-      Zustand von „sattva“. Der Geist ist klar, ruhig und friedvoll. Das ist der
-      Idealfall.
+      durchs Üben begleitet, lässt uns präsent im gegenwärtigen Moment sein und
+      verbindet uns mit unserem Körper und mit unserem Geist. In der „idealen
+      Haltung“ fließt der Atem angenehm, mühelos und leicht und wir erfahren in
+      unserem Geist (unsere Gedanken und Gefühle) den Zustand von „sattva“. Der
+      Geist ist dann klar, ruhig und friedvoll.
       <br />
       Yoga ist ein Erfahrungsweg. Ganz am Anfang, im ersten Sutra, sagt
       Patanjali:

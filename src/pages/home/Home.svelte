@@ -8,7 +8,7 @@
   import { onDestroy } from "svelte";
   import { navigate } from "svelte-routing";
 
-  let bgImage = "deggingen.jpg";
+  let bgImage = "background2.jpg";
   let scrolled = false;
 
   const link = path => () => navigate(path);
@@ -25,9 +25,6 @@
 
 <style>
   .parallax {
-    /* The image used */
-    background-image: url("deggingen.jpg");
-
     /* Set a specific height */
     min-height: calc(100vh - 220px);
 
@@ -105,22 +102,24 @@
 </div>
 <div class="container">
   <Block
-    imgSrc="runs.jpg"
-    title="Über mich"
+    imgSrc="runs-yoga.jpeg"
+    title="Bea"
     text="Durch Yoga gehst du nur auf dich selbst zu, nirgendwo anders hin kann
     es gehen."
     more
     action={link('/bea')}
     direction="left" />
-  <Quote quote="-- Teilnehmerstimmen --" />
   <Divider />
-  <CardContainer title="Angebote" />
+  <CardContainer />
   <Divider />
   <Block
     imgSrc="patanjali.jpg"
     title="Yoga"
-    text="Mein Verständnis zu Yoga"
+    text="Mein Verständnis von Yoga"
     more
     action={link('/yoga')}
-    direction="right" />
+    direction="left" />
+  <Divider />
+  <Quote quote="-- Teilnehmerstimmen --" />
+
 </div>

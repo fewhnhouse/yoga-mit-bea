@@ -38,14 +38,13 @@
       zu integrieren, berücksichtigen. In der ersten Stunde (75 min) werden wir
       über dich und deine Bedürfnisse sprechen und anschließend eine für dich
       passende Yogapraxis entwickeln. Du bekommst eine Anleitung mit zum daheim
-      Üben  In den eventuell folgenden Stunden (60 min) wird die Praxis
+      Üben. In den eventuell folgenden Stunden (60 min) wird die Praxis
       gegebenenfalls verändert, erweitert und angepasst. "
       direction="right" />
     <Divider />
     <Block
       title="Yoga mit Bea für dich"
-      size="small"
-      imgSrc="placeholder.jpg"
+      imgSrc="hund.jpeg"
       text="Du kannst gern in meinem Yogaraum im Holzhaus im Wacholderweg mit
       mir üben. Es besteht auch die Möglichkeit, dass ich zu dir nach Hause
       komme und wir dort üben. Je nach Anfahrtsweg würde ich die Fahrtkosten
