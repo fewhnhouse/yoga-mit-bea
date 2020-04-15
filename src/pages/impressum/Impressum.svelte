@@ -73,7 +73,7 @@
     Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend
     entfernen.
   </span>
-  <h4>Uhrheberrecht</h4>
+  <h4>Urheberrecht</h4>
   <span>
     Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
     unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
