@@ -44,7 +44,7 @@
     <Divider />
     <Block
       title="Yoga mit Bea für dich"
-      imgSrc="hund.jpeg"
+      imgSrc="mutra.jpeg"
       text="Du kannst gern in meinem Yogaraum im Holzhaus im Wacholderweg mit
       mir üben. Es besteht auch die Möglichkeit, dass ich zu dir nach Hause
       komme und wir dort üben. Je nach Anfahrtsweg würde ich die Fahrtkosten
