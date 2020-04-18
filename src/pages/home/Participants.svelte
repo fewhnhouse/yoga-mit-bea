@@ -39,7 +39,7 @@
 
 <Carousel
   perPage={{ 1600: 3, 1000: 2, 500: 1 }}
-  autoplay={$isMobile ? 0 : 15000}
+  autoplay={$isMobile ? 0 : 30000}
   duration={500}>
   <span class="control" slot="left-control">
     <i class="fas fa-chevron-left" />
