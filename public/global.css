@@ -34,3 +34,11 @@ audio::-webkit-media-controls-panel {
   background: white;
   color: blue;
 }
+
+li {
+  background-color: var(--light-grey) !important;
+}
+
+li.active {
+  background-color: var(--primary-color) !important;
+}

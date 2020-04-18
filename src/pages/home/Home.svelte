@@ -5,6 +5,7 @@
   import CardContainer from "./CardContainer.svelte";
   import Card from "../../components/Card.svelte";
   import Quote from "../../components/Quote.svelte";
+  import Participants from "./Participants.svelte";
   import { onDestroy } from "svelte";
   import { navigate } from "svelte-routing";
 
@@ -120,6 +121,5 @@
     action={link('/yoga')}
     direction="right" />
   <Divider />
-  <Quote quote="-- Teilnehmerstimmen --" />
-
+  <Participants />
 </div>
