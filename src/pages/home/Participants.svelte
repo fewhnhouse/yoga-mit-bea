@@ -24,11 +24,6 @@
     float: right;
   }
 
-  div.slides > div {
-    display: flex !important;
-    align-items: center !important;
-  }
-
   i {
     font-size: 20px;
     color: var(--light-grey);

@@ -35,6 +35,11 @@ audio::-webkit-media-controls-panel {
   color: blue;
 }
 
+div.slides > div {
+  display: flex !important;
+  align-items: center !important;
+}
+
 li {
   background-color: var(--light-grey) !important;
 }
