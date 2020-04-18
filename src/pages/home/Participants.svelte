@@ -35,7 +35,7 @@
 
 <h1>Teilnehmerstimmen</h1>
 
-<Carousel perPage={{ 1600: 3, 1000: 2, 500: 1 }} autoplay={8000} duration={500}>
+<Carousel perPage={{ 1600: 3, 1000: 2, 500: 1 }} autoplay={15000} duration={500}>
   <span class="control" slot="left-control">
     <i class="fas fa-chevron-left" />
   </span>
@@ -45,7 +45,7 @@
       gestaltest. Mir hilft auch sehr, dass Du die Übungen immer lange ansagst,
       bevor wir alleine üben können. Somit kann man immer wieder einsteigen,
       wenn man einmal mit den Gedanken abgewandert ist. Sehr gut ist auch, dass
-      Du immer wieder sagst „jeder übt so gut er kann“ , es gibt keinen
+      Du immer wieder sagst „jeder übt so gut er kann“, es gibt keinen
       Leistungsdruck.
     </p>
     <span class="author">Ursula</span>
@@ -94,7 +94,7 @@
   <div class="slideContainer slide-content">
     <p class="text">
       Für mich hat diese späte Yoga Stunde eine ganz eigene Qualität, da ich
-      meinenTag damit abschließe, entschleunige, zur Ruhe komme, mich intensiv
+      meinen Tag damit abschließe, entschleunige, zur Ruhe komme, mich intensiv
       auf meinen Atem, meine Bewegungen auf mich selber, meinen Körper
       konzentriere. Das Ambiente in dem schönen Schloßzimmer, gibt mir das
       Gefühl,  in einem ganz besonders geschützten Raum zu sein. Ich freue mich
