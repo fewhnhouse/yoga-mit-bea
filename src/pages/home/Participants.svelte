@@ -1,6 +1,8 @@
 <script>
   import Carousel from "@beyonk/svelte-carousel";
   import { onMount } from "svelte";
+  import mediaStore from "../utils/mediaStore.js";
+  $: isMobile = mediaStore("(max-width: 800px)");
 </script>
 
 <style>
@@ -35,7 +37,10 @@
 
 <h1>Teilnehmerstimmen</h1>
 
-<Carousel perPage={{ 1600: 3, 1000: 2, 500: 1 }} autoplay={15000} duration={500}>
+<Carousel
+  perPage={{ 1600: 3, 1000: 2, 500: 1 }}
+  autoplay={$isMobile ? 0 : 15000}
+  duration={500}>
   <span class="control" slot="left-control">
     <i class="fas fa-chevron-left" />
   </span>
@@ -145,7 +150,7 @@
     <p class="text">
       Bea-Poesie ✿ ✺ ॐ ❊ ❂ ❁ ❀ ✿ ✺ ॐ ❊ ❂ ❁ ❀
       <br />
-      <br/>
+      <br />
       Unser Atem führt uns durch jede Stunde und wir erfahren ihn in gemeinsamer
       Runde.
       <br />
