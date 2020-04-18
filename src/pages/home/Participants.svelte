@@ -41,7 +41,7 @@
   </span>
   <div class="slideContainer slide-content">
     <p class="text">
-      An Deinen Jogastunden gefällt mir die Ruhe, mit der Du die Stunden
+      An Deinen Yogastunden gefällt mir die Ruhe, mit der Du die Stunden
       gestaltest. Mir hilft auch sehr, dass Du die Übungen immer lange ansagst,
       bevor wir alleine üben können. Somit kann man immer wieder einsteigen,
       wenn man einmal mit den Gedanken abgewandert ist. Sehr gut ist auch, dass
