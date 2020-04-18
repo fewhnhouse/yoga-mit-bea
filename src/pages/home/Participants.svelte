@@ -1,7 +1,7 @@
 <script>
   import Carousel from "@beyonk/svelte-carousel";
   import { onMount } from "svelte";
-  import mediaStore from "../utils/mediaStore.js";
+  import mediaStore from "../../utils/mediaStore.js";
   $: isMobile = mediaStore("(max-width: 800px)");
 </script>
 
@@ -34,7 +34,7 @@
 
 <Carousel
   perPage={{ 1600: 3, 1000: 2, 500: 1 }}
-  autoplay={$isMobile ? 0 : 30000}
+  autoplay={$isMobile ? 0 : 48000}
   duration={500}>
   <span class="control" slot="left-control">
     <i class="fas fa-chevron-left" />
