@@ -34,7 +34,6 @@
 
   const handleClick = () => {
     isMenuExpanded = $isMobile ? !isMenuExpanded : false;
-    window.scrollTop();
   };
 
   onDestroy(() => {
@@ -67,6 +66,16 @@
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px;
     transition: box-shadow 0.3s ease-in-out;
   }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  header.scrolled {
+    opacity: 1;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 15px 0px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  }
+
   img {
     height: 60px;
   }
