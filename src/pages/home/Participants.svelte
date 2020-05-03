@@ -168,6 +168,18 @@
     </p>
     <span class="author">Caro</span>
   </div>
+  <div class="slideContainer slide-content">
+    <p class="text">
+      Yoga mit
+      <br />
+      B  eruhigend
+      <br />
+      E  ntspannend
+      <br />
+      A  usgleichend
+    </p>
+    <span class="author">Karin</span>
+  </div>
   <span class="control" slot="right-control">
     <i class="fas fa-chevron-right" />
   </span>
