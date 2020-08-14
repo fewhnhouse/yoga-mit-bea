@@ -74,7 +74,7 @@
           <MultiDateCard
             days={[{ title: 'Dienstag', times: ['17.30-18.30', '18.45-20.00', '20.15-21.30'] }, { title: 'Mittwoch', times: ['9.00-10.30', '10.45-11.45', '17.30-18.30', '18.45-20.15'] }]} />
           <MultiPriceCard
-            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '60 min', price: '100€' }, { duration: '75 min', price: '110€' }, { duration: '90 min', price: '120€' }] }, { title: '3er Block', description: '3x Üben in 12 Wochen', prices: [{ duration: '60 min', price: '40€' }, { duration: '75 min', price: '45€' }, { duration: '90 min', price: '50€' }] }, { title: '1 Mal Üben', description: 'Flexibel', prices: [{ duration: '60 min', price: '14€' }, { duration: '75 min', price: '16€' }, { duration: '90 min', price: '18€' }] }]} />
+            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '60 min', price: '100€' }, { duration: '75 min', price: '110€' }, { duration: '90 min', price: '120€' }] }, { title: '3er Block', description: '3x Üben in 5 Wochen', prices: [{ duration: '60 min', price: '40€' }, { duration: '75 min', price: '45€' }, { duration: '90 min', price: '50€' }] }, { title: '1 Mal Üben', description: 'Flexibel', prices: [{ duration: '60 min', price: '14€' }, { duration: '75 min', price: '16€' }, { duration: '90 min', price: '18€' }] }]} />
         </div>
       </div>
       <Divider />
