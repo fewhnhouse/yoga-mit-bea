@@ -10,6 +10,10 @@
     background: #eaeaea;
   }
 
+  div:last-child {
+    visibility: hidden;
+  }
+
   @media (max-width: 800px) {
     div {
       margin: 10px 0px;
