@@ -38,6 +38,10 @@
     text-overflow: ellipsis;
   }
 
+  h5 {
+    margin-top: 0px;
+  }
+
   .innerPriceCard {
     height: 260px;
     padding: 20px;

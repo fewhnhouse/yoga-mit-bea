@@ -36,6 +36,10 @@
     width: 100px;
   }
 
+  h5 {
+    margin-top: 0px;
+  }
+
   .dayContainer:first-child,
   .dayContainer:last-child {
     margin: 0;

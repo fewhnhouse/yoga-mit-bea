@@ -55,8 +55,9 @@
     padding: 20px;
   }
 
-  h5 {
-    margin-bottom: 5px;
+   h5 {
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   .description {
