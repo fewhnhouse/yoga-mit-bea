@@ -2,6 +2,7 @@
   import axios from 'axios'
   import { onDestroy } from 'svelte'
   import Card from '../../components/Card.svelte'
+  import Text from '../../components/Text.svelte'
   import Play from './Play.svelte'
   import Button from '../../components/Button.svelte'
   import Divider from '../../components/Divider.svelte'
@@ -77,7 +78,7 @@
   <div class="outerContainer">
     <h1>Yoga Online</h1>
     <div class="podcastContainer">
-      <p>
+      <Text>
         Drücke
         <b><a
             class="onlineLink"
@@ -91,7 +92,7 @@
         <br />
         Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung,
         streiche bitte eine Yoga-Stunde auf deinem Block ab.
-      </p>
+      </Text>
       <Button>
         <a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK">Yoga
           mit Bea Online beitreten</a>
