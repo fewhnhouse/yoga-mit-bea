@@ -86,8 +86,8 @@
         Skype-Gruppe Yoga mit Bea beizutreten. Melde dich entweder mit deinem
         Skype-Konto an, oder trete als Gast bei, falls du kein Konto hast.
         <br />
-        Nachdem du beigetreten bist, kannst du meiner Online Yoga-Stunde
-        beitreten, sobald ich diese starte. Aufzeichnungen der Stunde lassen
+        Nachdem du beigetreten bist, kannst du an jeder Online Yoga-Stunde
+        teilnehmen, sobald ich diese starte. Aufzeichnungen der Stunde lassen
         sich bis zu 30 Tage danach über den Chatverlauf abrufen.
         <br />
         Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung,
