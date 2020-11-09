@@ -77,6 +77,7 @@
 {:else}
   <div class="outerContainer">
     <h1>Yoga Online</h1>
+    <h4>Ab 17.11.2020, Dienstag von 20-21 Uhr</h4>
     <div class="podcastContainer">
       <Text>
         Drücke
@@ -87,11 +88,12 @@
         Skype-Konto an, oder trete als Gast bei, falls du kein Konto hast.
         <br />
         Nachdem du beigetreten bist, kannst du an jeder Online Yoga-Stunde
-        teilnehmen, sobald ich diese starte. Aufzeichnungen der Stunde lassen
+        teilnehmen, sobald ich diese starte. Aufzeichnungen der Stunden lassen
         sich bis zu 30 Tage danach über den Chatverlauf abrufen.
         <br />
         Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung,
-        streiche bitte eine Yoga-Stunde auf deinem Block ab.
+        streiche bitte eine Yoga-Stunde auf deinem Block ab. Wenn du keinen
+        Block hast, melde dich bitte bei mir.
       </Text>
       <Button>
         <a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK">Yoga
