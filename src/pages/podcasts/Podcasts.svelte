@@ -15,7 +15,7 @@
   const { apiUrl } = process.env;
   const t0 = performance.now();
 
-  axios.get(`https://yoga-mit-bea-server.fewhnhouse.now.sh/api/podcasts`).then(res => {
+  axios.get(`https://yoga-mit-bea-server.fewhnhouse.vercel.app/api/podcasts`).then(res => {
     const t1 = performance.now();
     podcasts = res.data.map(podcast => ({
       ...podcast,
