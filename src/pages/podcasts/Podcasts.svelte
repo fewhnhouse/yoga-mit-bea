@@ -29,6 +29,8 @@
         isLoading = false
       }, 1000)
     }
+  }).catch(err => {
+    isLoading = false
   })
 
   onDestroy(() => {
