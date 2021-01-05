@@ -18,7 +18,7 @@
   "dependencies": {
     "@beyonk/svelte-carousel": "^2.4.0",
     "@rollup/plugin-replace": "^2.3.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "css-vars-ponyfill": "^2.2.1",
     "dotenv": "^8.2.0",
     "rollup-plugin-buble": "^0.19.8",
