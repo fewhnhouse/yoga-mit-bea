@@ -5,8 +5,9 @@
   export let height = "100%";
   export let width = "100%";
   export let fit = "cover";
+  export let mobileWidth = "800px"
 
-  $: isMobile = mediaStore("(max-width: 800px)");
+  $: isMobile = mediaStore(`(max-width: ${mobileWidth})`);
 </script>
 
 <style>

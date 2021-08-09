@@ -3,6 +3,7 @@
   import Header from "./components/Header.svelte";
   import Footer from "./components/Footer.svelte";
   import Yoga from "./pages/yoga/Yoga.svelte";
+  import YogaWeg from "./pages/yoga-weg/YogaWeg.svelte";
   import Home from "./pages/home/Home.svelte";
   import Podcasts from "./pages/podcasts/Podcasts.svelte";
   import Contact from "./pages/contact/Contact.svelte";
@@ -44,6 +45,10 @@
     <Route path="yoga">
       <Yoga />
     </Route>
+    <Route path="yoga-weg">
+      <YogaWeg />
+    </Route>
+
     <Route path="bea">
       <Bea />
     </Route>

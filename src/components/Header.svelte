@@ -230,21 +230,24 @@
       <span class:active={activePath === '/yoga'} class="link">Yoga</span>
     </Link>
     {#if $isMobile}
-      <Link on:click={handleClick} to="individuell">
-        <span class:active={activePath === '/individuell'} class="link">
-          Individuell
-        </span>
-      </Link>
-      <Link on:click={handleClick} to="gruppen">
-        <span class:active={activePath === '/gruppen'} class="link">
-          Yoga Gruppen
-        </span>
-      </Link>
-      <Link on:click={handleClick} to="seminare">
-        <span class:active={activePath === '/seminare'} class="link">
-          Yoga Leben
-        </span>
-      </Link>
+    <Link on:click={handleClick} to="individuell">
+      <span class:active={activePath === '/individuell'} class="link">
+        Individuell
+      </span>
+    </Link>
+    <Link on:click={handleClick} to="gruppen">
+      <span class:active={activePath === '/gruppen'} class="link">
+        Yoga Gruppen
+      </span>
+    </Link>
+    <Link on:click={handleClick} to="seminare">
+      <span class:active={activePath === '/seminare'} class="link">
+        Yoga Leben
+      </span>
+    </Link>
+    <Link on:click={handleClick} to="yoga-weg">
+      <span class:active={activePath === '/yoga-weg'} class="link">Yoga-Weg</span>
+    </Link>
     {:else}
       <span
         on:click={handleOffersClick}
@@ -267,6 +270,9 @@
               <span class:active={activePath === '/seminare'} class="link">
                 Yoga Leben
               </span>
+            </Link>
+            <Link on:click={handleClick} to="yoga-weg">
+              <span class:active={activePath === '/yoga-weg'} class="link">Yoga-Weg</span>
             </Link>
           </div>
         {/if}
