@@ -36,9 +36,9 @@ import Divider from "../../components/Divider.svelte";
       punkt für Unternehmungen aller Art im Lonetal.
       Unser gemeinsamer Weg verläuft zunächst in einem schönen
       Bogen auf der linken Talseite am Waldrand mit teils weitem Blick
-      über das Tal. Nach ca. 800 Metern geht der YogaWeg in einen
+      über das Tal. Nach ca. 800 Metern geht der Yoga-Weg in einen
       beschaulichen Waldweg über und bietet ruhige und geschützte
-      Übungsplätze. Der YogaWeg endet nach ca. 2 km auf einer schönen
+      Übungsplätze. Der Yoga-Weg endet nach ca. 2 km auf einer schönen
       Erhebung im Wald gegenüber dem Fohlenhaus. Von diesem Punkt
       aus gibt es verschiedene Möglichkeiten weiterzuwandern.
     </Text>
@@ -59,10 +59,9 @@ import Divider from "../../components/Divider.svelte";
     beschreibt dieser die innere und äußere Entwicklung des
     Menschen hin zu einer körperlichen und geistigen Gesundheit.
     Patanjali beschreibt diese Entwicklung mit einem achtgliedrigen
-    YogaWeg. Der Mensch wird ermutigt, seine persönliche Entwick-
-    lung selbst in die Hand zu nehmen.
+    Yoga-Weg. Der Mensch wird ermutigt, seine persönliche Entwicklung selbst in die Hand zu nehmen.
 
-    Die einzelnen Stationen des YogaWeges im Lonetal bringen uns
+    Die einzelnen Stationen des Yoga-Weges im Lonetal bringen uns
     die wesentlichen Inhalte dieser »Achtgliedrigkeit« auf eine
     einfache und verständliche Weise nah.
 
