@@ -5,6 +5,8 @@
   import Container from "../../components/Container.svelte";
 import HoverImage from "../../components/HoverImage.svelte";
 import Divider from "../../components/Divider.svelte";
+import Button from "../../components/Button.svelte";
+import Link from "svelte-routing/src/Link.svelte";
 </script>
 
 <style>
@@ -73,7 +75,9 @@ import Divider from "../../components/Divider.svelte";
     Wanderung der besonderen Art. Allein, zu zweit oder in Gruppen ...
     </Text>
   </div>
-
+  <a href="https://goo.gl/maps/ASDhdJMofMBkpvyQA">
+    <Button >In Google Maps anschauen</Button>
+  </a>
   </Container>
 </Container>
 </div>
