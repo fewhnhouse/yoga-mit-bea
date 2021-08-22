@@ -92,9 +92,9 @@
             location={{ name: 'Stube im Holzhaus', address: 'Wacholderweg 10', city: '73326 Deggingen' }}
             url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2638.4910283231143!2d9.729781215443019!3d48.60044352678849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47999fda619c2b37%3A0xa54b1d6f14bac51!2sWacholderweg%2010%2C%2073326%20Deggingen!5e0!3m2!1sde!2sde!4v1586249599691!5m2!1sde!2sde" />
           <MultiDateCard
-            days={[{ title: 'Freitag', times: ['9.30-10.45 Uhr'] }]} />
+            days={[{ title: 'Montag', times: ['18.00-19.15'] }, { title: 'Donnerstag', times: ['09.30-10.45'] }]} />
           <MultiPriceCard
-            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '75 min', price: '110€' }] }]} />
+            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '75 min', price: '120€' }] }]} />
         </div>
       </div>
     </div>

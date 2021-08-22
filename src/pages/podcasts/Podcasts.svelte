@@ -79,8 +79,9 @@
 {:else}
   <div class="outerContainer">
     <h1>Yoga Online</h1>
-    <h4>Ab 01.12.2020, Dienstag von 09:30-10:30 und von 20:00-21:00 Uhr</h4>
-    <div class="podcastContainer">
+    <!-- <h4>Ab 01.12.2020, Dienstag von 09:30-10:30 und von 20:00-21:00 Uhr</h4> -->
+    <h4>Derzeit findet kein Online-Yoga statt.</h4>
+    <div class="">
       <Text>
         Drücke
         <b><a

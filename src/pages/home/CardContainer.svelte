@@ -44,5 +44,8 @@
       <br />
       Yogawochenende
     </CourseCard>
+    <CourseCard link="/yoga-weg" title="Yoga Weg">
+      im Lonetal
+    </CourseCard>
   </div>
 </div>
