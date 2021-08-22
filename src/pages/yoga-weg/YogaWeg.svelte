@@ -75,7 +75,7 @@ import Link from "svelte-routing/src/Link.svelte";
     Wanderung der besonderen Art. Allein, zu zweit oder in Gruppen ...
     </Text>
   </div>
-  <a href="https://goo.gl/maps/ASDhdJMofMBkpvyQA">
+  <a href="https://goo.gl/maps/8nJ43E4m4MqGpFXG9">
     <Button >In Google Maps anschauen</Button>
   </a>
   </Container>
