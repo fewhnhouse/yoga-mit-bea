@@ -1,22 +1,23 @@
 <script>
   import Block from "../../components/Block.svelte";
   import Text from "../../components/Text.svelte";
-  import YogaQuote from "../yoga/YogaQuote.svelte";
   import Container from "../../components/Container.svelte";
-import HoverImage from "../../components/HoverImage.svelte";
-import Divider from "../../components/Divider.svelte";
-import Button from "../../components/Button.svelte";
-import Link from "svelte-routing/src/Link.svelte";
+  import HoverImage from "../../components/HoverImage.svelte";
+  import Divider from "../../components/Divider.svelte";
+  import Button from "../../components/Button.svelte";
 </script>
 
 <style>
   .flexContainer {
+    width: 100%;
+    margin: 0 !important;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
   }
 
   .page {
+    margin-top: 80px;
     min-height: 100vh;
   }
 
@@ -30,7 +31,7 @@ import Link from "svelte-routing/src/Link.svelte";
 
 <div class="page">
 
-<Container>
+
   <Block imgSrc="fohlenhaus.jpeg" title="Der Yoga-Weg im Lonetal ..." text=" " direction="left">
     <Text>
       ... beginnt am Parkplatz Salzbühl. Dieser ist ca. 2 Kilometer
@@ -46,15 +47,17 @@ import Link from "svelte-routing/src/Link.svelte";
     </Text>
 
   </Block>
+
   <Divider/>
-  <Container>
     <div class="flexContainer">
     <HoverImage 
-      mobileWidth="1000px"
+      mobileWidth="100%"
       width="50%" 
       height="300px" 
       src="weg.jpeg"
       alt="logo"/>
+      <Block>
+
     <Text>
       Im Yogasutra, dem grundlegendsten und wichtigsten Werk über
     Yoga, das vor fast 2000 Jahren von Patanjali verfasst wurde,
@@ -74,10 +77,11 @@ import Link from "svelte-routing/src/Link.svelte";
     Lass’ dich von mir mitnehmen auf eine achtsame und schöne
     Wanderung der besonderen Art. Allein, zu zweit oder in Gruppen ...
     </Text>
-  </div>
-  <a target="_blank" href="https://goo.gl/maps/8nJ43E4m4MqGpFXG9">
-    <Button >In Google Maps anschauen</Button>
-  </a>
-  </Container>
-</Container>
+    <a target="_blank" href="https://goo.gl/maps/vXGWZKbFMBaqRWrh7">
+      <Button >In Google Maps anschauen</Button>
+    </a>
+  </Block>
+  
+  
+</div>
 </div>

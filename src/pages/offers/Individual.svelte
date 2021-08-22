@@ -1,8 +1,4 @@
 <script>
-  import MovingImage from "../../components/MovingImage.svelte";
-  import Card from "../../components/Card.svelte";
-  import HoverImage from "../../components/HoverImage.svelte";
-  import ShortDivider from "../../components/ShortDivider.svelte";
   import Divider from "../../components/Divider.svelte";
   import Block from "../../components/Block.svelte";
   import PriceCard from "./PriceCard.svelte";
