@@ -89,7 +89,7 @@
           <MultiDateCard
             days={[{ title: 'Montag', times: ['18.00-19.15'] }, { title: 'Donnerstag', times: ['09.30-10.45'] }]} />
           <MultiPriceCard
-            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '75 min', price: '120€' }] }]} />
+            priceCategories={[{ title: '8er Block', description: '8x Üben in 12 Wochen', prices: [{ duration: '75 min', price: '110€' }] }]} />
         </div>
       </div>
     </div>
