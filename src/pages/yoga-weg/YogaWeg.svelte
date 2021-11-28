@@ -1,10 +1,13 @@
 <script>
   import Block from "../../components/Block.svelte";
   import Text from "../../components/Text.svelte";
-  import Container from "../../components/Container.svelte";
   import HoverImage from "../../components/HoverImage.svelte";
   import Divider from "../../components/Divider.svelte";
   import Button from "../../components/Button.svelte";
+  import PriceCard from "../offers/PriceCard.svelte";
+  import DateCard from "../offers/DateCard.svelte";
+  import LocationCard from "../offers/LocationCard.svelte";
+
 </script>
 
 <style>
@@ -15,6 +18,14 @@
     flex-direction: row-reverse;
     align-items: center;
   }
+
+  .flexCardContainer {
+    display: flex;
+    width: calc(100% - 20px);
+    overflow: auto;
+    padding: 10px;
+  }
+
 
   .page {
     margin-top: 80px;
@@ -80,8 +91,20 @@
     <a target="_blank" href="https://goo.gl/maps/vXGWZKbFMBaqRWrh7">
       <Button >In Google Maps anschauen</Button>
     </a>
+    
   </Block>
+
   
   
+</div>
+
+<div class="flexCardContainer">
+  <LocationCard
+    location={{ name: 'Parkplatz Salzbühl', address: '', city: '89182 Bernstadt' }}
+    url="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10571.26818367823!2d10.0338777!3d48.5175718!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5a3dec573e66fdcb!2sParkplatz%20Salzb%C3%BChl!5e0!3m2!1sde!2sde!4v1638132313418!5m2!1sde!2sde" />
+  <DateCard day="Flexibel" times={[]} />
+  <PriceCard
+    title="Yoga-Weg"
+    prices={[{ duration: 'ca. 2 Stunden, 6-10 Teilnehmerinnen', price: '25€ pro Person' }]} />
 </div>
 </div>
