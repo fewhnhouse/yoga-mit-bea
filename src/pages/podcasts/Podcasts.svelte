@@ -79,8 +79,9 @@
 {:else}
   <div class="outerContainer">
     <h1>Yoga Online</h1>
-    <h4>Ab jetzt immer Montags von 18:00-19:50 Uhr und Mittwochs von 20:15-21:15 Uhr</h4>
+    <h4>Ab jetzt immer Montags von 18:00-19:15 Uhr, Mittwochs von 20:00-21:00 Uhr und Donnerstags von 09:30-10:45 Uhr</h4>
     <!-- <h4>Derzeit findet kein Online-Yoga statt.</h4> -->
+    <h5>Bis 13., 15., 16.12. und wieder ab dem 10.01.2022</h5>
     <div class="">
       <Text>
         Drücke
