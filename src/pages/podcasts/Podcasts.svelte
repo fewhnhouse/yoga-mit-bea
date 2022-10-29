@@ -1,19 +1,7 @@
 <script>
-  import axios from 'axios'
-  import { onDestroy } from 'svelte'
-  import Card from '../../components/Card.svelte'
   import Text from '../../components/Text.svelte'
-  import Play from './Play.svelte'
   import Button from '../../components/Button.svelte'
-  import Divider from '../../components/Divider.svelte'
-  import PodcastCard from './PodcastCard.svelte'
-  import LoadingIndicator from '../../components/LoadingIndicator.svelte'
 
-  let isLoading = true
-
-  onDestroy(() => {
-    clearTimeout(timeout)
-  })
 </script>
 
 <div class="outerContainer">

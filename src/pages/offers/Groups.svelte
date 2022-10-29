@@ -36,7 +36,7 @@
           <Text>
             Der schöne, ehrwürdige historische Saal ganz oben im Bernstadter
             Schloss gibt uns ein wunderbares Ambiente um Yoga zu üben. Wir üben
-            in einem Kreis von max. 10 Teilnehmer-inne-n.
+            in einem Kreis von max. 10 TeilnehmerInnen.
             <br />
             Die Yogakurse finden fortlaufend statt und du hast jederzeit die Möglichkeit
             zu beginnen. Pausen gebe ich rechtzeitig bekannt. Bei Bedarf und nach
