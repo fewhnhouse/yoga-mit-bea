@@ -8,7 +8,6 @@
 
 <style>
   .priceCardContainer {
-    min-width: 300px;
   }
   .duration {
     opacity: 0.6;
@@ -35,13 +34,17 @@
   }
 
   .categoryContainer {
-    width: 120px;
+    flex: 1;
+    min-width: 150px;
     margin: 0px 30px;
+    margin: 0px 10px;
   }
 
-  .categoryContainer:first-child,
+  .categoryContainer:first-child {
+    margin-left: 0px;
+  }
   .categoryContainer:last-child {
-    margin: 0;
+    margin-right: 0px;
   }
 
   h4 {

@@ -10,33 +10,42 @@
   import LoadingIndicator from '../../components/LoadingIndicator.svelte'
 
   let isLoading = true
-  let podcasts = []
-  let timeout = ''
-
-  const { apiUrl } = process.env
-  const t0 = performance.now()
-
-  axios.get(`https://yoga-mit-bea-server.now.sh/api/podcasts`).then((res) => {
-    const t1 = performance.now()
-    podcasts = res.data.map((podcast) => ({
-      ...podcast,
-      displayName: podcast.name.split('.')[0],
-    }))
-    if (t1 - t0 > 1000) {
-      isLoading = false
-    } else {
-      timeout = setTimeout(() => {
-        isLoading = false
-      }, 1000)
-    }
-  }).catch(err => {
-    isLoading = false
-  })
 
   onDestroy(() => {
     clearTimeout(timeout)
   })
 </script>
+
+<div class="outerContainer">
+  <h1>Yoga Online</h1>
+  <h4>Ab jetzt immer Montags von 18:00-19:15 Uhr</h4>
+  <!-- <h4>Derzeit findet kein Online-Yoga statt.</h4> -->
+  <div class="">
+    <Text>
+      Drücke
+      <b
+        ><a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK"
+          >hier</a
+        ></b
+      >, um meiner Skype-Gruppe Yoga mit Bea beizutreten. Melde dich entweder
+      mit deinem Skype-Konto an, oder trete als Gast bei, falls du kein Konto
+      hast.
+      <br />
+      Nachdem du beigetreten bist, kannst du an jeder Online Yoga-Stunde teilnehmen,
+      sobald ich diese starte. Aufzeichnungen der Stunden lassen sich bis zu 30 Tage
+      danach über den Chatverlauf abrufen.
+      <br />
+      Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung, streiche
+      bitte eine Yoga-Stunde auf deinem Block ab. Wenn du keinen Block hast, melde
+      dich bitte bei mir.
+    </Text>
+    <Button>
+      <a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK"
+        >Yoga mit Bea Online beitreten</a
+      >
+    </Button>
+  </div>
+</div>
 
 <style>
   .podcastContainer {
@@ -71,46 +80,3 @@
     }
   }
 </style>
-
-{#if isLoading}
-  <div class="loadingContainer">
-    <LoadingIndicator />
-  </div>
-{:else}
-  <div class="outerContainer">
-    <h1>Yoga Online</h1>
-    <h4>Ab jetzt immer Montags von 18:00-19:15 Uhr, Mittwochs von 20:00-21:00 Uhr und Donnerstags von 09:30-10:45 Uhr</h4>
-    <!-- <h4>Derzeit findet kein Online-Yoga statt.</h4> -->
-    <h5>Bis 13., 15., 16.12. und wieder ab dem 10.01.2022</h5>
-    <div class="">
-      <Text>
-        Drücke
-        <b><a
-            class="onlineLink"
-            href="https://join.skype.com/fIUZqOL3JCxK">hier</a></b>, um meiner
-        Skype-Gruppe Yoga mit Bea beizutreten. Melde dich entweder mit deinem
-        Skype-Konto an, oder trete als Gast bei, falls du kein Konto hast.
-        <br />
-        Nachdem du beigetreten bist, kannst du an jeder Online Yoga-Stunde
-        teilnehmen, sobald ich diese starte. Aufzeichnungen der Stunden lassen
-        sich bis zu 30 Tage danach über den Chatverlauf abrufen.
-        <br />
-        Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung,
-        streiche bitte eine Yoga-Stunde auf deinem Block ab. Wenn du keinen
-        Block hast, melde dich bitte bei mir.
-      </Text>
-      <Button>
-        <a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK">Yoga
-          mit Bea Online beitreten</a>
-      </Button>
-    </div>
-    <h1>Podcasts</h1>
-    <div class="podcastContainer">
-      {#each podcasts as podcast}
-        <Card>
-          <PodcastCard {podcast} />
-        </Card>
-      {/each}
-    </div>
-  </div>
-{/if}

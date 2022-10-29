@@ -76,10 +76,8 @@
       Seit 2006 gebe ich meine Yogaerfahrung mit Freude und Hingabe in meinen
       Yogakursen weiter, in den Jahren 2007-2009 auch in Mexiko, wo ich mit
       meiner Familie eine wunderbare Zeit verbrachte. Seit 2012 bin ich
-      selbständige Yogalehrerin. Im Juni 2020 werde ich die Ausbildung in
-      SVASTHA Yogatherapie bei Dr. Günter Niessen und Ganesh Mohan mit dem 7.
-      Modul abschließen. Die klare und tiefgehende Weitergabe ihrer Erfahrungen
-      und ihres Wissens in den Bereichen Yoga, Medizin, Ayurveda und Psychologie
+      selbständige Yogalehrerin. Im September 2021 schloss ich die Ausbildung in
+      SVASTHA Yogatherapie bei Dr. Günter Niessen und Ganesh Mohan erfolgreich ab. Die klare und tiefgehende Weitergabe ihrer Erfahrungen und ihres Wissens in den Bereichen Yoga, Medizin, Ayurveda und Psychologie
       unterstützt mich und trägt mich in meiner Tätigkeit als Yogalehrerin und
       in meinem ganzen Menschsein. Von Herzen „danke“ Ganesh und Günter. Und so
       möchte ich mich bei der ganzen Familie Mohan bedanken für ihre warme und
