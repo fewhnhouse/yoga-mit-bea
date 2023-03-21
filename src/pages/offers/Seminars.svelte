@@ -24,7 +24,7 @@
         Wir verbringen gemeinsam einen Yogatag im Schloss oder im Holzhaus in
         Deggingen. Im Sommer werden wir im schönen Wacholdergarten üben.
         <br />
-        Das Yogawochenende verbringen wir in einer kleinen Gruppe (max. 6
+        Das Yogawochenende verbringen wir in einer kleinen Gruppe (max. 8
         Teilnehmer-innen) im gemütlichen Holzhaus, umgeben von Wacholderheide
         und dem nahen Wald. Wir werden verwöhnt mit leichter, leckerer und
         bunter vegetarischer Küche. Termin und Thema und Kosten werden immer
