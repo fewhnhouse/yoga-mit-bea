@@ -24,7 +24,7 @@
       danach über den Chatverlauf abrufen.
       <br />
       Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung, streiche
-      bitte eine Yoga-Stunde auf deinem Block ab. Wenn du keinen Block hast, melde
+      bitte eine Yoga-Stunde auf deiner Karte ab. Wenn du keine Karte hast, melde
       dich bitte bei mir.
     </Text>
     <Button>

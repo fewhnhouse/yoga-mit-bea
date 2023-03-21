@@ -70,7 +70,7 @@
           <MultiPriceCard
             priceCategories={[
               {
-                title: '8er Block',
+                title: '8er Karte',
                 description: '8x Üben in 10 Wochen',
                 prices: [
                   { duration: '60 min', price: '100€' },
@@ -79,7 +79,7 @@
                 ],
               },
               {
-                title: '5er Block Flex',
+                title: '5er Karte Flex',
                 description: '5x Üben flexibel',
                 prices: [
                   { duration: '60 min', price: '70€' },
@@ -97,7 +97,7 @@
           size="small"
           imgSrc="gruppe.jpg"
           title="Yoga mit Bea in der Stube"
-          text="Wir üben in einer kleinen Gruppe(max. 6 Teilnehmer-innen) in der
+          text="Wir üben in einer kleinen Gruppe(max. 8 Teilnehmer-innen) in der
           gemütlichen Stube im Holzhaus im Wacholderweg in Deggingen. Möchtest
           du mitüben? Bitte kontaktiere mich, ich freu mich auf dich!"
           direction="right"
@@ -120,12 +120,12 @@
           <MultiPriceCard
             priceCategories={[
               {
-                title: '8er Block',
+                title: '8er Karte',
                 description: '8x Üben in 10 Wochen',
                 prices: [{ duration: '75 min', price: '110€' }],
               },
               {
-                title: '5er Block Flex',
+                title: '5er Karte Flex',
                 description: '5x Üben flexibel',
                 prices: [{ duration: '75 min', price: '80€' }],
               },
