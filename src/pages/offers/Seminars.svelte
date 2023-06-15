@@ -31,7 +31,7 @@
       <Text>
         Ab 13.6. bis 01.08.2023
         <br />
-        Bei gutem Wetter üben wir jeden Dienstag von 17.30-18.30 Uhr und von 18.45-20 Uhr im schönen Yoga-Garten in Bernstadt ( Platzgasse 30/1).
+        Bei gutem Wetter üben wir jeden Dienstag von 17.30-18.30 Uhr und von 18.45-20 Uhr im schönen Yoga-Garten (Platzgasse 30/1, Bernstadt).
         <br />
         Wetterinfo: 15-16 Uhr <a href="tel:01601578254">0160-1578254</a>
         <br />
