@@ -39,7 +39,7 @@
       <br />
       Yoga mit Bea im Wacholder
     </CourseCard>
-    <CourseCard link="/seminare" title="Yoga Leben">
+    <CourseCard link="/seminare" title="Yoga aktuell">
       Yogatag
       <br />
       Yogawochenende
