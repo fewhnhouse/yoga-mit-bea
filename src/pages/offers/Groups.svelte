@@ -95,17 +95,16 @@
       <div class="elementContainer">
         <Block
           size="small"
-          imgSrc="gruppe.jpg"
-          title="Yoga mit Bea in der Stube"
-          text="Wir üben in einer kleinen Gruppe(max. 8 Teilnehmer-innen) in der
-          gemütlichen Stube im Holzhaus im Wacholderweg in Deggingen. Möchtest
+          imgSrc="wacholder.jpg"
+          title="Yoga mit Bea im Wacholder"
+          text="Wir üben in einer kleinen Gruppe (max. 8 Teilnehmer-innen) im schönen Yogaraum im Holzhaus im Wacholderweg in Deggingen. Möchtest
           du mitüben? Bitte kontaktiere mich, ich freu mich auf dich!"
           direction="right"
         />
         <div class="flexContainer">
           <LocationCard
             location={{
-              name: 'Stube im Holzhaus',
+              name: 'Yogaraum',
               address: 'Wacholderweg 10',
               city: '73326 Deggingen',
             }}

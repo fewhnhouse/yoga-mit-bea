@@ -242,7 +242,7 @@
     </Link>
     <Link on:click={handleClick} to="seminare">
       <span class:active={activePath === '/seminare'} class="link">
-        Yoga Leben
+        Yoga aktuell
       </span>
     </Link>
     <Link on:click={handleClick} to="yoga-weg">
@@ -268,7 +268,7 @@
             </Link>
             <Link on:click={handleClick} to="seminare">
               <span class:active={activePath === '/seminare'} class="link">
-                Yoga Leben
+                Yoga aktuell
               </span>
             </Link>
             <Link on:click={handleClick} to="yoga-weg">

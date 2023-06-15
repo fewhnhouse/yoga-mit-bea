@@ -1,6 +1,5 @@
 <script>
   import Card from "../../components/Card.svelte";
-  import Divider from "../../components/Divider.svelte";
 
   export let location = {
     name: "Schloss Bernstadt",

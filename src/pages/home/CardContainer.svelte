@@ -37,7 +37,7 @@
     <CourseCard link="/gruppen" title="Yogakurse">
       Yoga mit Bea im Schloss
       <br />
-      Yoga mit Bea in der Stube
+      Yoga mit Bea im Wacholder
     </CourseCard>
     <CourseCard link="/seminare" title="Yoga Leben">
       Yogatag
