@@ -63,7 +63,7 @@
               { title: 'Dienstag', times: ['-', '17.30-18.30', '18.45-20.00'] },
               {
                 title: 'Mittwoch',
-                times: ['9.00-10.30', '17.30-18.30'],
+                times: ['17.30-18.30', '18.45-20.00'],
               },
             ]}
           />
@@ -75,7 +75,6 @@
                 prices: [
                   { duration: '60 min', price: '100€' },
                   { duration: '75 min', price: '110€' },
-                  { duration: '90 min', price: '120€' },
                 ],
               },
               {
@@ -84,7 +83,6 @@
                 prices: [
                   { duration: '60 min', price: '70€' },
                   { duration: '75 min', price: '80€' },
-                  { duration: '90 min', price: '90€' },
                 ],
               },
             ]}
@@ -112,7 +110,7 @@
           />
           <MultiDateCard
             days={[
-              { title: 'Montag', times: ['18.00-19.15'] },
+              { title: 'Montag', times: ['18.00-19.15', '19.30-20.30'] },
               { title: 'Donnerstag', times: ['09.30-10.45'] },
             ]}
           />
@@ -121,12 +119,18 @@
               {
                 title: '8er Karte',
                 description: '8x Üben in 10 Wochen',
-                prices: [{ duration: '75 min', price: '110€' }],
+                prices: [
+                  { duration: '60 min', price: '100€' },
+                  { duration: '75 min', price: '110€' },
+                ],
               },
               {
                 title: '5er Karte Flex',
                 description: '5x Üben flexibel',
-                prices: [{ duration: '75 min', price: '80€' }],
+                prices: [
+                  { duration: '60 min', price: '70€' },
+                  { duration: '75 min', price: '80€' },
+                ],
               },
             ]}
           />
