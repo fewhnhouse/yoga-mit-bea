@@ -46,7 +46,7 @@
             Yogaeinsteiger-innen geeignet und beinhalten eine ausgewogene körperliche
             Praxis und Atemübungen.
             <br />
-            Die Yogaeinheiten mit 75 und 90 Minuten "Yoga für alle" sind etwas intensiver
+            Die Yogaeinheiten mit 75 Minuten "Yoga für alle" sind etwas intensiver
             beim körperlichen Üben und beinhalten Atemübungen und Meditation.
           </Text>
         </Block>
@@ -60,7 +60,7 @@
           />
           <MultiDateCard
             days={[
-              { title: 'Dienstag', times: ['-', '17.30-18.30', '18.45-20.00'] },
+              { title: 'Dienstag', times: ['17.30-18.30', '18.45-20.00'] },
               {
                 title: 'Mittwoch',
                 times: ['17.30-18.30', '18.45-20.00'],
@@ -73,16 +73,16 @@
                 title: '8er Karte',
                 description: '8x Üben in 10 Wochen',
                 prices: [
-                  { duration: '60 min', price: '100€' },
-                  { duration: '75 min', price: '110€' },
+                  { duration: '60 min', price: '110€' },
+                  { duration: '75 min', price: '120€' },
                 ],
               },
               {
                 title: '5er Karte Flex',
                 description: '5x Üben flexibel',
                 prices: [
-                  { duration: '60 min', price: '70€' },
-                  { duration: '75 min', price: '80€' },
+                  { duration: '60 min', price: '80€' },
+                  { duration: '75 min', price: '90€' },
                 ],
               },
             ]}
@@ -110,8 +110,7 @@
           />
           <MultiDateCard
             days={[
-              { title: 'Montag', times: ['18.00-19.15', '19.30-20.30'] },
-              { title: 'Donnerstag', times: ['09.30-10.45'] },
+              { title: 'Montag', times: ['18.00-19.15', '19.30-20.45'] },
             ]}
           />
           <MultiPriceCard
@@ -120,16 +119,14 @@
                 title: '8er Karte',
                 description: '8x Üben in 10 Wochen',
                 prices: [
-                  { duration: '60 min', price: '100€' },
-                  { duration: '75 min', price: '110€' },
+                  { duration: '75 min', price: '120€' },
                 ],
               },
               {
                 title: '5er Karte Flex',
                 description: '5x Üben flexibel',
                 prices: [
-                  { duration: '60 min', price: '70€' },
-                  { duration: '75 min', price: '80€' },
+                  { duration: '75 min', price: '90€' },
                 ],
               },
             ]}

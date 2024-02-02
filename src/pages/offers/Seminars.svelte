@@ -10,32 +10,9 @@
 
 <Container>
   <Container id="einzelkurse">
-    <Block title="OPEN-AIR YOGA FÜR ALLE" imgSrc="deggingen.jpg" direction="right">
+    <Block title="Yogatag im Wacholder" imgSrc="deggingen.jpg" direction="right">
       <Text>
-        Ab 23.6. bis 03.08.2023
-        <br />
-        Bei gutem Wetter üben wir jeden Donnerstag von 18-19.15 Uhr auf der Wacholderheide (Wacholderweg 10, Deggingen).
-        <br />
-        Wetterinfo: 16-17 Uhr <a href="tel:01601578254">0160-1578254</a>
-        <br />
-        Einfach vorbeikommen und 15 Euro und Matte mitbringen.
-      </Text>
-    </Block>
-    <Divider />
-
-    <Block
-      title="YOGA IM GARTEN FÜR ALLE"
-      imgSrc="deggingen.jpg"
-      direction="left"
-    >
-      <Text>
-        Ab 13.6. bis 01.08.2023
-        <br />
-        Bei gutem Wetter üben wir jeden Dienstag von 17.30-18.30 Uhr und von 18.45-20 Uhr im schönen Yoga-Garten (Platzgasse 30/1, Bernstadt).
-        <br />
-        Wetterinfo: 15-16 Uhr <a href="tel:01601578254">0160-1578254</a>
-        <br />
-        Einfach vorbeikommen und 15 Euro und Matte mitbringen.
+        Termin folgt
       </Text>
     </Block>
   </Container>
