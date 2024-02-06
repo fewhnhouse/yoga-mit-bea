@@ -53,7 +53,7 @@
       <DateCard day="Flexibel" times={[]} />
       <PriceCard
         title="Yoga mit Bea für dich"
-        prices={[{ duration: '75 min', price: '60€' }, { duration: '60 min', price: '50€' }]} />
+        prices={[{ duration: '75 min', price: '70€' }, { duration: '60 min', price: '60€' }]} />
     </div>
 
   </div>
