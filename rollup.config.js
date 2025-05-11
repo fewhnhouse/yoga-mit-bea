@@ -9,7 +9,6 @@ import buble from 'rollup-plugin-buble'
 
 config()
 const production = !process.env.ROLLUP_WATCH
-const apiUrl = process.env.API_URL
 
 export default {
   input: 'src/main.js',
@@ -26,7 +25,6 @@ export default {
       process: JSON.stringify({
         env: {
           isProd: production,
-          apiUrl,
         },
       }),
     }),
