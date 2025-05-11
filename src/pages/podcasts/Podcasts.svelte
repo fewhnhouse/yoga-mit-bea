@@ -23,7 +23,7 @@
       <br />
       Falls du einer Yogastunde beitrittst, streiche
       bitte eine Yoga-Stunde auf deiner Karte ab. Wenn du keine Karte hast, melde
-      dich bitte bei mir.
+      dich bei mir.
     </Text>
     <Button>
       <a class="onlineLink" href="https://meet.google.com/bfr-ptin-dha"
