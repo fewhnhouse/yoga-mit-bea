@@ -12,24 +12,22 @@
     <Text>
       Drücke
       <b
-        ><a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK"
+        ><a class="onlineLink" href="https://meet.google.com/bfr-ptin-dha"
           >hier</a
         ></b
-      >, um meiner Skype-Gruppe Yoga mit Bea beizutreten. Melde dich entweder
-      mit deinem Skype-Konto an, oder trete als Gast bei, falls du kein Konto
+      >, um online dem Üben von Yoga mit Bea beizutreten. Melde dich entweder
+      mit deinem Google-Konto an, oder trete als Gast bei, falls du kein Konto
       hast.
       <br />
-      Nachdem du beigetreten bist, kannst du an jeder Online Yoga-Stunde teilnehmen,
-      sobald ich diese starte. Aufzeichnungen der Stunden lassen sich bis zu 30 Tage
-      danach über den Chatverlauf abrufen.
+      Gerne kannst du jederzeit auch direkt über diesen Link beitreten. Speichere dir den Google Meet Link hierzu einfach in deinen Favoriten ab.
       <br />
-      Falls du einer Yogastunde beitrittst, ob live oder via Aufzeichnung, streiche
+      Falls du einer Yogastunde beitrittst, streiche
       bitte eine Yoga-Stunde auf deiner Karte ab. Wenn du keine Karte hast, melde
       dich bitte bei mir.
     </Text>
     <Button>
-      <a class="onlineLink" href="https://join.skype.com/fIUZqOL3JCxK"
-        >Yoga mit Bea Online beitreten</a
+      <a class="onlineLink" href="https://meet.google.com/bfr-ptin-dha"
+        >Yoga mit Bea Üben online beitreten</a
       >
     </Button>
   </div>
