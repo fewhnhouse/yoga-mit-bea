@@ -6,7 +6,7 @@
 
 <div class="outerContainer">
   <h1>Yoga Online</h1>
-  <h4>Ab jetzt immer Montags von 18:00-19:15 Uhr</h4>
+  <h4>Ab jetzt immer Montags von 18:30-19:45 Uhr</h4>
   <!-- <h4>Derzeit findet kein Online-Yoga statt.</h4> -->
   <div class="">
     <Text>

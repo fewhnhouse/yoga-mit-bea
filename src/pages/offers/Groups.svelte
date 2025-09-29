@@ -71,7 +71,7 @@
             priceCategories={[
               {
                 title: '8er Karte',
-                description: '8x Üben in 10 Wochen',
+                description: '8x Üben in 12 Wochen',
                 prices: [
                   { duration: '60 min', price: '110€' },
                   { duration: '75 min', price: '120€' },
@@ -110,14 +110,14 @@
           />
           <MultiDateCard
             days={[
-              { title: 'Montag', times: ['18.00-19.15', '19.30-20.45'] },
+              { title: 'Montag', times: ['17.00-18.15', '18.30-19.45'] },
             ]}
           />
           <MultiPriceCard
             priceCategories={[
               {
                 title: '8er Karte',
-                description: '8x Üben in 10 Wochen',
+                description: '8x Üben in 12 Wochen',
                 prices: [
                   { duration: '75 min', price: '120€' },
                 ],
