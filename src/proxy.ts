@@ -6,19 +6,20 @@ export function proxy(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const response = NextResponse.next();
 
-  // Check if we're on localhost (development mode)
+  // Check if we're on localhost or Vercel preview (allows site switching)
   const isLocalhost =
     hostname.includes("localhost") || hostname.includes("127.0.0.1");
+  const isVercelPreview = hostname.includes("vercel.app");
 
-  // Check for existing cookie (set by SiteSwitcher in dev mode)
+  // Check for existing cookie (set by SiteSwitcher)
   const existingCookie = request.cookies.get("site-id")?.value;
 
-  // In development, respect the existing cookie if set (allows switching)
-  // In production, always use domain-based detection
+  // On localhost/preview, respect the cookie if set (allows switching)
+  // On production domains, always use domain-based detection
   let siteId: string;
 
-  if (isLocalhost && existingCookie) {
-    // Dev mode: respect the cookie set by SiteSwitcher
+  if ((isLocalhost || isVercelPreview) && existingCookie) {
+    // Dev/preview mode: respect the cookie set by SiteSwitcher
     siteId = existingCookie;
   } else if (
     hostname.includes("therapie") ||

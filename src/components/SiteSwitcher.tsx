@@ -8,11 +8,12 @@ export default function SiteSwitcher() {
   const [isDevMode, setIsDevMode] = useState(false);
 
   useEffect(() => {
-    // Only show switcher in development (localhost)
-    // In production, each domain shows its own site automatically
+    // Show switcher in development (localhost) and on Vercel preview URLs
+    // Hide on production domains (yoga-mit-bea.de, therapie-mit-bea.de)
     const hostname = window.location.hostname;
-    const isDev = hostname === "localhost" || hostname === "127.0.0.1";
-    setIsDevMode(isDev);
+    const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
+    const isVercelPreview = hostname.includes("vercel.app");
+    setIsDevMode(isLocalhost || isVercelPreview);
   }, []);
 
   // Don't render in production - each domain has its own site
