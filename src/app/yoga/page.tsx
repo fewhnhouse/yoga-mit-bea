@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link";import Image from "next/image";
 import LotusIcon from "@/components/icons/LotusIcon";
 
 // Content based on yogamitbea.de offerings
@@ -113,10 +113,13 @@ export default function YogaPage() {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-sage/20 to-terracotta/10 shadow-xl">
-                <div className="w-full h-full flex items-center justify-center">
-                  <LotusIcon className="w-24 h-24 text-sage/30" />
-                </div>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative">
+                <Image
+                  src="/images/morgengruss.jpg"
+                  alt="Yoga Individuell - Einzelstunden"
+                  fill
+                  className="object-cover rounded-2xl"
+                />
               </div>
               <div className="absolute top-4 left-4 bg-sage text-white px-4 py-2 rounded-full text-sm font-medium">
                 Einzelstunden
@@ -179,8 +182,13 @@ export default function YogaPage() {
             {yogaOfferings[1].locations?.map((location, i) => (
               <div key={i} className="bg-warm-white rounded-2xl overflow-hidden shadow-lg">
                 {/* Image Area */}
-                <div className="aspect-[16/9] bg-gradient-to-br from-sage/20 to-terracotta/10 flex items-center justify-center">
-                  <LotusIcon className={`w-20 h-20 ${i === 0 ? "text-sage/30" : "text-terracotta/30"}`} />
+                <div className="aspect-[16/9] relative">
+                  <Image
+                    src={i === 0 ? "/images/schloss.jpg" : "/images/wacholder.jpg"}
+                    alt={location.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 
                 {/* Content */}
@@ -251,10 +259,13 @@ export default function YogaPage() {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blush/30 to-sage/10 shadow-xl">
-                <div className="w-full h-full flex items-center justify-center">
-                  <LotusIcon className="w-24 h-24 text-soft-brown/30" />
-                </div>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative">
+                <Image
+                  src="/images/gruppe.jpg"
+                  alt="Yoga aktuell - Yogatag und Yogawochenende"
+                  fill
+                  className="object-cover rounded-2xl"
+                />
               </div>
               <div className="absolute top-4 left-4 bg-soft-brown text-white px-4 py-2 rounded-full text-sm font-medium">
                 Veranstaltungen
@@ -317,12 +328,13 @@ export default function YogaPage() {
               </Link>
             </div>
             <div className="relative order-1 lg:order-2">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-sage/30 to-terracotta/10 shadow-xl">
-                <div className="w-full h-full flex items-center justify-center">
-                  <svg className="w-24 h-24 text-sage/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                </div>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative">
+                <Image
+                  src="/images/weg.jpeg"
+                  alt="Yoga Weg im Lonetal"
+                  fill
+                  className="object-cover rounded-2xl"
+                />
               </div>
               <div className="absolute top-4 right-4 bg-sage text-white px-4 py-2 rounded-full text-sm font-medium">
                 Lonetal

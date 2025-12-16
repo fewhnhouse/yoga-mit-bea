@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import LotusIcon from "@/components/icons/LotusIcon";
 import { useSite } from "@/context/SiteContext";
 
@@ -29,10 +30,14 @@ export default function UeberMichPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Image Side */}
             <div className="relative order-2 lg:order-1">
-              <div className={`aspect-[3/4] rounded-2xl overflow-hidden ${isYoga ? "bg-gradient-to-br from-sage/20 to-blush/20" : "bg-gradient-to-br from-terracotta/20 to-blush/30"} shadow-2xl`}>
-                <div className="w-full h-full flex items-center justify-center">
-                  <LotusIcon className={`w-32 h-32 ${iconColorClass}`} />
-                </div>
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl relative">
+                <Image
+                  src="/images/bea.jpg"
+                  alt="Bea - Yoga und Therapie"
+                  fill
+                  className="object-cover rounded-2xl"
+                  priority
+                />
               </div>
               <div className={`absolute -bottom-6 -left-6 w-48 h-48 ${isYoga ? "bg-sage/10" : "bg-terracotta/10"} organic-blob -z-10`} />
               <div className={`absolute -top-6 -right-6 w-32 h-32 ${isYoga ? "bg-terracotta/10" : "bg-sage/10"} organic-blob-2 -z-10`} />

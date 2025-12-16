@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 import LotusIcon from "@/components/icons/LotusIcon";
 import { useSite } from "@/context/SiteContext";
 
@@ -71,21 +73,48 @@ const therapyServices = [
 const testimonials = [
   {
     id: "1",
-    name: "Teilnehmerin",
-    quote: "Beas Yogastunden sind eine wunderbare Auszeit vom Alltag. Sie geht individuell auf jeden ein.",
-    service: "Yogakurs",
+    name: "Ursula",
+    quote: "An Deinen Yogastunden gefällt mir die Ruhe, mit der Du die Stunden gestaltest. Mir hilft auch sehr, dass Du die Übungen immer lange ansagst, bevor wir alleine üben können. Somit kann man immer wieder einsteigen, wenn man einmal mit den Gedanken abgewandert ist. Sehr gut ist auch, dass Du immer wieder sagst ‚jeder übt so gut er kann', es gibt keinen Leistungsdruck.",
   },
   {
     id: "2",
-    name: "Teilnehmer",
-    quote: "Das Yogawochenende war eine bereichernde Erfahrung. Ich habe viel über mich selbst gelernt.",
-    service: "Yoga aktuell",
+    name: "Annette",
+    quote: "Ich genieße Bea live in der Gruppe im Bernstadter Schloss schon viele, viele Jahre! Selbst mit größeren Verletzungen und körperlichen Einschränkungen hast du mich liebe Bea durch die Yogastunden geführt und ich konnte schnelle Genesung erleben! ALI - atmen lächeln innehalten - ist für mich zum liebevollen Alltagsbegleiter geworden. Von ganzem Herzen DANKESCHÖN liebe Bea für die wundervollen Yogaeinheiten!",
   },
   {
     id: "3",
-    name: "Teilnehmerin",
-    quote: "Yoga im Lonetal zu praktizieren war magisch. Die Verbindung von Natur und Yoga ist einzigartig.",
-    service: "Yoga Weg",
+    name: "Brigitte",
+    quote: "Yoga mit Bea macht glücklich.",
+  },
+  {
+    id: "4",
+    name: "Dagmar",
+    quote: "Bea deine Yogastunden sind phantastisch! Durch deine empathische, empfindsame, ruhige, besonnene, herzliche Art fühle ich mich nach deinen Yogastunden immer mit mir in einem Gleichgewicht! Durch deine Yogastunden hat sich meine Sensibilität für meinen Körper, meinen Atem, meine Gedanken im Kopf und auch für den Umgang mit meinen Mitmenschen unsagbar positiv erweitert!",
+  },
+  {
+    id: "5",
+    name: "Heidrun",
+    quote: "Für mich hat diese späte Yoga Stunde eine ganz eigene Qualität, da ich meinen Tag damit abschließe, entschleunige, zur Ruhe komme, mich intensiv auf meinen Atem, meine Bewegungen auf mich selber, meinen Körper konzentriere. Das Ambiente in dem schönen Schlosszimmer, gibt mir das Gefühl, in einem ganz besonders geschützten Raum zu sein.",
+  },
+  {
+    id: "6",
+    name: "Annika",
+    quote: "Jeden Dienstag gehe ich komplett anders aus der Stunde hinaus als ich hereingekommen bin. Als kritischer Mensch hinein. Als selbstliebender hinaus. Dafür danke ich dir sehr!! Diese innere Stimme ist dann noch eine Weile bei mir. Und ab und zu höre ich sie auch im Alltag.",
+  },
+  {
+    id: "7",
+    name: "Cornelia",
+    quote: "Beate hat in ihrer Art die Yogaübungen anzuleiten spürbar diesen Hintergrund. Die Asanas sind wichtig. Beate leitet sie verständlich und korrekt an und gleichzeitig vermittelt sie durch ihre wertfreie Einfühlsamkeit, dass jeder individuelle Weg die Asanas zu üben immer bestmöglich für die betreffende Person ist.",
+  },
+  {
+    id: "8",
+    name: "Caro",
+    quote: "Wir hören Deine Stimme und geben ab, was unsere Seele an Ballast hat. Sobald wir unsere Augen schließen, atmen, dehnen, strecken, fließen, sind wir auf einmal ganz achtsam im Hier. So finden wir das kleine Glück, immer leichter, Stück für Stück. Dafür danken wir Dir! ♡",
+  },
+  {
+    id: "9",
+    name: "Karin",
+    quote: "Yoga mit Bea: Beruhigend, Entspannend, Ausgleichend.",
   },
 ];
 
@@ -170,10 +199,13 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className={`aspect-[4/5] rounded-2xl overflow-hidden ${isYoga ? "bg-gradient-to-br from-sage/20 to-terracotta/20" : "bg-gradient-to-br from-terracotta/20 to-blush/30"} shadow-2xl`}>
-                <div className="w-full h-full flex items-center justify-center">
-                  <LotusIcon className={`w-32 h-32 ${isYoga ? "text-sage/30" : "text-terracotta/30"}`} />
-                </div>
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src={isYoga ? "/images/hund.jpeg" : "/images/herzchakra.png"}
+                  alt="Bea - Yoga und Therapie"
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div className={`absolute -bottom-6 -right-6 w-48 h-48 ${isYoga ? "bg-terracotta/10" : "bg-sage/10"} organic-blob -z-10`} />
               <div className={`absolute -top-6 -left-6 w-32 h-32 ${isYoga ? "bg-sage/10" : "bg-terracotta/10"} organic-blob-2 -z-10`} />
@@ -293,49 +325,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials - Only for Yoga */}
-      {isYoga && (
-        <section className="py-24 bg-warm-white section-pattern">
-          <div className="container mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
-                Teilnehmerstimmen
-              </span>
-              <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-                Was andere sagen
-              </h2>
-              <div className="w-20 h-0.5 bg-sage mx-auto" />
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className="bg-cream rounded-2xl p-8 relative"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <svg className="w-10 h-10 text-sage/20 absolute top-6 right-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                  <p className="text-charcoal-light leading-relaxed mb-6 italic">
-                    &bdquo;{testimonial.quote}&ldquo;
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center">
-                      <span className="text-sage-dark font-display font-semibold">
-                        {testimonial.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-charcoal">{testimonial.name}</p>
-                      <p className="text-sm text-sage-dark">{testimonial.service}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {isYoga && <TestimonialsSection testimonials={testimonials} />}
 
       {/* CTA Section */}
       <section className={`py-24 bg-gradient-to-br ${isYoga ? "from-sand/50 via-cream to-blush/30" : "from-blush/30 via-cream to-terracotta/10"}`}>
@@ -362,6 +352,113 @@ export default function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+// Testimonials Carousel Component
+function TestimonialsSection({ testimonials }: { testimonials: { id: string; name: string; quote: string }[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-rotate every 6 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isPaused, testimonials.length]);
+
+  const goTo = (index: number) => setCurrentIndex(index);
+  const goPrev = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const goNext = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+
+  const current = testimonials[currentIndex];
+
+  return (
+    <section 
+      className="py-24 bg-warm-white section-pattern"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
+            Teilnehmerstimmen
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
+            Was andere sagen
+          </h2>
+          <div className="w-20 h-0.5 bg-sage mx-auto" />
+        </div>
+
+        {/* Testimonial Card */}
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-cream rounded-3xl p-8 md:p-12 relative h-[340px] md:h-[300px] flex flex-col justify-between overflow-hidden">
+            {/* Quote Icon */}
+            <svg className="w-16 h-16 text-sage/10 absolute top-8 left-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+
+            {/* Quote Text */}
+            <blockquote className="text-charcoal-light text-base md:text-lg leading-relaxed italic text-center relative z-10 flex-1 flex items-center justify-center">
+              <span className="line-clamp-6">&bdquo;{current.quote}&ldquo;</span>
+            </blockquote>
+
+            {/* Author */}
+            <div className="flex items-center justify-center gap-3 pt-4">
+              <div className="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">
+                <span className="text-sage-dark font-display font-semibold">
+                  {current.name.charAt(0)}
+                </span>
+              </div>
+              <p className="font-display font-semibold text-charcoal">{current.name}</p>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            {/* Prev Button */}
+            <button
+              onClick={goPrev}
+              className="w-10 h-10 rounded-full border border-sage/30 flex items-center justify-center text-sage-dark hover:bg-sage hover:text-white transition-colors"
+              aria-label="Vorherige Bewertung"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Dots */}
+            <div className="flex gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goTo(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentIndex 
+                      ? "bg-sage w-6" 
+                      : "bg-sage/30 hover:bg-sage/50"
+                  }`}
+                  aria-label={`Bewertung ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={goNext}
+              className="w-10 h-10 rounded-full border border-sage/30 flex items-center justify-center text-sage-dark hover:bg-sage hover:text-white transition-colors"
+              aria-label="Nächste Bewertung"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
