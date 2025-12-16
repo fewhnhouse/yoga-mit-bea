@@ -21,11 +21,28 @@ export default function SiteSwitcher() {
     return null;
   }
 
-  // In dev mode, show current site indicator with links to test both
+  // Handle site switching with smart page mapping
   const handleSwitch = (site: "yoga" | "therapie") => {
-    // Set cookie and reload to simulate domain switch
+    // Set cookie to switch site
     document.cookie = `site-id=${site}; path=/; SameSite=Lax`;
-    window.location.reload();
+    
+    // Map site-specific pages to their counterpart
+    const currentPath = window.location.pathname;
+    let newPath = currentPath;
+    
+    if (site === "yoga" && currentPath === "/therapie") {
+      // Switching to Yoga while on Therapie page → go to Yoga page
+      newPath = "/yoga";
+    } else if (site === "therapie" && currentPath === "/yoga") {
+      // Switching to Therapie while on Yoga page → go to Therapie page
+      newPath = "/therapie";
+    }
+    
+    if (newPath !== currentPath) {
+      window.location.href = newPath;
+    } else {
+      window.location.reload();
+    }
   };
 
   return (
