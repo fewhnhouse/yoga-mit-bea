@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yoga & Therapie mit Bea
+
+A beautiful, modern website for a yoga and therapy practice built with Next.js, TypeScript, Tailwind CSS, and Sanity CMS.
+
+## Features
+
+- 🧘 **Yoga Classes** - Showcase different yoga styles and schedules
+- 💆 **Therapy Services** - Present therapeutic treatments and pricing
+- 📝 **Content Management** - Easy content updates via Sanity Studio
+- 🎨 **Beautiful Design** - Calming, earthy aesthetics perfect for wellness
+- 📱 **Responsive** - Looks great on all devices
+- ⚡ **Fast** - Built with Next.js App Router for optimal performance
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **CMS**: Sanity
+- **Fonts**: Cormorant Garamond & Lora
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- npm or yarn
+- A Sanity account (free at [sanity.io](https://www.sanity.io))
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone <repository-url>
+   cd yoga-und-therapie-mit-bea
+   ```
+
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+
+3. Set up Sanity
+   - Go to [sanity.io/manage](https://www.sanity.io/manage)
+   - Create a new project
+   - Copy your Project ID
+
+4. Configure environment variables
+   ```bash
+   cp .env.example .env.local
+   ```
+   Then edit `.env.local` with your Sanity project details:
+   ```
+   NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_SANITY_DATASET=production
+   NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+   ```
+
+5. Start the development server
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) to see the website
+
+7. Access Sanity Studio at [http://localhost:3000/studio](http://localhost:3000/studio) to manage content
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Homepage
+│   ├── yoga/              # Yoga classes page
+│   ├── therapie/          # Therapy services page
+│   ├── ueber-mich/        # About page
+│   ├── kontakt/           # Contact page
+│   └── studio/            # Sanity Studio (embedded)
+├── components/            # React components
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   └── icons/
+├── sanity/                # Sanity configuration
+│   ├── client.ts          # Sanity client
+│   ├── config.ts          # Configuration
+│   ├── image.ts           # Image URL builder
+│   ├── lib/
+│   │   └── queries.ts     # GROQ queries
+│   └── schemas/           # Content schemas
+└── types/                 # TypeScript types
+    └── sanity.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sanity Content Types
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The CMS includes the following content types:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Hero** - Homepage hero section
+- **About** - About section content
+- **Service** - General services
+- **Yoga** - Yoga class types
+- **Therapy** - Therapy treatments
+- **Testimonial** - Customer testimonials
+- **Site Settings** - Global settings (contact info, social links)
+- **Contact** - Contact page content
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Run development server
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build for production
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start production server
+npm start
 
-## Deploy on Vercel
+# Run linter
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Styling
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The website uses a calming, earthy color palette:
+
+- **Sage Green** - Primary color for buttons and accents
+- **Cream/Warm White** - Background colors
+- **Terracotta** - Secondary accent color
+- **Charcoal** - Text colors
+
+Custom CSS variables are defined in `globals.css` and can be customized to match your branding.
+
+## Fonts
+
+- **Cormorant Garamond** - Display/heading font (elegant, serif)
+- **Lora** - Body text font (readable, warm serif)
+
+## Deployment
+
+This project can be deployed on:
+
+- [Vercel](https://vercel.com) (recommended for Next.js)
+- [Netlify](https://netlify.com)
+- Any platform supporting Node.js
+
+Remember to set your environment variables on your deployment platform.
+
+## License
+
+This project is private and proprietary.
+
+---
+
+Made with 💚 for Bea

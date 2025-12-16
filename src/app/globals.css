@@ -1,26 +1,322 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Earthy, calming color palette for yoga/therapy */
+  --sage: #9CAF88;
+  --sage-light: #B8C9A3;
+  --sage-dark: #7A8F6A;
+  --cream: #FAF6F0;
+  --warm-white: #FFFEF9;
+  --terracotta: #C4A77D;
+  --terracotta-light: #D4BFA0;
+  --sand: #E8DED1;
+  --charcoal: #3D3D3D;
+  --charcoal-light: #5A5A5A;
+  --soft-brown: #8B7355;
+  --blush: #E8D5D5;
+  
+  --background: var(--warm-white);
+  --foreground: var(--charcoal);
+  --primary: var(--sage);
+  --primary-light: var(--sage-light);
+  --primary-dark: var(--sage-dark);
+  --secondary: var(--terracotta);
+  --accent: var(--blush);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sage-dark: var(--sage-dark);
+  --color-cream: var(--cream);
+  --color-warm-white: var(--warm-white);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-sand: var(--sand);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--charcoal-light);
+  --color-soft-brown: var(--soft-brown);
+  --color-blush: var(--blush);
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-lora);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body, 'Lora', Georgia, serif);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Elegant selection color */
+::selection {
+  background-color: var(--sage-light);
+  color: var(--charcoal);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sage);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sage-dark);
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+}
+
+.font-body {
+  font-family: var(--font-body, 'Lora', Georgia, serif);
+}
+
+/* Organic shape decorations */
+.organic-blob {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+.organic-blob-2 {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+/* Gentle animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Stagger animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--sage-dark), var(--terracotta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Decorative lines */
+.decorative-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sage), transparent);
+}
+
+/* Button styles */
+.btn-primary {
+  background: var(--sage);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--sage-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(156, 175, 136, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--sage-dark);
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  border: 2px solid var(--sage);
+}
+
+.btn-secondary:hover {
+  background: var(--sage);
+  color: white;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+/* Section backgrounds */
+.section-pattern {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(156, 175, 136, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(196, 167, 125, 0.08) 0%, transparent 50%);
+}
+
+/* Lotus icon animation */
+@keyframes lotus-bloom {
+  0% {
+    transform: scale(0.9) rotate(-5deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9) rotate(-5deg);
+    opacity: 0.7;
+  }
+}
+
+.lotus-animate {
+  animation: lotus-bloom 8s ease-in-out infinite;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Rich text content styling */
+.prose-yoga {
+  color: var(--charcoal);
+}
+
+.prose-yoga h2 {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  color: var(--sage-dark);
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose-yoga h3 {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  color: var(--soft-brown);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-yoga p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose-yoga ul {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose-yoga li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.prose-yoga li::marker {
+  color: var(--sage);
+}
+
+.prose-yoga strong {
+  color: var(--sage-dark);
+  font-weight: 600;
+}
+
+.prose-yoga a {
+  color: var(--sage-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+
+.prose-yoga a:hover {
+  color: var(--terracotta);
 }
