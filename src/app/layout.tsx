@@ -16,7 +16,7 @@ const lora = Lora({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoga-mit-bea.de";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogamitbea.de";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

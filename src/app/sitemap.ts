@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yoga-mit-bea.de";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogamitbea.de";
 
   // Define all static pages
   const routes = [

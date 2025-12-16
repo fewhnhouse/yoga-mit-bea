@@ -18,7 +18,7 @@ export const sites: Record<SiteId, SiteConfig> = {
     id: "yoga",
     name: "Yoga mit Bea",
     tagline: "Durch Yoga gehst du nur auf dich selbst zu",
-    domain: "yoga-mit-bea.de",
+    domain: "yogamitbea.de",
     primaryColor: "sage",
     navLinks: [
       { href: "/", label: "Übersicht" },
@@ -47,7 +47,7 @@ export const sites: Record<SiteId, SiteConfig> = {
     id: "therapie",
     name: "Therapie mit Bea",
     tagline: "Heilung für Körper und Seele",
-    domain: "therapie-mit-bea.de",
+    domain: "therapiemitbea.de",
     primaryColor: "terracotta",
     navLinks: [
       { href: "/", label: "Übersicht" },

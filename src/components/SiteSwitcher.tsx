@@ -9,7 +9,7 @@ export default function SiteSwitcher() {
 
   useEffect(() => {
     // Show switcher in development (localhost) and on Vercel preview URLs
-    // Hide on production domains (yoga-mit-bea.de, therapie-mit-bea.de)
+    // Hide on production domains (yogamitbea.de, therapiemitbea.de)
     const hostname = window.location.hostname;
     const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
     const isVercelPreview = hostname.includes("vercel.app");

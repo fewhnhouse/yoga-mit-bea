@@ -5,7 +5,7 @@ import LotusIcon from "@/components/icons/LotusIcon";
 import { useSite } from "@/context/SiteContext";
 
 export default function KontaktContent() {
-  const { currentSite, isYoga } = useSite();
+  const { currentSite, isYoga, siteId } = useSite();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +16,7 @@ export default function KontaktContent() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
@@ -52,10 +53,33 @@ export default function KontaktContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          site: siteId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Fehler beim Senden der Nachricht.");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Ein Fehler ist aufgetreten.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -116,7 +140,10 @@ export default function KontaktContent() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false);
+                      setError(null);
+                    }}
                     className={`mt-6 ${primaryColorClass} font-medium hover:opacity-80 transition-opacity`}
                   >
                     Weitere Nachricht senden
@@ -209,6 +236,12 @@ export default function KontaktContent() {
                       placeholder="Deine Nachricht..."
                     />
                   </div>
+
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+                      {error}
+                    </div>
+                  )}
 
                   <button
                     type="submit"
