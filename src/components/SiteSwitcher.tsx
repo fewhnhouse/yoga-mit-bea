@@ -28,10 +28,10 @@ export default function SiteSwitcher() {
   };
 
   return (
-    <div className="flex items-center gap-1 bg-sand/50 rounded-full p-1">
+    <div className="flex items-center gap-1 bg-sand/50 rounded-full p-0.5">
       <button
         onClick={() => handleSwitch("yoga")}
-        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "yoga"
             ? "bg-sage text-white shadow-sm"
             : "text-charcoal-light hover:text-sage-dark"
@@ -43,7 +43,7 @@ export default function SiteSwitcher() {
       </button>
       <button
         onClick={() => handleSwitch("therapie")}
-        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "therapie"
             ? "bg-terracotta text-white shadow-sm"
             : "text-charcoal-light hover:text-terracotta"
