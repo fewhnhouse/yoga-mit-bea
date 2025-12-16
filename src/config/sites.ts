@@ -24,6 +24,7 @@ export const sites: Record<SiteId, SiteConfig> = {
       { href: "/", label: "Übersicht" },
       { href: "/ueber-mich", label: "Bea" },
       { href: "/yoga", label: "Yoga" },
+      { href: "/zum-mitueben", label: "Zum Mitüben" },
       { href: "/kontakt", label: "Kontakt" },
     ],
     footerLinks: {
@@ -32,6 +33,7 @@ export const sites: Record<SiteId, SiteConfig> = {
         { href: "/yoga#kurse", label: "Yogakurse" },
         { href: "/yoga#aktuell", label: "Yoga aktuell" },
         { href: "/yoga#weg", label: "Yoga Weg" },
+        { href: "/zum-mitueben", label: "Yoga Online" },
       ],
       info: [
         { href: "/ueber-mich", label: "Über Bea" },
