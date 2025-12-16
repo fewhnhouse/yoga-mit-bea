@@ -6,20 +6,35 @@ export function proxy(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const response = NextResponse.next();
 
-  // Determine site based on domain
-  let siteId = "yoga"; // default
+  // Check if we're on localhost (development mode)
+  const isLocalhost =
+    hostname.includes("localhost") || hostname.includes("127.0.0.1");
 
-  if (
+  // Check for existing cookie (set by SiteSwitcher in dev mode)
+  const existingCookie = request.cookies.get("site-id")?.value;
+
+  // In development, respect the existing cookie if set (allows switching)
+  // In production, always use domain-based detection
+  let siteId: string;
+
+  if (isLocalhost && existingCookie) {
+    // Dev mode: respect the cookie set by SiteSwitcher
+    siteId = existingCookie;
+  } else if (
     hostname.includes("therapie") ||
     hostname.includes("therapie-mit-bea")
   ) {
+    // Production: domain-based detection
     siteId = "therapie";
+  } else {
+    // Default to yoga
+    siteId = "yoga";
   }
 
   // Set the site ID in a header that can be read by the app
   response.headers.set("x-site-id", siteId);
 
-  // Also set a cookie for client-side hydration
+  // Set/update the cookie for client-side hydration
   response.cookies.set("site-id", siteId, {
     path: "/",
     sameSite: "lax",
