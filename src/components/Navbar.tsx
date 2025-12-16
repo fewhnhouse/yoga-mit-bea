@@ -104,7 +104,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`lg:hidden absolute top-full left-0 right-0 bg-warm-white/98 backdrop-blur-lg shadow-lg transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <ul className="container mx-auto px-6 py-6 space-y-4">

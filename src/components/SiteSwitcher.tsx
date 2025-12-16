@@ -56,8 +56,7 @@ export default function SiteSwitcher() {
         }`}
         title="Yoga mit Bea (yogamitbea.de)"
       >
-        <span className="hidden sm:inline">Yoga</span>
-        <span className="sm:hidden">Y</span>
+        Yoga
       </button>
       <button
         onClick={() => handleSwitch("therapie")}
@@ -68,8 +67,7 @@ export default function SiteSwitcher() {
         }`}
         title="Therapie mit Bea (therapiemitbea.de)"
       >
-        <span className="hidden sm:inline">Therapie</span>
-        <span className="sm:hidden">T</span>
+        Therapie
       </button>
     </div>
   );
