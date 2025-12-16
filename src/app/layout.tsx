@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lora } from "next/font/google";
 import "./globals.css";
-import { SiteProvider } from "@/context/SiteContext";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -42,11 +39,7 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${cormorant.variable} ${lora.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
-        <SiteProvider>
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </SiteProvider>
+        {children}
       </body>
     </html>
   );
