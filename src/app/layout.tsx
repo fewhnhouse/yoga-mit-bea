@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lora } from "next/font/google";
 import "./globals.css";
+import { SiteProvider } from "@/context/SiteContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -19,16 +20,17 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Yoga & Therapie mit Bea | Finde deine innere Balance",
+  title: "Yoga & Therapie mit Bea",
   description:
-    "Entdecke Yoga und therapeutische Behandlungen für Körper, Geist und Seele. Professionelle Betreuung in entspannter Atmosphäre.",
+    "Yoga und Therapie mit Bea. Entdecke Yoga Individuell, Yogakurse, therapeutische Behandlungen und mehr.",
   keywords: [
     "Yoga",
     "Therapie",
-    "Wellness",
-    "Entspannung",
-    "Meditation",
-    "Gesundheit",
+    "Yoga mit Bea",
+    "Therapie mit Bea",
+    "Yogakurse",
+    "Massage",
+    "Atemtherapie",
   ],
 };
 
@@ -40,9 +42,11 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${cormorant.variable} ${lora.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <SiteProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </SiteProvider>
       </body>
     </html>
   );

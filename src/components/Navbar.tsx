@@ -2,16 +2,11 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/yoga", label: "Yoga" },
-  { href: "/therapie", label: "Therapie" },
-  { href: "/ueber-mich", label: "Über Mich" },
-  { href: "/kontakt", label: "Kontakt" },
-];
+import { useSite } from "@/context/SiteContext";
+import SiteSwitcher from "./SiteSwitcher";
 
 export default function Navbar() {
+  const { currentSite, isYoga } = useSite();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -23,6 +18,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
+  const hoverColorClass = isYoga ? "hover:text-sage" : "hover:text-terracotta-light";
+  const underlineColorClass = isYoga ? "bg-sage" : "bg-terracotta";
+  const buttonBgClass = isYoga ? "bg-sage hover:bg-sage-dark" : "bg-terracotta hover:bg-soft-brown";
 
   return (
     <header
@@ -36,77 +36,83 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-2xl md:text-3xl font-semibold text-sage-dark tracking-wide hover:text-sage transition-colors"
+          className={`font-display text-xl md:text-2xl font-semibold ${primaryColorClass} tracking-wide ${hoverColorClass} transition-colors`}
         >
-          <span className="block leading-tight">Yoga & Therapie</span>
-          <span className="text-sm font-body font-normal text-soft-brown tracking-widest">
-            mit Bea
-          </span>
+          {currentSite.name}
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+        <ul className="hidden lg:flex items-center gap-6">
+          {currentSite.navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="font-body text-charcoal hover:text-sage-dark transition-colors relative group"
+                className={`font-body text-charcoal hover:${primaryColorClass} transition-colors relative group`}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sage transition-all duration-300 group-hover:w-full" />
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 ${underlineColorClass} transition-all duration-300 group-hover:w-full`} />
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* CTA Button */}
-        <Link href="/kontakt" className="hidden md:block btn-primary text-sm">
-          Termin buchen
-        </Link>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-charcoal hover:text-sage-dark transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
+        {/* Right Side: Site Switcher + CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <SiteSwitcher />
+          <Link 
+            href="/kontakt" 
+            className={`${buttonBgClass} text-white px-4 py-2 rounded-full text-sm font-medium transition-colors`}
           >
-            {isMobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            )}
-          </svg>
-        </button>
+            Kontakt
+          </Link>
+        </div>
+
+        {/* Mobile: Site Switcher + Menu Button */}
+        <div className="flex md:hidden items-center gap-3">
+          <SiteSwitcher />
+          <button
+            className="p-2 text-charcoal hover:text-sage-dark transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              {isMobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-warm-white/98 backdrop-blur-lg shadow-lg transition-all duration-300 overflow-hidden ${
+        className={`lg:hidden absolute top-full left-0 right-0 bg-warm-white/98 backdrop-blur-lg shadow-lg transition-all duration-300 overflow-hidden ${
           isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <ul className="container mx-auto px-6 py-6 space-y-4">
-          {navLinks.map((link) => (
+          {currentSite.navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block font-body text-lg text-charcoal hover:text-sage-dark transition-colors py-2"
+                className={`block font-body text-lg text-charcoal ${hoverColorClass} transition-colors py-2`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -116,10 +122,10 @@ export default function Navbar() {
           <li className="pt-4">
             <Link
               href="/kontakt"
-              className="btn-primary block text-center"
+              className={`${buttonBgClass} text-white block text-center px-6 py-3 rounded-full font-medium`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Termin buchen
+              Kontakt
             </Link>
           </li>
         </ul>
@@ -127,4 +133,3 @@ export default function Navbar() {
     </header>
   );
 }
-

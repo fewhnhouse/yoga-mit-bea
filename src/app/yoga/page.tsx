@@ -1,71 +1,67 @@
 import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
 
-// Placeholder data - will be replaced with Sanity data
-const yogaClasses = [
+// Content based on yogamitbea.de offerings
+const yogaOfferings = [
   {
-    id: "1",
-    title: "Hatha Yoga",
-    level: "Alle Level",
+    id: "individuell",
+    title: "Yoga Individuell",
+    subtitle: "Yoga für dich",
     description:
-      "Klassisches Yoga, das Körperhaltungen (Asanas), Atemübungen (Pranayama) und Meditation vereint. Ideal für Einsteiger und alle, die eine solide Grundlage suchen.",
-    benefits: [
-      "Verbesserte Flexibilität",
-      "Stärkung der Muskulatur",
-      "Stressabbau",
-      "Bessere Körperhaltung",
-    ],
-    schedule: [
-      { day: "Montag", time: "09:00 - 10:30", location: "Studio" },
-      { day: "Mittwoch", time: "18:00 - 19:30", location: "Studio" },
+      "In Einzelstunden gehe ich ganz auf deine persönlichen Bedürfnisse ein. Ob du Yoga neu entdecken möchtest, an bestimmten Themen arbeiten willst oder einfach Zeit für dich brauchst – hier steht dein individueller Weg im Mittelpunkt.",
+    features: [
+      "Persönliche Betreuung",
+      "Flexible Termingestaltung",
+      "Angepasste Übungen",
+      "Raum für deine Fragen",
     ],
   },
   {
-    id: "2",
-    title: "Yin Yoga",
-    level: "Alle Level",
+    id: "kurse",
+    title: "Yogakurse",
+    subtitle: "Yoga mit Bea im Schloss & im Wacholder",
     description:
-      "Ein langsamer, meditativer Stil, bei dem Positionen für mehrere Minuten gehalten werden. Fokus auf tiefe Entspannung und Dehnung des Bindegewebes.",
-    benefits: [
-      "Tiefe Entspannung",
-      "Verbesserte Gelenkflexibilität",
-      "Stressreduktion",
-      "Besserer Schlaf",
-    ],
-    schedule: [
-      { day: "Dienstag", time: "19:00 - 20:30", location: "Studio" },
-      { day: "Freitag", time: "17:00 - 18:30", location: "Studio" },
+      "In meinen regelmäßigen Kursen praktizieren wir gemeinsam in einer kleinen Gruppe. Die besondere Atmosphäre im Schloss und im Wacholder lädt ein, zur Ruhe zu kommen und Yoga in seiner Tiefe zu erfahren.",
+    locations: [
+      {
+        name: "Yoga mit Bea im Schloss",
+        description: "Yogakurse in historischem Ambiente",
+      },
+      {
+        name: "Yoga mit Bea im Wacholder",
+        description: "Yogakurse in natürlicher Umgebung",
+      },
     ],
   },
   {
-    id: "3",
-    title: "Yoga für Senioren",
-    level: "Anfänger",
+    id: "aktuell",
+    title: "Yoga aktuell",
+    subtitle: "Yogatag & Yogawochenende",
     description:
-      "Sanftes Yoga speziell angepasst für ältere Menschen. Mit Hilfsmitteln und Variationen für jeden Körper. Fokus auf Beweglichkeit und Gleichgewicht.",
-    benefits: [
-      "Erhalt der Beweglichkeit",
-      "Sturzprävention",
-      "Soziale Interaktion",
-      "Sanfte Stärkung",
-    ],
-    schedule: [
-      { day: "Donnerstag", time: "10:00 - 11:00", location: "Studio" },
+      "Bei besonderen Veranstaltungen hast du die Möglichkeit, tiefer in die Yoga-Praxis einzutauchen. Ein Yogatag oder ein ganzes Wochenende bieten Raum für intensive Erfahrung und innere Einkehr.",
+    events: [
+      {
+        name: "Yogatag",
+        description: "Ein Tag ganz im Zeichen von Yoga und Achtsamkeit",
+      },
+      {
+        name: "Yogawochenende",
+        description: "Intensives Eintauchen in die Yoga-Praxis über mehrere Tage",
+      },
     ],
   },
   {
-    id: "4",
-    title: "Vinyasa Flow",
-    level: "Mittelstufe",
+    id: "weg",
+    title: "Yoga Weg",
+    subtitle: "im Lonetal",
     description:
-      "Dynamischer Yoga-Stil, bei dem Bewegung und Atmung fließend verbunden werden. Kreative Sequenzen für mehr Kraft und Ausdauer.",
-    benefits: [
-      "Kardiovaskuläre Fitness",
-      "Muskelaufbau",
-      "Mentaler Fokus",
-      "Energiesteigerung",
+      "Der Yoga Weg im Lonetal verbindet Yoga mit der Kraft der Natur. Beim achtsamen Wandern durch diese einzigartige Landschaft praktizieren wir Yoga an besonderen Kraftorten und lassen uns von der Schönheit der Natur inspirieren.",
+    features: [
+      "Yoga in der Natur",
+      "Achtsames Wandern",
+      "Besondere Kraftorte",
+      "Verbindung von Bewegung und Stille",
     ],
-    schedule: [{ day: "Samstag", time: "09:00 - 10:30", location: "Studio" }],
   },
 ];
 
@@ -80,113 +76,190 @@ export default function YogaPage() {
         <div className="container mx-auto px-6 relative">
           <div className="max-w-3xl">
             <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
-              Yoga Kurse
+              Angebote
             </span>
             <h1 className="font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6">
-              Finde deinen
-              <span className="block text-sage-dark">Yoga-Weg</span>
+              Yoga mit Bea
             </h1>
             <div className="decorative-line mb-6" />
+            <p className="text-charcoal-light text-lg leading-relaxed mb-4">
+              Mein Verständnis von Yoga geht über die körperliche Praxis hinaus. 
+              Yoga ist für mich ein Weg der Selbsterfahrung – durch Yoga gehst du 
+              nur auf dich selbst zu.
+            </p>
             <p className="text-charcoal-light text-lg leading-relaxed">
-              Von sanften, entspannenden Stilen bis hin zu dynamischen Flows –
-              entdecke das Yoga, das zu dir passt. Jeder Kurs wird mit Liebe und
-              Achtsamkeit geleitet.
+              Entdecke meine verschiedenen Angebote und finde den Weg, der zu dir passt.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Classes Section */}
-      <section className="py-24 bg-warm-white">
+      {/* Yoga Individuell */}
+      <section id="individuell" className="py-24 bg-warm-white scroll-mt-24">
         <div className="container mx-auto px-6">
-          <div className="space-y-16">
-            {yogaClasses.map((yogaClass, index) => (
-              <div
-                key={yogaClass.id}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Image/Visual Side */}
-                <div
-                  className={`relative ${index % 2 === 1 ? "lg:order-2" : ""}`}
-                >
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-sage/20 to-terracotta/10 shadow-xl">
-                    <div className="w-full h-full flex items-center justify-center">
-                      <LotusIcon className="w-24 h-24 text-sage/30" />
-                    </div>
-                  </div>
-                  {/* Level Badge */}
-                  <div className="absolute top-4 left-4 bg-sage text-white px-4 py-2 rounded-full text-sm font-medium">
-                    {yogaClass.level}
-                  </div>
-                </div>
-
-                {/* Content Side */}
-                <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4">
-                    {yogaClass.title}
-                  </h2>
-                  <p className="text-charcoal-light leading-relaxed mb-6">
-                    {yogaClass.description}
-                  </p>
-
-                  {/* Benefits */}
-                  <div className="mb-6">
-                    <h3 className="font-display text-lg font-semibold text-sage-dark mb-3">
-                      Vorteile
-                    </h3>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {yogaClass.benefits.map((benefit, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-sm text-charcoal-light"
-                        >
-                          <svg
-                            className="w-4 h-4 text-sage flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Schedule */}
-                  <div className="bg-cream rounded-xl p-6 mb-6">
-                    <h3 className="font-display text-lg font-semibold text-sage-dark mb-3">
-                      Kurszeiten
-                    </h3>
-                    <div className="space-y-2">
-                      {yogaClass.schedule.map((slot, i) => (
-                        <div
-                          key={i}
-                          className="flex justify-between items-center text-sm"
-                        >
-                          <span className="text-charcoal font-medium">
-                            {slot.day}
-                          </span>
-                          <span className="text-charcoal-light">
-                            {slot.time}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Link href="/kontakt" className="btn-primary">
-                    Kurs buchen
-                  </Link>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-sage/20 to-terracotta/10 shadow-xl">
+                <div className="w-full h-full flex items-center justify-center">
+                  <LotusIcon className="w-24 h-24 text-sage/30" />
                 </div>
               </div>
-            ))}
+              <div className="absolute top-4 left-4 bg-sage text-white px-4 py-2 rounded-full text-sm font-medium">
+                Einzelstunden
+              </div>
+            </div>
+            <div>
+              <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-2 block">
+                {yogaOfferings[0].subtitle}
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4">
+                {yogaOfferings[0].title}
+              </h2>
+              <p className="text-charcoal-light leading-relaxed mb-6">
+                {yogaOfferings[0].description}
+              </p>
+              <ul className="grid grid-cols-2 gap-3 mb-8">
+                {yogaOfferings[0].features?.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-charcoal-light">
+                    <svg className="w-4 h-4 text-sage flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/kontakt" className="btn-primary">
+                Anfragen
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Yogakurse */}
+      <section id="kurse" className="py-24 bg-cream scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-2 block">
+                {yogaOfferings[1].subtitle}
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4">
+                {yogaOfferings[1].title}
+              </h2>
+              <p className="text-charcoal-light leading-relaxed mb-6">
+                {yogaOfferings[1].description}
+              </p>
+              <div className="space-y-4 mb-8">
+                {yogaOfferings[1].locations?.map((location, i) => (
+                  <div key={i} className="bg-warm-white rounded-xl p-5">
+                    <h3 className="font-display text-lg font-semibold text-sage-dark mb-1">
+                      {location.name}
+                    </h3>
+                    <p className="text-charcoal-light text-sm">{location.description}</p>
+                  </div>
+                ))}
+              </div>
+              <Link href="/kontakt" className="btn-primary">
+                Kurs anfragen
+              </Link>
+            </div>
+            <div className="relative order-1 lg:order-2">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-terracotta/20 to-sage/10 shadow-xl">
+                <div className="w-full h-full flex items-center justify-center">
+                  <LotusIcon className="w-24 h-24 text-terracotta/30" />
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 bg-terracotta text-white px-4 py-2 rounded-full text-sm font-medium">
+                Gruppenkurse
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Yoga aktuell */}
+      <section id="aktuell" className="py-24 bg-warm-white scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blush/30 to-sage/10 shadow-xl">
+                <div className="w-full h-full flex items-center justify-center">
+                  <LotusIcon className="w-24 h-24 text-soft-brown/30" />
+                </div>
+              </div>
+              <div className="absolute top-4 left-4 bg-soft-brown text-white px-4 py-2 rounded-full text-sm font-medium">
+                Veranstaltungen
+              </div>
+            </div>
+            <div>
+              <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-2 block">
+                {yogaOfferings[2].subtitle}
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4">
+                {yogaOfferings[2].title}
+              </h2>
+              <p className="text-charcoal-light leading-relaxed mb-6">
+                {yogaOfferings[2].description}
+              </p>
+              <div className="space-y-4 mb-8">
+                {yogaOfferings[2].events?.map((event, i) => (
+                  <div key={i} className="bg-cream rounded-xl p-5">
+                    <h3 className="font-display text-lg font-semibold text-sage-dark mb-1">
+                      {event.name}
+                    </h3>
+                    <p className="text-charcoal-light text-sm">{event.description}</p>
+                  </div>
+                ))}
+              </div>
+              <Link href="/kontakt" className="btn-primary">
+                Termine erfragen
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Yoga Weg */}
+      <section id="weg" className="py-24 bg-cream scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-2 block">
+                {yogaOfferings[3].subtitle}
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4">
+                {yogaOfferings[3].title}
+              </h2>
+              <p className="text-charcoal-light leading-relaxed mb-6">
+                {yogaOfferings[3].description}
+              </p>
+              <ul className="grid grid-cols-2 gap-3 mb-8">
+                {yogaOfferings[3].features?.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-charcoal-light">
+                    <svg className="w-4 h-4 text-sage flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/kontakt" className="btn-primary">
+                Mehr erfahren
+              </Link>
+            </div>
+            <div className="relative order-1 lg:order-2">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-sage/30 to-terracotta/10 shadow-xl">
+                <div className="w-full h-full flex items-center justify-center">
+                  <svg className="w-24 h-24 text-sage/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 bg-sage text-white px-4 py-2 rounded-full text-sm font-medium">
+                Lonetal
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -195,21 +268,20 @@ export default function YogaPage() {
       <section className="py-20 bg-sage">
         <div className="container mx-auto px-6 text-center">
           <h2 className="font-display text-3xl md:text-4xl font-semibold text-white mb-6">
-            Dein erster Kurs ist Schnupperkurs
+            Finde deinen Yoga-Weg
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Du bist unsicher, welcher Kurs der richtige für dich ist? Probiere
-            es einfach aus! Der erste Kurs ist zum Kennenlernen kostenlos.
+            Hast du Fragen zu meinen Angeboten? Möchtest du herausfinden, welches 
+            Format am besten zu dir passt? Ich freue mich auf deine Nachricht.
           </p>
           <Link
             href="/kontakt"
             className="inline-block bg-white text-sage-dark px-8 py-4 rounded-full font-medium hover:bg-cream transition-colors"
           >
-            Schnupperkurs buchen
+            Kontakt aufnehmen
           </Link>
         </div>
       </section>
     </>
   );
 }
-
