@@ -10,50 +10,63 @@ export default function LotusIcon({ className = "w-8 h-8" }: LotusIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Center petal */}
+      {/* Outer left petal */}
       <path
-        d="M50 10C50 10 50 30 50 45C50 60 50 80 50 80C50 80 35 65 35 50C35 35 50 10 50 10Z"
+        d="M10 58C10 58 18 38 32 32C32 32 28 52 22 62C16 72 10 58 10 58Z"
         fill="currentColor"
-        fillOpacity="0.9"
+        fillOpacity="0.35"
       />
+      
+      {/* Outer right petal */}
       <path
-        d="M50 10C50 10 50 30 50 45C50 60 50 80 50 80C50 80 65 65 65 50C65 35 50 10 50 10Z"
+        d="M90 58C90 58 82 38 68 32C68 32 72 52 78 62C84 72 90 58 90 58Z"
+        fill="currentColor"
+        fillOpacity="0.35"
+      />
+
+      {/* Middle left petal */}
+      <path
+        d="M22 52C22 52 32 28 50 22C50 22 38 48 32 60C26 72 22 52 22 52Z"
+        fill="currentColor"
+        fillOpacity="0.5"
+      />
+      
+      {/* Middle right petal */}
+      <path
+        d="M78 52C78 52 68 28 50 22C50 22 62 48 68 60C74 72 78 52 78 52Z"
+        fill="currentColor"
+        fillOpacity="0.5"
+      />
+
+      {/* Inner left petal */}
+      <path
+        d="M35 48C35 48 42 24 50 15C50 15 46 42 42 55C38 68 35 48 35 48Z"
+        fill="currentColor"
+        fillOpacity="0.7"
+      />
+      
+      {/* Inner right petal */}
+      <path
+        d="M65 48C65 48 58 24 50 15C50 15 54 42 58 55C62 68 65 48 65 48Z"
         fill="currentColor"
         fillOpacity="0.7"
       />
 
-      {/* Left petals */}
+      {/* Center petal */}
       <path
-        d="M25 50C25 50 35 35 50 35C50 35 35 55 30 65C25 75 25 50 25 50Z"
+        d="M50 12C50 12 44 32 44 45C44 58 50 68 50 68C50 68 56 58 56 45C56 32 50 12 50 12Z"
         fill="currentColor"
-        fillOpacity="0.6"
-      />
-      <path
-        d="M15 55C15 55 30 45 45 50C45 50 25 65 20 72C15 79 15 55 15 55Z"
-        fill="currentColor"
-        fillOpacity="0.4"
+        fillOpacity="0.9"
       />
 
-      {/* Right petals */}
-      <path
-        d="M75 50C75 50 65 35 50 35C50 35 65 55 70 65C75 75 75 50 75 50Z"
-        fill="currentColor"
-        fillOpacity="0.6"
-      />
-      <path
-        d="M85 55C85 55 70 45 55 50C55 50 75 65 80 72C85 79 85 55 85 55Z"
-        fill="currentColor"
-        fillOpacity="0.4"
-      />
-
-      {/* Base */}
+      {/* Base/water suggestion */}
       <ellipse
         cx="50"
-        cy="82"
-        rx="20"
-        ry="5"
+        cy="75"
+        rx="28"
+        ry="6"
         fill="currentColor"
-        fillOpacity="0.3"
+        fillOpacity="0.2"
       />
     </svg>
   );
