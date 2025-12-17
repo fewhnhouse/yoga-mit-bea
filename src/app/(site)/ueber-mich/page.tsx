@@ -1,18 +1,37 @@
 import { Metadata } from "next";
 import UeberMichContent from "./UeberMichContent";
+import { client } from "@/sanity/client";
+import { aboutPageDataQuery } from "@/sanity/lib/queries";
+import { getSiteId } from "@/lib/getSiteId";
+import type { AboutPageData } from "@/sanity/types";
 
 export const metadata: Metadata = {
   title: "Über Bea",
   description:
-    "Lerne Bea kennen – Yogalehrerin und Therapeutin aus dem Lonetal. Erfahre mehr über meinen Weg zum Yoga und meine Philosophie.",
+    "Lerne Bea kennen - Yogalehrerin und Therapeutin mit langjähriger Erfahrung. Erfahre mehr über meine Philosophie und meinen Weg.",
   openGraph: {
     title: "Über Bea | Yoga & Therapie mit Bea",
     description:
-      "Lerne Bea kennen – Yogalehrerin und Therapeutin. Mein Weg zum Yoga und meine Philosophie.",
+      "Lerne Bea kennen - Yogalehrerin und Therapeutin mit Herz.",
   },
 };
 
-export default function UeberMichPage() {
-  return <UeberMichContent />;
+async function getAboutData(): Promise<AboutPageData | null> {
+  const siteId = await getSiteId();
+  try {
+    const data = await client.fetch<AboutPageData>(
+      aboutPageDataQuery,
+      { siteId },
+      { next: { revalidate: 60 } }
+    );
+    return data;
+  } catch (error) {
+    console.error("Error fetching about data:", error);
+    return null;
+  }
 }
 
+export default async function UeberMichPage() {
+  const data = await getAboutData();
+  return <UeberMichContent initialData={data} />;
+}

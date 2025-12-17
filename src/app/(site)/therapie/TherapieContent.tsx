@@ -1,67 +1,27 @@
 import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
+import type { TherapiePageData } from "@/sanity/types";
 
-// Placeholder therapy offerings - to be filled with real content later
-const therapyOfferings = [
-  {
-    id: "massage",
-    title: "Therapeutische Massage",
-    subtitle: "Körperliche Entspannung",
-    description:
-      "Löse Verspannungen und fördere dein körperliches Wohlbefinden durch sanfte, achtsame Massagetechniken. Jede Behandlung wird individuell auf deine Bedürfnisse abgestimmt.",
-    benefits: [
-      "Lösung von Muskelverspannungen",
-      "Verbesserung der Durchblutung",
-      "Stressabbau",
-      "Tiefe Entspannung",
-    ],
-    duration: "60 Minuten",
-  },
-  {
-    id: "atemtherapie",
-    title: "Atemtherapie",
-    subtitle: "Die Kraft des Atems",
-    description:
-      "Entdecke die heilende Kraft deines Atems. In der Atemtherapie lernst du Techniken, die dir helfen, mehr Energie zu gewinnen, Stress abzubauen und innere Ruhe zu finden.",
-    benefits: [
-      "Stressreduktion",
-      "Verbesserte Lungenkapazität",
-      "Emotionale Balance",
-      "Mehr Energie",
-    ],
-    duration: "45 Minuten",
-  },
-  {
-    id: "klangschalen",
-    title: "Klangschalentherapie",
-    subtitle: "Heilende Schwingungen",
-    description:
-      "Tauche ein in die wohltuenden Schwingungen tibetischer Klangschalen. Die sanften Klänge führen dich in einen Zustand tiefer Entspannung und innerer Harmonie.",
-    benefits: [
-      "Tiefe Entspannung",
-      "Harmonisierung",
-      "Stressabbau",
-      "Meditative Zustände",
-    ],
-    duration: "50 Minuten",
-  },
-  {
-    id: "einzelsitzung",
-    title: "Therapeutische Einzelsitzung",
-    subtitle: "Ganzheitliche Begleitung",
-    description:
-      "In Einzelsitzungen widmen wir uns deinen persönlichen Themen. Ob körperliche Beschwerden, emotionale Blockaden oder der Wunsch nach Veränderung – hier hast du Raum für dich.",
-    benefits: [
-      "Persönliche Betreuung",
-      "Ganzheitlicher Ansatz",
-      "Individuelle Methoden",
-      "Nachhaltige Wirkung",
-    ],
-    duration: "60-90 Minuten",
-  },
-];
+interface TherapieContentProps {
+  initialData: TherapiePageData | null;
+}
 
-export default function TherapieContent() {
+export default function TherapieContent({ initialData }: TherapieContentProps) {
+  // Use Sanity data
+  const services = initialData?.services || [];
+  
+  // Map services to display format
+  const displayOfferings = services.map(s => ({
+    id: s.slug || s._id,
+    title: s.title,
+    subtitle: s.subtitle || "",
+    description: s.shortDescription || "",
+    benefits: s.benefits || [],
+    duration: s.duration || "",
+    ctaText: s.ctaText || "Termin anfragen",
+    ctaLink: s.ctaLink || "/kontakt",
+  }));
+
   return (
     <>
       {/* Hero Section */}
@@ -91,7 +51,7 @@ export default function TherapieContent() {
       </section>
 
       {/* Therapy Offerings */}
-      {therapyOfferings.map((therapy, index) => (
+      {displayOfferings.map((therapy, index) => (
         <section
           key={therapy.id}
           id={therapy.id}
@@ -155,10 +115,10 @@ export default function TherapieContent() {
                 </div>
 
                 <Link
-                  href="/kontakt"
+                  href={therapy.ctaLink}
                   className="inline-block bg-terracotta text-white px-6 py-3 rounded-full font-medium hover:bg-soft-brown transition-colors"
                 >
-                  Termin anfragen
+                  {therapy.ctaText}
                 </Link>
               </div>
             </div>
@@ -276,6 +236,7 @@ function TherapyIcon({ type }: { type: string }) {
 
   switch (type) {
     case "massage":
+    case "therapeutische-massage":
       return (
         <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
@@ -288,15 +249,16 @@ function TherapyIcon({ type }: { type: string }) {
         </svg>
       );
     case "klangschalen":
+    case "klangschalentherapie":
       return (
         <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
         </svg>
       );
     case "einzelsitzung":
+    case "therapeutische-einzelsitzung":
       return <LotusIcon className={iconClass} />;
     default:
       return <LotusIcon className={iconClass} />;
   }
 }
-

@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemas";
+import { structure } from "./src/sanity/lib/structure";
 
 export default defineConfig({
   name: "yoga-und-therapie-mit-bea",
@@ -11,10 +12,13 @@ export default defineConfig({
 
   basePath: "/studio",
 
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure,
+    }),
+  ],
 
   schema: {
     types: schemaTypes,
   },
 });
-

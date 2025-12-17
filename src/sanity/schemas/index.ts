@@ -1,21 +1,27 @@
 import { type SchemaTypeDefinition } from "sanity";
-import hero from "./hero";
-import about from "./about";
-import service from "./service";
-import testimonial from "./testimonial";
+
+// Singleton documents
 import siteSettings from "./siteSettings";
-import yoga from "./yoga";
-import therapy from "./therapy";
-import contact from "./contact";
+import aboutBea from "./aboutBea";
+import homepageContent from "./homepageContent";
+
+// Collection documents
+import service from "./service";
+import location from "./location";
+import event from "./event";
+import testimonial from "./testimonial";
+import page from "./page";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
-  hero,
-  about,
-  service,
-  testimonial,
+  // Singletons
   siteSettings,
-  yoga,
-  therapy,
-  contact,
+  aboutBea,
+  homepageContent,
+  
+  // Collections
+  service,
+  location,
+  event,
+  testimonial,
+  page,
 ];
-

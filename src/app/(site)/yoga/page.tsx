@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import YogaContent from "./YogaContent";
+import { client } from "@/sanity/client";
+import { yogaPageDataQuery } from "@/sanity/lib/queries";
+import type { YogaPageData } from "@/sanity/types";
 
 export const metadata: Metadata = {
   title: "Yoga Angebote",
@@ -23,7 +26,21 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function YogaPage() {
-  return <YogaContent />;
+async function getYogaData(): Promise<YogaPageData | null> {
+  try {
+    const data = await client.fetch<YogaPageData>(
+      yogaPageDataQuery,
+      {},
+      { next: { revalidate: 60 } }
+    );
+    return data;
+  } catch (error) {
+    console.error("Error fetching yoga data:", error);
+    return null;
+  }
 }
 
+export default async function YogaPage() {
+  const data = await getYogaData();
+  return <YogaContent initialData={data} />;
+}

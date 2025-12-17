@@ -5,124 +5,68 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import LotusIcon from "@/components/icons/LotusIcon";
 import { useSite } from "@/context/SiteContext";
+import type { HomepageData } from "@/sanity/types";
 
 
-// Yoga services
-const yogaServices = [
-  {
-    id: "1",
-    title: "Yoga Individuell",
-    description: "Yoga für dich – individuell abgestimmte Einzelstunden, die ganz auf deine Bedürfnisse eingehen.",
-    icon: "lotus",
-    href: "/yoga#individuell",
-  },
-  {
-    id: "2",
-    title: "Yogakurse",
-    description: "Yoga mit Bea im Schloss und im Wacholder – regelmäßige Kurse in entspannter Atmosphäre.",
-    icon: "group",
-    href: "/yoga#kurse",
-  },
-  {
-    id: "3",
-    title: "Yoga aktuell",
-    description: "Yogatag und Yogawochenende – besondere Veranstaltungen für intensives Eintauchen.",
-    icon: "calendar",
-    href: "/yoga#aktuell",
-  },
-  {
-    id: "4",
-    title: "Yoga Weg",
-    description: "Yoga im Lonetal – Yoga in der Natur erleben, verbunden mit Wandern und Achtsamkeit.",
-    icon: "path",
-    href: "/yoga#weg",
-  },
-];
+interface HomeContentProps {
+  initialData: HomepageData | null;
+}
 
-// Therapy services
-const therapyServices = [
-  {
-    id: "1",
-    title: "Therapeutische Massage",
-    description: "Löse Verspannungen und fördere dein Wohlbefinden durch achtsame Massagetechniken.",
-    icon: "hands",
-    href: "/therapie#massage",
-  },
-  {
-    id: "2",
-    title: "Atemtherapie",
-    description: "Entdecke die heilende Kraft deines Atems für mehr Energie und innere Ruhe.",
-    icon: "wind",
-    href: "/therapie#atemtherapie",
-  },
-  {
-    id: "3",
-    title: "Klangschalentherapie",
-    description: "Tauche ein in die wohltuenden Schwingungen tibetischer Klangschalen.",
-    icon: "sound",
-    href: "/therapie#klangschalen",
-  },
-  {
-    id: "4",
-    title: "Einzelsitzungen",
-    description: "Ganzheitliche Begleitung für deine persönlichen Themen und Anliegen.",
-    icon: "lotus",
-    href: "/therapie#einzelsitzung",
-  },
-];
-
-const testimonials = [
-  {
-    id: "1",
-    name: "Ursula",
-    quote: "An Deinen Yogastunden gefällt mir die Ruhe, mit der Du die Stunden gestaltest. Mir hilft auch sehr, dass Du die Übungen immer lange ansagst, bevor wir alleine üben können. Somit kann man immer wieder einsteigen, wenn man einmal mit den Gedanken abgewandert ist. Sehr gut ist auch, dass Du immer wieder sagst ‚jeder übt so gut er kann', es gibt keinen Leistungsdruck.",
-  },
-  {
-    id: "2",
-    name: "Annette",
-    quote: "Ich genieße Bea live in der Gruppe im Bernstadter Schloss schon viele, viele Jahre! Selbst mit größeren Verletzungen und körperlichen Einschränkungen hast du mich liebe Bea durch die Yogastunden geführt und ich konnte schnelle Genesung erleben! ALI - atmen lächeln innehalten - ist für mich zum liebevollen Alltagsbegleiter geworden. Von ganzem Herzen DANKESCHÖN liebe Bea für die wundervollen Yogaeinheiten!",
-  },
-  {
-    id: "3",
-    name: "Brigitte",
-    quote: "Yoga mit Bea macht glücklich.",
-  },
-  {
-    id: "4",
-    name: "Dagmar",
-    quote: "Bea deine Yogastunden sind phantastisch! Durch deine empathische, empfindsame, ruhige, besonnene, herzliche Art fühle ich mich nach deinen Yogastunden immer mit mir in einem Gleichgewicht! Durch deine Yogastunden hat sich meine Sensibilität für meinen Körper, meinen Atem, meine Gedanken im Kopf und auch für den Umgang mit meinen Mitmenschen unsagbar positiv erweitert!",
-  },
-  {
-    id: "5",
-    name: "Heidrun",
-    quote: "Für mich hat diese späte Yoga Stunde eine ganz eigene Qualität, da ich meinen Tag damit abschließe, entschleunige, zur Ruhe komme, mich intensiv auf meinen Atem, meine Bewegungen auf mich selber, meinen Körper konzentriere. Das Ambiente in dem schönen Schlosszimmer, gibt mir das Gefühl, in einem ganz besonders geschützten Raum zu sein.",
-  },
-  {
-    id: "6",
-    name: "Annika",
-    quote: "Jeden Dienstag gehe ich komplett anders aus der Stunde hinaus als ich hereingekommen bin. Als kritischer Mensch hinein. Als selbstliebender hinaus. Dafür danke ich dir sehr!! Diese innere Stimme ist dann noch eine Weile bei mir. Und ab und zu höre ich sie auch im Alltag.",
-  },
-  {
-    id: "7",
-    name: "Cornelia",
-    quote: "Beate hat in ihrer Art die Yogaübungen anzuleiten spürbar diesen Hintergrund. Die Asanas sind wichtig. Beate leitet sie verständlich und korrekt an und gleichzeitig vermittelt sie durch ihre wertfreie Einfühlsamkeit, dass jeder individuelle Weg die Asanas zu üben immer bestmöglich für die betreffende Person ist.",
-  },
-  {
-    id: "8",
-    name: "Caro",
-    quote: "Wir hören Deine Stimme und geben ab, was unsere Seele an Ballast hat. Sobald wir unsere Augen schließen, atmen, dehnen, strecken, fließen, sind wir auf einmal ganz achtsam im Hier. So finden wir das kleine Glück, immer leichter, Stück für Stück. Dafür danken wir Dir! ♡",
-  },
-  {
-    id: "9",
-    name: "Karin",
-    quote: "Yoga mit Bea: Beruhigend, Entspannend, Ausgleichend.",
-  },
-];
-
-export default function HomeContent() {
-  const { currentSite, isYoga, isTherapie } = useSite();
+export default function HomeContent({ initialData }: HomeContentProps) {
+  const { isYoga } = useSite();
   
-  const services = isYoga ? yogaServices : therapyServices;
+  // Use Sanity data
+  const settings = initialData?.settings;
+  const homepage = initialData?.homepage;
+  const sanityServices = initialData?.services;
+  const sanityTestimonials = initialData?.testimonials;
+  
+  // Map services from Sanity
+  const services = sanityServices?.map(s => ({
+    _id: s._id,
+    title: s.title,
+    shortDescription: s.shortDescription || "",
+    icon: s.icon || "lotus",
+    href: s.href || `/${isYoga ? "yoga" : "therapie"}#${s.slug}`,
+  })) || [];
+  
+  // Map testimonials from Sanity
+  const testimonials = sanityTestimonials?.map(t => ({
+    _id: t._id,
+    name: t.name,
+    quote: t.quote,
+  })) || [];
+
+  // Content from Sanity
+  const siteName = settings?.name || "";
+  const tagline = settings?.tagline || "";
+  
+  const heroSubtitle = homepage?.heroSection?.subtitle || "";
+  const heroCtaPrimaryText = homepage?.heroSection?.primaryCtaText || "";
+  const heroCtaPrimaryLink = homepage?.heroSection?.primaryCtaLink || "";
+  const heroCtaSecondaryText = homepage?.heroSection?.secondaryCtaText || "";
+  const heroCtaSecondaryLink = homepage?.heroSection?.secondaryCtaLink || "";
+  
+  const aboutPreviewP1 = homepage?.aboutPreview?.paragraph1 || "";
+  const aboutPreviewP2 = homepage?.aboutPreview?.paragraph2 || "";
+  const aboutPreviewImage = homepage?.aboutPreview?.imageUrl || "";
+  
+  const quoteHeading = homepage?.quoteSection?.heading || "";
+  const quoteText = homepage?.quoteSection?.quote || "";
+  const quoteCtaText = homepage?.quoteSection?.ctaText || "";
+  const quoteCtaLink = homepage?.quoteSection?.ctaLink || "";
+  
+  const servicesHeading = homepage?.servicesSection?.heading || "";
+  const servicesDescription = homepage?.servicesSection?.description || "";
+  
+  const ctaHeading = homepage?.ctaSection?.heading || "";
+  const ctaText = homepage?.ctaSection?.text || "";
+  const ctaPrimaryText = homepage?.ctaSection?.primaryCtaText || "";
+  const ctaPrimaryLink = homepage?.ctaSection?.primaryCtaLink || "";
+  const ctaSecondaryText = homepage?.ctaSection?.secondaryCtaText || "";
+  const ctaSecondaryLink = homepage?.ctaSection?.secondaryCtaLink || "";
+
+  // Style classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
   const primaryBgLightClass = isYoga ? "bg-sage/10" : "bg-terracotta/10";
@@ -156,38 +100,35 @@ export default function HomeContent() {
             </div>
 
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold text-charcoal mb-6 animate-fade-in-up">
-              {currentSite.name}
+              {siteName}
             </h1>
 
             <p className={`font-display text-xl md:text-2xl ${primaryColorClass} italic max-w-2xl mx-auto mb-6 animate-fade-in-up delay-100`}>
-              &bdquo;{currentSite.tagline}&ldquo;
+              &bdquo;{tagline}&ldquo;
             </p>
 
             <p className="font-body text-lg md:text-xl text-charcoal-light max-w-2xl mx-auto mb-10 animate-fade-in-up delay-200">
-              {isYoga 
-                ? "Entdecke Yoga als Weg zu dir selbst. In meinen Kursen, Einzelstunden und besonderen Veranstaltungen begleite ich dich achtsam auf deiner Reise."
-                : "Heilung geschieht auf vielen Ebenen. Meine therapeutischen Angebote unterstützen dich dabei, körperliche und emotionale Balance zu finden."
-              }
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
               <Link 
-                href={isYoga ? "/yoga" : "/therapie"} 
+                href={heroCtaPrimaryLink} 
                 className={`${buttonClass} px-8 py-4 rounded-full font-medium transition-colors`}
               >
-                {isYoga ? "Yoga entdecken" : "Angebote entdecken"}
+                {heroCtaPrimaryText}
               </Link>
               <Link 
-                href="/kontakt" 
+                href={heroCtaSecondaryLink} 
                 className={`border-2 ${buttonSecondaryClass} px-8 py-4 rounded-full font-medium transition-colors`}
               >
-                Kontakt aufnehmen
+                {heroCtaSecondaryText}
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Scroll Indicator - positioned at bottom of viewport */}
+        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <svg className={`w-6 h-6 ${primaryColorClass}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -202,7 +143,7 @@ export default function HomeContent() {
             <div className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative">
                 <Image
-                  src={isYoga ? "/images/hund.jpeg" : "/images/herzchakra.png"}
+                  src={aboutPreviewImage}
                   alt="Bea - Yoga und Therapie"
                   fill
                   className="object-cover rounded-2xl"
@@ -221,18 +162,8 @@ export default function HomeContent() {
               </h2>
               <div className={`w-20 h-0.5 ${primaryBgClass} mb-8`} />
               <div className="space-y-4 text-charcoal-light leading-relaxed">
-                <p>
-                  {isYoga 
-                    ? "Yoga ist für mich ein Weg der Selbsterfahrung und inneren Einkehr. In meiner langjährigen Praxis habe ich erfahren, wie Yoga uns helfen kann, zu uns selbst zu finden und innere Ruhe zu kultivieren."
-                    : "Heilung ist für mich ein ganzheitlicher Prozess. Mit verschiedenen therapeutischen Methoden begleite ich Menschen dabei, körperliche Verspannungen zu lösen und emotionale Balance zu finden."
-                  }
-                </p>
-                <p>
-                  {isYoga
-                    ? "Mein Verständnis von Yoga geht über die körperliche Praxis hinaus – es ist eine Einladung, sich selbst achtsam zu begegnen."
-                    : "Jede Behandlung ist ein Raum für dich – achtsam, individuell und heilsam. Ich freue mich, dich auf deinem Weg zu begleiten."
-                  }
-                </p>
+                <p>{aboutPreviewP1}</p>
+                <p>{aboutPreviewP2}</p>
               </div>
               <Link
                 href="/ueber-mich"
@@ -256,21 +187,18 @@ export default function HomeContent() {
               Angebote
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-              {currentSite.name}
+              {servicesHeading}
             </h2>
             <div className={`w-20 h-0.5 ${primaryBgClass} mx-auto mb-6`} />
             <p className="text-charcoal-light">
-              {isYoga 
-                ? "Ob Einzelstunde, Kurs oder besondere Veranstaltung – finde das Angebot, das zu dir passt."
-                : "Finde die therapeutische Behandlung, die dich auf deinem Weg unterstützt."
-              }
+              {servicesDescription}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <Link
-                key={service.id}
+                key={service._id}
                 href={service.href}
                 className="bg-warm-white rounded-2xl p-8 card-hover block group"
                 style={{ animationDelay: `${index * 100}ms` }}
@@ -282,7 +210,7 @@ export default function HomeContent() {
                   {service.title}
                 </h3>
                 <p className="text-charcoal-light text-sm leading-relaxed mb-4">
-                  {service.description}
+                  {service.shortDescription}
                 </p>
                 <span className={`${primaryColorClass} text-sm font-medium inline-flex items-center gap-1`}>
                   Mehr erfahren
@@ -307,46 +235,40 @@ export default function HomeContent() {
           <div className="max-w-4xl mx-auto text-center text-white">
             <LotusIcon className="w-12 h-12 mx-auto mb-8 opacity-60" />
             <h3 className="font-display text-2xl font-semibold mb-6 opacity-90">
-              {isYoga ? "Mein Verständnis von Yoga" : "Mein Ansatz"}
+              {quoteHeading}
             </h3>
             <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-8">
-              {isYoga 
-                ? "Yoga ist nicht nur Bewegung – es ist eine Reise nach innen, ein Weg der Achtsamkeit und Selbsterkenntnis."
-                : "Heilung beginnt dort, wo wir uns erlauben, ganz bei uns selbst anzukommen."
-              }
+              {quoteText}
             </blockquote>
             <Link
-              href={isYoga ? "/yoga" : "/therapie"}
+              href={quoteCtaLink}
               className="inline-block border-2 border-white/50 text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors"
             >
-              {isYoga ? "Mehr über Yoga" : "Mehr über Therapie"}
+              {quoteCtaText}
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Testimonials - Only for Yoga */}
-      {isYoga && <TestimonialsSection testimonials={testimonials} />}
+      {/* Testimonials - Only for Yoga and when testimonials exist */}
+      {isYoga && testimonials.length > 0 && <TestimonialsSection testimonials={testimonials} />}
 
       {/* CTA Section */}
       <section className={`py-24 bg-gradient-to-br ${isYoga ? "from-sand/50 via-cream to-blush/30" : "from-blush/30 via-cream to-terracotta/10"}`}>
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-              {isYoga ? "Beginne deine Yoga-Reise" : "Beginne deinen Weg zur Heilung"}
+              {ctaHeading}
             </h2>
             <p className="text-charcoal-light text-lg mb-10">
-              {isYoga 
-                ? "Nimm Kontakt auf und finde heraus, welches Angebot am besten zu dir passt. Ich freue mich darauf, dich auf deinem Weg zu begleiten."
-                : "Nimm Kontakt auf und finde heraus, welche Behandlung dich am besten unterstützt. Ich freue mich auf deine Nachricht."
-              }
+              {ctaText}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/kontakt" className={`${buttonClass} px-8 py-4 rounded-full font-medium transition-colors`}>
-                Kontakt aufnehmen
+              <Link href={ctaPrimaryLink} className={`${buttonClass} px-8 py-4 rounded-full font-medium transition-colors`}>
+                {ctaPrimaryText}
               </Link>
-              <Link href={isYoga ? "/yoga" : "/therapie"} className={`border-2 ${buttonSecondaryClass} px-8 py-4 rounded-full font-medium transition-colors`}>
-                Angebote ansehen
+              <Link href={ctaSecondaryLink} className={`border-2 ${buttonSecondaryClass} px-8 py-4 rounded-full font-medium transition-colors`}>
+                {ctaSecondaryText}
               </Link>
             </div>
           </div>
@@ -357,7 +279,7 @@ export default function HomeContent() {
 }
 
 // Testimonials Carousel Component
-function TestimonialsSection({ testimonials }: { testimonials: { id: string; name: string; quote: string }[] }) {
+function TestimonialsSection({ testimonials }: { testimonials: { _id: string; name: string; quote: string }[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -435,7 +357,7 @@ function TestimonialsSection({ testimonials }: { testimonials: { id: string; nam
             <div className="flex gap-2">
               {testimonials.map((testimonial, index) => (
                 <button
-                  key={testimonial.id}
+                  key={testimonial._id}
                   onClick={() => goTo(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
                     index === currentIndex 
@@ -508,6 +430,12 @@ function ServiceIcon({ icon, isYoga }: { icon: string; isYoga: boolean }) {
       return (
         <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+        </svg>
+      );
+    case "video":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
         </svg>
       );
     default:

@@ -4,10 +4,30 @@ import Link from "next/link";
 import Image from "next/image";
 import LotusIcon from "@/components/icons/LotusIcon";
 import { useSite } from "@/context/SiteContext";
+import type { AboutPageData } from "@/sanity/types";
 
-export default function UeberMichContent() {
+interface UeberMichContentProps {
+  initialData: AboutPageData | null;
+}
+
+export default function UeberMichContent({ initialData }: UeberMichContentProps) {
   const { currentSite, isYoga } = useSite();
   
+  // Get data from Sanity
+  const about = initialData?.about;
+  const siteContent = isYoga 
+    ? about?.yogaContent
+    : about?.therapieContent;
+  
+  const name = about?.name || "";
+  const photoUrl = about?.photoUrl || "";
+  
+  const intro = siteContent?.intro || "";
+  const philosophyHeading = siteContent?.philosophyHeading || "";
+  const philosophy = typeof siteContent?.philosophy === 'string' ? siteContent.philosophy : "";
+  const approach = typeof siteContent?.approach === 'string' ? siteContent.approach : "";
+  
+  // Styling classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
   const primaryBgLightClass = isYoga ? "bg-sage/10" : "bg-terracotta/10";
@@ -17,7 +37,6 @@ export default function UeberMichContent() {
   const gradientClass = isYoga
     ? "from-cream via-warm-white to-blush/20"
     : "from-blush/30 via-warm-white to-terracotta/10";
-  const iconColorClass = isYoga ? "text-sage/30" : "text-terracotta/30";
 
   return (
     <>
@@ -32,8 +51,8 @@ export default function UeberMichContent() {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl relative">
                 <Image
-                  src="/images/bea.jpg"
-                  alt="Bea - Yoga und Therapie"
+                  src={photoUrl}
+                  alt={`${name} - Yoga und Therapie`}
                   fill
                   className="object-cover rounded-2xl"
                   priority
@@ -49,19 +68,14 @@ export default function UeberMichContent() {
                 Über Mich
               </span>
               <h1 className="font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6">
-                Bea
+                {name}
               </h1>
               <div className={`w-20 h-0.5 ${primaryBgClass} mb-6`} />
               <p className={`font-display text-xl ${primaryColorClass} italic mb-6`}>
                 &bdquo;{currentSite.tagline}&ldquo;
               </p>
               <div className="space-y-4 text-charcoal-light leading-relaxed">
-                <p>
-                  {isYoga
-                    ? "Yoga begleitet mich seit vielen Jahren und ist zu einem wesentlichen Teil meines Lebens geworden. Was als persönliche Praxis begann, hat sich zu meiner Berufung entwickelt: Menschen auf ihrem eigenen Yoga-Weg zu begleiten."
-                    : "Die Arbeit mit Menschen und ihrem Wohlbefinden ist meine Berufung. Mit verschiedenen therapeutischen Methoden begleite ich dich dabei, körperliche Verspannungen zu lösen und emotionale Balance zu finden."
-                  }
-                </p>
+                <p>{intro}</p>
               </div>
             </div>
           </div>
@@ -73,20 +87,14 @@ export default function UeberMichContent() {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h2 className="font-display text-3xl md:text-4xl font-semibold mb-6">
-              {isYoga ? "Mein Verständnis von Yoga" : "Mein therapeutischer Ansatz"}
+              {philosophyHeading}
             </h2>
             <div className="w-16 h-0.5 bg-white/30 mx-auto mb-8" />
             <p className="text-white/90 text-lg leading-relaxed mb-6">
-              {isYoga
-                ? "Yoga ist für mich weit mehr als körperliche Übungen. Es ist ein Weg der Selbsterfahrung, ein Prozess des Zu-sich-selbst-Kommens. In der Stille der Praxis können wir uns begegnen – mit allem, was uns ausmacht."
-                : "Heilung ist für mich ein ganzheitlicher Prozess. Körper, Geist und Seele sind untrennbar miteinander verbunden. In meinen Behandlungen schaffe ich einen sicheren Raum, in dem du dich entspannen und regenerieren kannst."
-              }
+              {philosophy}
             </p>
             <p className="text-white/80 leading-relaxed mb-6">
-              {isYoga
-                ? "Mein Ansatz ist sanft und achtsam. Ich möchte einen Raum schaffen, in dem du dich sicher fühlst, zu erforschen und zu wachsen. Dabei geht es nicht um Perfektion oder Leistung, sondern um das bewusste Erleben des Augenblicks."
-                : "Mit verschiedenen Methoden – von Massage über Atemtherapie bis zur Klangschalentherapie – unterstütze ich dich dabei, Blockaden zu lösen und neue Energie zu finden."
-              }
+              {approach}
             </p>
             <p className="text-white/80 leading-relaxed">
               Jeder Mensch ist einzigartig, und so ist auch jeder Weg individuell. 

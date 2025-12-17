@@ -6,16 +6,46 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
-      name: "siteName",
-      title: "Site Name",
+      name: "siteId",
+      title: "Site ID",
       type: "string",
+      options: {
+        list: [
+          { title: "Yoga mit Bea", value: "yoga" },
+          { title: "Therapie mit Bea", value: "therapie" },
+        ],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "siteDescription",
-      title: "Site Description",
-      type: "text",
-      rows: 3,
+      name: "name",
+      title: "Site Name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      description: 'e.g., "Yoga mit Bea" or "Therapie mit Bea"',
+    }),
+    defineField({
+      name: "tagline",
+      title: "Tagline",
+      type: "string",
+      description: "The main tagline shown in quotes on the homepage",
+    }),
+    defineField({
+      name: "domain",
+      title: "Domain",
+      type: "string",
+      description: 'e.g., "yogamitbea.de"',
+    }),
+    defineField({
+      name: "primaryColor",
+      title: "Primary Color",
+      type: "string",
+      options: {
+        list: [
+          { title: "Sage (Green)", value: "sage" },
+          { title: "Terracotta (Brown/Orange)", value: "terracotta" },
+        ],
+      },
     }),
     defineField({
       name: "logo",
@@ -26,51 +56,37 @@ export default defineType({
       },
     }),
     defineField({
-      name: "email",
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      description: "Image shown when sharing links on social media (1200x630px recommended)",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "text",
+      rows: 3,
+      description: "Default meta description for the site",
+    }),
+    defineField({
+      name: "contactEmail",
       title: "Contact Email",
       type: "string",
     }),
     defineField({
-      name: "phone",
-      title: "Phone Number",
+      name: "contactPhone",
+      title: "Contact Phone",
       type: "string",
-    }),
-    defineField({
-      name: "address",
-      title: "Address",
-      type: "text",
-      rows: 3,
-    }),
-    defineField({
-      name: "socialLinks",
-      title: "Social Media Links",
-      type: "object",
-      fields: [
-        { name: "instagram", title: "Instagram URL", type: "url" },
-        { name: "facebook", title: "Facebook URL", type: "url" },
-        { name: "youtube", title: "YouTube URL", type: "url" },
-      ],
-    }),
-    defineField({
-      name: "openingHours",
-      title: "Opening Hours",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            { name: "day", title: "Day", type: "string" },
-            { name: "hours", title: "Hours", type: "string" },
-          ],
-        },
-      ],
     }),
   ],
   preview: {
     select: {
-      title: "siteName",
+      title: "name",
+      subtitle: "domain",
       media: "logo",
     },
   },
 });
-
