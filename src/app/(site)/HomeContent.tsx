@@ -200,12 +200,12 @@ export default function HomeContent() {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative">
                 <Image
                   src={isYoga ? "/images/hund.jpeg" : "/images/herzchakra.png"}
                   alt="Bea - Yoga und Therapie"
                   fill
-                  className="object-cover"
+                  className="object-cover rounded-2xl"
                 />
               </div>
               <div className={`absolute -bottom-6 -right-6 w-48 h-48 ${isYoga ? "bg-terracotta/10" : "bg-sage/10"} organic-blob -z-10`} />
