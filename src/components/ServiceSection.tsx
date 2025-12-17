@@ -428,7 +428,14 @@ function LocationsLayout({
 
       {/* CTA */}
       <div className='text-center mt-10'>
-        <Link href={service.ctaLink || '/kontakt'} className='btn-primary'>
+        <Link 
+          href={service.ctaLink || '/kontakt'} 
+          className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
+            isYoga 
+              ? 'bg-sage hover:bg-sage-dark' 
+              : 'bg-terracotta hover:bg-terracotta/90'
+          }`}
+        >
           {service.ctaText || 'Kurs anfragen'}
         </Link>
       </div>
