@@ -61,6 +61,17 @@ body {
   color: var(--charcoal);
 }
 
+/* Site-specific scrollbar colors via CSS custom properties */
+:root {
+  --scrollbar-thumb: var(--sage);
+  --scrollbar-thumb-hover: var(--sage-dark);
+}
+
+:root[data-site="therapie"] {
+  --scrollbar-thumb: var(--terracotta);
+  --scrollbar-thumb-hover: var(--soft-brown);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -71,12 +82,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--sage);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--sage-dark);
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Typography utilities */

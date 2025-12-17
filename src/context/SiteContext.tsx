@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useSyncExternalStore,
   type ReactNode,
 } from 'react'
@@ -72,6 +73,11 @@ function useSiteId(): SiteId {
 
 export function SiteProvider({ children }: { children: ReactNode }) {
   const siteId = useSiteId()
+
+  // Sync site ID to HTML element for CSS styling (scrollbar, etc.)
+  useEffect(() => {
+    document.documentElement.setAttribute('data-site', siteId)
+  }, [siteId])
 
   const value: SiteContextType = {
     currentSite: sites[siteId],
