@@ -8,7 +8,7 @@ import SectionHeader from '@/components/SectionHeader'
 import CTASection from '@/components/CTASection'
 import ServiceIcon from '@/components/ServiceIcon'
 import { useSite } from '@/context/SiteContext'
-import type { AboutPageData } from '@/sanity/types'
+import type { AboutPageData, CoreValue } from '@/sanity/types'
 
 interface UeberMichContentProps {
   initialData: AboutPageData
@@ -26,6 +26,7 @@ export default function UeberMichContent({
 
   const name = about?.name || ''
   const photoUrl = about?.photoUrl || ''
+  const coreValues = about?.coreValues || []
 
   const intro = siteContent?.intro || ''
   const philosophyHeading = siteContent?.philosophyHeading || ''
@@ -46,6 +47,86 @@ export default function UeberMichContent({
   const gradientClass = isYoga
     ? 'from-cream via-warm-white to-blush/20'
     : 'from-blush/30 via-warm-white to-terracotta/10'
+
+  // Helper to render core value icon
+  const renderCoreValueIcon = (icon: CoreValue['icon']) => {
+    const iconClass = `w-8 h-8 ${primaryColorClass}`
+
+    switch (icon) {
+      case 'heart':
+        return (
+          <svg
+            className={iconClass}
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={1.5}
+              d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+            />
+          </svg>
+        )
+      case 'clock':
+        return (
+          <svg
+            className={iconClass}
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={1.5}
+              d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+            />
+          </svg>
+        )
+      case 'lotus':
+        return <LotusIcon className={iconClass} />
+      case 'hands':
+        return (
+          <svg
+            className={iconClass}
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={1.5}
+              d='M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11'
+            />
+          </svg>
+        )
+      case 'path':
+        return (
+          <svg
+            className={iconClass}
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={1.5}
+              d='M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7'
+            />
+          </svg>
+        )
+      default:
+        return <LotusIcon className={iconClass} />
+    }
+  }
 
   return (
     <>
@@ -129,84 +210,43 @@ export default function UeberMichContent({
       </section>
 
       {/* Approach Section */}
-      <section className='py-24 bg-warm-white'>
-        <div className='container mx-auto px-6'>
-          <div className='max-w-4xl mx-auto'>
-            <div className='mb-16'>
-              <SectionHeader
-                label='Meine Arbeitsweise'
-                title='Was dich bei mir erwartet'
-                theme={isYoga ? 'yoga' : 'therapie'}
-                align='center'
-              />
-            </div>
+      {coreValues.length > 0 && (
+        <section className='py-24 bg-warm-white'>
+          <div className='container mx-auto px-6'>
+            <div className='max-w-4xl mx-auto'>
+              <div className='mb-16'>
+                <SectionHeader
+                  label='Meine Arbeitsweise'
+                  title='Was dich bei mir erwartet'
+                  theme={isYoga ? 'yoga' : 'therapie'}
+                  align='center'
+                />
+              </div>
 
-            <div className='grid md:grid-cols-3 gap-8'>
-              <IconCard
-                icon={
-                  <svg
-                    className={`w-8 h-8 ${primaryColorClass}`}
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    aria-hidden='true'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={1.5}
-                      d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+              <div
+                className={`grid gap-8 ${coreValues.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}
+              >
+                {coreValues.map((value, index) => {
+                  const description = isYoga
+                    ? value.yogaDescription
+                    : value.therapieDescription
+
+                  return (
+                    <IconCard
+                      key={value.title || index}
+                      icon={renderCoreValueIcon(value.icon)}
+                      title={value.title}
+                      description={description || ''}
+                      theme={isYoga ? 'yoga' : 'therapie'}
+                      variant='flat'
                     />
-                  </svg>
-                }
-                title='Achtsame Begleitung'
-                description='Ich nehme mir Zeit für dich und gehe individuell auf deine Bedürfnisse ein.'
-                theme={isYoga ? 'yoga' : 'therapie'}
-                variant='flat'
-              />
-
-              <IconCard
-                icon={
-                  <svg
-                    className={`w-8 h-8 ${primaryColorClass}`}
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    aria-hidden='true'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={1.5}
-                      d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
-                    />
-                  </svg>
-                }
-                title='Raum und Zeit'
-                description={
-                  isYoga
-                    ? 'In meinen Stunden herrscht kein Druck – du darfst sein, wie du bist.'
-                    : 'Jede Behandlung bekommt die Zeit, die sie braucht – ohne Hektik.'
-                }
-                theme={isYoga ? 'yoga' : 'therapie'}
-                variant='flat'
-              />
-
-              <IconCard
-                icon={<LotusIcon className={`w-8 h-8 ${primaryColorClass}`} />}
-                title='Ganzheitlicher Ansatz'
-                description={
-                  isYoga
-                    ? 'Yoga als Verbindung von Körper, Geist und Atem – nicht nur Übungen.'
-                    : 'Körper, Geist und Seele als Einheit betrachten und behandeln.'
-                }
-                theme={isYoga ? 'yoga' : 'therapie'}
-                variant='flat'
-              />
+                  )
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Offerings Overview */}
       <section className='py-24 bg-cream'>
