@@ -2,6 +2,7 @@ import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
 import TextSection from "@/components/TextSection";
 import CTASection from "@/components/CTASection";
+import IconCard from "@/components/IconCard";
 import type { TherapiePageData } from "@/sanity/types";
 
 interface TherapieContentProps {
@@ -125,83 +126,41 @@ export default function TherapieContent({ initialData }: TherapieContentProps) {
       <section className="py-20 bg-warm-white">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-terracotta/10 flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-terracotta"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
+            <IconCard
+              icon={
+                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-2">
-                Flexible Termine
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                Termine nach individueller Vereinbarung, 
-                angepasst an deinen Alltag.
-              </p>
-            </div>
+              }
+              title="Flexible Termine"
+              description="Termine nach individueller Vereinbarung, angepasst an deinen Alltag."
+              theme="therapie"
+              variant="flat"
+            />
 
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-terracotta/10 flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-terracotta"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
+            <IconCard
+              icon={
+                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-2">
-                Erstgespräch kostenfrei
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                In einem kurzen Vorgespräch klären wir 
-                deine Bedürfnisse und Wünsche.
-              </p>
-            </div>
+              }
+              title="Erstgespräch kostenfrei"
+              description="In einem kurzen Vorgespräch klären wir deine Bedürfnisse und Wünsche."
+              theme="therapie"
+              variant="flat"
+            />
 
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-terracotta/10 flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-terracotta"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
+            <IconCard
+              icon={
+                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-2">
-                Individuelle Betreuung
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                Jede Behandlung wird auf deine persönlichen 
-                Bedürfnisse abgestimmt.
-              </p>
-            </div>
+              }
+              title="Individuelle Betreuung"
+              description="Jede Behandlung wird auf deine persönlichen Bedürfnisse abgestimmt."
+              theme="therapie"
+              variant="flat"
+            />
           </div>
         </div>
       </section>

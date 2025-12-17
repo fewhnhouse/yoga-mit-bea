@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { PortableText } from "@portabletext/react";
 import LotusIcon from "@/components/icons/LotusIcon";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
 import CTASection from "@/components/CTASection";
+import ServiceIcon from "@/components/ServiceIcon";
 import { useSite } from "@/context/SiteContext";
 import type { AboutPageData } from "@/sanity/types";
 
@@ -17,6 +19,7 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
   
   // Get data from Sanity
   const about = initialData?.about;
+  const services = initialData?.services || [];
   const siteContent = isYoga 
     ? about?.yogaContent
     : about?.therapieContent;
@@ -26,12 +29,20 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
   
   const intro = siteContent?.intro || "";
   const philosophyHeading = siteContent?.philosophyHeading || "";
-  const philosophy = typeof siteContent?.philosophy === 'string' ? siteContent.philosophy : "";
-  const approach = typeof siteContent?.approach === 'string' ? siteContent.approach : "";
+  const philosophy = siteContent?.philosophy || [];
+  const approach = siteContent?.approach || [];
   
   // Styling classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
+  
+  // Build service href based on slug
+  const getServiceHref = (slug: string) => {
+    const basePath = isYoga ? '/yoga' : '/therapie';
+    // Extract anchor from slug (e.g., "yoga-individuell" -> "individuell")
+    const anchor = slug.replace(/^(yoga-|therapie-)/, '');
+    return `${basePath}#${anchor}`;
+  };
   const gradientClass = isYoga
     ? "from-cream via-warm-white to-blush/20"
     : "from-blush/30 via-warm-white to-terracotta/10";
@@ -87,12 +98,16 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
               {philosophyHeading}
             </h2>
             <div className="w-16 h-0.5 bg-white/30 mx-auto mb-8" />
-            <p className="text-white/90 text-lg leading-relaxed mb-6">
-              {philosophy}
-            </p>
-            <p className="text-white/80 leading-relaxed mb-6">
-              {approach}
-            </p>
+            {philosophy.length > 0 && (
+              <div className="text-white/90 text-lg leading-relaxed mb-6 prose prose-invert prose-lg mx-auto [&>p]:mb-4">
+                <PortableText value={philosophy} />
+              </div>
+            )}
+            {approach.length > 0 && (
+              <div className="text-white/80 leading-relaxed mb-6 prose prose-invert mx-auto [&>p]:mb-4">
+                <PortableText value={approach} />
+              </div>
+            )}
             <p className="text-white/80 leading-relaxed">
               Jeder Mensch ist einzigartig, und so ist auch jeder Weg individuell. 
               Ich begleite dich gerne auf deinem persönlichen Pfad.
@@ -169,102 +184,23 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
             />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {isYoga ? (
-              <>
-                <IconCard
-                  icon={<LotusIcon className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} />}
-                  title="Yoga Individuell"
-                  description="Einzelstunden für dich"
-                  href="/yoga#individuell"
-                  theme="yoga"
-                  size="compact"
-                />
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                  }
-                  title="Yogakurse"
-                  description="Im Schloss & Wacholder"
-                  href="/yoga#kurse"
-                  theme="yoga"
-                  size="compact"
-                />
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  }
-                  title="Yoga aktuell"
-                  description="Yogatag & Wochenende"
-                  href="/yoga#aktuell"
-                  theme="yoga"
-                  size="compact"
-                />
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                  }
-                  title="Yoga Weg"
-                  description="Im Lonetal"
-                  href="/yoga#weg"
-                  theme="yoga"
-                  size="compact"
-                />
-              </>
-            ) : (
-              <>
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
-                    </svg>
-                  }
-                  title="Massage"
-                  description="Therapeutische Behandlung"
-                  href="/therapie#massage"
-                  theme="therapie"
-                  size="compact"
-                />
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
-                    </svg>
-                  }
-                  title="Atemtherapie"
-                  description="Die Kraft des Atems"
-                  href="/therapie#atemtherapie"
-                  theme="therapie"
-                  size="compact"
-                />
-                <IconCard
-                  icon={
-                    <svg className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                    </svg>
-                  }
-                  title="Klangschalen"
-                  description="Heilende Schwingungen"
-                  href="/therapie#klangschalen"
-                  theme="therapie"
-                  size="compact"
-                />
-                <IconCard
-                  icon={<LotusIcon className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} />}
-                  title="Einzelsitzung"
-                  description="Ganzheitliche Begleitung"
-                  href="/therapie#einzelsitzung"
-                  theme="therapie"
-                  size="compact"
-                />
-              </>
-            )}
+          <div className={`grid md:grid-cols-2 ${services.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6`}>
+            {services.map((service) => (
+              <IconCard
+                key={service._id}
+                icon={
+                  <ServiceIcon 
+                    icon={service.icon} 
+                    className={`w-10 h-10 ${primaryColorClass} group-hover:scale-110 transition-transform`} 
+                  />
+                }
+                title={service.title}
+                description={service.shortDescription || ''}
+                href={getServiceHref(service.slug)}
+                theme={isYoga ? "yoga" : "therapie"}
+                size="compact"
+              />
+            ))}
           </div>
         </div>
       </section>

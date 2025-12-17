@@ -134,6 +134,12 @@ export interface Service {
   ctaLink?: string;
   locations?: Location[];
   order?: number;
+  /** Image position in the layout */
+  imagePosition?: 'left' | 'right';
+  /** Section background color */
+  sectionBackground?: 'light' | 'cream';
+  /** Badge text shown on the image */
+  badge?: string;
 }
 
 // ============================================

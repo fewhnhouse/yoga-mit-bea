@@ -384,6 +384,10 @@ export const yogaPageDataQuery = groq`
     pricing,
     ctaText,
     ctaLink,
+    order,
+    imagePosition,
+    sectionBackground,
+    badge,
     locations[]-> {
       _id,
       name,

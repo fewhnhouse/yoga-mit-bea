@@ -132,6 +132,40 @@ export default defineType({
       type: "number",
       description: "Lower numbers appear first",
     }),
+    defineField({
+      name: "imagePosition",
+      title: "Image Position",
+      type: "string",
+      options: {
+        list: [
+          { title: "Left", value: "left" },
+          { title: "Right", value: "right" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "left",
+      description: "Where the image appears in the section layout",
+    }),
+    defineField({
+      name: "sectionBackground",
+      title: "Section Background",
+      type: "string",
+      options: {
+        list: [
+          { title: "Light (warm-white)", value: "light" },
+          { title: "Cream", value: "cream" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "light",
+      description: "Background color for the section",
+    }),
+    defineField({
+      name: "badge",
+      title: "Badge Text",
+      type: "string",
+      description: "Optional badge shown on the image (e.g., 'Einzelstunden', 'Lonetal')",
+    }),
   ],
   orderings: [
     {
