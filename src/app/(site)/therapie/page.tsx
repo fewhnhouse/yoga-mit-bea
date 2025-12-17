@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import TherapieContent from './TherapieContent'
 import { client } from '@/sanity/client'
 import { therapiePageDataQuery } from '@/sanity/lib/queries'
@@ -40,6 +40,5 @@ async function getTherapieData(): Promise<TherapiePageData | null> {
 
 export default async function TherapiePage() {
   const data = await getTherapieData()
-  console.log('Therapie data:', data)
   return <TherapieContent initialData={data} />
 }

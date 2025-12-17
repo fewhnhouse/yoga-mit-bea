@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import type { YogaPageData, Service } from '@/sanity/types'
+import type { YogaPageData } from '@/sanity/types'
 
 interface YogaContentProps {
   initialData: YogaPageData
@@ -304,7 +304,7 @@ export default function YogaContent({ initialData }: YogaContentProps) {
               <p className='text-charcoal-light leading-relaxed mb-6'>
                 {aktuell?.shortDescription || ''}
               </p>
-              {aktuell?.events && aktuell.events.length > 0 && (
+              {/* {aktuell?.events && aktuell.events.length > 0 && (
                 <div className='space-y-4 mb-8'>
                   {aktuell.events.map((event, i) => (
                     <div key={i} className='bg-cream rounded-xl p-5'>
@@ -317,7 +317,7 @@ export default function YogaContent({ initialData }: YogaContentProps) {
                     </div>
                   ))}
                 </div>
-              )}
+              )} */}
               <Link
                 href={aktuell?.ctaLink || '/kontakt'}
                 className='btn-primary'
