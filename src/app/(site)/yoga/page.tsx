@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import YogaContent from './YogaContent'
 import { sanityFetch } from '@/sanity/lib/live'
 import { yogaPageDataQuery } from '@/sanity/lib/queries'
-import type { YogaPageData } from '@/sanity/types'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 export default async function YogaPage() {
-  const { data } = await sanityFetch<YogaPageData>({
+  const { data } = await sanityFetch({
     query: yogaPageDataQuery,
   })
 

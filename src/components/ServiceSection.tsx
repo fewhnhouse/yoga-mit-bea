@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import type { Service, Location, Event } from '@/sanity/types'
+import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
 
 interface ServiceSectionProps {
-  service: Service
+  service: ServiceFromQuery
   /** Locations to display for this service (e.g., for group courses) */
-  locations?: Location[]
+  locations?: LocationFromQuery[]
   /** Theme color */
   theme?: 'yoga' | 'therapie'
   /** Background style - alternates between sections */
@@ -14,9 +14,9 @@ interface ServiceSectionProps {
   /** Image position */
   imagePosition?: 'left' | 'right'
   /** Badge text to show on the image */
-  badge?: string
+  badge?: string | null
   /** Section ID for anchor links */
-  id?: string
+  id?: string | null
   /** Fallback icon to show when no image is available */
   fallbackIcon?: ReactNode
 }
@@ -39,20 +39,21 @@ export default function ServiceSection({
 
   // Determine if we should show locations (for group courses)
   const hasLocations = locations && locations.length > 0
-  // Determine if we should show events
-  const hasEvents = service.events && service.events.length > 0
+  // Determine if we should show events (only yoga services have events)
+  const serviceEvents = 'events' in service && service.events ? service.events : null
+  const hasEvents = serviceEvents && serviceEvents.length > 0
 
   return (
     <section
-      id={id || service.slug}
+      id={id ?? service.slug}
       className={`py-24 ${bgClass} scroll-mt-24`}
     >
       <div className='container mx-auto px-6'>
-        {hasEvents && service.events ? (
+        {hasEvents && serviceEvents ? (
           // Layout with events (for Yoga aktuell)
           <EventsLayout
             service={service}
-            events={service.events}
+            events={serviceEvents}
             theme={theme}
             background={background}
           />
@@ -197,6 +198,9 @@ export default function ServiceSection({
   )
 }
 
+// Event type from yoga service query
+type ServiceEvent = { _id: string; title: string | null; description: string | null }
+
 // Sub-component for services with events (like Yoga aktuell)
 function EventsLayout({
   service,
@@ -204,8 +208,8 @@ function EventsLayout({
   theme = 'yoga',
   background = 'light',
 }: {
-  service: Service
-  events: Pick<Event, "_id" | "title" | "description">[]
+  service: ServiceFromQuery
+  events: ServiceEvent[]
   theme?: 'yoga' | 'therapie'
   background?: 'light' | 'cream'
 }) {
@@ -273,8 +277,8 @@ function LocationsLayout({
   locations,
   theme = 'yoga',
 }: {
-  service: Service
-  locations: Location[]
+  service: ServiceFromQuery
+  locations: LocationFromQuery[]
   theme?: 'yoga' | 'therapie'
 }) {
   const isYoga = theme === 'yoga'

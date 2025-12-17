@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import TherapieContent from './TherapieContent'
 import { sanityFetch } from '@/sanity/lib/live'
 import { therapiePageDataQuery } from '@/sanity/lib/queries'
-import type { TherapiePageData } from '@/sanity/types'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
 }
 
 export default async function TherapiePage() {
-  const { data } = await sanityFetch<TherapiePageData>({
+  const { data } = await sanityFetch({
     query: therapiePageDataQuery,
   })
 

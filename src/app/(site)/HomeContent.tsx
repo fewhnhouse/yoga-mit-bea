@@ -9,11 +9,10 @@ import TextSection from "@/components/TextSection";
 import IconCard from "@/components/IconCard";
 import CTASection from "@/components/CTASection";
 import { useSite } from "@/context/SiteContext";
-import type { HomepageData } from "@/sanity/types";
-
+import type { HomepageDataQueryResult } from "@/sanity/sanity.types";
 
 interface HomeContentProps {
-  initialData: HomepageData;
+  initialData: NonNullable<HomepageDataQueryResult>;
 }
 
 export default function HomeContent({ initialData }: HomeContentProps) {
@@ -29,17 +28,21 @@ export default function HomeContent({ initialData }: HomeContentProps) {
   const services = sanityServices?.map(s => ({
     _id: s._id,
     title: s.title,
-    shortDescription: s.shortDescription || "",
-    icon: s.icon || "lotus",
-    href: s.href || `/${isYoga ? "yoga" : "therapie"}#${s.slug}`,
+    shortDescription: s.shortDescription ?? "",
+    icon: s.icon ?? "lotus",
+    href: (typeof s.href === 'string' ? s.href : null) ?? `/${isYoga ? "yoga" : "therapie"}#${s.slug}`,
   })) || [];
   
-  // Map testimonials from Sanity
-  const testimonials = sanityTestimonials?.map(t => ({
-    _id: t._id,
-    name: t.name,
-    quote: t.quote,
-  })) || [];
+  // Map testimonials from Sanity (filter out entries with missing required fields)
+  const testimonials = (sanityTestimonials ?? [])
+    .filter((t): t is typeof t & { name: string; quote: string } => 
+      t.name !== null && t.quote !== null
+    )
+    .map(t => ({
+      _id: t._id,
+      name: t.name,
+      quote: t.quote,
+    }));
 
   // Content from Sanity
   const siteName = settings?.name || "";

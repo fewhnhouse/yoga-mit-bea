@@ -3,7 +3,6 @@ import HomeContent from './HomeContent'
 import { sanityFetch } from '@/sanity/lib/live'
 import { homepageDataQuery } from '@/sanity/lib/queries'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
-import type { HomepageData } from '@/sanity/types'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default async function HomePage() {
   const siteId = await getSiteId()
   const { siteSettingsId, homepageId } = getSingletonIds(siteId)
 
-  const { data } = await sanityFetch<HomepageData>({
+  const { data } = await sanityFetch({
     query: homepageDataQuery,
     params: {
       siteId,

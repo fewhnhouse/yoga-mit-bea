@@ -3,7 +3,6 @@ import UeberMichContent from './UeberMichContent'
 import { sanityFetch } from '@/sanity/lib/live'
 import { aboutPageDataQuery } from '@/sanity/lib/queries'
 import { getSiteId } from '@/lib/getSiteId'
-import type { AboutPageData } from '@/sanity/types'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 export default async function UeberMichPage() {
   const siteId = await getSiteId()
 
-  const { data } = await sanityFetch<AboutPageData>({
+  const { data } = await sanityFetch({
     query: aboutPageDataQuery,
     params: { siteId },
   })

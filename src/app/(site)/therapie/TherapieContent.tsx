@@ -4,14 +4,14 @@ import CTASection from "@/components/CTASection";
 import IconCard from "@/components/IconCard";
 import ServiceSection from "@/components/ServiceSection";
 import ServiceIcon from "@/components/ServiceIcon";
-import type { TherapiePageData, Service } from "@/sanity/types";
+import type { TherapiePageDataQueryResult, ServiceFromQuery } from "@/sanity/types";
 
 interface TherapieContentProps {
-  initialData: TherapiePageData
+  initialData: NonNullable<TherapiePageDataQueryResult>
 }
 
 // Helper to get a large fallback icon for services without images
-function getFallbackIcon(service: Service) {
+function getFallbackIcon(service: ServiceFromQuery) {
   const iconClass = "w-24 h-24 text-terracotta/30";
   
   // Use the icon field if available
@@ -20,7 +20,8 @@ function getFallbackIcon(service: Service) {
   }
   
   // Fallback based on slug
-  switch (service.slug) {
+  const slug = service.slug
+  switch (slug) {
     case "massage":
     case "therapeutische-massage":
       return (

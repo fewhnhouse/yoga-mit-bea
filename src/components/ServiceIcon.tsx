@@ -1,8 +1,8 @@
 import LotusIcon from './icons/LotusIcon'
-import type { ServiceIcon as ServiceIconType } from '@/sanity/types'
+import type { ServiceIconType } from '@/sanity/types'
 
 interface ServiceIconProps {
-  icon?: ServiceIconType | string
+  icon?: ServiceIconType | string | null
   className?: string
 }
 

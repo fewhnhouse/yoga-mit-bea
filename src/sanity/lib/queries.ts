@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+import { defineQuery } from "next-sanity";
 
 // Singleton document IDs (must match structure.ts)
 export const SINGLETON_IDS = {
@@ -16,7 +16,7 @@ export const SINGLETON_IDS = {
 /**
  * Get site settings for a specific site (using singleton ID)
  */
-export const siteSettingsQuery = groq`
+export const siteSettingsQuery = defineQuery(`
   *[_id == $siteSettingsId][0] {
     _id,
     siteId,
@@ -30,7 +30,7 @@ export const siteSettingsQuery = groq`
     contactEmail,
     contactPhone
   }
-`;
+`);
 
 // ============================================
 // ABOUT BEA QUERIES
@@ -39,7 +39,7 @@ export const siteSettingsQuery = groq`
 /**
  * Get the About Bea content (singleton)
  */
-export const aboutBeaQuery = groq`
+export const aboutBeaQuery = defineQuery(`
   *[_id == "aboutBea"][0] {
     _id,
     name,
@@ -49,7 +49,7 @@ export const aboutBeaQuery = groq`
     therapieContent,
     coreValues
   }
-`;
+`);
 
 // ============================================
 // HOMEPAGE QUERIES
@@ -58,7 +58,7 @@ export const aboutBeaQuery = groq`
 /**
  * Get homepage content for a specific site (using singleton ID)
  */
-export const homepageContentQuery = groq`
+export const homepageContentQuery = defineQuery(`
   *[_id == $homepageId][0] {
     _id,
     siteId,
@@ -72,7 +72,7 @@ export const homepageContentQuery = groq`
     servicesSection,
     ctaSection
   }
-`;
+`);
 
 // ============================================
 // SERVICES QUERIES
@@ -81,7 +81,7 @@ export const homepageContentQuery = groq`
 /**
  * Get all services for a specific site
  */
-export const servicesForSiteQuery = groq`
+export const servicesForSiteQuery = defineQuery(`
   *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
     _id,
     site,
@@ -98,12 +98,12 @@ export const servicesForSiteQuery = groq`
     ctaLink,
     order
   }
-`;
+`);
 
 /**
  * Get a single service by slug
  */
-export const serviceBySlugQuery = groq`
+export const serviceBySlugQuery = defineQuery(`
   *[_type == "service" && slug.current == $slug][0] {
     _id,
     site,
@@ -131,7 +131,7 @@ export const serviceBySlugQuery = groq`
       pricing
     }
   }
-`;
+`);
 
 // ============================================
 // LOCATIONS QUERIES
@@ -140,7 +140,7 @@ export const serviceBySlugQuery = groq`
 /**
  * Get all locations for a specific site
  */
-export const locationsForSiteQuery = groq`
+export const locationsForSiteQuery = defineQuery(`
   *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
     _id,
     name,
@@ -156,12 +156,12 @@ export const locationsForSiteQuery = groq`
     usedBy,
     order
   }
-`;
+`);
 
 /**
  * Get a single location by slug
  */
-export const locationBySlugQuery = groq`
+export const locationBySlugQuery = defineQuery(`
   *[_type == "location" && slug.current == $slug][0] {
     _id,
     name,
@@ -176,7 +176,7 @@ export const locationBySlugQuery = groq`
     maxParticipants,
     usedBy
   }
-`;
+`);
 
 // ============================================
 // EVENTS QUERIES
@@ -185,7 +185,7 @@ export const locationBySlugQuery = groq`
 /**
  * Get upcoming events for a specific site
  */
-export const upcomingEventsQuery = groq`
+export const upcomingEventsQuery = defineQuery(`
   *[_type == "event" && site in [$siteId, "both"] && startDate >= now()] | order(startDate asc) {
     _id,
     site,
@@ -203,12 +203,12 @@ export const upcomingEventsQuery = groq`
     price,
     maxParticipants
   }
-`;
+`);
 
 /**
  * Get a single event by slug
  */
-export const eventBySlugQuery = groq`
+export const eventBySlugQuery = defineQuery(`
   *[_type == "event" && slug.current == $slug][0] {
     _id,
     site,
@@ -229,7 +229,7 @@ export const eventBySlugQuery = groq`
     price,
     maxParticipants
   }
-`;
+`);
 
 // ============================================
 // TESTIMONIALS QUERIES
@@ -238,7 +238,7 @@ export const eventBySlugQuery = groq`
 /**
  * Get featured testimonials for a specific site
  */
-export const featuredTestimonialsQuery = groq`
+export const featuredTestimonialsQuery = defineQuery(`
   *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
     _id,
     name,
@@ -246,12 +246,12 @@ export const featuredTestimonialsQuery = groq`
     site,
     service-> { title }
   }
-`;
+`);
 
 /**
  * Get all testimonials for a specific site
  */
-export const allTestimonialsQuery = groq`
+export const allTestimonialsQuery = defineQuery(`
   *[_type == "testimonial" && site in [$siteId, "both"]] | order(order asc) {
     _id,
     name,
@@ -260,7 +260,7 @@ export const allTestimonialsQuery = groq`
     featured,
     service-> { title }
   }
-`;
+`);
 
 // ============================================
 // PAGES QUERIES
@@ -269,7 +269,7 @@ export const allTestimonialsQuery = groq`
 /**
  * Get a page by slug
  */
-export const pageBySlugQuery = groq`
+export const pageBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug && site in [$siteId, "both"]][0] {
     _id,
     site,
@@ -281,17 +281,17 @@ export const pageBySlugQuery = groq`
     "ogImageUrl": ogImage.asset->url,
     noIndex
   }
-`;
+`);
 
 /**
  * Get all page slugs (for static generation)
  */
-export const allPageSlugsQuery = groq`
+export const allPageSlugsQuery = defineQuery(`
   *[_type == "page" && defined(slug.current)] {
     "slug": slug.current,
     site
   }
-`;
+`);
 
 // ============================================
 // COMBINED QUERIES FOR PAGE DATA
@@ -300,7 +300,7 @@ export const allPageSlugsQuery = groq`
 /**
  * Get all data needed for the homepage
  */
-export const homepageDataQuery = groq`
+export const homepageDataQuery = defineQuery(`
 {
   "settings": *[_id == $siteSettingsId][0] {
     name,
@@ -337,12 +337,12 @@ export const homepageDataQuery = groq`
     "photoUrl": photo.asset->url
   }
 }
-`;
+`);
 
 /**
  * Get all data needed for the yoga page
  */
-export const yogaPageDataQuery = groq`
+export const yogaPageDataQuery = defineQuery(`
 {
   "services": *[_type == "service" && site in ["yoga", "both"]] | order(order asc) {
     _id,
@@ -383,6 +383,7 @@ export const yogaPageDataQuery = groq`
     _id,
     name,
     shortName,
+    description,
     address,
     googleMapsUrl,
     "imageUrl": image.asset->url,
@@ -396,12 +397,12 @@ export const yogaPageDataQuery = groq`
     description
   }
 }
-`;
+`);
 
 /**
  * Get all data needed for the therapie page
  */
-export const therapiePageDataQuery = groq`
+export const therapiePageDataQuery = defineQuery(`
 {
   "services": *[_type == "service" && site in ["therapie", "both"]] | order(order asc) {
     _id,
@@ -423,12 +424,12 @@ export const therapiePageDataQuery = groq`
     badge
   }
 }
-`;
+`);
 
 /**
  * Get all data needed for the about page
  */
-export const aboutPageDataQuery = groq`
+export const aboutPageDataQuery = defineQuery(`
 {
   "about": *[_type == "aboutBea"][0] {
     name,
@@ -446,4 +447,4 @@ export const aboutPageDataQuery = groq`
     shortDescription
   }
 }
-`;
+`);

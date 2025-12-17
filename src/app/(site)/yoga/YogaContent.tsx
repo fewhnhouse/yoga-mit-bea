@@ -1,10 +1,10 @@
 import TextSection from '@/components/TextSection'
 import CTASection from '@/components/CTASection'
 import ServiceSection from '@/components/ServiceSection'
-import type { YogaPageData } from '@/sanity/types'
+import type { YogaPageDataQueryResult } from '@/sanity/sanity.types'
 
 interface YogaContentProps {
-  initialData: YogaPageData
+  initialData: NonNullable<YogaPageDataQueryResult>
 }
 
 export default function YogaContent({ initialData }: YogaContentProps) {

@@ -1,112 +1,61 @@
-import type { PortableTextBlock } from "@portabletext/types";
+/**
+ * Sanity Types - Combines generated types with custom helpers.
+ * 
+ * Run `pnpm sanity schema extract --enforce-required-fields && pnpm sanity typegen generate` 
+ * to regenerate types from schema and queries.
+ */
 
 // ============================================
-// BASE TYPES
+// RE-EXPORT GENERATED SCHEMA TYPES
+// ============================================
+
+export type {
+  SiteSettings,
+  AboutBea,
+  HomepageContent,
+  Service,
+  Location,
+  Event,
+  Testimonial,
+  Page,
+  Slug,
+} from "./sanity.types";
+
+// ============================================
+// RE-EXPORT GENERATED QUERY RESULT TYPES
+// ============================================
+
+export type {
+  // Combined page data queries
+  HomepageDataQueryResult,
+  YogaPageDataQueryResult,
+  TherapiePageDataQueryResult,
+  AboutPageDataQueryResult,
+  // Individual queries
+  SiteSettingsQueryResult,
+  AboutBeaQueryResult,
+  HomepageContentQueryResult,
+  ServicesForSiteQueryResult,
+  ServiceBySlugQueryResult,
+  LocationsForSiteQueryResult,
+  LocationBySlugQueryResult,
+  UpcomingEventsQueryResult,
+  EventBySlugQueryResult,
+  FeaturedTestimonialsQueryResult,
+  AllTestimonialsQueryResult,
+  PageBySlugQueryResult,
+  AllPageSlugsQueryResult,
+} from "./sanity.types";
+
+// ============================================
+// CUSTOM HELPER TYPES
 // ============================================
 
 export type SiteId = "yoga" | "therapie";
 export type SiteAffiliation = "yoga" | "therapie" | "both";
 
-// ============================================
-// SITE SETTINGS
-// ============================================
-
-export interface SiteSettings {
-  _id: string;
-  siteId: SiteId;
-  name: string;
-  tagline: string;
-  domain: string;
-  primaryColor: "sage" | "terracotta";
-  logoUrl?: string;
-  ogImageUrl?: string;
-  seoDescription?: string;
-  contactEmail?: string;
-  contactPhone?: string;
-}
-
-// ============================================
-// ABOUT BEA
-// ============================================
-
-export interface AboutBeaContent {
-  intro?: string;
-  philosophyHeading?: string;
-  philosophy?: PortableTextBlock[];
-  approach?: PortableTextBlock[];
-}
-
-export interface CoreValue {
-  title: string;
-  yogaDescription?: string;
-  therapieDescription?: string;
-  icon?: "heart" | "clock" | "lotus" | "hands" | "path";
-}
-
-export interface AboutBea {
-  _id: string;
-  name: string;
-  photoUrl: string;
-  photoAlt?: string;
-  yogaContent?: AboutBeaContent;
-  therapieContent?: AboutBeaContent;
-  coreValues?: CoreValue[];
-}
-
-// ============================================
-// HOMEPAGE CONTENT
-// ============================================
-
-export interface HeroSection {
-  subtitle?: string;
-  primaryCtaText?: string;
-  primaryCtaLink?: string;
-  secondaryCtaText?: string;
-  secondaryCtaLink?: string;
-}
-
-export interface AboutPreview {
-  imageUrl?: string;
-  paragraph1?: string;
-  paragraph2?: string;
-}
-
-export interface QuoteSection {
-  heading?: string;
-  quote?: string;
-  ctaText?: string;
-  ctaLink?: string;
-}
-
-export interface ServicesSection {
-  heading?: string;
-  description?: string;
-}
-
-export interface CtaSection {
-  heading?: string;
-  text?: string;
-  primaryCtaText?: string;
-  primaryCtaLink?: string;
-  secondaryCtaText?: string;
-  secondaryCtaLink?: string;
-}
-
-export interface HomepageContent {
-  _id: string;
-  siteId: SiteId;
-  heroSection?: HeroSection;
-  aboutPreview?: AboutPreview;
-  quoteSection?: QuoteSection;
-  servicesSection?: ServicesSection;
-  ctaSection?: CtaSection;
-}
-
-// ============================================
-// SERVICES
-// ============================================
-
-export type ServiceIcon = 
+// Service icon type (used in components)
+export type ServiceIconType = 
   | "lotus" 
   | "group" 
   | "calendar" 
@@ -116,138 +65,31 @@ export type ServiceIcon =
   | "sound" 
   | "video";
 
-export interface Service {
-  _id: string;
-  site: SiteAffiliation;
-  title: string;
-  slug: string;
-  subtitle?: string;
-  shortDescription?: string;
-  fullDescription?: PortableTextBlock[];
-  imageUrl?: string;
-  icon?: ServiceIcon;
-  features?: string[];
-  duration?: string;
-  pricing?: string;
-  ctaText?: string;
-  ctaLink?: string;
-  locations?: Location[];
-  events?: Pick<Event, "_id" | "title" | "description">[];
-  order?: number;
-  /** Image position in the layout */
-  imagePosition?: 'left' | 'right';
-  /** Section background color */
-  sectionBackground?: 'light' | 'cream';
-  /** Badge text shown on the image */
-  badge?: string;
-}
+// Core value icon type (used in components for icon rendering)
+export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";
 
 // ============================================
-// LOCATIONS
+// EXTRACTED TYPES FROM QUERY RESULTS
+// These are the actual shapes returned by queries (with projections)
 // ============================================
 
-export interface ScheduleSlot {
-  day: string;
-  times: string;
-}
+import type { 
+  YogaPageDataQueryResult, 
+  TherapiePageDataQueryResult,
+  AboutPageDataQueryResult,
+} from "./sanity.types";
 
-export interface Location {
-  _id: string;
-  name: string;
-  shortName?: string;
-  slug?: string;
-  description?: string;
-  imageUrl?: string;
-  address: string;
-  googleMapsUrl?: string;
-  schedule?: ScheduleSlot[];
-  pricing?: string;
-  maxParticipants?: number;
-  usedBy?: SiteAffiliation;
-  order?: number;
-}
+/** Service type as returned by yoga page query (with projections like imageUrl, locations, events) */
+export type YogaServiceFromQuery = NonNullable<YogaPageDataQueryResult>["services"][number];
 
-// ============================================
-// EVENTS
-// ============================================
+/** Service type as returned by therapie page query (with projections like imageUrl) */
+export type TherapieServiceFromQuery = NonNullable<TherapiePageDataQueryResult>["services"][number];
 
-export interface Event {
-  _id: string;
-  site: SiteAffiliation;
-  title: string;
-  slug?: string;
-  description?: string;
-  fullDescription?: PortableTextBlock[];
-  imageUrl?: string;
-  startDate?: string;
-  endDate?: string;
-  location?: Pick<Location, "name" | "address" | "googleMapsUrl">;
-  customLocation?: string;
-  price?: string;
-  maxParticipants?: number;
-}
+/** Union of service types from both pages - for ServiceSection component */
+export type ServiceFromQuery = YogaServiceFromQuery | TherapieServiceFromQuery;
 
-// ============================================
-// TESTIMONIALS
-// ============================================
+/** Location type as returned by yoga page query (with projections like imageUrl) */
+export type LocationFromQuery = NonNullable<YogaPageDataQueryResult>["locations"][number];
 
-export interface Testimonial {
-  _id: string;
-  site: SiteAffiliation;
-  name: string;
-  quote: string;
-  service?: Pick<Service, "title">;
-}
-
-// ============================================
-// PAGES
-// ============================================
-
-export interface Page {
-  _id: string;
-  site: SiteAffiliation;
-  title: string;
-  slug: string;
-  content?: PortableTextBlock[];
-  seoTitle?: string;
-  seoDescription?: string;
-  ogImageUrl?: string;
-  noIndex?: boolean;
-}
-
-// ============================================
-// COMBINED PAGE DATA TYPES
-// ============================================
-
-export interface HomepageServiceItem {
-  _id: string;
-  title: string;
-  slug?: string;
-  shortDescription?: string;
-  icon?: string;
-  href?: string;
-}
-
-export interface HomepageData {
-  settings: Pick<SiteSettings, "name" | "tagline" | "primaryColor"> & { contactEmail?: string };
-  homepage: HomepageContent | null;
-  services: HomepageServiceItem[];
-  testimonials: Pick<Testimonial, "_id" | "name" | "quote">[];
-  aboutBea?: { name: string; photoUrl?: string };
-}
-
-export interface YogaPageData {
-  services: Service[];
-  locations: Location[];
-  upcomingEvents: Pick<Event, "_id" | "title" | "startDate" | "description">[];
-}
-
-export interface TherapiePageData {
-  services: Service[];
-}
-
-export interface AboutPageData {
-  about: AboutBea | null;
-  services: Pick<Service, "_id" | "title" | "slug" | "icon" | "shortDescription">[];
-}
-
+/** Core value type from about page query */
+export type CoreValueFromQuery = NonNullable<NonNullable<AboutPageDataQueryResult>["about"]>["coreValues"];
