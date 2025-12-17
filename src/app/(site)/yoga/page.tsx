@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import YogaContent from './YogaContent'
-import { client } from '@/sanity/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { yogaPageDataQuery } from '@/sanity/lib/queries'
 import type { YogaPageData } from '@/sanity/types'
 import { notFound } from 'next/navigation'
@@ -27,24 +27,14 @@ export const metadata: Metadata = {
   ],
 }
 
-async function getYogaData(): Promise<YogaPageData | null> {
-  try {
-    const data = await client.fetch<YogaPageData>(
-      yogaPageDataQuery,
-      {},
-      { next: { revalidate: 60 } }
-    )
-    return data
-  } catch (error) {
-    console.error('Error fetching yoga data:', error)
-    return null
-  }
-}
-
 export default async function YogaPage() {
-  const data = await getYogaData()
+  const { data } = await sanityFetch<YogaPageData>({
+    query: yogaPageDataQuery,
+  })
+
   if (!data) {
     return notFound()
   }
+
   return <YogaContent initialData={data} />
 }

@@ -1,7 +1,12 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { presentationTool } from "sanity/presentation";
 import { schemaTypes } from "./src/sanity/schemas";
 import { structure } from "./src/sanity/lib/structure";
+
+// Preview URL configuration
+const SANITY_STUDIO_PREVIEW_ORIGIN =
+  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || "http://localhost:3000";
 
 export default defineConfig({
   name: "yoga-und-therapie-mit-bea",
@@ -15,6 +20,15 @@ export default defineConfig({
   plugins: [
     structureTool({
       structure,
+    }),
+    presentationTool({
+      previewUrl: {
+        origin: SANITY_STUDIO_PREVIEW_ORIGIN,
+        preview: "/",
+        previewMode: {
+          enable: "/api/draft-mode/enable",
+        },
+      },
     }),
   ],
 

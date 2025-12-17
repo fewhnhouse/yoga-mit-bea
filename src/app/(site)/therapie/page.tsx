@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import TherapieContent from './TherapieContent'
-import { client } from '@/sanity/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { therapiePageDataQuery } from '@/sanity/lib/queries'
 import type { TherapiePageData } from '@/sanity/types'
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Therapie Angebote',
@@ -25,24 +25,14 @@ export const metadata: Metadata = {
   ],
 }
 
-async function getTherapieData(): Promise<TherapiePageData | null> {
-  try {
-    const data = await client.fetch<TherapiePageData>(
-      therapiePageDataQuery,
-      {},
-      { next: { revalidate: 60 } }
-    )
-    return data
-  } catch (error) {
-    console.error('Error fetching therapie data:', error)
-    return null
-  }
-}
-
 export default async function TherapiePage() {
-  const data = await getTherapieData()
+  const { data } = await sanityFetch<TherapiePageData>({
+    query: therapiePageDataQuery,
+  })
+
   if (!data) {
     return notFound()
   }
+
   return <TherapieContent initialData={data} />
 }

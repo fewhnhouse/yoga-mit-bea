@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import UeberMichContent from './UeberMichContent'
-import { client } from '@/sanity/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { aboutPageDataQuery } from '@/sanity/lib/queries'
 import { getSiteId } from '@/lib/getSiteId'
 import type { AboutPageData } from '@/sanity/types'
@@ -16,25 +16,17 @@ export const metadata: Metadata = {
   },
 }
 
-async function getAboutData(): Promise<AboutPageData | null> {
-  const siteId = await getSiteId()
-  try {
-    const data = await client.fetch<AboutPageData>(
-      aboutPageDataQuery,
-      { siteId },
-      { next: { revalidate: 60 } }
-    )
-    return data
-  } catch (error) {
-    console.error('Error fetching about data:', error)
-    return null
-  }
-}
-
 export default async function UeberMichPage() {
-  const data = await getAboutData()
+  const siteId = await getSiteId()
+
+  const { data } = await sanityFetch<AboutPageData>({
+    query: aboutPageDataQuery,
+    params: { siteId },
+  })
+
   if (!data) {
     return notFound()
   }
+
   return <UeberMichContent initialData={data} />
 }

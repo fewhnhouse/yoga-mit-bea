@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import HomeContent from './HomeContent'
-import { client } from '@/sanity/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { homepageDataQuery } from '@/sanity/lib/queries'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import type { HomepageData } from '@/sanity/types'
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Yoga & Therapie mit Bea | Startseite',
@@ -17,31 +17,19 @@ export const metadata: Metadata = {
   },
 }
 
-async function getHomepageData(
-  siteId: 'yoga' | 'therapie'
-): Promise<HomepageData | null> {
-  const { siteSettingsId, homepageId } = getSingletonIds(siteId)
-
-  try {
-    const data = await client.fetch<HomepageData>(
-      homepageDataQuery,
-      {
-        siteId,
-        siteSettingsId,
-        homepageId,
-      },
-      { next: { revalidate: 60 } }
-    )
-    return data
-  } catch (error) {
-    console.error('Error fetching homepage data:', error)
-    return null
-  }
-}
-
 export default async function HomePage() {
   const siteId = await getSiteId()
-  const data = await getHomepageData(siteId)
+  const { siteSettingsId, homepageId } = getSingletonIds(siteId)
+
+  const { data } = await sanityFetch<HomepageData>({
+    query: homepageDataQuery,
+    params: {
+      siteId,
+      siteSettingsId,
+      homepageId,
+    },
+  })
+
   if (!data) {
     return notFound()
   }

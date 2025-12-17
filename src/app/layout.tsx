@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lora } from "next/font/google";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
 import "./globals.css";
+import { SanityLive } from "@/sanity/lib/live";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -89,15 +93,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled: isDraftMode } = await draftMode();
+
   return (
     <html lang="de" className={`${cormorant.variable} ${lora.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
         {children}
+        <SanityLive />
+        {isDraftMode && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
       </body>
     </html>
   );
