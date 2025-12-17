@@ -86,7 +86,7 @@ export default function ZumMituebenContent() {
               </div>
 
               <a
-                href='https://meet.google.com/kpw-hmqx-evc'
+                href='https://meet.google.com/bfr-ptin-dha'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='inline-flex items-center gap-3 bg-sage hover:bg-sage-dark text-white px-10 py-5 rounded-full font-medium text-lg transition-colors shadow-lg hover:shadow-xl'
