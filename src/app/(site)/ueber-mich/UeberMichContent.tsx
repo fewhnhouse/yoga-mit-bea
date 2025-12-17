@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import LotusIcon from "@/components/icons/LotusIcon";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
+import CTASection from "@/components/CTASection";
 import { useSite } from "@/context/SiteContext";
 import type { AboutPageData } from "@/sanity/types";
 
@@ -32,9 +32,6 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
   // Styling classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
-  const buttonClass = isYoga 
-    ? "bg-sage text-white hover:bg-sage-dark" 
-    : "bg-terracotta text-white hover:bg-soft-brown";
   const gradientClass = isYoga
     ? "from-cream via-warm-white to-blush/20"
     : "from-blush/30 via-warm-white to-terracotta/10";
@@ -273,20 +270,13 @@ export default function UeberMichContent({ initialData }: UeberMichContentProps)
       </section>
 
       {/* CTA Section */}
-      <section className={`py-20 bg-gradient-to-br ${isYoga ? "from-blush/30 via-cream to-sage/10" : "from-terracotta/10 via-cream to-blush/30"}`}>
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-6">
-            Lass uns kennenlernen
-          </h2>
-          <p className="text-charcoal-light text-lg mb-8 max-w-2xl mx-auto">
-            Hast du Fragen oder möchtest du mehr über meine Angebote erfahren? 
-            Ich freue mich auf deine Nachricht.
-          </p>
-          <Link href="/kontakt" className={`${buttonClass} px-8 py-4 rounded-full font-medium transition-colors inline-block`}>
-            Kontakt aufnehmen
-          </Link>
-        </div>
-      </section>
+      <CTASection
+        title="Lass uns kennenlernen"
+        description="Hast du Fragen oder möchtest du mehr über meine Angebote erfahren? Ich freue mich auf deine Nachricht."
+        cta={{ text: "Kontakt aufnehmen", href: "/kontakt" }}
+        theme={isYoga ? "yoga" : "therapie"}
+        variant="light"
+      />
     </>
   );
 }

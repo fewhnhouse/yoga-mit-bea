@@ -1,8 +1,8 @@
-import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
 import TextSection from "@/components/TextSection";
+import CTASection from "@/components/CTASection";
 
 export default function ZumMituebenContent() {
   return (
@@ -124,23 +124,13 @@ export default function ZumMituebenContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-sage">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-semibold text-white mb-6">
-            Fragen zu Yoga Online?
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Du hast Fragen zur Teilnahme oder möchtest mehr über die Online-Stunden erfahren? 
-            Ich freue mich auf deine Nachricht.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-block bg-white text-sage-dark px-8 py-4 rounded-full font-medium hover:bg-cream transition-colors"
-          >
-            Kontakt aufnehmen
-          </Link>
-        </div>
-      </section>
+      <CTASection
+        title="Fragen zu Yoga Online?"
+        description="Du hast Fragen zur Teilnahme oder möchtest mehr über die Online-Stunden erfahren? Ich freue mich auf deine Nachricht."
+        cta={{ text: "Kontakt aufnehmen", href: "/kontakt" }}
+        theme="yoga"
+        variant="solid"
+      />
     </>
   );
 }

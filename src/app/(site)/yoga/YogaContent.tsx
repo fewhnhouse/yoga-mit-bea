@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import TextSection from '@/components/TextSection'
+import CTASection from '@/components/CTASection'
 import type { YogaPageData } from '@/sanity/types'
 
 interface YogaContentProps {
@@ -381,24 +382,13 @@ export default function YogaContent({ initialData }: YogaContentProps) {
       </section>
 
       {/* CTA Section */}
-      <section className='py-20 bg-sage'>
-        <div className='container mx-auto px-6 text-center'>
-          <h2 className='font-display text-3xl md:text-4xl font-semibold text-white mb-6'>
-            Finde deinen Yoga-Weg
-          </h2>
-          <p className='text-white/80 text-lg mb-8 max-w-2xl mx-auto'>
-            Hast du Fragen zu meinen Angeboten? Möchtest du herausfinden,
-            welches Format am besten zu dir passt? Ich freue mich auf deine
-            Nachricht.
-          </p>
-          <Link
-            href='/kontakt'
-            className='inline-block bg-white text-sage-dark px-8 py-4 rounded-full font-medium hover:bg-cream transition-colors'
-          >
-            Kontakt aufnehmen
-          </Link>
-        </div>
-      </section>
+      <CTASection
+        title="Finde deinen Yoga-Weg"
+        description="Hast du Fragen zu meinen Angeboten? Möchtest du herausfinden, welches Format am besten zu dir passt? Ich freue mich auf deine Nachricht."
+        cta={{ text: "Kontakt aufnehmen", href: "/kontakt" }}
+        theme="yoga"
+        variant="solid"
+      />
     </>
   )
 }

@@ -7,6 +7,7 @@ import LotusIcon from "@/components/icons/LotusIcon";
 import SectionHeader from "@/components/SectionHeader";
 import TextSection from "@/components/TextSection";
 import IconCard from "@/components/IconCard";
+import CTASection from "@/components/CTASection";
 import { useSite } from "@/context/SiteContext";
 import type { HomepageData } from "@/sanity/types";
 
@@ -71,7 +72,6 @@ export default function HomeContent({ initialData }: HomeContentProps) {
 
   // Style classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
-  const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
   const buttonClass = isYoga 
     ? "bg-sage text-white hover:bg-sage-dark" 
     : "bg-terracotta text-white hover:bg-soft-brown";
@@ -201,55 +201,32 @@ export default function HomeContent({ initialData }: HomeContentProps) {
       </section>
 
       {/* Quote Section */}
-      <section className={`py-32 ${primaryBgClass} relative overflow-hidden`}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full" />
-          <div className="absolute bottom-10 right-10 w-48 h-48 border border-white rounded-full" />
-        </div>
-
-        <div className="container mx-auto px-6 relative">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <LotusIcon className="w-12 h-12 mx-auto mb-8 opacity-60" />
-            <h3 className="font-display text-2xl font-semibold mb-6 opacity-90">
-              {quoteHeading}
-            </h3>
-            <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-8">
-              {quoteText}
-            </blockquote>
-            <Link
-              href={quoteCtaLink}
-              className="inline-block border-2 border-white/50 text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors"
-            >
-              {quoteCtaText}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title={quoteHeading}
+        description={quoteText}
+        cta={{ text: quoteCtaText, href: quoteCtaLink, variant: "secondary" }}
+        theme={isYoga ? "yoga" : "therapie"}
+        variant="solid"
+        icon={<LotusIcon className="w-12 h-12 text-white" />}
+        decorative
+        isQuote
+        padding="large"
+      />
 
       {/* Testimonials - Only for Yoga and when testimonials exist */}
       {isYoga && testimonials.length > 0 && <TestimonialsSection testimonials={testimonials} />}
 
       {/* CTA Section */}
-      <section className={`py-24 bg-gradient-to-br ${isYoga ? "from-sand/50 via-cream to-blush/30" : "from-blush/30 via-cream to-terracotta/10"}`}>
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-              {ctaHeading}
-            </h2>
-            <p className="text-charcoal-light text-lg mb-10">
-              {ctaText}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={ctaPrimaryLink} className={`${buttonClass} px-8 py-4 rounded-full font-medium transition-colors`}>
-                {ctaPrimaryText}
-              </Link>
-              <Link href={ctaSecondaryLink} className={`border-2 ${buttonSecondaryClass} px-8 py-4 rounded-full font-medium transition-colors`}>
-                {ctaSecondaryText}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title={ctaHeading}
+        description={ctaText}
+        cta={[
+          { text: ctaPrimaryText, href: ctaPrimaryLink, variant: "primary" },
+          { text: ctaSecondaryText, href: ctaSecondaryLink, variant: "secondary" },
+        ]}
+        theme={isYoga ? "yoga" : "therapie"}
+        variant="light"
+      />
     </>
   );
 }

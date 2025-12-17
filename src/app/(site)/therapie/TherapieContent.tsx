@@ -1,6 +1,7 @@
 import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
 import TextSection from "@/components/TextSection";
+import CTASection from "@/components/CTASection";
 import type { TherapiePageData } from "@/sanity/types";
 
 interface TherapieContentProps {
@@ -206,23 +207,13 @@ export default function TherapieContent({ initialData }: TherapieContentProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-terracotta/80 to-soft-brown">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-semibold text-white mb-6">
-            Bereit für deine Behandlung?
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Nimm Kontakt auf und wir finden gemeinsam die passende Therapie für dich. 
-            Ich freue mich auf deine Nachricht.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-block bg-white text-soft-brown px-8 py-4 rounded-full font-medium hover:bg-cream transition-colors"
-          >
-            Jetzt Termin anfragen
-          </Link>
-        </div>
-      </section>
+      <CTASection
+        title="Bereit für deine Behandlung?"
+        description="Nimm Kontakt auf und wir finden gemeinsam die passende Therapie für dich. Ich freue mich auf deine Nachricht."
+        cta={{ text: "Jetzt Termin anfragen", href: "/kontakt" }}
+        theme="therapie"
+        variant="solid"
+      />
     </>
   );
 }
