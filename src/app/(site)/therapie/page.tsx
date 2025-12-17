@@ -3,6 +3,7 @@ import TherapieContent from './TherapieContent'
 import { client } from '@/sanity/client'
 import { therapiePageDataQuery } from '@/sanity/lib/queries'
 import type { TherapiePageData } from '@/sanity/types'
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Therapie Angebote',
@@ -40,5 +41,8 @@ async function getTherapieData(): Promise<TherapiePageData | null> {
 
 export default async function TherapiePage() {
   const data = await getTherapieData()
+  if (!data) {
+    return notFound()
+  }
   return <TherapieContent initialData={data} />
 }

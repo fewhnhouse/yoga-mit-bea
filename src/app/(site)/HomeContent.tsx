@@ -13,7 +13,7 @@ import type { HomepageData } from "@/sanity/types";
 
 
 interface HomeContentProps {
-  initialData: HomepageData | null;
+  initialData: HomepageData;
 }
 
 export default function HomeContent({ initialData }: HomeContentProps) {

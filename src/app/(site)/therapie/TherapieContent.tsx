@@ -7,7 +7,7 @@ import ServiceIcon from "@/components/ServiceIcon";
 import type { TherapiePageData, Service } from "@/sanity/types";
 
 interface TherapieContentProps {
-  initialData: TherapiePageData | null;
+  initialData: TherapiePageData
 }
 
 // Helper to get a large fallback icon for services without images
@@ -47,7 +47,7 @@ function getFallbackIcon(service: Service) {
 }
 
 export default function TherapieContent({ initialData }: TherapieContentProps) {
-  const services = initialData?.services || [];
+  const services = initialData.services;
   
   // Sort services by their order field
   const sortedServices = [...services].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));

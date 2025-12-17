@@ -11,7 +11,9 @@ export default function YogaContent({ initialData }: YogaContentProps) {
   const { services, locations } = initialData
 
   // Sort services by their order field or maintain original order
-  const sortedServices = [...services].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  const sortedServices = [...services].sort(
+    (a, b) => (a.order ?? 0) - (b.order ?? 0)
+  )
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function YogaContent({ initialData }: YogaContentProps) {
       {sortedServices.map((service) => {
         // Use locations layout if the service has locations attached
         const hasLocations = service.locations && service.locations.length > 0
-        
+
         return (
           <ServiceSection
             key={service._id}
