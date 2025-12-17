@@ -86,14 +86,7 @@ export default defineType({
       title: "Features",
       type: "array",
       of: [{ type: "string" }],
-      description: "List of features/highlights (shown with checkmarks)",
-    }),
-    defineField({
-      name: "benefits",
-      title: "Benefits",
-      type: "array",
-      of: [{ type: "string" }],
-      description: "List of benefits for the client",
+      description: "List of features/highlights shown with checkmarks",
     }),
     defineField({
       name: "duration",
@@ -125,6 +118,13 @@ export default defineType({
       type: "array",
       of: [{ type: "reference", to: [{ type: "location" }] }],
       description: "Where this service is offered",
+    }),
+    defineField({
+      name: "events",
+      title: "Related Events",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "event" }] }],
+      description: "Events associated with this service (e.g., Yogatag, Yogawochenende)",
     }),
     defineField({
       name: "order",

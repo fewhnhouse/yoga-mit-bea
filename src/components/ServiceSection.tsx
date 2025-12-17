@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Service, Location } from '@/sanity/types'
+import type { ReactNode } from 'react'
+import type { Service, Location, Event } from '@/sanity/types'
 
 interface ServiceSectionProps {
   service: Service
@@ -16,6 +17,8 @@ interface ServiceSectionProps {
   badge?: string
   /** Section ID for anchor links */
   id?: string
+  /** Fallback icon to show when no image is available */
+  fallbackIcon?: ReactNode
 }
 
 export default function ServiceSection({
@@ -26,6 +29,7 @@ export default function ServiceSection({
   imagePosition = 'left',
   badge,
   id,
+  fallbackIcon,
 }: ServiceSectionProps) {
   const isYoga = theme === 'yoga'
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
@@ -35,6 +39,8 @@ export default function ServiceSection({
 
   // Determine if we should show locations (for group courses)
   const hasLocations = locations && locations.length > 0
+  // Determine if we should show events
+  const hasEvents = service.events && service.events.length > 0
 
   return (
     <section
@@ -42,7 +48,15 @@ export default function ServiceSection({
       className={`py-24 ${bgClass} scroll-mt-24`}
     >
       <div className='container mx-auto px-6'>
-        {hasLocations ? (
+        {hasEvents && service.events ? (
+          // Layout with events (for Yoga aktuell)
+          <EventsLayout
+            service={service}
+            events={service.events}
+            theme={theme}
+            background={background}
+          />
+        ) : hasLocations ? (
           // Layout with locations (for group courses)
           <LocationsLayout
             service={service}
@@ -58,7 +72,7 @@ export default function ServiceSection({
                 imagePosition === 'right' ? 'order-2 lg:order-1' : ''
               }`}
             >
-              {service.imageUrl && (
+              {service.imageUrl ? (
                 <div className='aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative'>
                   <Image
                     src={service.imageUrl}
@@ -67,7 +81,17 @@ export default function ServiceSection({
                     className='object-cover rounded-2xl'
                   />
                 </div>
-              )}
+              ) : fallbackIcon ? (
+                <div className={`aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative ${
+                  isYoga 
+                    ? 'bg-gradient-to-br from-sage/20 to-cream' 
+                    : 'bg-gradient-to-br from-terracotta/20 to-blush/20'
+                }`}>
+                  <div className='w-full h-full flex items-center justify-center'>
+                    {fallbackIcon}
+                  </div>
+                </div>
+              ) : null}
               {badge && (
                 <div
                   className={`absolute top-4 ${
@@ -106,7 +130,7 @@ export default function ServiceSection({
                 <div
                   className={`inline-flex items-center gap-2 ${
                     isYoga ? 'bg-sage/10 text-sage-dark' : 'bg-terracotta/10 text-terracotta'
-                  } px-4 py-2 rounded-full text-sm font-medium mb-6`}
+                  } px-4 py-2 rounded-full text-sm font-medium`}
                 >
                   <svg
                     className='w-4 h-4'
@@ -128,7 +152,7 @@ export default function ServiceSection({
 
               {/* Features List */}
               {service.features && service.features.length > 0 && (
-                <ul className='grid grid-cols-2 gap-3 mb-8'>
+                <ul className='grid grid-cols-2 gap-3 mt-6'>
                   {service.features.map((feature) => (
                     <li
                       key={feature}
@@ -153,17 +177,82 @@ export default function ServiceSection({
               )}
 
               {/* CTA */}
-              <Link
-                href={service.ctaLink || '/kontakt'}
-                className='btn-primary'
-              >
-                {service.ctaText || 'Anfragen'}
-              </Link>
+              <div className='mt-8'>
+                <Link
+                  href={service.ctaLink || '/kontakt'}
+                  className='btn-primary'
+                >
+                  {service.ctaText || 'Anfragen'}
+                </Link>
+              </div>
             </div>
           </div>
         )}
       </div>
     </section>
+  )
+}
+
+// Sub-component for services with events (like Yoga aktuell)
+function EventsLayout({
+  service,
+  events,
+  theme = 'yoga',
+  background = 'light',
+}: {
+  service: Service
+  events: Pick<Event, "_id" | "title" | "description">[]
+  theme?: 'yoga' | 'therapie'
+  background?: 'light' | 'cream'
+}) {
+  const isYoga = theme === 'yoga'
+  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
+  // Use contrasting background for cards
+  const cardBgClass = background === 'light' ? 'bg-cream' : 'bg-warm-white'
+
+  return (
+    <>
+      {/* Header */}
+      <div className='max-w-3xl'>
+        <span
+          className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-2 block`}
+        >
+          {service.subtitle}
+        </span>
+        <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4'>
+          {service.title}
+        </h2>
+        {service.shortDescription && (
+          <p className='text-charcoal-light leading-relaxed mb-8'>
+            {service.shortDescription}
+          </p>
+        )}
+      </div>
+
+      {/* Event Cards */}
+      <div className='space-y-4 mb-8'>
+        {events.map((event) => (
+          <div
+            key={event._id}
+            className={`${cardBgClass} rounded-2xl p-6`}
+          >
+            <h3 className={`font-display text-xl font-semibold ${primaryColorClass} mb-2`}>
+              {event.title}
+            </h3>
+            {event.description && (
+              <p className='text-charcoal-light'>
+                {event.description}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <Link href={service.ctaLink || '/kontakt'} className='btn-primary'>
+        {service.ctaText || 'Termine erfragen'}
+      </Link>
+    </>
   )
 }
 

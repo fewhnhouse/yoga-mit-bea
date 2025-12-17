@@ -57,7 +57,7 @@ export interface YogaClass {
     time: string;
     location: string;
   }[];
-  benefits?: string[];
+  features?: string[];
 }
 
 export interface Therapy {
@@ -69,7 +69,7 @@ export interface Therapy {
   shortDescription?: string;
   fullDescription?: PortableTextBlock[];
   image?: SanityImage;
-  benefits?: string[];
+  features?: string[];
   suitableFor?: string[];
   price?: string;
   duration?: string;

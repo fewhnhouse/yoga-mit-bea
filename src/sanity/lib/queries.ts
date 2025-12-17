@@ -92,7 +92,6 @@ export const servicesForSiteQuery = groq`
     "imageUrl": image.asset->url,
     icon,
     features,
-    benefits,
     duration,
     pricing,
     ctaText,
@@ -116,7 +115,6 @@ export const serviceBySlugQuery = groq`
     "imageUrl": image.asset->url,
     icon,
     features,
-    benefits,
     duration,
     pricing,
     ctaText,
@@ -193,7 +191,6 @@ export const upcomingEventsQuery = groq`
     site,
     title,
     "slug": slug.current,
-    eventType,
     description,
     "imageUrl": image.asset->url,
     startDate,
@@ -204,26 +201,7 @@ export const upcomingEventsQuery = groq`
     },
     customLocation,
     price,
-    maxParticipants,
-    registrationOpen,
-    registrationLink,
-    featured
-  }
-`;
-
-/**
- * Get featured events
- */
-export const featuredEventsQuery = groq`
-  *[_type == "event" && site in [$siteId, "both"] && featured == true && startDate >= now()] | order(startDate asc)[0...3] {
-    _id,
-    title,
-    "slug": slug.current,
-    eventType,
-    description,
-    "imageUrl": image.asset->url,
-    startDate,
-    location-> { name }
+    maxParticipants
   }
 `;
 
@@ -236,7 +214,6 @@ export const eventBySlugQuery = groq`
     site,
     title,
     "slug": slug.current,
-    eventType,
     description,
     fullDescription,
     "imageUrl": image.asset->url,
@@ -250,9 +227,7 @@ export const eventBySlugQuery = groq`
     },
     customLocation,
     price,
-    maxParticipants,
-    registrationOpen,
-    registrationLink
+    maxParticipants
   }
 `;
 
@@ -379,7 +354,6 @@ export const yogaPageDataQuery = groq`
     "imageUrl": image.asset->url,
     icon,
     features,
-    benefits,
     duration,
     pricing,
     ctaText,
@@ -398,6 +372,11 @@ export const yogaPageDataQuery = groq`
       schedule,
       pricing,
       maxParticipants
+    },
+    events[]-> {
+      _id,
+      title,
+      description
     }
   },
   "locations": *[_type == "location" && usedBy in ["yoga", "both"]] | order(order asc) {
@@ -413,7 +392,6 @@ export const yogaPageDataQuery = groq`
   "upcomingEvents": *[_type == "event" && site in ["yoga", "both"] && startDate >= now()] | order(startDate asc)[0...3] {
     _id,
     title,
-    eventType,
     startDate,
     description
   }
@@ -435,11 +413,14 @@ export const therapiePageDataQuery = groq`
     "imageUrl": image.asset->url,
     icon,
     features,
-    benefits,
     duration,
     pricing,
     ctaText,
-    ctaLink
+    ctaLink,
+    order,
+    imagePosition,
+    sectionBackground,
+    badge
   }
 }
 `;

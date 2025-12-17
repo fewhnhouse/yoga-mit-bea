@@ -127,12 +127,12 @@ export interface Service {
   imageUrl?: string;
   icon?: ServiceIcon;
   features?: string[];
-  benefits?: string[];
   duration?: string;
   pricing?: string;
   ctaText?: string;
   ctaLink?: string;
   locations?: Location[];
+  events?: Pick<Event, "_id" | "title" | "description">[];
   order?: number;
   /** Image position in the layout */
   imagePosition?: 'left' | 'right';
@@ -171,19 +171,11 @@ export interface Location {
 // EVENTS
 // ============================================
 
-export type EventType = 
-  | "yogatag" 
-  | "yogawochenende" 
-  | "workshop" 
-  | "retreat" 
-  | "special";
-
 export interface Event {
   _id: string;
   site: SiteAffiliation;
   title: string;
   slug?: string;
-  eventType?: EventType;
   description?: string;
   fullDescription?: PortableTextBlock[];
   imageUrl?: string;
@@ -193,9 +185,6 @@ export interface Event {
   customLocation?: string;
   price?: string;
   maxParticipants?: number;
-  registrationOpen?: boolean;
-  registrationLink?: string;
-  featured?: boolean;
 }
 
 // ============================================
@@ -207,7 +196,6 @@ export interface Testimonial {
   site: SiteAffiliation;
   name: string;
   quote: string;
-  featured?: boolean;
   service?: Pick<Service, "title">;
 }
 
@@ -251,7 +239,7 @@ export interface HomepageData {
 export interface YogaPageData {
   services: Service[];
   locations: Location[];
-  upcomingEvents: Pick<Event, "_id" | "title" | "eventType" | "startDate" | "description">[];
+  upcomingEvents: Pick<Event, "_id" | "title" | "startDate" | "description">[];
 }
 
 export interface TherapiePageData {

@@ -35,20 +35,6 @@ export default defineType({
       },
     }),
     defineField({
-      name: "eventType",
-      title: "Event Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Yogatag", value: "yogatag" },
-          { title: "Yogawochenende", value: "yogawochenende" },
-          { title: "Workshop", value: "workshop" },
-          { title: "Retreat", value: "retreat" },
-          { title: "Special", value: "special" },
-        ],
-      },
-    }),
-    defineField({
       name: "description",
       title: "Short Description",
       type: "text",
@@ -100,25 +86,6 @@ export default defineType({
       title: "Maximum Participants",
       type: "number",
     }),
-    defineField({
-      name: "registrationOpen",
-      title: "Registration Open",
-      type: "boolean",
-      initialValue: true,
-    }),
-    defineField({
-      name: "registrationLink",
-      title: "Registration Link",
-      type: "url",
-      description: "External registration link (if applicable)",
-    }),
-    defineField({
-      name: "featured",
-      title: "Featured Event",
-      type: "boolean",
-      description: "Show this event prominently on the homepage",
-      initialValue: false,
-    }),
   ],
   orderings: [
     {
@@ -136,10 +103,9 @@ export default defineType({
     select: {
       title: "title",
       date: "startDate",
-      eventType: "eventType",
       media: "image",
     },
-    prepare({ title, date, eventType, media }) {
+    prepare({ title, date, media }) {
       const dateStr = date
         ? new Date(date).toLocaleDateString("de-DE", {
             day: "2-digit",
@@ -150,7 +116,7 @@ export default defineType({
       
       return {
         title,
-        subtitle: `${eventType || "Event"} · ${dateStr}`,
+        subtitle: dateStr,
         media,
       };
     },
