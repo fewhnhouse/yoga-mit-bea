@@ -4,6 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import LotusIcon from "@/components/icons/LotusIcon";
+import SectionHeader from "@/components/SectionHeader";
+import TextSection from "@/components/TextSection";
+import IconCard from "@/components/IconCard";
 import { useSite } from "@/context/SiteContext";
 import type { HomepageData } from "@/sanity/types";
 
@@ -69,7 +72,6 @@ export default function HomeContent({ initialData }: HomeContentProps) {
   // Style classes based on site
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const primaryBgClass = isYoga ? "bg-sage" : "bg-terracotta";
-  const primaryBgLightClass = isYoga ? "bg-sage/10" : "bg-terracotta/10";
   const buttonClass = isYoga 
     ? "bg-sage text-white hover:bg-sage-dark" 
     : "bg-terracotta text-white hover:bg-soft-brown";
@@ -153,28 +155,14 @@ export default function HomeContent({ initialData }: HomeContentProps) {
               <div className={`absolute -top-6 -left-6 w-32 h-32 ${isYoga ? "bg-sage/10" : "bg-terracotta/10"} organic-blob-2 -z-10`} />
             </div>
 
-            <div>
-              <span className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-4 block`}>
-                Über Mich
-              </span>
-              <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-                Bea
-              </h2>
-              <div className={`w-20 h-0.5 ${primaryBgClass} mb-8`} />
-              <div className="space-y-4 text-charcoal-light leading-relaxed">
-                <p>{aboutPreviewP1}</p>
-                <p>{aboutPreviewP2}</p>
-              </div>
-              <Link
-                href="/ueber-mich"
-                className={`inline-flex items-center gap-2 mt-8 ${primaryColorClass} font-medium hover:opacity-80 transition-opacity group`}
-              >
-                Mehr erfahren
-                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
+            <TextSection
+              label="Über Mich"
+              title="Bea"
+              description={[aboutPreviewP1, aboutPreviewP2].filter(Boolean)}
+              cta={{ text: "Mehr erfahren", href: "/ueber-mich" }}
+              theme={isYoga ? "yoga" : "therapie"}
+              maxWidth=""
+            />
           </div>
         </div>
       </section>
@@ -182,43 +170,31 @@ export default function HomeContent({ initialData }: HomeContentProps) {
       {/* Services Section */}
       <section className="py-24 bg-cream">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-4 block`}>
-              Angebote
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-              {servicesHeading}
-            </h2>
-            <div className={`w-20 h-0.5 ${primaryBgClass} mx-auto mb-6`} />
-            <p className="text-charcoal-light">
+          <div className="max-w-2xl mx-auto mb-16">
+            <SectionHeader
+              label="Angebote"
+              title={servicesHeading}
+              theme={isYoga ? "yoga" : "therapie"}
+              align="center"
+            />
+            <p className="text-charcoal-light text-center">
               {servicesDescription}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <Link
+            {services.map((service) => (
+              <IconCard
                 key={service._id}
+                icon={<ServiceIcon icon={service.icon} isYoga={isYoga} />}
+                title={service.title}
+                description={service.shortDescription}
                 href={service.href}
-                className="bg-warm-white rounded-2xl p-8 card-hover block group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className={`w-14 h-14 rounded-full ${primaryBgLightClass} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <ServiceIcon icon={service.icon} isYoga={isYoga} />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-charcoal mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-charcoal-light text-sm leading-relaxed mb-4">
-                  {service.shortDescription}
-                </p>
-                <span className={`${primaryColorClass} text-sm font-medium inline-flex items-center gap-1`}>
-                  Mehr erfahren
-                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </Link>
+                ctaText="Mehr erfahren"
+                theme={isYoga ? "yoga" : "therapie"}
+                align="left"
+                className="animate-fade-in-up"
+              />
             ))}
           </div>
         </div>
@@ -305,14 +281,13 @@ function TestimonialsSection({ testimonials }: { testimonials: { _id: string; na
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
-            Teilnehmerstimmen
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl font-semibold text-charcoal mb-6">
-            Was andere sagen
-          </h2>
-          <div className="w-20 h-0.5 bg-sage mx-auto" />
+        <div className="max-w-2xl mx-auto mb-12">
+          <SectionHeader
+            label="Teilnehmerstimmen"
+            title="Was andere sagen"
+            theme="yoga"
+            align="center"
+          />
         </div>
 
         {/* Testimonial Card */}

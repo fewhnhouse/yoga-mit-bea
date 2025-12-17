@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
+import TextSection from "@/components/TextSection";
 import type { TherapiePageData } from "@/sanity/types";
 
 interface TherapieContentProps {
@@ -30,23 +31,15 @@ export default function TherapieContent({ initialData }: TherapieContentProps) {
         <div className="absolute bottom-10 left-10 w-48 h-48 bg-sage/10 organic-blob-2 animate-breathe" />
 
         <div className="container mx-auto px-6 relative">
-          <div className="max-w-3xl">
-            <span className="text-terracotta font-body text-sm tracking-widest uppercase mb-4 block">
-              Therapeutische Angebote
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6">
-              Therapie mit Bea
-            </h1>
-            <div className="w-20 h-0.5 bg-gradient-to-r from-terracotta to-transparent mb-6" />
-            <p className="text-charcoal-light text-lg leading-relaxed mb-4">
-              Heilung geschieht auf vielen Ebenen. Meine therapeutischen Angebote 
-              unterstützen dich dabei, körperliche Verspannungen zu lösen, 
-              emotionale Balance zu finden und neue Kraft zu schöpfen.
-            </p>
-            <p className="text-charcoal-light text-lg leading-relaxed">
-              Jede Behandlung ist ein Raum für dich – achtsam, individuell und heilsam.
-            </p>
-          </div>
+          <TextSection
+            label="Therapeutische Angebote"
+            title="Therapie mit Bea"
+            description={[
+              "Heilung geschieht auf vielen Ebenen. Meine therapeutischen Angebote unterstützen dich dabei, körperliche Verspannungen zu lösen, emotionale Balance zu finden und neue Kraft zu schöpfen.",
+              "Jede Behandlung ist ein Raum für dich – achtsam, individuell und heilsam."
+            ]}
+            theme="therapie"
+          />
         </div>
       </section>
 

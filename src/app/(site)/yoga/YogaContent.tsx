@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import TextSection from '@/components/TextSection'
 import type { YogaPageData } from '@/sanity/types'
 
 interface YogaContentProps {
@@ -35,24 +36,15 @@ export default function YogaContent({ initialData }: YogaContentProps) {
         <div className='absolute bottom-10 left-10 w-48 h-48 bg-blush/10 organic-blob-2 animate-breathe' />
 
         <div className='container mx-auto px-6 relative'>
-          <div className='max-w-3xl'>
-            <span className='text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block'>
-              Angebote
-            </span>
-            <h1 className='font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6'>
-              Yoga mit Bea
-            </h1>
-            <div className='decorative-line mb-6' />
-            <p className='text-charcoal-light text-lg leading-relaxed mb-4'>
-              Mein Verständnis von Yoga geht über die körperliche Praxis hinaus.
-              Yoga ist für mich ein Weg der Selbsterfahrung – durch Yoga gehst
-              du nur auf dich selbst zu.
-            </p>
-            <p className='text-charcoal-light text-lg leading-relaxed'>
-              Entdecke meine verschiedenen Angebote und finde den Weg, der zu
-              dir passt.
-            </p>
-          </div>
+          <TextSection
+            label="Angebote"
+            title="Yoga mit Bea"
+            description={[
+              "Mein Verständnis von Yoga geht über die körperliche Praxis hinaus. Yoga ist für mich ein Weg der Selbsterfahrung – durch Yoga gehst du nur auf dich selbst zu.",
+              "Entdecke meine verschiedenen Angebote und finde den Weg, der zu dir passt."
+            ]}
+            theme="yoga"
+          />
         </div>
       </section>
 

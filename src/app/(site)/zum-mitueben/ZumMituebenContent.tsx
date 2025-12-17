@@ -1,5 +1,8 @@
 import Link from "next/link";
 import LotusIcon from "@/components/icons/LotusIcon";
+import IconCard from "@/components/IconCard";
+import SectionHeader from "@/components/SectionHeader";
+import TextSection from "@/components/TextSection";
 
 export default function ZumMituebenContent() {
   return (
@@ -10,19 +13,12 @@ export default function ZumMituebenContent() {
         <div className="absolute bottom-10 left-10 w-48 h-48 bg-blush/10 organic-blob-2 animate-breathe" />
 
         <div className="container mx-auto px-6 relative">
-          <div className="max-w-3xl">
-            <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
-              Online
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6">
-              Yoga Online
-            </h1>
-            <div className="decorative-line mb-6" />
-            <p className="text-charcoal-light text-lg leading-relaxed mb-4">
-              Praktiziere Yoga bequem von zu Hause aus. In den Online-Stunden 
-              verbinden wir uns über Video und üben gemeinsam – egal wo du gerade bist.
-            </p>
-          </div>
+          <TextSection
+            label="Online"
+            title="Yoga Online"
+            description="Praktiziere Yoga bequem von zu Hause aus. In den Online-Stunden verbinden wir uns über Video und üben gemeinsam – egal wo du gerade bist."
+            theme="yoga"
+          />
         </div>
       </section>
 
@@ -87,56 +83,42 @@ export default function ZumMituebenContent() {
       {/* Benefits Section */}
       <section className="py-24 bg-cream">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-sage-dark font-body text-sm tracking-widest uppercase mb-4 block">
-              Vorteile
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-charcoal mb-6">
-              Yoga Online mit Bea
-            </h2>
-            <div className="w-20 h-0.5 bg-sage mx-auto" />
+          <div className="max-w-2xl mx-auto mb-16">
+            <SectionHeader
+              label="Vorteile"
+              title="Yoga Online mit Bea"
+              theme="yoga"
+              align="center"
+            />
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-warm-white rounded-2xl p-8 text-center card-hover">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <IconCard
+              icon={
+                <svg className="w-8 h-8 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-3">
-                Von zu Hause
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                Übe bequem in deiner vertrauten Umgebung, ohne Anfahrtswege.
-              </p>
-            </div>
-
-            <div className="bg-warm-white rounded-2xl p-8 text-center card-hover">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              }
+              title="Von zu Hause"
+              description="Übe bequem in deiner vertrauten Umgebung, ohne Anfahrtswege."
+              theme="yoga"
+            />
+            <IconCard
+              icon={
+                <svg className="w-8 h-8 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-3">
-                Gemeinsam üben
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                Verbinde dich mit anderen und erlebe die Energie der Gruppe.
-              </p>
-            </div>
-
-            <div className="bg-warm-white rounded-2xl p-8 text-center card-hover">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-6">
-                <LotusIcon className="w-8 h-8 text-sage-dark" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-charcoal mb-3">
-                Persönliche Anleitung
-              </h3>
-              <p className="text-charcoal-light text-sm">
-                Auch online begleite ich dich achtsam durch die Praxis.
-              </p>
-            </div>
+              }
+              title="Gemeinsam üben"
+              description="Verbinde dich mit anderen und erlebe die Energie der Gruppe."
+              theme="yoga"
+            />
+            <IconCard
+              icon={<LotusIcon className="w-8 h-8 text-sage-dark" />}
+              title="Persönliche Anleitung"
+              description="Auch online begleite ich dich achtsam durch die Praxis."
+              theme="yoga"
+            />
           </div>
         </div>
       </section>
