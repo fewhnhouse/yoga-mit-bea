@@ -180,7 +180,11 @@ export default function ServiceSection({
               <div className='mt-8'>
                 <Link
                   href={service.ctaLink || '/kontakt'}
-                  className='btn-primary'
+                  className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
+                    isYoga 
+                      ? 'bg-sage hover:bg-sage-dark' 
+                      : 'bg-terracotta hover:bg-terracotta/90'
+                  }`}
                 >
                   {service.ctaText || 'Anfragen'}
                 </Link>
@@ -249,7 +253,14 @@ function EventsLayout({
       </div>
 
       {/* CTA */}
-      <Link href={service.ctaLink || '/kontakt'} className='btn-primary'>
+      <Link 
+        href={service.ctaLink || '/kontakt'} 
+        className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
+          isYoga 
+            ? 'bg-sage hover:bg-sage-dark' 
+            : 'bg-terracotta hover:bg-terracotta/90'
+        }`}
+      >
         {service.ctaText || 'Termine erfragen'}
       </Link>
     </>
