@@ -12,6 +12,9 @@ import event from "./event";
 import testimonial from "./testimonial";
 import page from "./page";
 
+// Section schemas (object types for page builder)
+import { sectionSchemas } from "./sections";
+
 export const schemaTypes: SchemaTypeDefinition[] = [
   // Singletons
   siteSettings,
@@ -24,4 +27,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   event,
   testimonial,
   page,
+  
+  // Section types (object schemas used in page.sections)
+  ...sectionSchemas,
 ];

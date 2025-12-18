@@ -19,7 +19,7 @@ export default defineConfig({
     }),
     presentationTool({
       previewUrl: {
-        preview: '/',
+        initial: '/',
         previewMode: {
           enable: '/api/draft-mode/enable',
         },

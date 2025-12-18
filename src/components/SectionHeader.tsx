@@ -3,8 +3,8 @@ export interface SectionHeaderProps {
   label: string
   /** Main heading */
   title: string
-  /** Theme color - defaults to 'yoga' */
-  theme?: 'yoga' | 'therapie'
+  /** Theme color - defaults to 'yoga'. Use 'light' for white text on colored backgrounds */
+  theme?: 'yoga' | 'therapie' | 'light'
   /** Text alignment - defaults to 'left' */
   align?: 'left' | 'center'
   /** Heading level - defaults to 'h2' */
@@ -21,11 +21,13 @@ export default function SectionHeader({
   as: Tag = 'h2',
   className = '',
 }: SectionHeaderProps) {
+  const isLight = theme === 'light'
   const isYoga = theme === 'yoga'
 
   // Theme-based classes
-  const labelClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-  const lineColor = isYoga ? 'var(--sage)' : 'var(--terracotta)'
+  const labelClass = isLight ? 'text-white/80' : isYoga ? 'text-sage-dark' : 'text-terracotta'
+  const titleClass = isLight ? 'text-white' : 'text-charcoal'
+  const lineColor = isLight ? 'rgba(255,255,255,0.5)' : isYoga ? 'var(--sage)' : 'var(--terracotta)'
 
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center' : 'text-left'
@@ -44,7 +46,7 @@ export default function SectionHeader({
       >
         {label}
       </span>
-      <Tag className='font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-charcoal mb-6'>
+      <Tag className={`font-display text-4xl md:text-5xl lg:text-6xl font-semibold ${titleClass} mb-6`}>
         {title}
       </Tag>
       <div

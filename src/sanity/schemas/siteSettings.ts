@@ -81,6 +81,13 @@ export default defineType({
       title: "Contact Phone",
       type: "string",
     }),
+    defineField({
+      name: "homepage",
+      title: "Homepage",
+      type: "reference",
+      to: [{ type: "page" }],
+      description: "Select which page to use as the homepage for this site",
+    }),
   ],
   preview: {
     select: {

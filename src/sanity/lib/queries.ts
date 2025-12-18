@@ -267,7 +267,7 @@ export const allTestimonialsQuery = defineQuery(`
 // ============================================
 
 /**
- * Get a page by slug
+ * Get a page by slug with expanded sections
  */
 export const pageBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug && site in [$siteId, "both"]][0] {
@@ -275,12 +275,208 @@ export const pageBySlugQuery = defineQuery(`
     site,
     title,
     "slug": slug.current,
-    content,
+    sections[] {
+      _key,
+      _type,
+      ...,
+      // Expand image URLs in imageTextSection
+      _type == "imageTextSection" => {
+        ...,
+        "imageUrl": image.asset->url
+      },
+      // Expand service references in cardsGridSection
+      _type == "cardsGridSection" => {
+        ...,
+        cards[] {
+          ...,
+          serviceRef-> {
+            _id,
+            title,
+            shortDescription,
+            icon,
+            "slug": slug.current
+          }
+        }
+      }
+    },
     seoTitle,
     seoDescription,
     "ogImageUrl": ogImage.asset->url,
     noIndex
   }
+`);
+
+/**
+ * Get a page with all related data needed for sections
+ */
+export const pageWithSectionsDataQuery = defineQuery(`
+{
+  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"]][0] {
+    _id,
+    site,
+    title,
+    "slug": slug.current,
+    sections[] {
+      _key,
+      _type,
+      ...,
+      _type == "imageTextSection" => {
+        ...,
+        "imageUrl": image.asset->url
+      },
+      _type == "cardsGridSection" => {
+        ...,
+        cards[] {
+          ...,
+          serviceRef-> {
+            _id,
+            title,
+            shortDescription,
+            icon,
+            "slug": slug.current
+          }
+        }
+      }
+    },
+    seoTitle,
+    seoDescription,
+    "ogImageUrl": ogImage.asset->url,
+    noIndex
+  },
+  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    subtitle,
+    shortDescription,
+    fullDescription,
+    "imageUrl": image.asset->url,
+    icon,
+    features,
+    duration,
+    pricing,
+    ctaText,
+    ctaLink,
+    order,
+    imagePosition,
+    sectionBackground,
+    badge,
+    locations[]-> {
+      _id,
+      name,
+      shortName,
+      address,
+      googleMapsUrl,
+      "imageUrl": image.asset->url,
+      schedule,
+      pricing,
+      maxParticipants
+    }
+  },
+  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
+    _id,
+    name,
+    shortName,
+    description,
+    address,
+    googleMapsUrl,
+    "imageUrl": image.asset->url,
+    schedule,
+    pricing
+  },
+  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
+    _id,
+    name,
+    quote
+  }
+}
+`);
+
+/**
+ * Get homepage from site settings reference
+ */
+export const homepageFromSettingsQuery = defineQuery(`
+{
+  "settings": *[_id == $siteSettingsId][0] {
+    name,
+    tagline,
+    primaryColor,
+    contactEmail,
+    homepage-> {
+      _id,
+      title,
+      "slug": slug.current,
+      sections[] {
+        _key,
+        _type,
+        ...,
+        _type == "imageTextSection" => {
+          ...,
+          "imageUrl": image.asset->url
+        },
+        _type == "cardsGridSection" => {
+          ...,
+          cards[] {
+            ...,
+            serviceRef-> {
+              _id,
+              title,
+              shortDescription,
+              icon,
+              "slug": slug.current
+            }
+          }
+        }
+      }
+    }
+  },
+  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    subtitle,
+    shortDescription,
+    fullDescription,
+    "imageUrl": image.asset->url,
+    icon,
+    features,
+    duration,
+    pricing,
+    ctaText,
+    ctaLink,
+    order,
+    imagePosition,
+    sectionBackground,
+    badge,
+    locations[]-> {
+      _id,
+      name,
+      shortName,
+      address,
+      googleMapsUrl,
+      "imageUrl": image.asset->url,
+      schedule,
+      pricing,
+      maxParticipants
+    }
+  },
+  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
+    _id,
+    name,
+    shortName,
+    description,
+    address,
+    googleMapsUrl,
+    "imageUrl": image.asset->url,
+    schedule,
+    pricing
+  },
+  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
+    _id,
+    name,
+    quote
+  }
+}
 `);
 
 /**

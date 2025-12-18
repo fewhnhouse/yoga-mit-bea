@@ -35,28 +35,21 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+
+    // Sections array - composable page content
     defineField({
-      name: "content",
-      title: "Content",
+      name: "sections",
+      title: "Page Sections",
       type: "array",
       of: [
-        { type: "block" },
-        {
-          type: "image",
-          options: { hotspot: true },
-          fields: [
-            {
-              name: "alt",
-              title: "Alt Text",
-              type: "string",
-            },
-            {
-              name: "caption",
-              title: "Caption",
-              type: "string",
-            },
-          ],
-        },
+        { type: "heroSection" },
+        { type: "textSection" },
+        { type: "ctaSection" },
+        { type: "imageTextSection" },
+        { type: "cardsGridSection" },
+        { type: "serviceListSection" },
+        { type: "testimonialsSection" },
+        { type: "richTextSection" },
       ],
     }),
 
@@ -93,21 +86,22 @@ export default defineType({
       title: "title",
       slug: "slug.current",
       site: "site",
+      sections: "sections",
     },
     prepare(selection) {
-      const { title, slug, site } = selection;
+      const { title, slug, site, sections } = selection;
       const siteEmojis: Record<string, string> = {
         yoga: "🧘",
         therapie: "💆",
         both: "🔄",
       };
       const siteEmoji = site ? siteEmojis[site] || "" : "";
+      const sectionCount = sections?.length || 0;
       
       return {
         title: `${siteEmoji} ${title || "Untitled"}`,
-        subtitle: `/${slug || ""}`,
+        subtitle: `/${slug || ""} • ${sectionCount} section${sectionCount !== 1 ? "s" : ""}`,
       };
     },
   },
 });
-
