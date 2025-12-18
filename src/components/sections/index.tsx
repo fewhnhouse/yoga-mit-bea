@@ -43,6 +43,7 @@ interface CTASectionData extends BaseSection {
   ctas?: Array<{ text: string; href: string; variant?: 'primary' | 'secondary' }>
   variant?: 'solid' | 'light'
   isQuote?: boolean
+  icon?: string
   decorative?: boolean
   padding?: 'default' | 'large'
 }
@@ -181,6 +182,7 @@ export function SectionRenderer({
                 ctas={section.ctas}
                 variant={section.variant}
                 isQuote={section.isQuote}
+                icon={section.icon}
                 decorative={section.decorative}
                 padding={section.padding}
               />

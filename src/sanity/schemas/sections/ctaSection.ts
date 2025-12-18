@@ -85,6 +85,28 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
+      name: "icon",
+      title: "Icon",
+      type: "string",
+      description: "Optional decorative icon above the title",
+      options: {
+        list: [
+          { title: "None", value: "" },
+          { title: "Lotus", value: "lotus" },
+          { title: "Group", value: "group" },
+          { title: "Calendar", value: "calendar" },
+          { title: "Path", value: "path" },
+          { title: "Hands", value: "hands" },
+          { title: "Wind / Breath", value: "wind" },
+          { title: "Sound", value: "sound" },
+          { title: "Video", value: "video" },
+          { title: "Heart", value: "heart" },
+          { title: "Clock", value: "clock" },
+          { title: "Check", value: "check" },
+        ],
+      },
+    }),
+    defineField({
       name: "decorative",
       title: "Show Decorative Elements",
       type: "boolean",

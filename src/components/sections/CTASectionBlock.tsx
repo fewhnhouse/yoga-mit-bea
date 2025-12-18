@@ -1,7 +1,7 @@
 'use client'
 
 import CTASection from '@/components/CTASection'
-import LotusIcon from '@/components/icons/LotusIcon'
+import ServiceIcon from '@/components/ServiceIcon'
 import { useSite } from '@/context/SiteContext'
 
 interface CTAButton {
@@ -16,6 +16,7 @@ interface CTASectionBlockProps {
   ctas?: CTAButton[]
   variant?: 'solid' | 'light'
   isQuote?: boolean
+  icon?: string
   decorative?: boolean
   padding?: 'default' | 'large'
 }
@@ -26,6 +27,7 @@ export default function CTASectionBlock({
   ctas = [],
   variant = 'solid',
   isQuote = false,
+  icon,
   decorative = false,
   padding = 'default',
 }: CTASectionBlockProps) {
@@ -53,7 +55,7 @@ export default function CTASectionBlock({
       isQuote={isQuote}
       decorative={decorative}
       padding={padding}
-      icon={isQuote ? <LotusIcon className='w-12 h-12 text-white' /> : undefined}
+      icon={icon ? <ServiceIcon icon={icon} className='w-12 h-12 text-white' /> : undefined}
     />
   )
 }
