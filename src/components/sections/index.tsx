@@ -8,6 +8,7 @@ import CardsGridSection from './CardsGridSection'
 import ServiceListSection from './ServiceListSection'
 import TestimonialsSection from './TestimonialsSection'
 import RichTextSection from './RichTextSection'
+import GoogleMeetSection from './GoogleMeetSection'
 import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
 
 // Type for section data from Sanity
@@ -40,7 +41,11 @@ interface CTASectionData extends BaseSection {
   _type: 'ctaSection'
   title: string
   description: string
-  ctas?: Array<{ text: string; href: string; variant?: 'primary' | 'secondary' }>
+  ctas?: Array<{
+    text: string
+    href: string
+    variant?: 'primary' | 'secondary'
+  }>
   variant?: 'solid' | 'light'
   isQuote?: boolean
   icon?: string
@@ -113,6 +118,18 @@ interface RichTextSectionData extends BaseSection {
   maxWidth?: 'narrow' | 'medium' | 'wide'
 }
 
+interface GoogleMeetSectionData extends BaseSection {
+  _type: 'googleMeetSection'
+  title: string
+  schedule?: string
+  instructionsTitle?: string
+  instructions?: string[]
+  meetLink: string
+  buttonText?: string
+  footnote?: string
+  background?: 'light' | 'cream'
+}
+
 // Union type for all sections
 type SectionData =
   | HeroSectionData
@@ -123,6 +140,7 @@ type SectionData =
   | ServiceListSectionData
   | TestimonialsSectionData
   | RichTextSectionData
+  | GoogleMeetSectionData
 
 // Props for the SectionRenderer
 interface SectionRendererProps {
@@ -255,8 +273,25 @@ export function SectionRenderer({
               />
             )
 
+          case 'googleMeetSection':
+            return (
+              <GoogleMeetSection
+                key={section._key}
+                title={section.title}
+                schedule={section.schedule}
+                instructionsTitle={section.instructionsTitle}
+                instructions={section.instructions}
+                meetLink={section.meetLink}
+                buttonText={section.buttonText}
+                footnote={section.footnote}
+                background={section.background}
+              />
+            )
+
           default:
-            console.warn(`Unknown section type: ${(section as BaseSection)._type}`)
+            console.warn(
+              `Unknown section type: ${(section as BaseSection)._type}`
+            )
             return null
         }
       })}
@@ -274,5 +309,5 @@ export {
   ServiceListSection,
   TestimonialsSection,
   RichTextSection,
+  GoogleMeetSection,
 }
-

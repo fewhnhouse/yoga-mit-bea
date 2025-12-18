@@ -629,13 +629,14 @@ export type SiteSettingsQueryResult = {
   contactPhone: string | null;
 } | null;
 // Variable: navigationDataQuery
-// Query: {  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(title asc) {    _id,    title,    "slug": slug.current  },  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {    _id,    title,    "slug": slug.current  }}
+// Query: {  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "order": coalesce(order, 100)  },  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {    _id,    title,    "slug": slug.current  }}
 export type NavigationDataQueryResult = {
   homepageSlug: null;
   pages: Array<{
     _id: string;
     title: string;
     slug: string;
+    order: 100;
   }>;
   services: Array<{
     _id: string;
@@ -1048,7 +1049,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    tagline,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone\n  }\n": SiteSettingsQueryResult;
-    "\n{\n  \"homepageSlug\": *[_id == $siteSettingsId][0].homepage->slug.current,\n  \"pages\": *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current)] | order(title asc) {\n    _id,\n    title,\n    \"slug\": slug.current\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    title,\n    \"slug\": slug.current\n  }\n}\n": NavigationDataQueryResult;
+    "\n{\n  \"homepageSlug\": *[_id == $siteSettingsId][0].homepage->slug.current,\n  \"pages\": *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current)] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"order\": coalesce(order, 100)\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    title,\n    \"slug\": slug.current\n  }\n}\n": NavigationDataQueryResult;
     "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    order\n  }\n": ServicesForSiteQueryResult;
     "\n  *[_type == \"service\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      address,\n      googleMapsUrl,\n      \"imageUrl\": image.asset->url,\n      schedule,\n      pricing\n    }\n  }\n": ServiceBySlugQueryResult;
     "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    address,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy,\n    order\n  }\n": LocationsForSiteQueryResult;

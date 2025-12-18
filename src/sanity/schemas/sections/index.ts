@@ -1,11 +1,12 @@
-import heroSection from "./heroSection";
-import textSection from "./textSection";
-import ctaSection from "./ctaSection";
-import imageTextSection from "./imageTextSection";
-import cardsGridSection from "./cardsGridSection";
-import serviceListSection from "./serviceListSection";
-import testimonialsSection from "./testimonialsSection";
-import richTextSection from "./richTextSection";
+import heroSection from './heroSection'
+import textSection from './textSection'
+import ctaSection from './ctaSection'
+import imageTextSection from './imageTextSection'
+import cardsGridSection from './cardsGridSection'
+import serviceListSection from './serviceListSection'
+import testimonialsSection from './testimonialsSection'
+import richTextSection from './richTextSection'
+import googleMeetSection from './googleMeetSection'
 
 // Export all section schemas
 export const sectionSchemas = [
@@ -17,7 +18,8 @@ export const sectionSchemas = [
   serviceListSection,
   testimonialsSection,
   richTextSection,
-];
+  googleMeetSection,
+]
 
 // Export individual schemas for type generation
 export {
@@ -29,5 +31,5 @@ export {
   serviceListSection,
   testimonialsSection,
   richTextSection,
-};
-
+  googleMeetSection,
+}

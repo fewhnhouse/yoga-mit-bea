@@ -91,33 +91,19 @@ export function SiteProvider({ children, sanityNav }: SiteProviderProps) {
     document.documentElement.setAttribute('data-site', siteId)
   }, [siteId])
 
-  // Build nav links from Sanity pages, with homepage first
-  const sortedPages = [...(sanityNav?.pages || [])].sort((a, b) => {
-    // Homepage comes first
-    if (a.slug === sanityNav?.homepageSlug) return -1
-    if (b.slug === sanityNav?.homepageSlug) return 1
-    return 0 // Keep original order for other pages
-  })
-  
-  const pagesNavLinks: NavLink[] = sortedPages.map((page) => ({
+  // Build nav links from Sanity pages (already sorted by order field in query)
+  const navLinks: NavLink[] = (sanityNav?.pages || []).map((page) => ({
     label: page.title,
     href: `/${page.slug}`,
   }))
 
-  // Add static links for yoga site
-  const staticYogaLinks: NavLink[] = siteId === 'yoga' 
-    ? [{ label: 'Zum Mitüben', href: '/zum-mitueben' }]
-    : []
-
-  // Combine page links with static links
-  const navLinks: NavLink[] = [...pagesNavLinks, ...staticYogaLinks]
-
   // Build footer service links from Sanity services
   // Each service links to the services page with an anchor
-  const footerServiceLinks: NavLink[] = sanityNav?.services?.map((service) => ({
-    label: service.title,
-    href: `/${siteId}#${service.slug}`,
-  })) || []
+  const footerServiceLinks: NavLink[] =
+    sanityNav?.services?.map((service) => ({
+      label: service.title,
+      href: `/${siteId}#${service.slug}`,
+    })) || []
 
   // Footer info links are static from config
   const footerInfoLinks = sites[siteId].footerInfoLinks

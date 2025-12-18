@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { sanityFetch } from '@/sanity/lib/live'
-import { pageWithSectionsDataQuery, allPageSlugsQuery } from '@/sanity/lib/queries'
+import {
+  pageWithSectionsDataQuery,
+  allPageSlugsQuery,
+} from '@/sanity/lib/queries'
 import { getSiteId } from '@/lib/getSiteId'
 import DynamicPageContent from './DynamicPageContent'
 
@@ -25,10 +28,13 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const resolvedParams = await params
   const slug = resolvedParams.slug.join('/')
-  const siteId = getSiteId()
+
+  const siteId = await getSiteId()
 
   const { data } = await sanityFetch({
     query: pageWithSectionsDataQuery,
@@ -58,14 +64,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function DynamicPage({ params }: PageProps) {
   const resolvedParams = await params
   const slug = resolvedParams.slug.join('/')
+
   const siteId = await getSiteId()
 
   const { data } = await sanityFetch({
     query: pageWithSectionsDataQuery,
     params: { slug, siteId },
   })
-
-  console.log('data', data, slug, siteId)
 
   if (!data?.page) {
     return notFound()
@@ -80,4 +85,3 @@ export default async function DynamicPage({ params }: PageProps) {
     />
   )
 }
-

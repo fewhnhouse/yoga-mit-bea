@@ -1,10 +1,10 @@
-import { defineQuery } from "next-sanity";
+import { defineQuery } from 'next-sanity'
 
 // Singleton document IDs (must match structure.ts)
 export const SINGLETON_IDS = {
-  siteSettingsYoga: "siteSettings-yoga",
-  siteSettingsTherapie: "siteSettings-therapie",
-};
+  siteSettingsYoga: 'siteSettings-yoga',
+  siteSettingsTherapie: 'siteSettings-therapie',
+}
 
 // ============================================
 // SITE SETTINGS QUERIES
@@ -27,7 +27,7 @@ export const siteSettingsQuery = defineQuery(`
     contactEmail,
     contactPhone
   }
-`);
+`)
 
 /**
  * Get navigation data - pages and services for a site
@@ -35,10 +35,11 @@ export const siteSettingsQuery = defineQuery(`
 export const navigationDataQuery = defineQuery(`
 {
   "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,
-  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(title asc) {
+  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(coalesce(order, 100) asc, title asc) {
     _id,
     title,
-    "slug": slug.current
+    "slug": slug.current,
+    "order": coalesce(order, 100)
   },
   "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
     _id,
@@ -46,8 +47,7 @@ export const navigationDataQuery = defineQuery(`
     "slug": slug.current
   }
 }
-`);
-
+`)
 
 // ============================================
 // SERVICES QUERIES
@@ -73,7 +73,7 @@ export const servicesForSiteQuery = defineQuery(`
     ctaLink,
     order
   }
-`);
+`)
 
 /**
  * Get a single service by slug
@@ -106,7 +106,7 @@ export const serviceBySlugQuery = defineQuery(`
       pricing
     }
   }
-`);
+`)
 
 // ============================================
 // LOCATIONS QUERIES
@@ -131,7 +131,7 @@ export const locationsForSiteQuery = defineQuery(`
     usedBy,
     order
   }
-`);
+`)
 
 /**
  * Get a single location by slug
@@ -151,7 +151,7 @@ export const locationBySlugQuery = defineQuery(`
     maxParticipants,
     usedBy
   }
-`);
+`)
 
 // ============================================
 // EVENTS QUERIES
@@ -178,7 +178,7 @@ export const upcomingEventsQuery = defineQuery(`
     price,
     maxParticipants
   }
-`);
+`)
 
 /**
  * Get a single event by slug
@@ -204,7 +204,7 @@ export const eventBySlugQuery = defineQuery(`
     price,
     maxParticipants
   }
-`);
+`)
 
 // ============================================
 // TESTIMONIALS QUERIES
@@ -221,7 +221,7 @@ export const featuredTestimonialsQuery = defineQuery(`
     site,
     service-> { title }
   }
-`);
+`)
 
 /**
  * Get all testimonials for a specific site
@@ -235,7 +235,7 @@ export const allTestimonialsQuery = defineQuery(`
     featured,
     service-> { title }
   }
-`);
+`)
 
 // ============================================
 // PAGES QUERIES
@@ -279,7 +279,7 @@ export const pageBySlugQuery = defineQuery(`
     "ogImageUrl": ogImage.asset->url,
     noIndex
   }
-`);
+`)
 
 /**
  * Get a page with all related data needed for sections
@@ -370,7 +370,7 @@ export const pageWithSectionsDataQuery = defineQuery(`
     quote
   }
 }
-`);
+`)
 
 /**
  * Get homepage from site settings reference
@@ -462,7 +462,7 @@ export const homepageFromSettingsQuery = defineQuery(`
     quote
   }
 }
-`);
+`)
 
 /**
  * Get all page slugs (for static generation)
@@ -472,5 +472,4 @@ export const allPageSlugsQuery = defineQuery(`
     "slug": slug.current,
     site
   }
-`);
-
+`)
