@@ -4,22 +4,8 @@ import { presentationTool } from "sanity/presentation";
 import { schemaTypes } from "./src/sanity/schemas";
 import { structure } from "./src/sanity/lib/structure";
 
-// Preview URL configuration
-// Priority: custom override > Vercel deployment URL > localhost
-const getPreviewOrigin = () => {
-  // Allow explicit override
-  if (process.env.SANITY_STUDIO_PREVIEW_ORIGIN) {
-    return process.env.SANITY_STUDIO_PREVIEW_ORIGIN;
-  }
-  // Use Vercel's deployment URL (doesn't include protocol)
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  // Fallback for local development
-  return "http://localhost:3000";
-};
-
-const SANITY_STUDIO_PREVIEW_ORIGIN = getPreviewOrigin();
+const PREVIEW_ORIGIN =
+  process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
 
 export default defineConfig({
   name: "yoga-und-therapie-mit-bea",
@@ -36,7 +22,7 @@ export default defineConfig({
     }),
     presentationTool({
       previewUrl: {
-        origin: SANITY_STUDIO_PREVIEW_ORIGIN,
+        origin: PREVIEW_ORIGIN,
         preview: "/",
         previewMode: {
           enable: "/api/draft-mode/enable",
