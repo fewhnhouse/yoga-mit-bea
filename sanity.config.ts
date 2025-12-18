@@ -5,8 +5,21 @@ import { schemaTypes } from "./src/sanity/schemas";
 import { structure } from "./src/sanity/lib/structure";
 
 // Preview URL configuration
-const SANITY_STUDIO_PREVIEW_ORIGIN =
-  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || "http://localhost:3000";
+// Priority: custom override > Vercel deployment URL > localhost
+const getPreviewOrigin = () => {
+  // Allow explicit override
+  if (process.env.SANITY_STUDIO_PREVIEW_ORIGIN) {
+    return process.env.SANITY_STUDIO_PREVIEW_ORIGIN;
+  }
+  // Use Vercel's deployment URL (doesn't include protocol)
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Fallback for local development
+  return "http://localhost:3000";
+};
+
+const SANITY_STUDIO_PREVIEW_ORIGIN = getPreviewOrigin();
 
 export default defineConfig({
   name: "yoga-und-therapie-mit-bea",
