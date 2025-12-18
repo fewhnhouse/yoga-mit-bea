@@ -1,20 +1,23 @@
-import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
-import { presentationTool } from "sanity/presentation";
-import { schemaTypes } from "./src/sanity/schemas";
-import { structure } from "./src/sanity/lib/structure";
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { presentationTool } from 'sanity/presentation'
+import { schemaTypes } from './src/sanity/schemas'
+import { structure } from './src/sanity/lib/structure'
 
-const PREVIEW_ORIGIN =
-  process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
+const PREVIEW_ORIGIN = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : 'http://localhost:3000'
+
+console.log('PREVIEW_ORIGIN', PREVIEW_ORIGIN)
 
 export default defineConfig({
-  name: "yoga-und-therapie-mit-bea",
-  title: "Yoga & Therapie mit Bea",
+  name: 'yoga-und-therapie-mit-bea',
+  title: 'Yoga & Therapie mit Bea',
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
 
-  basePath: "/studio",
+  basePath: '/studio',
 
   plugins: [
     structureTool({
@@ -23,9 +26,9 @@ export default defineConfig({
     presentationTool({
       previewUrl: {
         origin: PREVIEW_ORIGIN,
-        preview: "/",
+        preview: '/',
         previewMode: {
-          enable: "/api/draft-mode/enable",
+          enable: '/api/draft-mode/enable',
         },
       },
     }),
@@ -34,4 +37,4 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-});
+})
