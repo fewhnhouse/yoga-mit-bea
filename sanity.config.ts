@@ -4,12 +4,6 @@ import { presentationTool } from 'sanity/presentation'
 import { schemaTypes } from './src/sanity/schemas'
 import { structure } from './src/sanity/lib/structure'
 
-const PREVIEW_ORIGIN = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000'
-
-console.log('PREVIEW_ORIGIN', PREVIEW_ORIGIN)
-
 export default defineConfig({
   name: 'yoga-und-therapie-mit-bea',
   title: 'Yoga & Therapie mit Bea',
@@ -25,7 +19,6 @@ export default defineConfig({
     }),
     presentationTool({
       previewUrl: {
-        origin: PREVIEW_ORIGIN,
         preview: '/',
         previewMode: {
           enable: '/api/draft-mode/enable',
