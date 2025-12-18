@@ -30,7 +30,6 @@ export async function getSiteId(): Promise<SiteId> {
 export function getSingletonIds(siteId: SiteId) {
   return {
     siteSettingsId: siteId === "yoga" ? "siteSettings-yoga" : "siteSettings-therapie",
-    homepageId: siteId === "yoga" ? "homepage-yoga" : "homepage-therapie",
   };
 }
 

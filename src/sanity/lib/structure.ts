@@ -4,16 +4,11 @@ import type { StructureResolver } from "sanity/structure";
 export const SINGLETON_IDS = {
   siteSettingsYoga: "siteSettings-yoga",
   siteSettingsTherapie: "siteSettings-therapie",
-  aboutBea: "aboutBea",
-  homepageYoga: "homepage-yoga",
-  homepageTherapie: "homepage-therapie",
 };
 
 // Types that are singletons (shouldn't show in default list)
 export const SINGLETON_TYPES = new Set([
   "siteSettings",
-  "aboutBea",
-  "homepageContent",
 ]);
 
 export const structure: StructureResolver = (S) =>
@@ -51,42 +46,35 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // About Bea (Singleton)
+      // Pages
       S.listItem()
-        .title("About Bea")
-        .icon(() => "👤")
-        .child(
-          S.document()
-            .schemaType("aboutBea")
-            .documentId(SINGLETON_IDS.aboutBea)
-            .title("About Bea")
-        ),
-
-      // Homepage Content
-      S.listItem()
-        .title("Homepage Content")
-        .icon(() => "🏠")
+        .title("Pages")
+        .icon(() => "📄")
         .child(
           S.list()
-            .title("Homepage Content")
+            .title("Pages")
             .items([
               S.listItem()
-                .title("🧘 Yoga Homepage")
-                .icon(() => "🧘")
+                .title("🧘 Yoga Pages")
                 .child(
-                  S.document()
-                    .schemaType("homepageContent")
-                    .documentId(SINGLETON_IDS.homepageYoga)
-                    .title("Yoga Homepage")
+                  S.documentList()
+                    .title("Yoga Pages")
+                    .filter('_type == "page" && site in ["yoga", "both"]')
                 ),
               S.listItem()
-                .title("💆 Therapie Homepage")
-                .icon(() => "💆")
+                .title("💆 Therapie Pages")
                 .child(
-                  S.document()
-                    .schemaType("homepageContent")
-                    .documentId(SINGLETON_IDS.homepageTherapie)
-                    .title("Therapie Homepage")
+                  S.documentList()
+                    .title("Therapie Pages")
+                    .filter('_type == "page" && site in ["therapie", "both"]')
+                ),
+              S.divider(),
+              S.listItem()
+                .title("All Pages")
+                .child(
+                  S.documentList()
+                    .title("All Pages")
+                    .filter('_type == "page"')
                 ),
             ])
         ),
@@ -220,17 +208,5 @@ export const structure: StructureResolver = (S) =>
                     .defaultOrdering([{ field: "order", direction: "asc" }])
                 ),
             ])
-        ),
-
-      S.divider(),
-
-      // Pages
-      S.listItem()
-        .title("Pages")
-        .icon(() => "📄")
-        .child(
-          S.documentList()
-            .title("Pages")
-            .filter('_type == "page"')
         ),
     ]);

@@ -6,7 +6,7 @@ import { useSite } from "@/context/SiteContext";
 import SiteSwitcher from "./SiteSwitcher";
 
 export default function Navbar() {
-  const { currentSite, isYoga } = useSite();
+  const { currentSite, isYoga, navLinks } = useSite();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -43,7 +43,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center gap-6">
-          {currentSite.navLinks.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -108,7 +108,7 @@ export default function Navbar() {
         }`}
       >
         <ul className="container mx-auto px-6 py-6 space-y-4">
-          {currentSite.navLinks.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}

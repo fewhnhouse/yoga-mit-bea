@@ -11,8 +11,6 @@
 
 export type {
   SiteSettings,
-  AboutBea,
-  HomepageContent,
   Service,
   Location,
   Event,
@@ -26,15 +24,7 @@ export type {
 // ============================================
 
 export type {
-  // Combined page data queries
-  HomepageDataQueryResult,
-  YogaPageDataQueryResult,
-  TherapiePageDataQueryResult,
-  AboutPageDataQueryResult,
-  // Individual queries
   SiteSettingsQueryResult,
-  AboutBeaQueryResult,
-  HomepageContentQueryResult,
   ServicesForSiteQueryResult,
   ServiceBySlugQueryResult,
   LocationsForSiteQueryResult,
@@ -44,6 +34,8 @@ export type {
   FeaturedTestimonialsQueryResult,
   AllTestimonialsQueryResult,
   PageBySlugQueryResult,
+  PageWithSectionsDataQueryResult,
+  HomepageFromSettingsQueryResult,
   AllPageSlugsQueryResult,
 } from "./sanity.types";
 
@@ -63,7 +55,10 @@ export type ServiceIconType =
   | "hands" 
   | "wind" 
   | "sound" 
-  | "video";
+  | "video"
+  | "heart"
+  | "clock"
+  | "check";
 
 // Core value icon type (used in components for icon rendering)
 export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";
@@ -74,22 +69,11 @@ export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";
 // ============================================
 
 import type { 
-  YogaPageDataQueryResult, 
-  TherapiePageDataQueryResult,
-  AboutPageDataQueryResult,
+  PageWithSectionsDataQueryResult,
 } from "./sanity.types";
 
-/** Service type as returned by yoga page query (with projections like imageUrl, locations, events) */
-export type YogaServiceFromQuery = NonNullable<YogaPageDataQueryResult>["services"][number];
+/** Service type as returned by page data query */
+export type ServiceFromQuery = NonNullable<PageWithSectionsDataQueryResult>["services"][number];
 
-/** Service type as returned by therapie page query (with projections like imageUrl) */
-export type TherapieServiceFromQuery = NonNullable<TherapiePageDataQueryResult>["services"][number];
-
-/** Union of service types from both pages - for ServiceSection component */
-export type ServiceFromQuery = YogaServiceFromQuery | TherapieServiceFromQuery;
-
-/** Location type as returned by yoga page query (with projections like imageUrl) */
-export type LocationFromQuery = NonNullable<YogaPageDataQueryResult>["locations"][number];
-
-/** Core value type from about page query */
-export type CoreValueFromQuery = NonNullable<NonNullable<AboutPageDataQueryResult>["about"]>["coreValues"];
+/** Location type as returned by page data query */
+export type LocationFromQuery = NonNullable<PageWithSectionsDataQueryResult>["locations"][number];

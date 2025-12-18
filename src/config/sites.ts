@@ -1,16 +1,25 @@
 export type SiteId = "yoga" | "therapie";
 
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
 export interface SiteConfig {
   id: SiteId;
   name: string;
   tagline: string;
   domain: string;
   primaryColor: string;
-  navLinks: { href: string; label: string }[];
-  footerLinks: {
-    services: { href: string; label: string }[];
-    info: { href: string; label: string }[];
-  };
+  // Static info links for footer (Impressum, Datenschutz, etc.)
+  footerInfoLinks: NavLink[];
+}
+
+// Navigation data from Sanity (pages and services)
+export interface SanityNavigation {
+  homepageSlug?: string | null;
+  pages?: { _id: string; title: string; slug: string }[];
+  services?: { _id: string; title: string; slug: string }[];
 }
 
 export const sites: Record<SiteId, SiteConfig> = {
@@ -20,28 +29,11 @@ export const sites: Record<SiteId, SiteConfig> = {
     tagline: "Durch Yoga gehst du nur auf dich selbst zu",
     domain: "yogamitbea.de",
     primaryColor: "sage",
-    navLinks: [
-      { href: "/", label: "Übersicht" },
-      { href: "/ueber-mich", label: "Bea" },
-      { href: "/yoga", label: "Yoga" },
-      { href: "/zum-mitueben", label: "Zum Mitüben" },
+    footerInfoLinks: [
       { href: "/kontakt", label: "Kontakt" },
+      { href: "/impressum", label: "Impressum" },
+      { href: "/datenschutz", label: "Datenschutz" },
     ],
-    footerLinks: {
-      services: [
-        { href: "/yoga#individuell", label: "Yoga Individuell" },
-        { href: "/yoga#kurse", label: "Yogakurse" },
-        { href: "/yoga#aktuell", label: "Yoga aktuell" },
-        { href: "/yoga#weg", label: "Yoga Weg" },
-        { href: "/zum-mitueben", label: "Yoga Online" },
-      ],
-      info: [
-        { href: "/ueber-mich", label: "Über Bea" },
-        { href: "/kontakt", label: "Kontakt" },
-        { href: "/impressum", label: "Impressum" },
-        { href: "/datenschutz", label: "Datenschutz" },
-      ],
-    },
   },
   therapie: {
     id: "therapie",
@@ -49,26 +41,11 @@ export const sites: Record<SiteId, SiteConfig> = {
     tagline: "Heilung für Körper und Seele",
     domain: "therapiemitbea.de",
     primaryColor: "terracotta",
-    navLinks: [
-      { href: "/", label: "Übersicht" },
-      { href: "/ueber-mich", label: "Bea" },
-      { href: "/therapie", label: "Therapie" },
+    footerInfoLinks: [
       { href: "/kontakt", label: "Kontakt" },
+      { href: "/impressum", label: "Impressum" },
+      { href: "/datenschutz", label: "Datenschutz" },
     ],
-    footerLinks: {
-      services: [
-        { href: "/therapie#massage", label: "Therapeutische Massage" },
-        { href: "/therapie#atemtherapie", label: "Atemtherapie" },
-        { href: "/therapie#klangschalen", label: "Klangschalentherapie" },
-        { href: "/therapie#einzelsitzung", label: "Einzelsitzungen" },
-      ],
-      info: [
-        { href: "/ueber-mich", label: "Über Bea" },
-        { href: "/kontakt", label: "Kontakt" },
-        { href: "/impressum", label: "Impressum" },
-        { href: "/datenschutz", label: "Datenschutz" },
-      ],
-    },
   },
 };
 
@@ -78,4 +55,3 @@ export function getSiteFromDomain(hostname: string): SiteId {
   if (hostname.includes("therapie")) return "therapie";
   return "yoga";
 }
-

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSite } from "@/context/SiteContext";
 
 export default function Footer() {
-  const { currentSite, isYoga } = useSite();
+  const { currentSite, isYoga, footerServiceLinks, footerInfoLinks } = useSite();
 
   const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
   const hoverColorClass = isYoga ? "hover:text-sage-dark" : "hover:text-terracotta";
@@ -30,23 +30,25 @@ export default function Footer() {
           </div>
 
           {/* Services Links */}
-          <div>
-            <h4 className={`font-display text-lg font-semibold ${primaryColorClass} mb-6`}>
-              Angebote
-            </h4>
-            <ul className="space-y-3">
-              {currentSite.footerLinks.services.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`text-charcoal-light ${hoverColorClass} transition-colors text-sm`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerServiceLinks.length > 0 && (
+            <div>
+              <h4 className={`font-display text-lg font-semibold ${primaryColorClass} mb-6`}>
+                Angebote
+              </h4>
+              <ul className="space-y-3">
+                {footerServiceLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`text-charcoal-light ${hoverColorClass} transition-colors text-sm`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Info Links */}
           <div>
@@ -54,7 +56,7 @@ export default function Footer() {
               Information
             </h4>
             <ul className="space-y-3">
-              {currentSite.footerLinks.info.map((link) => (
+              {footerInfoLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

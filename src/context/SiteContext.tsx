@@ -10,6 +10,8 @@ import {
 import {
   type SiteId,
   type SiteConfig,
+  type SanityNavigation,
+  type NavLink,
   sites,
   defaultSite,
 } from '@/config/sites'
@@ -19,6 +21,11 @@ interface SiteContextType {
   siteId: SiteId
   isYoga: boolean
   isTherapie: boolean
+  // Navigation links derived from Sanity pages
+  navLinks: NavLink[]
+  // Footer links
+  footerServiceLinks: NavLink[]
+  footerInfoLinks: NavLink[]
 }
 
 const SiteContext = createContext<SiteContextType | undefined>(undefined)
@@ -71,7 +78,12 @@ function useSiteId(): SiteId {
   )
 }
 
-export function SiteProvider({ children }: { children: ReactNode }) {
+interface SiteProviderProps {
+  children: ReactNode
+  sanityNav?: SanityNavigation
+}
+
+export function SiteProvider({ children, sanityNav }: SiteProviderProps) {
   const siteId = useSiteId()
 
   // Sync site ID to HTML element for CSS styling (scrollbar, etc.)
@@ -79,11 +91,45 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute('data-site', siteId)
   }, [siteId])
 
+  // Build nav links from Sanity pages, with homepage first
+  const sortedPages = [...(sanityNav?.pages || [])].sort((a, b) => {
+    // Homepage comes first
+    if (a.slug === sanityNav?.homepageSlug) return -1
+    if (b.slug === sanityNav?.homepageSlug) return 1
+    return 0 // Keep original order for other pages
+  })
+  
+  const pagesNavLinks: NavLink[] = sortedPages.map((page) => ({
+    label: page.title,
+    href: `/${page.slug}`,
+  }))
+
+  // Add static links for yoga site
+  const staticYogaLinks: NavLink[] = siteId === 'yoga' 
+    ? [{ label: 'Zum Mitüben', href: '/zum-mitueben' }]
+    : []
+
+  // Combine page links with static links
+  const navLinks: NavLink[] = [...pagesNavLinks, ...staticYogaLinks]
+
+  // Build footer service links from Sanity services
+  // Each service links to the services page with an anchor
+  const footerServiceLinks: NavLink[] = sanityNav?.services?.map((service) => ({
+    label: service.title,
+    href: `/${siteId}#${service.slug}`,
+  })) || []
+
+  // Footer info links are static from config
+  const footerInfoLinks = sites[siteId].footerInfoLinks
+
   const value: SiteContextType = {
     currentSite: sites[siteId],
     siteId,
     isYoga: siteId === 'yoga',
     isTherapie: siteId === 'therapie',
+    navLinks,
+    footerServiceLinks,
+    footerInfoLinks,
   }
 
   return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>

@@ -2,8 +2,6 @@ import { type SchemaTypeDefinition } from "sanity";
 
 // Singleton documents
 import siteSettings from "./siteSettings";
-import aboutBea from "./aboutBea";
-import homepageContent from "./homepageContent";
 
 // Collection documents
 import service from "./service";
@@ -18,8 +16,6 @@ import { sectionSchemas } from "./sections";
 export const schemaTypes: SchemaTypeDefinition[] = [
   // Singletons
   siteSettings,
-  aboutBea,
-  homepageContent,
   
   // Collections
   service,

@@ -13,7 +13,7 @@ interface PageData {
   _id: string
   title: string
   slug: string
-  sections?: PageSection[]
+  sections?: PageSection[] | null
 }
 
 interface Testimonial {

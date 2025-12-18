@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import HomeContent from './HomeContent'
 import DynamicHomeContent from './DynamicHomeContent'
 import { sanityFetch } from '@/sanity/lib/live'
-import { homepageDataQuery, homepageFromSettingsQuery } from '@/sanity/lib/queries'
+import { homepageFromSettingsQuery } from '@/sanity/lib/queries'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { notFound } from 'next/navigation'
 
@@ -19,10 +18,10 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const siteId = await getSiteId()
-  const { siteSettingsId, homepageId } = getSingletonIds(siteId)
+  const { siteSettingsId } = getSingletonIds(siteId)
 
-  // First, try to fetch homepage from site settings (new dynamic system)
-  const { data: dynamicData } = await sanityFetch({
+  // Fetch homepage from site settings
+  const { data } = await sanityFetch({
     query: homepageFromSettingsQuery,
     params: {
       siteId,
@@ -30,31 +29,20 @@ export default async function HomePage() {
     },
   })
 
-  // If site settings has a homepage reference with sections, use the new dynamic system
-  if (dynamicData?.settings?.homepage?.sections && dynamicData.settings.homepage.sections.length > 0) {
-    return (
-      <DynamicHomeContent
-        page={dynamicData.settings.homepage}
-        services={dynamicData.services || []}
-        locations={dynamicData.locations || []}
-        testimonials={dynamicData.testimonials || []}
-      />
-    )
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const settings = data?.settings as any
+  const homepage = settings?.homepage
 
-  // Otherwise, fall back to the legacy homepage system
-  const { data } = await sanityFetch({
-    query: homepageDataQuery,
-    params: {
-      siteId,
-      siteSettingsId,
-      homepageId,
-    },
-  })
-
-  if (!data) {
+  if (!homepage?.sections || homepage.sections.length === 0) {
     return notFound()
   }
 
-  return <HomeContent initialData={data} />
+  return (
+    <DynamicHomeContent
+      page={homepage}
+      services={data?.services || []}
+      locations={data?.locations || []}
+      testimonials={data?.testimonials || []}
+    />
+  )
 }

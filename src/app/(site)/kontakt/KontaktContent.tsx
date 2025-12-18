@@ -5,7 +5,7 @@ import LotusIcon from '@/components/icons/LotusIcon'
 import { useSite } from '@/context/SiteContext'
 
 export default function KontaktContent() {
-  const { currentSite, isYoga, siteId } = useSite()
+  const { currentSite, isYoga, siteId, footerServiceLinks } = useSite()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -409,7 +409,7 @@ export default function KontaktContent() {
                   Meine Angebote
                 </h3>
                 <div className='flex flex-wrap gap-2'>
-                  {currentSite.footerLinks.services.map((link) => (
+                  {footerServiceLinks.map((link) => (
                     <a
                       key={link.href}
                       href={link.href}

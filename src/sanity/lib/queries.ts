@@ -4,9 +4,6 @@ import { defineQuery } from "next-sanity";
 export const SINGLETON_IDS = {
   siteSettingsYoga: "siteSettings-yoga",
   siteSettingsTherapie: "siteSettings-therapie",
-  aboutBea: "aboutBea",
-  homepageYoga: "homepage-yoga",
-  homepageTherapie: "homepage-therapie",
 };
 
 // ============================================
@@ -32,47 +29,25 @@ export const siteSettingsQuery = defineQuery(`
   }
 `);
 
-// ============================================
-// ABOUT BEA QUERIES
-// ============================================
-
 /**
- * Get the About Bea content (singleton)
+ * Get navigation data - pages and services for a site
  */
-export const aboutBeaQuery = defineQuery(`
-  *[_id == "aboutBea"][0] {
+export const navigationDataQuery = defineQuery(`
+{
+  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,
+  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(title asc) {
     _id,
-    name,
-    "photoUrl": photo.asset->url,
-    photoAlt,
-    yogaContent,
-    therapieContent,
-    coreValues
+    title,
+    "slug": slug.current
+  },
+  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
+    _id,
+    title,
+    "slug": slug.current
   }
+}
 `);
 
-// ============================================
-// HOMEPAGE QUERIES
-// ============================================
-
-/**
- * Get homepage content for a specific site (using singleton ID)
- */
-export const homepageContentQuery = defineQuery(`
-  *[_id == $homepageId][0] {
-    _id,
-    siteId,
-    heroSection,
-    aboutPreview {
-      "imageUrl": image.asset->url,
-      paragraph1,
-      paragraph2
-    },
-    quoteSection,
-    servicesSection,
-    ctaSection
-  }
-`);
 
 // ============================================
 // SERVICES QUERIES
@@ -371,6 +346,11 @@ export const pageWithSectionsDataQuery = defineQuery(`
       schedule,
       pricing,
       maxParticipants
+    },
+    events[]-> {
+      _id,
+      title,
+      description
     }
   },
   "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
@@ -458,6 +438,11 @@ export const homepageFromSettingsQuery = defineQuery(`
       schedule,
       pricing,
       maxParticipants
+    },
+    events[]-> {
+      _id,
+      title,
+      description
     }
   },
   "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
@@ -489,158 +474,3 @@ export const allPageSlugsQuery = defineQuery(`
   }
 `);
 
-// ============================================
-// COMBINED QUERIES FOR PAGE DATA
-// ============================================
-
-/**
- * Get all data needed for the homepage
- */
-export const homepageDataQuery = defineQuery(`
-{
-  "settings": *[_id == $siteSettingsId][0] {
-    name,
-    tagline,
-    primaryColor,
-    contactEmail
-  },
-  "homepage": *[_id == $homepageId][0] {
-    heroSection,
-    aboutPreview {
-      "imageUrl": image.asset->url,
-      paragraph1,
-      paragraph2
-    },
-    quoteSection,
-    servicesSection,
-    ctaSection
-  },
-  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    shortDescription,
-    icon,
-    "href": "/" + $siteId + "#" + slug.current
-  },
-  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
-    _id,
-    name,
-    quote
-  },
-  "aboutBea": *[_id == "aboutBea"][0] {
-    name,
-    "photoUrl": photo.asset->url
-  }
-}
-`);
-
-/**
- * Get all data needed for the yoga page
- */
-export const yogaPageDataQuery = defineQuery(`
-{
-  "services": *[_type == "service" && site in ["yoga", "both"]] | order(order asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    subtitle,
-    shortDescription,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    order,
-    imagePosition,
-    sectionBackground,
-    badge,
-    locations[]-> {
-      _id,
-      name,
-      shortName,
-      address,
-      googleMapsUrl,
-      "imageUrl": image.asset->url,
-      schedule,
-      pricing,
-      maxParticipants
-    },
-    events[]-> {
-      _id,
-      title,
-      description
-    }
-  },
-  "locations": *[_type == "location" && usedBy in ["yoga", "both"]] | order(order asc) {
-    _id,
-    name,
-    shortName,
-    description,
-    address,
-    googleMapsUrl,
-    "imageUrl": image.asset->url,
-    schedule,
-    pricing
-  },
-  "upcomingEvents": *[_type == "event" && site in ["yoga", "both"] && startDate >= now()] | order(startDate asc)[0...3] {
-    _id,
-    title,
-    startDate,
-    description
-  }
-}
-`);
-
-/**
- * Get all data needed for the therapie page
- */
-export const therapiePageDataQuery = defineQuery(`
-{
-  "services": *[_type == "service" && site in ["therapie", "both"]] | order(order asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    subtitle,
-    shortDescription,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    order,
-    imagePosition,
-    sectionBackground,
-    badge
-  }
-}
-`);
-
-/**
- * Get all data needed for the about page
- */
-export const aboutPageDataQuery = defineQuery(`
-{
-  "about": *[_type == "aboutBea"][0] {
-    name,
-    "photoUrl": photo.asset->url,
-    photoAlt,
-    yogaContent,
-    therapieContent,
-    coreValues
-  },
-  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc)[0...4] {
-    _id,
-    title,
-    "slug": slug.current,
-    icon,
-    shortDescription
-  }
-}
-`);
