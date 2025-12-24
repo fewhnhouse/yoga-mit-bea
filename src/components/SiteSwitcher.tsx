@@ -1,53 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSite } from "@/context/SiteContext";
+
+type EnvironmentMode = "dev" | "production";
+
+function getEnvironmentMode(): EnvironmentMode {
+  if (typeof window === "undefined") return "production"; // SSR fallback
+  const hostname = window.location.hostname;
+  const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
+  const isVercelPreview = hostname.includes("vercel.app");
+  return (isLocalhost || isVercelPreview) ? "dev" : "production";
+}
 
 export default function SiteSwitcher() {
   const { siteId } = useSite();
-  const [isDevMode, setIsDevMode] = useState(false);
-
-  useEffect(() => {
-    // Show switcher in development (localhost) and on Vercel preview URLs
-    // Hide on production domains (yogamitbea.de, therapiemitbea.de)
-    const hostname = window.location.hostname;
-    const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
-    const isVercelPreview = hostname.includes("vercel.app");
-    setIsDevMode(isLocalhost || isVercelPreview);
-  }, []);
-
-  // Don't render in production - each domain has its own site
-  if (!isDevMode) {
-    return null;
-  }
+  const envMode = getEnvironmentMode();
 
   // Handle site switching with smart page mapping
   const handleSwitch = (site: "yoga" | "therapie") => {
-    // Set cookie to switch site
-    document.cookie = `site-id=${site}; path=/; SameSite=Lax`;
+    const currentPath = window.location.pathname;
     
     // Map site-specific pages to their counterpart
-    const currentPath = window.location.pathname;
     let newPath = currentPath;
-    
     if (site === "yoga" && currentPath === "/therapie") {
-      // Switching to Yoga while on Therapie page → go to Yoga page
       newPath = "/yoga";
     } else if (site === "therapie" && currentPath === "/yoga") {
-      // Switching to Therapie while on Yoga page → go to Therapie page
       newPath = "/therapie";
     }
-    
-    if (newPath !== currentPath) {
-      window.location.href = newPath;
+
+    if (envMode === "production") {
+      // Production: Navigate to the other domain
+      const targetDomain = site === "yoga" ? "yogamitbea.de" : "therapiemitbea.de";
+      window.location.href = `https://${targetDomain}${newPath}`;
     } else {
-      window.location.reload();
+      // Dev/preview: Use cookie-based switching
+      document.cookie = `site-id=${site}; path=/; SameSite=Lax`;
+      
+      if (newPath !== currentPath) {
+        window.location.href = newPath;
+      } else {
+        window.location.reload();
+      }
     }
   };
 
   return (
     <div className="flex items-center gap-1 bg-sand/50 rounded-full p-0.5">
       <button
+        type="button"
         onClick={() => handleSwitch("yoga")}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "yoga"
@@ -59,6 +59,7 @@ export default function SiteSwitcher() {
         Yoga
       </button>
       <button
+        type="button"
         onClick={() => handleSwitch("therapie")}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "therapie"
