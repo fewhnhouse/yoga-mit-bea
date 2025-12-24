@@ -5,6 +5,10 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
+import { getSiteId, getSingletonIds } from "@/lib/getSiteId";
+import { sites } from "@/config/sites";
+import { sanityFetch } from "@/sanity/lib/live";
+import { siteSettingsQuery } from "@/sanity/lib/queries";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -22,76 +26,89 @@ const lora = Lora({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogamitbea.de";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "Yoga & Therapie mit Bea",
-    template: "%s | Yoga & Therapie mit Bea",
-  },
-  description:
-    "Yoga und Therapie mit Bea. Yoga Individuell, Yogakurse im Schloss Bernstadt und Wacholder, therapeutische Massage, Atemtherapie und mehr.",
-  keywords: [
-    "Yoga",
-    "Yoga Lonetal",
-    "Yoga Bernstadt",
-    "Yogakurse",
-    "Yoga Individuell",
-    "Therapie",
-    "Therapeutische Massage",
-    "Atemtherapie",
-    "Klangschalentherapie",
-    "Yoga mit Bea",
-    "Therapie mit Bea",
-  ],
-  authors: [{ name: "Beate Ilg-Wohnhaas" }],
-  creator: "Beate Ilg-Wohnhaas",
-  publisher: "Yoga & Therapie mit Bea",
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
-  openGraph: {
-    type: "website",
-    locale: "de_DE",
-    url: siteUrl,
-    siteName: "Yoga & Therapie mit Bea",
-    title: "Yoga & Therapie mit Bea",
-    description:
-      "Yoga und Therapie mit Bea. Yoga Individuell, Yogakurse, therapeutische Behandlungen und mehr.",
-    images: [
-      {
-        url: "/images/background.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Yoga & Therapie mit Bea",
-      },
+export async function generateMetadata(): Promise<Metadata> {
+  const siteId = await getSiteId();
+  const { siteSettingsId } = getSingletonIds(siteId);
+  const currentSite = sites[siteId];
+  const siteName = currentSite.name;
+
+  // Fetch site settings from Sanity for description
+  const { data: settings } = await sanityFetch({
+    query: siteSettingsQuery,
+    params: { siteSettingsId },
+  });
+
+  // Use description from Sanity, or undefined to let pages set their own
+  const siteDescription = settings?.seoDescription || undefined;
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: siteName,
+      template: `${siteName} | %s`,
+    },
+    description: siteDescription,
+    keywords: [
+      "Yoga",
+      "Yoga Lonetal",
+      "Yoga Bernstadt",
+      "Yogakurse",
+      "Yoga Individuell",
+      "Therapie",
+      "Therapeutische Massage",
+      "Atemtherapie",
+      "Klangschalentherapie",
+      "Yoga mit Bea",
+      "Therapie mit Bea",
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Yoga & Therapie mit Bea",
-    description:
-      "Yoga und Therapie mit Bea im Lonetal. Yoga Individuell, Yogakurse, therapeutische Behandlungen und mehr.",
-    images: ["/images/background.jpg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    authors: [{ name: "Beate Ilg-Wohnhaas" }],
+    creator: "Beate Ilg-Wohnhaas",
+    publisher: siteName,
+    formatDetection: {
+      email: true,
+      address: true,
+      telephone: true,
+    },
+    openGraph: {
+      type: "website",
+      locale: "de_DE",
+      url: siteUrl,
+      siteName: siteName,
+      title: siteName,
+      description: siteDescription,
+      images: [
+        {
+          url: "/images/background.jpg",
+          width: 1200,
+          height: 630,
+          alt: siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteName,
+      description: siteDescription,
+      images: ["/images/background.jpg"],
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  verification: {
-    // Add these when you have them:
-    // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-  },
-};
+    verification: {
+      // Add these when you have them:
+      // google: "your-google-verification-code",
+      // yandex: "your-yandex-verification-code",
+    },
+  };
+}
 
 export default async function RootLayout({
   children,

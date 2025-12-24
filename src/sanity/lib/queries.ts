@@ -382,9 +382,12 @@ export const homepageFromSettingsQuery = defineQuery(`
     tagline,
     primaryColor,
     contactEmail,
+    seoDescription,
     homepage-> {
       _id,
       title,
+      seoTitle,
+      seoDescription,
       "slug": slug.current,
       sections[] {
         _key,
