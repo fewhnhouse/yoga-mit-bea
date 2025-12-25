@@ -16,31 +16,16 @@ export default function SiteSwitcher() {
   const { siteId } = useSite();
   const envMode = getEnvironmentMode();
 
-  // Handle site switching with smart page mapping
+  // Handle site switching - always navigate to home page
   const handleSwitch = (site: "yoga" | "therapie") => {
-    const currentPath = window.location.pathname;
-    
-    // Map site-specific pages to their counterpart
-    let newPath = currentPath;
-    if (site === "yoga" && currentPath === "/therapie") {
-      newPath = "/yoga";
-    } else if (site === "therapie" && currentPath === "/yoga") {
-      newPath = "/therapie";
-    }
-
     if (envMode === "production") {
-      // Production: Navigate to the other domain
+      // Production: Navigate to the other domain's home page
       const targetDomain = site === "yoga" ? "yogamitbea.de" : "therapiemitbea.de";
-      window.location.href = `https://${targetDomain}${newPath}`;
+      window.location.href = `https://${targetDomain}/`;
     } else {
-      // Dev/preview: Use cookie-based switching
+      // Dev/preview: Use cookie-based switching and go to home
       document.cookie = `site-id=${site}; path=/; SameSite=Lax`;
-      
-      if (newPath !== currentPath) {
-        window.location.href = newPath;
-      } else {
-        window.location.reload();
-      }
+      window.location.href = "/";
     }
   };
 
