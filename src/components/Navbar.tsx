@@ -51,8 +51,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Side: Site Switcher + CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Right Side: Site Switcher + CTA (desktop only) */}
+        <div className="hidden lg:flex items-center gap-4">
           <SiteSwitcher />
           <Link 
             href="/kontakt" 
@@ -62,8 +62,8 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile: Site Switcher + Menu Button */}
-        <div className="flex md:hidden items-center gap-3">
+        {/* Mobile/Tablet: Site Switcher + Menu Button */}
+        <div className="flex lg:hidden items-center gap-3">
           <SiteSwitcher />
           <button
             className="p-2 text-charcoal hover:text-primary-dark transition-colors"
