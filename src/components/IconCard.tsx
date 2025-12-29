@@ -12,8 +12,6 @@ export interface IconCardProps {
   href?: string
   /** CTA text - if provided with href, shows as a link instead of making whole card clickable */
   ctaText?: string
-  /** Theme color - defaults to 'yoga' */
-  theme?: 'yoga' | 'therapie'
   /** Size variant - 'default' has more padding, 'compact' has less */
   size?: 'default' | 'compact'
   /** Visual variant - 'card' has background/shadow, 'flat' has no background */
@@ -30,13 +28,11 @@ export default function IconCard({
   description,
   href,
   ctaText,
-  theme = 'yoga',
   size = 'default',
   variant = 'card',
   align = 'center',
   className = '',
 }: IconCardProps) {
-  const isYoga = theme === 'yoga'
   const isFlat = variant === 'flat'
 
   // Size-based classes
@@ -62,9 +58,9 @@ export default function IconCard({
     ? 'text-charcoal-light text-sm leading-relaxed'
     : 'text-charcoal-light text-sm'
 
-  // Theme-based classes
-  const iconBgClass = isYoga ? 'bg-sage/10' : 'bg-terracotta/10'
-  const ctaColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
+  // Theme-based classes - uses CSS custom properties
+  const iconBgClass = 'bg-primary/10'
+  const ctaColorClass = 'text-primary-dark'
 
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center' : 'text-left'

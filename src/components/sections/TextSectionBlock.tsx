@@ -1,9 +1,6 @@
-'use client'
-
 import Link from 'next/link'
 import TextSection from '@/components/TextSection'
 import SectionHeader from '@/components/SectionHeader'
-import { useSite } from '@/context/SiteContext'
 
 interface TextSectionBlockProps {
   label?: string
@@ -27,17 +24,13 @@ export default function TextSectionBlock({
   background = 'gradient',
   padding = 'hero',
 }: TextSectionBlockProps) {
-  const { isYoga } = useSite()
-
   // Background classes
   const bgClasses: Record<string, string> = {
     transparent: '',
     light: 'bg-warm-white',
     cream: 'bg-cream',
-    gradient: isYoga
-      ? 'bg-gradient-to-br from-cream via-warm-white to-sage/10'
-      : 'bg-gradient-to-br from-blush/30 via-warm-white to-terracotta/10',
-    primary: isYoga ? 'bg-sage' : 'bg-terracotta',
+    gradient: 'bg-gradient-to-br from-cream via-warm-white to-primary/10',
+    primary: 'bg-primary',
   }
 
   // Check if we need white text (for primary background)
@@ -45,10 +38,6 @@ export default function TextSectionBlock({
 
   // Padding classes
   const paddingClasses = padding === 'hero' ? 'pt-32 pb-20' : 'py-24'
-
-  // Decorative blob classes
-  const blobClass1 = isYoga ? 'bg-sage/5' : 'bg-terracotta/5'
-  const blobClass2 = 'bg-blush/10'
 
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left'
@@ -61,10 +50,10 @@ export default function TextSectionBlock({
       {background === 'gradient' && (
         <>
           <div
-            className={`absolute top-20 right-10 w-64 h-64 ${blobClass1} organic-blob animate-float`}
+            className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float'
           />
           <div
-            className={`absolute bottom-10 left-10 w-48 h-48 ${blobClass2} organic-blob-2 animate-breathe`}
+            className='absolute bottom-10 left-10 w-48 h-48 bg-blush/10 organic-blob-2 animate-breathe'
           />
         </>
       )}
@@ -121,7 +110,6 @@ export default function TextSectionBlock({
             title={title}
             description={description || []}
             cta={cta?.text && cta?.href ? { text: cta.text, href: cta.href } : undefined}
-            theme={isYoga ? 'yoga' : 'therapie'}
             align={align}
           />
         )}

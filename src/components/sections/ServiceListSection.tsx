@@ -1,7 +1,4 @@
-'use client'
-
 import ServiceSection from '@/components/ServiceSection'
-import { useSite } from '@/context/SiteContext'
 import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
 
 interface ServiceListSectionProps {
@@ -17,7 +14,6 @@ export default function ServiceListSection({
   services = [],
   locations = [],
 }: ServiceListSectionProps) {
-  const { isYoga } = useSite()
 
   // Sort services by their order field
   const sortedServices = [...services].sort(
@@ -43,7 +39,6 @@ export default function ServiceListSection({
             key={service._id}
             service={service}
             locations={hasLocations ? locations : undefined}
-            theme={isYoga ? 'yoga' : 'therapie'}
             background={background}
             imagePosition={service.imagePosition || 'left'}
             badge={service.badge}

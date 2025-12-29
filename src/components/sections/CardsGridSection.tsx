@@ -3,7 +3,7 @@
 import IconCard from '@/components/IconCard'
 import SectionHeader from '@/components/SectionHeader'
 import ServiceIcon from '@/components/ServiceIcon'
-import { useSite } from '@/context/SiteContext'
+import { useSite } from '@/context/SiteContext'  // Still needed for siteId
 
 interface CardItem {
   // Service reference data (expanded in query)
@@ -45,7 +45,7 @@ export default function CardsGridSection({
   cardAlign = 'center',
   cards = [],
 }: CardsGridSectionProps) {
-  const { isYoga } = useSite()
+  const { siteId } = useSite()  // Still needed for URL construction
 
   // Background classes
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
@@ -60,8 +60,6 @@ export default function CardsGridSection({
     4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
   }
 
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-
   return (
     <section className={`py-24 ${bgClass}`}>
       <div className='container mx-auto px-6'>
@@ -71,7 +69,6 @@ export default function CardsGridSection({
             <SectionHeader
               label={label || ''}
               title={title || ''}
-              theme={isYoga ? 'yoga' : 'therapie'}
               align='center'
             />
             {description && (
@@ -97,7 +94,7 @@ export default function CardsGridSection({
               ? card.serviceRef?.icon
               : card.icon
             const cardHref = card.href || (isServiceRef && card.serviceRef?.slug
-              ? `/${isYoga ? 'yoga' : 'therapie'}#${card.serviceRef.slug}`
+              ? `/${siteId}#${card.serviceRef.slug}`
               : undefined)
 
             return (
@@ -106,14 +103,13 @@ export default function CardsGridSection({
                 icon={
                   <ServiceIcon
                     icon={cardIcon}
-                    className={`w-7 h-7 ${primaryColorClass}`}
+                    className='w-7 h-7 text-primary-dark'
                   />
                 }
                 title={cardTitle || ''}
                 description={cardDescription || ''}
                 href={cardHref}
                 ctaText={card.ctaText}
-                theme={isYoga ? 'yoga' : 'therapie'}
                 variant={cardVariant}
                 size={cardSize}
                 align={cardAlign}

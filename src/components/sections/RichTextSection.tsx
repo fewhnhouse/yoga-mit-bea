@@ -65,7 +65,7 @@ const components: PortableTextComponents = {
       <p className='text-charcoal-light leading-relaxed mb-4'>{children}</p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className='border-l-4 border-sage pl-6 my-6 italic text-charcoal-light'>
+      <blockquote className='border-l-4 border-primary pl-6 my-6 italic text-charcoal-light'>
         {children}
       </blockquote>
     ),
@@ -90,7 +90,7 @@ const components: PortableTextComponents = {
         href={value?.href}
         target={value?.href?.startsWith('http') ? '_blank' : undefined}
         rel={value?.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-        className='text-sage-dark hover:text-sage underline underline-offset-2 transition-colors'
+        className='text-primary-dark hover:text-primary underline underline-offset-2 transition-colors'
       >
         {children}
       </a>

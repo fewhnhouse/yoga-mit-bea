@@ -15,8 +15,6 @@ export interface CTASectionProps {
   description: string
   /** Single CTA or array of CTAs */
   cta: CTAButton | CTAButton[]
-  /** Theme color */
-  theme?: 'yoga' | 'therapie'
   /** Background variant - 'solid' has colored bg, 'light' has gradient */
   variant?: 'solid' | 'light'
   /** Optional icon to display above title */
@@ -35,7 +33,6 @@ export default function CTASection({
   title,
   description,
   cta,
-  theme = 'yoga',
   variant = 'solid',
   icon,
   decorative = false,
@@ -43,18 +40,13 @@ export default function CTASection({
   padding = 'default',
   className = '',
 }: CTASectionProps) {
-  const isYoga = theme === 'yoga'
   const isSolid = variant === 'solid'
   const ctaArray = Array.isArray(cta) ? cta : [cta]
 
-  // Background classes
+  // Background classes - uses CSS custom property
   const bgClass = isSolid
-    ? isYoga
-      ? 'bg-sage'
-      : 'bg-gradient-to-br from-terracotta/80 to-soft-brown'
-    : isYoga
-      ? 'bg-gradient-to-br from-sand/50 via-cream to-blush/30'
-      : 'bg-gradient-to-br from-blush/30 via-cream to-terracotta/10'
+    ? 'bg-primary'
+    : 'bg-gradient-to-br from-sand/50 via-cream to-primary/10'
 
   // Text classes based on variant
   const titleClass = isSolid
@@ -65,26 +57,20 @@ export default function CTASection({
     ? 'text-white/80'
     : 'text-charcoal-light'
 
-  // Button classes
+  // Button classes - uses CSS custom properties
   const getButtonClass = (buttonVariant: 'primary' | 'secondary' = 'primary') => {
     if (isSolid) {
       // On solid background, primary = white filled, secondary = white border
       if (buttonVariant === 'primary') {
-        return isYoga
-          ? 'bg-white text-sage-dark hover:bg-cream'
-          : 'bg-white text-soft-brown hover:bg-cream'
+        return 'bg-white text-primary-dark hover:bg-cream'
       }
       return 'border-2 border-white/50 text-white hover:bg-white/10'
     }
     // On light background
     if (buttonVariant === 'primary') {
-      return isYoga
-        ? 'bg-sage text-white hover:bg-sage-dark'
-        : 'bg-terracotta text-white hover:bg-soft-brown'
+      return 'bg-primary text-white hover:bg-primary-dark'
     }
-    return isYoga
-      ? 'border-2 border-sage text-sage-dark hover:bg-sage hover:text-white'
-      : 'border-2 border-terracotta text-terracotta hover:bg-terracotta hover:text-white'
+    return 'border-2 border-primary text-primary-dark hover:bg-primary hover:text-white'
   }
 
   // Padding classes

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import SectionHeader from '@/components/SectionHeader'
-import { useSite } from '@/context/SiteContext'
 
 interface Testimonial {
   _id: string
@@ -22,7 +21,6 @@ export default function TestimonialsSection({
   title = 'Was andere sagen',
   testimonials = [],
 }: TestimonialsSectionProps) {
-  const { isYoga } = useSite()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
@@ -58,7 +56,6 @@ export default function TestimonialsSection({
           <SectionHeader
             label={label}
             title={title}
-            theme={isYoga ? 'yoga' : 'therapie'}
             align='center'
           />
         </div>
@@ -68,7 +65,7 @@ export default function TestimonialsSection({
           <div className='bg-cream rounded-3xl p-8 md:p-12 relative h-[340px] md:h-[300px] flex flex-col justify-between overflow-hidden'>
             {/* Quote Icon */}
             <svg
-              className='w-16 h-16 text-sage/10 absolute top-8 left-8'
+              className='w-16 h-16 text-primary/10 absolute top-8 left-8'
               fill='currentColor'
               viewBox='0 0 24 24'
               aria-hidden='true'
@@ -83,8 +80,8 @@ export default function TestimonialsSection({
 
             {/* Author */}
             <div className='flex items-center justify-center gap-3 pt-4'>
-              <div className='w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center'>
-                <span className='text-sage-dark font-display font-semibold'>
+              <div className='w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center'>
+                <span className='text-primary-dark font-display font-semibold'>
                   {current.name.charAt(0)}
                 </span>
               </div>
@@ -99,7 +96,7 @@ export default function TestimonialsSection({
             {/* Prev Button */}
             <button
               onClick={goPrev}
-              className='w-10 h-10 rounded-full border border-sage/30 flex items-center justify-center text-sage-dark hover:bg-sage hover:text-white transition-colors'
+              className='w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center text-primary-dark hover:bg-primary hover:text-white transition-colors'
               aria-label='Vorherige Bewertung'
               type='button'
             >
@@ -127,8 +124,8 @@ export default function TestimonialsSection({
                   onClick={() => goTo(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
                     index === currentIndex
-                      ? 'bg-sage w-6'
-                      : 'bg-sage/30 hover:bg-sage/50'
+                      ? 'bg-primary w-6'
+                      : 'bg-primary/30 hover:bg-primary/50'
                   }`}
                   aria-label={`Bewertung ${index + 1}`}
                   type='button'
@@ -139,7 +136,7 @@ export default function TestimonialsSection({
             {/* Next Button */}
             <button
               onClick={goNext}
-              className='w-10 h-10 rounded-full border border-sage/30 flex items-center justify-center text-sage-dark hover:bg-sage hover:text-white transition-colors'
+              className='w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center text-primary-dark hover:bg-primary hover:text-white transition-colors'
               aria-label='Nächste Bewertung'
               type='button'
             >

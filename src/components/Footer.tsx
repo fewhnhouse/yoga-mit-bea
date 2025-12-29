@@ -4,23 +4,19 @@ import Link from "next/link";
 import { useSite } from "@/context/SiteContext";
 
 export default function Footer() {
-  const { currentSite, isYoga, footerServiceLinks, footerInfoLinks } = useSite();
-
-  const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
-  const hoverColorClass = isYoga ? "hover:text-sage-dark" : "hover:text-terracotta";
-  const gradientClass = isYoga ? "via-sage/30" : "via-terracotta/30";
+  const { currentSite, footerServiceLinks, footerInfoLinks } = useSite();
 
   return (
     <footer className="bg-cream border-t border-sand/50">
       {/* Decorative top border */}
-      <div className={`h-1 bg-gradient-to-r from-transparent ${gradientClass} to-transparent`} />
+      <div className="h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link href="/" className="block mb-6">
-              <span className={`font-display text-2xl font-semibold ${primaryColorClass} block leading-tight`}>
+              <span className="font-display text-2xl font-semibold text-primary-dark block leading-tight">
                 {currentSite.name}
               </span>
             </Link>
@@ -32,7 +28,7 @@ export default function Footer() {
           {/* Services Links */}
           {footerServiceLinks.length > 0 && (
             <div>
-              <h4 className={`font-display text-lg font-semibold ${primaryColorClass} mb-6`}>
+              <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
                 Angebote
               </h4>
               <ul className="space-y-3">
@@ -40,7 +36,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`text-charcoal-light ${hoverColorClass} transition-colors text-sm`}
+                      className="text-charcoal-light hover:text-primary-dark transition-colors text-sm"
                     >
                       {link.label}
                     </Link>
@@ -52,7 +48,7 @@ export default function Footer() {
 
           {/* Info Links */}
           <div>
-            <h4 className={`font-display text-lg font-semibold ${primaryColorClass} mb-6`}>
+            <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
               Information
             </h4>
             <ul className="space-y-3">
@@ -60,7 +56,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`text-charcoal-light ${hoverColorClass} transition-colors text-sm`}
+                    className="text-charcoal-light hover:text-primary-dark transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -71,13 +67,13 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className={`font-display text-lg font-semibold ${primaryColorClass} mb-6`}>
+            <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
               Kontakt
             </h4>
             <ul className="space-y-4 text-sm text-charcoal-light">
               <li className="flex items-start gap-3">
                 <svg
-                  className={`w-5 h-5 ${isYoga ? "text-sage" : "text-terracotta"} mt-0.5 flex-shrink-0`}
+                  className="w-5 h-5 text-primary mt-0.5 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -91,7 +87,7 @@ export default function Footer() {
                 </svg>
                 <a
                   href={`mailto:info@${currentSite.domain}`}
-                  className={`${hoverColorClass} transition-colors`}
+                  className="hover:text-primary-dark transition-colors"
                 >
                   info@{currentSite.domain}
                 </a>
@@ -106,7 +102,7 @@ export default function Footer() {
           <p className="flex items-center gap-2">
             Mit{" "}
             <svg
-              className={`w-4 h-4 ${isYoga ? "text-sage" : "text-terracotta"}`}
+              className="w-4 h-4 text-primary"
               fill="currentColor"
               viewBox="0 0 24 24"
             >

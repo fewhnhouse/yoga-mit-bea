@@ -27,6 +27,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
   --color-sage: var(--sage);
   --color-sage-light: var(--sage-light);
   --color-sage-dark: var(--sage-dark);
@@ -57,19 +60,21 @@ body {
 
 /* Elegant selection color */
 ::selection {
-  background-color: var(--sage-light);
+  background-color: var(--primary-light);
   color: var(--charcoal);
 }
 
 /* Site-specific scrollbar colors via CSS custom properties */
 :root {
-  --scrollbar-thumb: var(--sage);
-  --scrollbar-thumb-hover: var(--sage-dark);
+  --scrollbar-thumb: var(--primary);
+  --scrollbar-thumb-hover: var(--primary-dark);
 }
 
 :root[data-site="therapie"] {
-  --scrollbar-thumb: var(--terracotta);
-  --scrollbar-thumb-hover: var(--soft-brown);
+  /* Primary colors for therapie site */
+  --primary: var(--terracotta);
+  --primary-light: var(--terracotta-light);
+  --primary-dark: var(--soft-brown);
 }
 
 /* Custom scrollbar */
@@ -174,7 +179,7 @@ body {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--sage-dark), var(--terracotta));
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -184,12 +189,12 @@ body {
 .decorative-line {
   width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--sage), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
 /* Button styles */
 .btn-primary {
-  background: var(--sage);
+  background: var(--primary);
   color: white;
   padding: 0.875rem 2rem;
   border-radius: 9999px;
@@ -201,14 +206,14 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--sage-dark);
+  background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(156, 175, 136, 0.3);
+  box-shadow: 0 10px 40px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--sage-dark);
+  color: var(--primary-dark);
   padding: 0.875rem 2rem;
   border-radius: 9999px;
   font-weight: 500;
@@ -216,11 +221,11 @@ body {
   transition: all 0.3s ease;
   display: inline-block;
   text-decoration: none;
-  border: 2px solid var(--sage);
+  border: 2px solid var(--primary);
 }
 
 .btn-secondary:hover {
-  background: var(--sage);
+  background: var(--primary);
   color: white;
 }
 
@@ -269,65 +274,65 @@ img {
 /* Focus styles for accessibility */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--sage);
+  outline: 2px solid var(--primary);
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-/* Rich text content styling */
-.prose-yoga {
+/* Rich text content styling - renamed to prose-content for site-agnostic naming */
+.prose-content {
   color: var(--charcoal);
 }
 
-.prose-yoga h2 {
+.prose-content h2 {
   font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
-  color: var(--sage-dark);
+  color: var(--primary-dark);
   font-size: 1.875rem;
   font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-.prose-yoga h3 {
+.prose-content h3 {
   font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
-  color: var(--soft-brown);
+  color: var(--primary-dark);
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
 }
 
-.prose-yoga p {
+.prose-content p {
   margin-bottom: 1.25rem;
   line-height: 1.8;
 }
 
-.prose-yoga ul {
+.prose-content ul {
   margin-bottom: 1.25rem;
   padding-left: 1.5rem;
 }
 
-.prose-yoga li {
+.prose-content li {
   margin-bottom: 0.5rem;
   position: relative;
 }
 
-.prose-yoga li::marker {
-  color: var(--sage);
+.prose-content li::marker {
+  color: var(--primary);
 }
 
-.prose-yoga strong {
-  color: var(--sage-dark);
+.prose-content strong {
+  color: var(--primary-dark);
   font-weight: 600;
 }
 
-.prose-yoga a {
-  color: var(--sage-dark);
+.prose-content a {
+  color: var(--primary-dark);
   text-decoration: underline;
   text-underline-offset: 4px;
   transition: color 0.2s;
 }
 
-.prose-yoga a:hover {
-  color: var(--terracotta);
+.prose-content a:hover {
+  color: var(--primary);
 }

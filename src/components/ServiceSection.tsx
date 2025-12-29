@@ -7,8 +7,6 @@ interface ServiceSectionProps {
   service: ServiceFromQuery
   /** Locations to display for this service (e.g., for group courses) */
   locations?: LocationFromQuery[]
-  /** Theme color */
-  theme?: 'yoga' | 'therapie'
   /** Background style - alternates between sections */
   background?: 'light' | 'cream'
   /** Image position */
@@ -24,18 +22,13 @@ interface ServiceSectionProps {
 export default function ServiceSection({
   service,
   locations,
-  theme = 'yoga',
   background = 'light',
   imagePosition = 'left',
   badge,
   id,
   fallbackIcon,
 }: ServiceSectionProps) {
-  const isYoga = theme === 'yoga'
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-  const badgeBgClass = isYoga ? 'bg-sage' : 'bg-terracotta'
-  const checkmarkColorClass = isYoga ? 'text-sage' : 'text-terracotta'
 
   // Determine if we should show locations (for group courses)
   const hasLocations = locations && locations.length > 0
@@ -54,7 +47,6 @@ export default function ServiceSection({
           <EventsLayout
             service={service}
             events={serviceEvents}
-            theme={theme}
             background={background}
           />
         ) : hasLocations ? (
@@ -62,7 +54,6 @@ export default function ServiceSection({
           <LocationsLayout
             service={service}
             locations={locations}
-            theme={theme}
           />
         ) : (
           // Standard two-column layout
@@ -83,11 +74,7 @@ export default function ServiceSection({
                   />
                 </div>
               ) : fallbackIcon ? (
-                <div className={`aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative ${
-                  isYoga 
-                    ? 'bg-gradient-to-br from-sage/20 to-cream' 
-                    : 'bg-gradient-to-br from-terracotta/20 to-blush/20'
-                }`}>
+                <div className='aspect-[4/3] rounded-2xl overflow-hidden shadow-xl relative bg-gradient-to-br from-primary/20 to-cream'>
                   <div className='w-full h-full flex items-center justify-center'>
                     {fallbackIcon}
                   </div>
@@ -97,7 +84,7 @@ export default function ServiceSection({
                 <div
                   className={`absolute top-4 ${
                     imagePosition === 'right' ? 'right-4' : 'left-4'
-                  } ${badgeBgClass} text-white px-4 py-2 rounded-full text-sm font-medium`}
+                  } bg-primary text-white px-4 py-2 rounded-full text-sm font-medium`}
                 >
                   {badge}
                 </div>
@@ -112,7 +99,7 @@ export default function ServiceSection({
             >
               {service.subtitle && (
                 <span
-                  className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-2 block`}
+                  className='text-primary-dark font-body text-sm tracking-widest uppercase mb-2 block'
                 >
                   {service.subtitle}
                 </span>
@@ -129,9 +116,7 @@ export default function ServiceSection({
               {/* Duration Badge */}
               {service.duration && (
                 <div
-                  className={`inline-flex items-center gap-2 ${
-                    isYoga ? 'bg-sage/10 text-sage-dark' : 'bg-terracotta/10 text-terracotta'
-                  } px-4 py-2 rounded-full text-sm font-medium`}
+                  className='inline-flex items-center gap-2 bg-primary/10 text-primary-dark px-4 py-2 rounded-full text-sm font-medium'
                 >
                   <svg
                     className='w-4 h-4'
@@ -160,7 +145,7 @@ export default function ServiceSection({
                       className='flex items-center gap-2 text-sm text-charcoal-light'
                     >
                       <svg
-                        className={`w-4 h-4 ${checkmarkColorClass} shrink-0`}
+                        className='w-4 h-4 text-primary shrink-0'
                         fill='currentColor'
                         viewBox='0 0 20 20'
                         aria-hidden='true'
@@ -181,11 +166,7 @@ export default function ServiceSection({
               <div className='mt-8'>
                 <Link
                   href={service.ctaLink || '/kontakt'}
-                  className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
-                    isYoga 
-                      ? 'bg-sage hover:bg-sage-dark' 
-                      : 'bg-terracotta hover:bg-terracotta/90'
-                  }`}
+                  className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
                 >
                   {service.ctaText || 'Anfragen'}
                 </Link>
@@ -205,16 +186,12 @@ type ServiceEvent = { _id: string; title: string | null; description: string | n
 function EventsLayout({
   service,
   events,
-  theme = 'yoga',
   background = 'light',
 }: {
   service: ServiceFromQuery
   events: ServiceEvent[]
-  theme?: 'yoga' | 'therapie'
   background?: 'light' | 'cream'
 }) {
-  const isYoga = theme === 'yoga'
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
   // Use contrasting background for cards
   const cardBgClass = background === 'light' ? 'bg-cream' : 'bg-warm-white'
 
@@ -223,7 +200,7 @@ function EventsLayout({
       {/* Header */}
       <div className='max-w-3xl'>
         <span
-          className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-2 block`}
+          className='text-primary-dark font-body text-sm tracking-widest uppercase mb-2 block'
         >
           {service.subtitle}
         </span>
@@ -244,7 +221,7 @@ function EventsLayout({
             key={event._id}
             className={`${cardBgClass} rounded-2xl p-6`}
           >
-            <h3 className={`font-display text-xl font-semibold ${primaryColorClass} mb-2`}>
+            <h3 className='font-display text-xl font-semibold text-primary-dark mb-2'>
               {event.title}
             </h3>
             {event.description && (
@@ -259,11 +236,7 @@ function EventsLayout({
       {/* CTA */}
       <Link 
         href={service.ctaLink || '/kontakt'} 
-        className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
-          isYoga 
-            ? 'bg-sage hover:bg-sage-dark' 
-            : 'bg-terracotta hover:bg-terracotta/90'
-        }`}
+        className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
       >
         {service.ctaText || 'Termine erfragen'}
       </Link>
@@ -275,22 +248,17 @@ function EventsLayout({
 function LocationsLayout({
   service,
   locations,
-  theme = 'yoga',
 }: {
   service: ServiceFromQuery
   locations: LocationFromQuery[]
-  theme?: 'yoga' | 'therapie'
 }) {
-  const isYoga = theme === 'yoga'
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-  const iconColorClass = isYoga ? 'text-sage' : 'text-terracotta'
 
   return (
     <>
       {/* Header */}
       <div className='text-center mb-12'>
         <span
-          className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-2 block`}
+          className='text-primary-dark font-body text-sm tracking-widest uppercase mb-2 block'
         >
           {service.subtitle || 'Gruppenkurse'}
         </span>
@@ -339,7 +307,7 @@ function LocationsLayout({
                 {/* Address */}
                 <div className='flex items-start gap-2'>
                   <svg
-                    className={`w-4 h-4 ${iconColorClass} mt-0.5 shrink-0`}
+                    className='w-4 h-4 text-primary mt-0.5 shrink-0'
                     fill='none'
                     stroke='currentColor'
                     viewBox='0 0 24 24'
@@ -363,7 +331,7 @@ function LocationsLayout({
                       href={location.googleMapsUrl}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-sm text-charcoal-light hover:text-sage-dark underline underline-offset-2 transition-colors'
+                      className='text-sm text-charcoal-light hover:text-primary-dark underline underline-offset-2 transition-colors'
                     >
                       {location.address}
                     </a>
@@ -378,7 +346,7 @@ function LocationsLayout({
                 {location.schedule && location.schedule.length > 0 && (
                   <div className='flex items-start gap-2'>
                     <svg
-                      className={`w-4 h-4 ${iconColorClass} mt-0.5 shrink-0`}
+                      className='w-4 h-4 text-primary mt-0.5 shrink-0'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -406,7 +374,7 @@ function LocationsLayout({
                 {location.pricing && (
                   <div className='flex items-start gap-2'>
                     <svg
-                      className={`w-4 h-4 ${iconColorClass} mt-0.5 shrink-0`}
+                      className='w-4 h-4 text-primary mt-0.5 shrink-0'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -434,11 +402,7 @@ function LocationsLayout({
       <div className='text-center mt-10'>
         <Link 
           href={service.ctaLink || '/kontakt'} 
-          className={`inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg ${
-            isYoga 
-              ? 'bg-sage hover:bg-sage-dark' 
-              : 'bg-terracotta hover:bg-terracotta/90'
-          }`}
+          className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
         >
           {service.ctaText || 'Kurs anfragen'}
         </Link>

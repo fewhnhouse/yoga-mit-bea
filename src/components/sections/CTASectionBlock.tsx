@@ -1,8 +1,5 @@
-'use client'
-
 import CTASection from '@/components/CTASection'
 import ServiceIcon from '@/components/ServiceIcon'
-import { useSite } from '@/context/SiteContext'
 
 interface CTAButton {
   text: string
@@ -31,8 +28,6 @@ export default function CTASectionBlock({
   decorative = false,
   padding = 'default',
 }: CTASectionBlockProps) {
-  const { isYoga } = useSite()
-
   // Ensure ctas is properly formatted
   const formattedCtas = ctas
     .filter((cta) => cta.text && cta.href)
@@ -50,7 +45,6 @@ export default function CTASectionBlock({
       title={title}
       description={description}
       cta={ctasProp}
-      theme={isYoga ? 'yoga' : 'therapie'}
       variant={variant}
       isQuote={isQuote}
       decorative={decorative}

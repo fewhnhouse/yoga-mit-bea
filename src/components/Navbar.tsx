@@ -6,7 +6,7 @@ import { useSite } from "@/context/SiteContext";
 import SiteSwitcher from "./SiteSwitcher";
 
 export default function Navbar() {
-  const { currentSite, isYoga, navLinks } = useSite();
+  const { currentSite, navLinks } = useSite();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -18,11 +18,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const primaryColorClass = isYoga ? "text-sage-dark" : "text-terracotta";
-  const hoverColorClass = isYoga ? "hover:text-sage" : "hover:text-terracotta-light";
-  const underlineColorClass = isYoga ? "bg-sage" : "bg-terracotta";
-  const buttonBgClass = isYoga ? "bg-sage hover:bg-sage-dark" : "bg-terracotta hover:bg-soft-brown";
 
   return (
     <header
@@ -36,7 +31,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className={`font-display text-xl md:text-2xl font-semibold ${primaryColorClass} tracking-wide ${hoverColorClass} transition-colors`}
+          className="font-display text-xl md:text-2xl font-semibold text-primary-dark tracking-wide hover:text-primary transition-colors"
         >
           {currentSite.name}
         </Link>
@@ -47,10 +42,10 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`font-body text-charcoal hover:${primaryColorClass} transition-colors relative group`}
+                className="font-body text-charcoal hover:text-primary-dark transition-colors relative group"
               >
                 {link.label}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 ${underlineColorClass} transition-all duration-300 group-hover:w-full`} />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </Link>
             </li>
           ))}
@@ -61,7 +56,7 @@ export default function Navbar() {
           <SiteSwitcher />
           <Link 
             href="/kontakt" 
-            className={`${buttonBgClass} text-white px-4 py-2 rounded-full text-sm font-medium transition-colors`}
+            className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
           >
             Kontakt
           </Link>
@@ -71,9 +66,10 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-3">
           <SiteSwitcher />
           <button
-            className="p-2 text-charcoal hover:text-sage-dark transition-colors"
+            className="p-2 text-charcoal hover:text-primary-dark transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            type="button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,6 +78,7 @@ export default function Navbar() {
               strokeWidth={1.5}
               stroke="currentColor"
               className="w-6 h-6"
+              aria-hidden="true"
             >
               {isMobileMenuOpen ? (
                 <path
@@ -112,7 +109,7 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`block font-body text-lg text-charcoal ${hoverColorClass} transition-colors py-2`}
+                className="block font-body text-lg text-charcoal hover:text-primary transition-colors py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -122,7 +119,7 @@ export default function Navbar() {
           <li className="pt-4">
             <Link
               href="/kontakt"
-              className={`${buttonBgClass} text-white block text-center px-6 py-3 rounded-full font-medium`}
+              className="bg-primary hover:bg-primary-dark text-white block text-center px-6 py-3 rounded-full font-medium"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Kontakt

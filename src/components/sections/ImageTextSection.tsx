@@ -1,9 +1,6 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import SectionHeader from '@/components/SectionHeader'
-import { useSite } from '@/context/SiteContext'
 
 interface ImageTextSectionProps {
   // Image configuration
@@ -46,32 +43,16 @@ export default function ImageTextSection({
   decorativeBlobs = true,
   padding = 'section',
 }: ImageTextSectionProps) {
-  const { isYoga } = useSite()
-
   // Background classes
   const bgClasses: Record<string, string> = {
     light: 'bg-warm-white',
     cream: 'bg-cream',
-    gradient: isYoga
-      ? 'bg-gradient-to-br from-cream via-warm-white to-blush/20'
-      : 'bg-gradient-to-br from-blush/30 via-warm-white to-terracotta/10',
+    gradient: 'bg-gradient-to-br from-cream via-warm-white to-primary/10',
     pattern: 'bg-warm-white section-pattern',
   }
 
   // Padding classes
   const paddingClasses = padding === 'hero' ? 'pt-32 pb-20' : 'py-24'
-
-  // Theme-based colors
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-  const ctaColorClass = isYoga
-    ? 'text-sage-dark hover:text-sage'
-    : 'text-terracotta hover:text-soft-brown'
-
-  // Decorative blob classes
-  const blobClass1 = isYoga ? 'bg-sage/5' : 'bg-terracotta/5'
-  const blobClass2 = isYoga ? 'bg-terracotta/5' : 'bg-sage/5'
-  const imageBlobClass1 = isYoga ? 'bg-terracotta/10' : 'bg-sage/10'
-  const imageBlobClass2 = isYoga ? 'bg-sage/10' : 'bg-terracotta/10'
 
   // Aspect ratio classes
   const aspectClasses: Record<string, string> = {
@@ -105,10 +86,10 @@ export default function ImageTextSection({
       {decorativeBlobs && (background === 'gradient' || isHero) && (
         <>
           <div
-            className={`absolute top-20 right-10 w-64 h-64 ${blobClass1} organic-blob animate-float`}
+            className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float'
           />
           <div
-            className={`absolute bottom-10 left-10 w-48 h-48 ${blobClass2} organic-blob-2 animate-breathe`}
+            className='absolute bottom-10 left-10 w-48 h-48 bg-primary/5 organic-blob-2 animate-breathe'
           />
         </>
       )}
@@ -134,10 +115,10 @@ export default function ImageTextSection({
             {decorativeBlobs && (
               <>
                 <div
-                  className={`absolute -bottom-6 ${isImageRight ? '-left-6' : '-right-6'} w-48 h-48 ${imageBlobClass1} organic-blob -z-10`}
+                  className={`absolute -bottom-6 ${isImageRight ? '-left-6' : '-right-6'} w-48 h-48 bg-primary/10 organic-blob -z-10`}
                 />
                 <div
-                  className={`absolute -top-6 ${isImageRight ? '-right-6' : '-left-6'} w-32 h-32 ${imageBlobClass2} organic-blob-2 -z-10`}
+                  className={`absolute -top-6 ${isImageRight ? '-right-6' : '-left-6'} w-32 h-32 bg-primary-light/10 organic-blob-2 -z-10`}
                 />
               </>
             )}
@@ -148,12 +129,11 @@ export default function ImageTextSection({
             <SectionHeader
               label={label || ''}
               title={title}
-              theme={isYoga ? 'yoga' : 'therapie'}
               as={headingLevel}
             />
 
             {tagline && (
-              <p className={`font-display text-xl ${primaryColorClass} italic mb-6`}>
+              <p className='font-display text-xl text-primary-dark italic mb-6'>
                 &bdquo;{tagline}&ldquo;
               </p>
             )}
@@ -169,7 +149,7 @@ export default function ImageTextSection({
             {cta?.text && cta?.href && (
               <Link
                 href={cta.href}
-                className={`inline-flex items-center gap-2 mt-8 ${ctaColorClass} font-medium transition-colors group`}
+                className='inline-flex items-center gap-2 mt-8 text-primary-dark hover:text-primary font-medium transition-colors group'
               >
                 {cta.text}
                 <svg

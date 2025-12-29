@@ -3,8 +3,8 @@ export interface SectionHeaderProps {
   label: string
   /** Main heading */
   title: string
-  /** Theme color - defaults to 'yoga'. Use 'light' for white text on colored backgrounds */
-  theme?: 'yoga' | 'therapie' | 'light'
+  /** Theme color - defaults to 'default'. Use 'light' for white text on colored backgrounds */
+  theme?: 'default' | 'light'
   /** Text alignment - defaults to 'left' */
   align?: 'left' | 'center'
   /** Heading level - defaults to 'h2' */
@@ -16,18 +16,17 @@ export interface SectionHeaderProps {
 export default function SectionHeader({
   label,
   title,
-  theme = 'yoga',
+  theme = 'default',
   align = 'left',
   as: Tag = 'h2',
   className = '',
 }: SectionHeaderProps) {
   const isLight = theme === 'light'
-  const isYoga = theme === 'yoga'
 
-  // Theme-based classes
-  const labelClass = isLight ? 'text-white/80' : isYoga ? 'text-sage-dark' : 'text-terracotta'
+  // Theme-based classes - uses CSS custom properties that change per site
+  const labelClass = isLight ? 'text-white/80' : 'text-primary-dark'
   const titleClass = isLight ? 'text-white' : 'text-charcoal'
-  const lineColor = isLight ? 'rgba(255,255,255,0.5)' : isYoga ? 'var(--sage)' : 'var(--terracotta)'
+  const lineColor = isLight ? 'rgba(255,255,255,0.5)' : 'var(--primary)'
 
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center' : 'text-left'

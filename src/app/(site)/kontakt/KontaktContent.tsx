@@ -18,20 +18,6 @@ export default function KontaktContent() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const primaryColorClass = isYoga ? 'text-sage-dark' : 'text-terracotta'
-  const primaryBgClass = isYoga ? 'bg-sage' : 'bg-terracotta'
-  const primaryBgLightClass = isYoga ? 'bg-sage/10' : 'bg-terracotta/10'
-  const buttonClass = isYoga
-    ? 'bg-sage text-white hover:bg-sage-dark'
-    : 'bg-terracotta text-white hover:bg-soft-brown'
-  const focusClass = isYoga
-    ? 'focus:border-sage focus:ring-sage/20'
-    : 'focus:border-terracotta focus:ring-terracotta/20'
-  const gradientClass = isYoga
-    ? 'from-cream via-warm-white to-terracotta/10'
-    : 'from-blush/30 via-warm-white to-terracotta/10'
-  const iconColor = isYoga ? 'text-sage' : 'text-terracotta'
-
   const subjectOptions = isYoga
     ? [
         { value: 'individuell', label: 'Yoga Individuell' },
@@ -96,25 +82,25 @@ export default function KontaktContent() {
     <>
       {/* Hero Section */}
       <section
-        className={`relative pt-32 pb-20 bg-gradient-to-br ${gradientClass} overflow-hidden`}
+        className='relative pt-32 pb-20 bg-gradient-to-br from-cream via-warm-white to-primary/10 overflow-hidden'
       >
         <div
-          className={`absolute top-20 right-10 w-64 h-64 ${isYoga ? 'bg-sage/5' : 'bg-terracotta/5'} organic-blob animate-float`}
+          className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float'
         />
         <div className='absolute bottom-10 left-10 w-48 h-48 bg-blush/10 organic-blob-2 animate-breathe' />
 
         <div className='container mx-auto px-6 relative'>
           <div className='max-w-3xl'>
             <span
-              className={`${primaryColorClass} font-body text-sm tracking-widest uppercase mb-4 block`}
+              className='text-primary-dark font-body text-sm tracking-widest uppercase mb-4 block'
             >
               Kontakt
             </span>
             <h1 className='font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6'>
               Ich freue mich
-              <span className={`block ${primaryColorClass}`}>auf dich</span>
+              <span className='block text-primary-dark'>auf dich</span>
             </h1>
-            <div className={`w-20 h-0.5 ${primaryBgClass} mb-6`} />
+            <div className='w-20 h-0.5 bg-primary mb-6' />
             <p className='text-charcoal-light text-lg leading-relaxed'>
               {isYoga
                 ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich so schnell wie möglich bei dir.'
@@ -136,13 +122,13 @@ export default function KontaktContent() {
 
               {submitted ? (
                 <div
-                  className={`${primaryBgLightClass} rounded-2xl p-8 text-center`}
+                  className='bg-primary/10 rounded-2xl p-8 text-center'
                 >
                   <div
-                    className={`w-16 h-16 rounded-full ${primaryBgLightClass} flex items-center justify-center mx-auto mb-4`}
+                    className='w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4'
                   >
                     <svg
-                      className={`w-8 h-8 ${primaryColorClass}`}
+                      className='w-8 h-8 text-primary-dark'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -169,7 +155,7 @@ export default function KontaktContent() {
                       setSubmitted(false)
                       setError(null)
                     }}
-                    className={`mt-6 ${primaryColorClass} font-medium hover:opacity-80 transition-opacity`}
+                    className='mt-6 text-primary-dark font-medium hover:opacity-80 transition-opacity'
                   >
                     Weitere Nachricht senden
                   </button>
@@ -191,7 +177,7 @@ export default function KontaktContent() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none ${focusClass} focus:ring-2 transition-all`}
+                        className='w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:border-primary focus:ring-primary/20 focus:ring-2 transition-all'
                         placeholder='Dein Name'
                       />
                     </div>
@@ -209,7 +195,7 @@ export default function KontaktContent() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none ${focusClass} focus:ring-2 transition-all`}
+                        className='w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:border-primary focus:ring-primary/20 focus:ring-2 transition-all'
                         placeholder='deine@email.de'
                       />
                     </div>
@@ -229,7 +215,7 @@ export default function KontaktContent() {
                         name='phone'
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none ${focusClass} focus:ring-2 transition-all`}
+                        className='w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:border-primary focus:ring-primary/20 focus:ring-2 transition-all'
                         placeholder='Optional'
                       />
                     </div>
@@ -246,7 +232,7 @@ export default function KontaktContent() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none ${focusClass} focus:ring-2 transition-all`}
+                        className='w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:border-primary focus:ring-primary/20 focus:ring-2 transition-all'
                       >
                         <option value=''>Bitte wählen</option>
                         {subjectOptions.map((option) => (
@@ -272,7 +258,7 @@ export default function KontaktContent() {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className={`w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none ${focusClass} focus:ring-2 transition-all resize-none`}
+                      className='w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:border-primary focus:ring-primary/20 focus:ring-2 transition-all resize-none'
                       placeholder='Deine Nachricht...'
                     />
                   </div>
@@ -286,7 +272,7 @@ export default function KontaktContent() {
                   <button
                     type='submit'
                     disabled={isSubmitting}
-                    className={`${buttonClass} w-full px-6 py-4 rounded-full font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className='bg-primary text-white hover:bg-primary-dark w-full px-6 py-4 rounded-full font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed'
                   >
                     {isSubmitting ? (
                       <>
@@ -329,10 +315,10 @@ export default function KontaktContent() {
               <div className='space-y-8'>
                 <div className='flex gap-4'>
                   <div
-                    className={`w-12 h-12 rounded-full ${primaryBgLightClass} flex items-center justify-center flex-shrink-0`}
+                    className='w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0'
                   >
                     <svg
-                      className={`w-6 h-6 ${primaryColorClass}`}
+                      className='w-6 h-6 text-primary-dark'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -352,7 +338,7 @@ export default function KontaktContent() {
                     </h3>
                     <a
                       href={`mailto:info@${currentSite.domain}`}
-                      className={`${primaryColorClass} hover:opacity-80 transition-opacity`}
+                      className='text-primary-dark hover:opacity-80 transition-opacity'
                     >
                       info@{currentSite.domain}
                     </a>
@@ -361,10 +347,10 @@ export default function KontaktContent() {
 
                 <div className='flex gap-4'>
                   <div
-                    className={`w-12 h-12 rounded-full ${primaryBgLightClass} flex items-center justify-center flex-shrink-0`}
+                    className='w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0'
                   >
                     <svg
-                      className={`w-6 h-6 ${primaryColorClass}`}
+                      className='w-6 h-6 text-primary-dark'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -386,7 +372,7 @@ export default function KontaktContent() {
                       href={`https://${currentSite.domain}`}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className={`${primaryColorClass} hover:opacity-80 transition-opacity`}
+                      className='text-primary-dark hover:opacity-80 transition-opacity'
                     >
                       {currentSite.domain}
                     </a>
@@ -396,11 +382,11 @@ export default function KontaktContent() {
 
               {/* Quote */}
               <div className='mt-12 bg-cream rounded-2xl p-8'>
-                <LotusIcon className={`w-10 h-10 ${iconColor}/40 mb-4`} />
+                <LotusIcon className='w-10 h-10 text-primary/40 mb-4' />
                 <p className='font-display text-xl text-charcoal italic leading-relaxed'>
                   &bdquo;{currentSite.tagline}&ldquo;
                 </p>
-                <p className={`${primaryColorClass} mt-4 font-medium`}>– Bea</p>
+                <p className='text-primary-dark mt-4 font-medium'>– Bea</p>
               </div>
 
               {/* Offerings Quick Links */}
@@ -413,7 +399,7 @@ export default function KontaktContent() {
                     <a
                       key={link.href}
                       href={link.href}
-                      className={`${primaryBgLightClass} ${primaryColorClass} text-sm px-4 py-2 rounded-full hover:opacity-80 transition-opacity`}
+                      className='bg-primary/10 text-primary-dark text-sm px-4 py-2 rounded-full hover:opacity-80 transition-opacity'
                     >
                       {link.label}
                     </a>

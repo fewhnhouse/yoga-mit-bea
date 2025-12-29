@@ -1,7 +1,3 @@
-'use client'
-
-import { useSite } from '@/context/SiteContext'
-
 interface GoogleMeetSectionProps {
   title: string
   schedule?: string
@@ -23,36 +19,21 @@ export default function GoogleMeetSection({
   footnote = 'Der Link führt zu Google Meet',
   background = 'light',
 }: GoogleMeetSectionProps) {
-  const { isYoga } = useSite()
-
   const bgClass = background === 'cream' ? 'bg-cream' : 'bg-warm-white'
-  
-  // Use explicit classes for Tailwind's static analysis
-  const cardGradientClass = isYoga
-    ? 'bg-gradient-to-br from-sage/10 to-cream'
-    : 'bg-gradient-to-br from-terracotta/10 to-cream'
-  
-  const iconBgClass = isYoga ? 'bg-sage/20' : 'bg-terracotta/20'
-  const iconTextClass = isYoga ? 'text-sage-dark' : 'text-soft-brown'
-  const scheduleTextClass = isYoga ? 'text-sage-dark' : 'text-soft-brown'
-  const stepBgClass = isYoga ? 'bg-sage' : 'bg-terracotta'
-  const buttonClass = isYoga
-    ? 'bg-sage hover:bg-sage-dark'
-    : 'bg-terracotta hover:bg-soft-brown'
 
   return (
     <section className={`py-24 ${bgClass}`}>
       <div className='container mx-auto px-6'>
         <div className='max-w-4xl mx-auto'>
           <div
-            className={`${cardGradientClass} rounded-3xl p-10 md:p-16 text-center shadow-xl`}
+            className='bg-gradient-to-br from-primary/10 to-cream rounded-3xl p-10 md:p-16 text-center shadow-xl'
           >
             {/* Video Icon */}
             <div
-              className={`w-20 h-20 rounded-full ${iconBgClass} flex items-center justify-center mx-auto mb-8`}
+              className='w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-8'
             >
               <svg
-                className={`w-10 h-10 ${iconTextClass}`}
+                className='w-10 h-10 text-primary-dark'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -74,7 +55,7 @@ export default function GoogleMeetSection({
 
             {/* Schedule */}
             {schedule && (
-              <p className={`font-display text-2xl md:text-3xl ${scheduleTextClass} mb-8`}>
+              <p className='font-display text-2xl md:text-3xl text-primary-dark mb-8'>
                 {schedule}
               </p>
             )}
@@ -89,7 +70,7 @@ export default function GoogleMeetSection({
                   {instructions.map((instruction, index) => (
                     <li key={index} className='flex gap-4'>
                       <span
-                        className={`w-8 h-8 rounded-full ${stepBgClass} text-white flex items-center justify-center flex-shrink-0 text-sm font-medium`}
+                        className='w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0 text-sm font-medium'
                       >
                         {index + 1}
                       </span>
@@ -105,7 +86,7 @@ export default function GoogleMeetSection({
               href={meetLink}
               target='_blank'
               rel='noopener noreferrer'
-              className={`inline-flex items-center gap-3 ${buttonClass} text-white px-10 py-5 rounded-full font-medium text-lg transition-colors shadow-lg hover:shadow-xl`}
+              className='inline-flex items-center gap-3 bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-full font-medium text-lg transition-colors shadow-lg hover:shadow-xl'
             >
               <svg
                 className='w-6 h-6'

@@ -13,8 +13,6 @@ export interface TextSectionProps {
     text: string
     href: string
   }
-  /** Theme color - defaults to 'yoga' */
-  theme?: 'yoga' | 'therapie'
   /** Text alignment - defaults to 'left' */
   align?: 'left' | 'center'
   /** Maximum width class - defaults to 'max-w-3xl' */
@@ -28,17 +26,10 @@ export default function TextSection({
   title,
   description,
   cta,
-  theme = 'yoga',
   align = 'left',
   maxWidth = 'max-w-3xl',
   className = '',
 }: TextSectionProps) {
-  const isYoga = theme === 'yoga'
-
-  // Theme-based classes for CTA
-  const ctaClass = isYoga
-    ? 'text-sage-dark hover:text-sage'
-    : 'text-terracotta hover:text-soft-brown'
 
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center' : 'text-left'
@@ -51,7 +42,6 @@ export default function TextSection({
       <SectionHeader
         label={label}
         title={title}
-        theme={theme}
         align={align}
       />
       <div className='space-y-4'>
@@ -67,7 +57,7 @@ export default function TextSection({
       {cta && (
         <Link
           href={cta.href}
-          className={`inline-flex items-center gap-2 mt-8 ${ctaClass} font-medium transition-colors group`}
+          className='inline-flex items-center gap-2 mt-8 text-primary-dark hover:text-primary font-medium transition-colors group'
         >
           {cta.text}
           <svg
