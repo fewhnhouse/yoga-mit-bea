@@ -36,8 +36,8 @@ export default function SiteSwitcher() {
         onClick={() => handleSwitch("yoga")}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "yoga"
-            ? "bg-sage text-white shadow-sm"
-            : "text-charcoal-light hover:text-sage-dark"
+            ? "bg-rose text-white shadow-sm"
+            : "text-charcoal-light hover:text-rose-dark"
         }`}
         title="Yoga mit Bea (yogamitbea.de)"
       >
@@ -48,8 +48,8 @@ export default function SiteSwitcher() {
         onClick={() => handleSwitch("therapie")}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           siteId === "therapie"
-            ? "bg-terracotta text-white shadow-sm"
-            : "text-charcoal-light hover:text-terracotta"
+            ? "bg-sage text-white shadow-sm"
+            : "text-charcoal-light hover:text-sage-dark"
         }`}
         title="Therapie mit Bea (therapiemitbea.de)"
       >

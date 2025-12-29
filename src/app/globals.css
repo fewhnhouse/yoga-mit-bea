@@ -2,6 +2,9 @@
 
 :root {
   /* Earthy, calming color palette for yoga/therapy */
+  --rose: #C17B8A;
+  --rose-light: #D8ACB5;
+  --rose-dark: #AD5265;
   --sage: #9CAF88;
   --sage-light: #B8C9A3;
   --sage-dark: #7A8F6A;
@@ -17,10 +20,11 @@
   
   --background: var(--warm-white);
   --foreground: var(--charcoal);
-  --primary: var(--sage);
-  --primary-light: var(--sage-light);
-  --primary-dark: var(--sage-dark);
-  --secondary: var(--terracotta);
+  /* Default primary = yoga (rose) */
+  --primary: var(--rose);
+  --primary-light: var(--rose-light);
+  --primary-dark: var(--rose-dark);
+  --secondary: var(--sage);
   --accent: var(--blush);
 }
 
@@ -30,6 +34,9 @@
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
+  --color-rose: var(--rose);
+  --color-rose-light: var(--rose-light);
+  --color-rose-dark: var(--rose-dark);
   --color-sage: var(--sage);
   --color-sage-light: var(--sage-light);
   --color-sage-dark: var(--sage-dark);
@@ -71,10 +78,10 @@ body {
 }
 
 :root[data-site="therapie"] {
-  /* Primary colors for therapie site */
-  --primary: var(--terracotta);
-  --primary-light: var(--terracotta-light);
-  --primary-dark: var(--soft-brown);
+  /* Primary colors for therapie site (sage/green) */
+  --primary: var(--sage);
+  --primary-light: var(--sage-light);
+  --primary-dark: var(--sage-dark);
 }
 
 /* Custom scrollbar */
