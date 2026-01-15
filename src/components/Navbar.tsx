@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSite } from "@/context/SiteContext";
 
 export default function Navbar() {
-  const { currentSite, navLinks } = useSite();
+  const { currentSite, navLinks, isYoga } = useSite();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -30,9 +31,22 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-xl md:text-2xl font-semibold text-primary-dark tracking-wide hover:text-primary transition-colors"
+          className="flex items-center"
         >
-          {currentSite.name}
+          {isYoga ? (
+            <Image
+              src="/images/yoga-header.png"
+              alt="Yoga mit Bea"
+              width={150}
+              height={50}
+              className="h-10 md:h-12 w-auto"
+              priority
+            />
+          ) : (
+            <span className="font-display text-xl md:text-2xl font-semibold text-primary-dark tracking-wide hover:text-primary transition-colors">
+              {currentSite.name}
+            </span>
+          )}
         </Link>
 
         {/* Desktop Navigation */}
