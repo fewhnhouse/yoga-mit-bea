@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSite } from "@/context/SiteContext";
+import SiteSwitcher from "./SiteSwitcher";
 
 export default function Footer() {
   const { currentSite, footerServiceLinks, footerInfoLinks } = useSite();
@@ -97,9 +98,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-sand/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-charcoal-light">
-          <p>© {new Date().getFullYear()} {currentSite.name}. Alle Rechte vorbehalten.</p>
-          <p className="flex items-center gap-2">
+        <div className="mt-12 pt-8 border-t border-sand/50 flex flex-col md:flex-row items-center gap-4 text-sm text-charcoal-light">
+          <p className="md:flex-1 text-center md:text-left">© {new Date().getFullYear()} {currentSite.name}. Alle Rechte vorbehalten.</p>
+          <SiteSwitcher />
+          <p className="md:flex-1 flex items-center justify-center md:justify-end gap-2">
             Mit{" "}
             <svg
               className="w-4 h-4 text-primary"

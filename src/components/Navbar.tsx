@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSite } from "@/context/SiteContext";
-import SiteSwitcher from "./SiteSwitcher";
 
 export default function Navbar() {
   const { currentSite, navLinks } = useSite();
@@ -51,20 +50,18 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Side: Site Switcher + CTA (desktop only) */}
+        {/* Right Side: CTA (desktop only) */}
         <div className="hidden lg:flex items-center gap-4">
-          <SiteSwitcher />
-          <Link 
-            href="/kontakt" 
+          <Link
+            href="/kontakt"
             className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
           >
             Kontakt
           </Link>
         </div>
 
-        {/* Mobile/Tablet: Site Switcher + Menu Button */}
+        {/* Mobile/Tablet: Menu Button */}
         <div className="flex lg:hidden items-center gap-3">
-          <SiteSwitcher />
           <button
             className="p-2 text-charcoal hover:text-primary-dark transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
