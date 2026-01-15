@@ -45,7 +45,7 @@ const yogaHomepage = {
     {
       _key: "hero-1",
       _type: "heroSection",
-      title: "Yoga und Therapie mit Bea",
+      title: "Yoga und Psychotherapie mit Bea",
       tagline: "Dein Raum für Bewegung, Stille und Heilung",
       subtitle: "Entdecke Yoga als Weg zu dir selbst. In meinen Kursen, Einzelstunden und besonderen Veranstaltungen begleite ich dich achtsam auf deiner Reise.",
       primaryCta: {
@@ -175,14 +175,14 @@ const therapieHomepage = {
   _id: "page-therapie-home",
   _type: "page",
   site: "therapie",
-  title: "Therapie mit Bea - Startseite",
+  title: "Psychotherapie mit Bea - Startseite",
   slug: { _type: "slug", current: "home" },
   sections: [
     // Hero Section
     {
       _key: "hero-1",
       _type: "heroSection",
-      title: "Therapie mit Bea",
+      title: "Psychotherapie mit Bea",
       tagline: "Heilung auf körperlicher und emotionaler Ebene",
       subtitle: "Heilung geschieht auf vielen Ebenen. Meine therapeutischen Angebote unterstützen dich dabei, körperliche und emotionale Balance zu finden.",
       primaryCta: {
@@ -219,7 +219,7 @@ const therapieHomepage = {
       _key: "services-grid-1",
       _type: "cardsGridSection",
       label: "Angebote",
-      title: "Therapie mit Bea",
+      title: "Psychotherapie mit Bea",
       description: "Finde die therapeutische Behandlung, die dich auf deinem Weg unterstützt.",
       columns: 4,
       background: "cream",
@@ -257,7 +257,7 @@ const therapieHomepage = {
       ctas: [
         {
           _key: "cta-1",
-          text: "Mehr über Therapie",
+          text: "Mehr über Psychotherapie",
           href: "/therapie",
           variant: "secondary",
         },
@@ -291,7 +291,7 @@ const therapieHomepage = {
       padding: "default",
     },
   ],
-  seoTitle: "Therapie mit Bea - Therapeutische Behandlungen",
+  seoTitle: "Psychotherapie mit Bea - Therapeutische Behandlungen",
   seoDescription: "Ganzheitliche therapeutische Angebote: Massage, Atemtherapie und Klangschalentherapie. Finde körperliche und emotionale Balance mit Bea.",
 };
 
@@ -308,8 +308,8 @@ async function createSectionPages() {
   console.log("📄 Creating Yoga homepage (section-based)...");
   transaction.createOrReplace(yogaHomepage);
 
-  // Create Therapie Homepage
-  console.log("📄 Creating Therapie homepage (section-based)...");
+  // Create Psychotherapie Homepage
+  console.log("📄 Creating Psychotherapie homepage (section-based)...");
   transaction.createOrReplace(therapieHomepage);
 
   // Commit
@@ -319,7 +319,7 @@ async function createSectionPages() {
     console.log("\n✅ Section-based pages created successfully!");
     console.log("\n📋 Created:");
     console.log("   - page-yoga-home (Yoga homepage with sections)");
-    console.log("   - page-therapie-home (Therapie homepage with sections)");
+    console.log("   - page-therapie-home (Psychotherapie homepage with sections)");
     console.log("\n🔗 Next steps:");
     console.log("   1. Go to Sanity Studio (/studio)");
     console.log("   2. Navigate to Site Settings for each site");

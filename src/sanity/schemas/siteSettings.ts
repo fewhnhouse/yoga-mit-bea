@@ -12,7 +12,7 @@ export default defineType({
       options: {
         list: [
           { title: "Yoga mit Bea", value: "yoga" },
-          { title: "Therapie mit Bea", value: "therapie" },
+          { title: "Psychotherapie mit Bea", value: "therapie" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -22,7 +22,7 @@ export default defineType({
       title: "Site Name",
       type: "string",
       validation: (Rule) => Rule.required(),
-      description: 'e.g., "Yoga mit Bea" or "Therapie mit Bea"',
+      description: 'e.g., "Yoga mit Bea" or "Psychotherapie mit Bea"',
     }),
     defineField({
       name: "tagline",

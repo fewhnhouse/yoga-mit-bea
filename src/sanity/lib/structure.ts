@@ -3,7 +3,7 @@ import type { StructureResolver } from "sanity/structure";
 // Singleton document IDs
 export const SINGLETON_IDS = {
   siteSettingsYoga: "siteSettings-yoga",
-  siteSettingsTherapie: "siteSettings-therapie",
+  siteSettingsPsychotherapie: "siteSettings-therapie",
 };
 
 // Types that are singletons (shouldn't show in default list)
@@ -33,13 +33,13 @@ export const structure: StructureResolver = (S) =>
                     .title("Yoga Site Settings")
                 ),
               S.listItem()
-                .title("💆 Therapie Site Settings")
+                .title("💆 Psychotherapie Site Settings")
                 .icon(() => "💆")
                 .child(
                   S.document()
                     .schemaType("siteSettings")
-                    .documentId(SINGLETON_IDS.siteSettingsTherapie)
-                    .title("Therapie Site Settings")
+                    .documentId(SINGLETON_IDS.siteSettingsPsychotherapie)
+                    .title("Psychotherapie Site Settings")
                 ),
             ])
         ),
@@ -62,10 +62,10 @@ export const structure: StructureResolver = (S) =>
                     .filter('_type == "page" && site in ["yoga", "both"]')
                 ),
               S.listItem()
-                .title("💆 Therapie Pages")
+                .title("💆 Psychotherapie Pages")
                 .child(
                   S.documentList()
-                    .title("Therapie Pages")
+                    .title("Psychotherapie Pages")
                     .filter('_type == "page" && site in ["therapie", "both"]')
                 ),
               S.divider(),
@@ -98,10 +98,10 @@ export const structure: StructureResolver = (S) =>
                     .defaultOrdering([{ field: "order", direction: "asc" }])
                 ),
               S.listItem()
-                .title("💆 Therapie Services")
+                .title("💆 Psychotherapie Services")
                 .child(
                   S.documentList()
-                    .title("Therapie Services")
+                    .title("Psychotherapie Services")
                     .filter('_type == "service" && site in ["therapie", "both"]')
                     .defaultOrdering([{ field: "order", direction: "asc" }])
                 ),
@@ -183,10 +183,10 @@ export const structure: StructureResolver = (S) =>
                     .defaultOrdering([{ field: "order", direction: "asc" }])
                 ),
               S.listItem()
-                .title("💆 Therapie Testimonials")
+                .title("💆 Psychotherapie Testimonials")
                 .child(
                   S.documentList()
-                    .title("Therapie Testimonials")
+                    .title("Psychotherapie Testimonials")
                     .filter('_type == "testimonial" && site in ["therapie", "both"]')
                     .defaultOrdering([{ field: "order", direction: "asc" }])
                 ),

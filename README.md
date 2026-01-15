@@ -1,4 +1,4 @@
-# Yoga & Therapie mit Bea
+# Yoga & Psychotherapie mit Bea
 
 A beautiful, modern website for a yoga and therapy practice built with Next.js, TypeScript, Tailwind CSS, and Sanity CMS.
 

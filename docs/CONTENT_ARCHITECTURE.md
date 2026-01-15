@@ -1,4 +1,4 @@
-# Yoga & Therapie mit Bea - Content Architecture
+# Yoga & Psychotherapie mit Bea - Content Architecture
 
 ## Overview
 
@@ -14,7 +14,7 @@ This document outlines the content structure for the Sanity CMS implementation, 
 |------|-----|----------------------|----------------|----------|
 | **Homepage** | `/` | Hero, Services, CTA | About Preview, Testimonials | High |
 | **Yoga** | `/yoga` | All content | None | High |
-| **Therapie** | `/therapie` | All content | None | High |
+| **Psychotherapie** | `/therapie` | All content | None | High |
 | **Über Mich** | `/ueber-mich` | Philosophy text, Approach | Name, Photo, Core values | Medium |
 | **Kontakt** | `/kontakt` | Subject options | Contact info, Form | Medium |
 | **Yoga Online** | `/zum-mitueben` | All content (Yoga only) | None | Low |
@@ -61,7 +61,7 @@ defineField({
   options: {
     list: [
       { title: "Yoga only", value: "yoga" },
-      { title: "Therapie only", value: "therapie" },
+      { title: "Psychotherapie only", value: "therapie" },
       { title: "Both sites", value: "both" },
     ],
   },
@@ -157,7 +157,7 @@ defineField({
 - Yoga Weg
 - Yoga Online
 
-**Therapie Services:**
+**Psychotherapie Services:**
 - Therapeutische Massage
 - Atemtherapie
 - Klangschalentherapie
@@ -376,14 +376,14 @@ Organize the Sanity Studio desk for easy content management:
 ```
 📁 Site Settings
   ├── Yoga Site Settings
-  └── Therapie Site Settings
+  └── Psychotherapie Site Settings
 
 📁 About Bea
   └── (single document)
 
 📁 Services
   ├── Yoga Services
-  └── Therapie Services
+  └── Psychotherapie Services
 
 📁 Locations
   ├── Schloss Bernstadt
@@ -395,11 +395,11 @@ Organize the Sanity Studio desk for easy content management:
 
 📁 Testimonials
   ├── Yoga Testimonials
-  └── Therapie Testimonials
+  └── Psychotherapie Testimonials
 
 📁 Pages
   ├── Homepage (Yoga)
-  ├── Homepage (Therapie)
+  ├── Homepage (Psychotherapie)
   ├── Impressum
   └── Datenschutz
 ```
@@ -474,7 +474,7 @@ Organize the Sanity Studio desk for easy content management:
 
 ## Open Questions
 
-1. **Testimonials**: Should Therapie have its own testimonials, or share Yoga ones?
+1. **Testimonials**: Should Psychotherapie have its own testimonials, or share Yoga ones?
 2. **Events**: Should there be a separate events/calendar page?
 3. **Online Yoga**: Should this be part of services or a standalone offering?
 4. **Images**: Should we use Sanity's image CDN or keep local images?

@@ -51,9 +51,9 @@ export default function SiteSwitcher() {
             ? "bg-sage text-white shadow-sm"
             : "text-charcoal-light hover:text-sage-dark"
         }`}
-        title="Therapie mit Bea (therapiemitbea.de)"
+        title="Psychotherapie mit Bea (therapiemitbea.de)"
       >
-        Therapie
+        Psychotherapie
       </button>
     </div>
   );

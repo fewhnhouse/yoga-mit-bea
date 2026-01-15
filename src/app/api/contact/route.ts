@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       kurse: "Yogakurse",
       aktuell: "Yoga aktuell (Yogatag/Wochenende)",
       weg: "Yoga Weg im Lonetal",
-      // Therapie subjects
+      // Psychotherapie subjects
       massage: "Therapeutische Massage",
       atemtherapie: "Atemtherapie",
       klangschalen: "Klangschalentherapie",
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     };
 
     const subjectLabel = subjectLabels[subject] || subject;
-    const siteName = site === "therapie" ? "Therapie mit Bea" : "Yoga mit Bea";
+    const siteName = site === "therapie" ? "Psychotherapie mit Bea" : "Yoga mit Bea";
 
     // Send email via Resend
     const { data, error } = await resend.emails.send({

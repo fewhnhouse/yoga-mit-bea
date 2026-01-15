@@ -12,7 +12,7 @@ export default defineType({
       name: "title",
       title: "Title",
       type: "string",
-      description: "Main heading (e.g., 'Yoga und Therapie mit Bea')",
+      description: "Main heading (e.g., 'Yoga und Psychotherapie mit Bea')",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

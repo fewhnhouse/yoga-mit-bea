@@ -50,11 +50,11 @@ const siteSettings = [
     _id: "siteSettings-therapie",
     _type: "siteSettings",
     siteId: "therapie",
-    name: "Therapie mit Bea",
+    name: "Psychotherapie mit Bea",
     tagline: "Heilung für Körper und Seele",
     domain: "therapiemitbea.de",
     primaryColor: "terracotta",
-    seoDescription: "Therapie mit Bea - Therapeutische Massage, Atemtherapie und Klangschalentherapie. Ganzheitliche Behandlungen für Körper und Seele.",
+    seoDescription: "Psychotherapie mit Bea - Therapeutische Massage, Atemtherapie und Klangschalentherapie. Ganzheitliche Behandlungen für Körper und Seele.",
     contactEmail: "bea@therapiemitbea.de",
   },
 ];
@@ -67,7 +67,7 @@ const aboutBea = {
   _id: "aboutBea",
   _type: "aboutBea",
   name: "Bea",
-  photoAlt: "Bea - Yoga und Therapie",
+  photoAlt: "Bea - Yoga und Psychotherapie",
   yogaContent: {
     intro: "Yoga begleitet mich seit vielen Jahren und ist zu einem wesentlichen Teil meines Lebens geworden. Was als persönliche Praxis begann, hat sich zu meiner Berufung entwickelt: Menschen auf ihrem eigenen Yoga-Weg zu begleiten.",
     philosophyHeading: "Mein Verständnis von Yoga",
@@ -573,11 +573,11 @@ const homepageContent = [
     quoteSection: {
       heading: "Mein Ansatz",
       quote: "Heilung beginnt dort, wo wir uns erlauben, ganz bei uns selbst anzukommen.",
-      ctaText: "Mehr über Therapie",
+      ctaText: "Mehr über Psychotherapie",
       ctaLink: "/therapie",
     },
     servicesSection: {
-      heading: "Therapie mit Bea",
+      heading: "Psychotherapie mit Bea",
       description: "Finde die therapeutische Behandlung, die dich auf deinem Weg unterstützt.",
     },
     ctaSection: {
@@ -622,8 +622,8 @@ async function seed() {
     transaction.createOrReplace(service);
   }
 
-  // Therapie Services
-  console.log("💆 Creating therapie services...");
+  // Psychotherapie Services
+  console.log("💆 Creating psychotherapie services...");
   for (const service of therapieServices) {
     transaction.createOrReplace(service);
   }
@@ -634,8 +634,8 @@ async function seed() {
     transaction.createOrReplace(testimonial);
   }
 
-  // Therapie Testimonials
-  console.log("💬 Creating therapie testimonials...");
+  // Psychotherapie Testimonials
+  console.log("💬 Creating psychotherapie testimonials...");
   for (const testimonial of therapieTestimonials) {
     transaction.createOrReplace(testimonial);
   }

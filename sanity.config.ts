@@ -6,7 +6,7 @@ import { structure } from './src/sanity/lib/structure'
 
 export default defineConfig({
   name: 'yoga-und-therapie-mit-bea',
-  title: 'Yoga & Therapie mit Bea',
+  title: 'Yoga & Psychotherapie mit Bea',
 
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',

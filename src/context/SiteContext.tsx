@@ -20,7 +20,7 @@ interface SiteContextType {
   currentSite: SiteConfig
   siteId: SiteId
   isYoga: boolean
-  isTherapie: boolean
+  isPsychotherapie: boolean
   // Navigation links derived from Sanity pages
   navLinks: NavLink[]
   // Footer links
@@ -112,7 +112,7 @@ export function SiteProvider({ children, sanityNav }: SiteProviderProps) {
     currentSite: sites[siteId],
     siteId,
     isYoga: siteId === 'yoga',
-    isTherapie: siteId === 'therapie',
+    isPsychotherapie: siteId === 'therapie',
     navLinks,
     footerServiceLinks,
     footerInfoLinks,

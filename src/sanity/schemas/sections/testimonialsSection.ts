@@ -30,7 +30,7 @@ export default defineType({
         list: [
           { title: "Current site (automatic)", value: "current" },
           { title: "Yoga only", value: "yoga" },
-          { title: "Therapie only", value: "therapie" },
+          { title: "Psychotherapie only", value: "therapie" },
           { title: "Both sites", value: "both" },
         ],
       },

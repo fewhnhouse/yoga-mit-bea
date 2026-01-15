@@ -37,7 +37,7 @@ export const sites: Record<SiteId, SiteConfig> = {
   },
   therapie: {
     id: "therapie",
-    name: "Therapie mit Bea",
+    name: "Psychotherapie mit Bea",
     tagline: "Heilung für Körper und Seele",
     domain: "therapiemitbea.de",
     primaryColor: "terracotta",

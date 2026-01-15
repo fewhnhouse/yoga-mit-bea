@@ -3,7 +3,7 @@ import { defineQuery } from 'next-sanity'
 // Singleton document IDs (must match structure.ts)
 export const SINGLETON_IDS = {
   siteSettingsYoga: 'siteSettings-yoga',
-  siteSettingsTherapie: 'siteSettings-therapie',
+  siteSettingsPsychotherapie: 'siteSettings-therapie',
 }
 
 // ============================================

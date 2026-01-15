@@ -12,7 +12,7 @@ export default defineType({
       options: {
         list: [
           { title: "Yoga only", value: "yoga" },
-          { title: "Therapie only", value: "therapie" },
+          { title: "Psychotherapie only", value: "therapie" },
           { title: "Both sites", value: "both" },
         ],
       },
@@ -184,7 +184,7 @@ export default defineType({
       const { title, subtitle, media } = selection;
       const siteLabels: Record<string, string> = {
         yoga: "🧘 Yoga",
-        therapie: "💆 Therapie",
+        therapie: "💆 Psychotherapie",
         both: "🔄 Both",
       };
       const siteLabel = subtitle ? siteLabels[subtitle] || subtitle : "";
