@@ -23,10 +23,12 @@ export async function generateMetadata(): Promise<Metadata> {
   
   // Use page description, fall back to site description
   const description = homepage?.seoDescription || settings?.seoDescription || undefined
+  const keywords = homepage?.seoKeywords || undefined
 
   return {
     title: pageTitle,
     description,
+    keywords,
     openGraph: {
       title: `${currentSite.name} | ${pageTitle}`,
       description,

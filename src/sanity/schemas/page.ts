@@ -77,6 +77,16 @@ export default defineType({
       description: 'Description shown in search results',
     }),
     defineField({
+      name: 'seoKeywords',
+      title: 'SEO Keywords',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Keywords/tags for search engines (e.g., "Yoga", "Meditation", "Entspannung")',
+      options: {
+        layout: 'tags',
+      },
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Social Share Image',
       type: 'image',

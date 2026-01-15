@@ -276,6 +276,7 @@ export const pageBySlugQuery = defineQuery(`
     },
     seoTitle,
     seoDescription,
+    seoKeywords,
     "ogImageUrl": ogImage.asset->url,
     noIndex
   }
@@ -315,6 +316,7 @@ export const pageWithSectionsDataQuery = defineQuery(`
     },
     seoTitle,
     seoDescription,
+    seoKeywords,
     "ogImageUrl": ogImage.asset->url,
     noIndex
   },
@@ -388,6 +390,7 @@ export const homepageFromSettingsQuery = defineQuery(`
       title,
       seoTitle,
       seoDescription,
+      seoKeywords,
       "slug": slug.current,
       sections[] {
         _key,
