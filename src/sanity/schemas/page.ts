@@ -6,6 +6,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'enabled',
+      title: 'Enabled',
+      type: 'boolean',
+      description: 'Toggle to show/hide this page on the website',
+      initialValue: true,
+    }),
+    defineField({
       name: 'site',
       title: 'Belongs to Site',
       type: 'string',
@@ -106,9 +113,10 @@ export default defineType({
       slug: 'slug.current',
       site: 'site',
       sections: 'sections',
+      enabled: 'enabled',
     },
     prepare(selection) {
-      const { title, slug, site, sections } = selection
+      const { title, slug, site, sections, enabled } = selection
       const siteEmojis: Record<string, string> = {
         yoga: '🧘',
         therapie: '💆',
@@ -116,9 +124,10 @@ export default defineType({
       }
       const siteEmoji = site ? siteEmojis[site] || '' : ''
       const sectionCount = sections?.length || 0
+      const disabledTag = enabled === false ? ' [DISABLED]' : ''
 
       return {
-        title: `${siteEmoji} ${title || 'Untitled'}`,
+        title: `${siteEmoji} ${title || 'Untitled'}${disabledTag}`,
         subtitle: `/${slug || ''} • ${sectionCount} section${sectionCount !== 1 ? 's' : ''}`,
       }
     },

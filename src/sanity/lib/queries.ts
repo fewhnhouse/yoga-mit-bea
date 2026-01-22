@@ -35,7 +35,7 @@ export const siteSettingsQuery = defineQuery(`
 export const navigationDataQuery = defineQuery(`
 {
   "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,
-  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current)] | order(coalesce(order, 100) asc, title asc) {
+  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {
     _id,
     title,
     "slug": slug.current,
@@ -245,7 +245,7 @@ export const allTestimonialsQuery = defineQuery(`
  * Get a page by slug with expanded sections
  */
 export const pageBySlugQuery = defineQuery(`
-  *[_type == "page" && slug.current == $slug && site in [$siteId, "both"]][0] {
+  *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {
     _id,
     site,
     title,
@@ -330,7 +330,7 @@ export const pageBySlugQuery = defineQuery(`
  */
 export const pageWithSectionsDataQuery = defineQuery(`
 {
-  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"]][0] {
+  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {
     _id,
     site,
     title,
@@ -530,7 +530,7 @@ export const homepageFromSettingsQuery = defineQuery(`
  * Get all page slugs (for static generation)
  */
 export const allPageSlugsQuery = defineQuery(`
-  *[_type == "page" && defined(slug.current)] {
+  *[_type == "page" && defined(slug.current) && enabled != false] {
     "slug": slug.current,
     site
   }
