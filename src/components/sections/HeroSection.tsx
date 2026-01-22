@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import LotusIcon from '@/components/icons/LotusIcon'
 
 interface HeroSectionProps {
   title?: string
@@ -50,7 +49,13 @@ export default function HeroSection({
           <div className={hasImage ? 'max-w-xl order-2 lg:order-1' : 'max-w-4xl mx-auto'}>
             {!hasImage && (
               <div className='flex justify-center mb-8'>
-                <LotusIcon className='w-16 h-16 text-primary-dark lotus-animate' />
+                <Image
+                  src="/images/logo-yoga.svg"
+                  alt=""
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 lotus-animate drop-shadow-lg"
+                />
               </div>
             )}
 
@@ -174,4 +179,3 @@ export default function HeroSection({
     </section>
   )
 }
-
