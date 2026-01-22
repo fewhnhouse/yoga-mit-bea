@@ -254,6 +254,11 @@ export const pageBySlugQuery = defineQuery(`
       _key,
       _type,
       ...,
+      // Expand image URLs in heroSection
+      _type == "heroSection" => {
+        ...,
+        "imageUrl": image.asset->url
+      },
       // Expand image URLs in imageTextSection
       _type == "imageTextSection" => {
         ...,
@@ -334,6 +339,10 @@ export const pageWithSectionsDataQuery = defineQuery(`
       _key,
       _type,
       ...,
+      _type == "heroSection" => {
+        ...,
+        "imageUrl": image.asset->url
+      },
       _type == "imageTextSection" => {
         ...,
         "imageUrl": image.asset->url
@@ -437,6 +446,10 @@ export const homepageFromSettingsQuery = defineQuery(`
         _key,
         _type,
         ...,
+        _type == "heroSection" => {
+          ...,
+          "imageUrl": image.asset->url
+        },
         _type == "imageTextSection" => {
           ...,
           "imageUrl": image.asset->url

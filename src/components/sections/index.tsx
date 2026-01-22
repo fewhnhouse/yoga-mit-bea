@@ -24,6 +24,9 @@ interface HeroSectionData extends BaseSection {
   subtitle?: string
   primaryCta?: { text?: string; href?: string }
   secondaryCta?: { text?: string; href?: string }
+  imageUrl?: string
+  personName?: string
+  personRole?: string
 }
 
 interface TextSectionData extends BaseSection {
@@ -173,6 +176,9 @@ export function SectionRenderer({
                 subtitle={section.subtitle}
                 primaryCta={section.primaryCta}
                 secondaryCta={section.secondaryCta}
+                imageUrl={section.imageUrl}
+                personName={section.personName}
+                personRole={section.personRole}
               />
             )
 
