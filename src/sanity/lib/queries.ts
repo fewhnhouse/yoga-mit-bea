@@ -272,6 +272,44 @@ export const pageBySlugQuery = defineQuery(`
             "slug": slug.current
           }
         }
+      },
+      _type == "serviceSection" => {
+        ...,
+        service-> {
+          _id,
+          title,
+          "slug": slug.current,
+          subtitle,
+          shortDescription,
+          fullDescription,
+          "imageUrl": image.asset->url,
+          icon,
+          features,
+          duration,
+          pricing,
+          ctaText,
+          ctaLink,
+          imagePosition,
+          sectionBackground,
+          badge,
+          locations[]-> {
+            _id,
+            name,
+            shortName,
+            description,
+            address,
+            googleMapsUrl,
+            "imageUrl": image.asset->url,
+            schedule,
+            pricing,
+            maxParticipants
+          },
+          events[]-> {
+            _id,
+            title,
+            description
+          }
+        }
       }
     },
     seoTitle,
@@ -312,6 +350,44 @@ export const pageWithSectionsDataQuery = defineQuery(`
             "slug": slug.current
           }
         }
+      },
+      _type == "serviceSection" => {
+        ...,
+        service-> {
+          _id,
+          title,
+          "slug": slug.current,
+          subtitle,
+          shortDescription,
+          fullDescription,
+          "imageUrl": image.asset->url,
+          icon,
+          features,
+          duration,
+          pricing,
+          ctaText,
+          ctaLink,
+          imagePosition,
+          sectionBackground,
+          badge,
+          locations[]-> {
+            _id,
+            name,
+            shortName,
+            description,
+            address,
+            googleMapsUrl,
+            "imageUrl": image.asset->url,
+            schedule,
+            pricing,
+            maxParticipants
+          },
+          events[]-> {
+            _id,
+            title,
+            description
+          }
+        }
       }
     },
     seoTitle,
@@ -319,41 +395,6 @@ export const pageWithSectionsDataQuery = defineQuery(`
     seoKeywords,
     "ogImageUrl": ogImage.asset->url,
     noIndex
-  },
-  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    subtitle,
-    shortDescription,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    order,
-    imagePosition,
-    sectionBackground,
-    badge,
-    locations[]-> {
-      _id,
-      name,
-      shortName,
-      address,
-      googleMapsUrl,
-      "imageUrl": image.asset->url,
-      schedule,
-      pricing,
-      maxParticipants
-    },
-    events[]-> {
-      _id,
-      title,
-      description
-    }
   },
   "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
     _id,
@@ -412,43 +453,45 @@ export const homepageFromSettingsQuery = defineQuery(`
               "slug": slug.current
             }
           }
+        },
+        _type == "serviceSection" => {
+          ...,
+          service-> {
+            _id,
+            title,
+            "slug": slug.current,
+            subtitle,
+            shortDescription,
+            fullDescription,
+            "imageUrl": image.asset->url,
+            icon,
+            features,
+            duration,
+            pricing,
+            ctaText,
+            ctaLink,
+            imagePosition,
+            sectionBackground,
+            badge,
+            locations[]-> {
+              _id,
+              name,
+              shortName,
+              address,
+              googleMapsUrl,
+              "imageUrl": image.asset->url,
+              schedule,
+              pricing,
+              maxParticipants
+            },
+            events[]-> {
+              _id,
+              title,
+              description
+            }
+          }
         }
       }
-    }
-  },
-  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    subtitle,
-    shortDescription,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    order,
-    imagePosition,
-    sectionBackground,
-    badge,
-    locations[]-> {
-      _id,
-      name,
-      shortName,
-      address,
-      googleMapsUrl,
-      "imageUrl": image.asset->url,
-      schedule,
-      pricing,
-      maxParticipants
-    },
-    events[]-> {
-      _id,
-      title,
-      description
     }
   },
   "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {

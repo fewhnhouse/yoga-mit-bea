@@ -1,12 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
+import type { ServiceFromQuery } from '@/sanity/types'
 
 interface ServiceSectionProps {
   service: ServiceFromQuery
-  /** Locations to display for this service (e.g., for group courses) */
-  locations?: LocationFromQuery[]
   /** Background style - alternates between sections */
   background?: 'light' | 'cream'
   /** Image position */
@@ -21,7 +19,6 @@ interface ServiceSectionProps {
 
 export default function ServiceSection({
   service,
-  locations,
   background = 'light',
   imagePosition = 'left',
   badge,
@@ -30,8 +27,9 @@ export default function ServiceSection({
 }: ServiceSectionProps) {
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
 
-  // Determine if we should show locations (for group courses)
-  const hasLocations = locations && locations.length > 0
+  // Use locations from the service itself (embedded via reference)
+  const serviceLocations = service.locations
+  const hasLocations = serviceLocations && serviceLocations.length > 0
   // Determine if we should show events (only yoga services have events)
   const serviceEvents = 'events' in service && service.events ? service.events : null
   const hasEvents = serviceEvents && serviceEvents.length > 0
@@ -49,11 +47,11 @@ export default function ServiceSection({
             events={serviceEvents}
             background={background}
           />
-        ) : hasLocations ? (
+        ) : hasLocations && serviceLocations ? (
           // Layout with locations (for group courses)
           <LocationsLayout
             service={service}
-            locations={locations}
+            locations={serviceLocations}
           />
         ) : (
           // Standard two-column layout
@@ -139,7 +137,7 @@ export default function ServiceSection({
               {/* Features List */}
               {service.features && service.features.length > 0 && (
                 <ul className='grid grid-cols-2 gap-3 mt-6'>
-                  {service.features.map((feature) => (
+                  {service.features.map((feature: string) => (
                     <li
                       key={feature}
                       className='flex items-center gap-2 text-sm text-charcoal-light'
@@ -250,7 +248,7 @@ function LocationsLayout({
   locations,
 }: {
   service: ServiceFromQuery
-  locations: LocationFromQuery[]
+  locations: NonNullable<ServiceFromQuery['locations']>
 }) {
 
   return (

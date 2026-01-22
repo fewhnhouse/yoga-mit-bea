@@ -60,8 +60,6 @@ export default async function HomePage() {
   return (
     <DynamicHomeContent
       page={homepage}
-      services={data?.services || []}
-      locations={data?.locations || []}
       testimonials={data?.testimonials || []}
     />
   )

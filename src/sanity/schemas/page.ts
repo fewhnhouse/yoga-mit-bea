@@ -55,7 +55,7 @@ export default defineType({
         { type: 'ctaSection' },
         { type: 'imageTextSection' },
         { type: 'cardsGridSection' },
-        { type: 'serviceListSection' },
+        { type: 'serviceSection' },
         { type: 'testimonialsSection' },
         { type: 'richTextSection' },
         { type: 'googleMeetSection' },

@@ -1,7 +1,6 @@
 'use client'
 
 import { SectionRenderer } from '@/components/sections'
-import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
 
 interface PageSection {
   _key: string
@@ -24,15 +23,11 @@ interface Testimonial {
 
 interface DynamicPageContentProps {
   page: PageData
-  services: ServiceFromQuery[]
-  locations: LocationFromQuery[]
   testimonials: Testimonial[]
 }
 
 export default function DynamicPageContent({
   page,
-  services,
-  locations,
   testimonials,
 }: DynamicPageContentProps) {
   if (!page.sections || page.sections.length === 0) {
@@ -46,8 +41,6 @@ export default function DynamicPageContent({
   return (
     <SectionRenderer
       sections={page.sections as Parameters<typeof SectionRenderer>[0]['sections']}
-      services={services}
-      locations={locations}
       testimonials={testimonials}
     />
   )

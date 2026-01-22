@@ -68,12 +68,67 @@ export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";
 // These are the actual shapes returned by queries (with projections)
 // ============================================
 
-import type { 
+import type {
   PageWithSectionsDataQueryResult,
 } from "./sanity.types";
 
-/** Service type as returned by page data query */
-export type ServiceFromQuery = NonNullable<PageWithSectionsDataQueryResult>["services"][number];
+/** Service type as returned by serviceSection in page queries */
+export type ServiceFromQuery = {
+  _id: string;
+  title: string;
+  slug: string;
+  subtitle: string | null;
+  shortDescription: string | null;
+  fullDescription: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  imageUrl: string | null;
+  icon: ServiceIconType | null;
+  features: Array<string> | null;
+  duration: string | null;
+  pricing: string | null;
+  ctaText: string | null;
+  ctaLink: string | null;
+  imagePosition: "left" | "right" | null;
+  sectionBackground: "light" | "cream" | null;
+  badge: string | null;
+  locations: Array<{
+    _id: string;
+    name: string;
+    shortName: string | null;
+    description: string | null;
+    address: string;
+    googleMapsUrl: string | null;
+    imageUrl: string | null;
+    schedule: Array<{
+      day?: string;
+      times?: string;
+      _key: string;
+    }> | null;
+    pricing: string | null;
+    maxParticipants: number | null;
+  }> | null;
+  events: Array<{
+    _id: string;
+    title: string | null;
+    description: string | null;
+  }> | null;
+};
 
 /** Location type as returned by page data query */
 export type LocationFromQuery = NonNullable<PageWithSectionsDataQueryResult>["locations"][number];
