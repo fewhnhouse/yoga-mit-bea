@@ -66,6 +66,31 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: "image",
+      title: "Profile Image",
+      type: "image",
+      description: "Optional profile image (enables two-column layout with name badge)",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "personName",
+      title: "Person Name",
+      type: "string",
+      description: "Name shown on the image badge",
+      initialValue: "Beate Ilg-Wohnhaas",
+      hidden: ({ parent }) => !parent?.image,
+    }),
+    defineField({
+      name: "personRole",
+      title: "Person Role",
+      type: "string",
+      description: "Role/profession shown on the image badge",
+      initialValue: "Yoga und Psychotherapie",
+      hidden: ({ parent }) => !parent?.image,
+    }),
   ],
   preview: {
     select: {

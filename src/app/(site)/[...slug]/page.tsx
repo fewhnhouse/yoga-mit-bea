@@ -80,8 +80,6 @@ export default async function DynamicPage({ params }: PageProps) {
   return (
     <DynamicPageContent
       page={data.page}
-      services={data.services || []}
-      locations={data.locations || []}
       testimonials={data.testimonials || []}
     />
   )

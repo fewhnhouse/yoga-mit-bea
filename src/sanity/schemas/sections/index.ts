@@ -3,7 +3,7 @@ import textSection from './textSection'
 import ctaSection from './ctaSection'
 import imageTextSection from './imageTextSection'
 import cardsGridSection from './cardsGridSection'
-import serviceListSection from './serviceListSection'
+import serviceSection from './serviceSection'
 import testimonialsSection from './testimonialsSection'
 import richTextSection from './richTextSection'
 import googleMeetSection from './googleMeetSection'
@@ -15,7 +15,7 @@ export const sectionSchemas = [
   ctaSection,
   imageTextSection,
   cardsGridSection,
-  serviceListSection,
+  serviceSection,
   testimonialsSection,
   richTextSection,
   googleMeetSection,
@@ -28,7 +28,7 @@ export {
   ctaSection,
   imageTextSection,
   cardsGridSection,
-  serviceListSection,
+  serviceSection,
   testimonialsSection,
   richTextSection,
   googleMeetSection,

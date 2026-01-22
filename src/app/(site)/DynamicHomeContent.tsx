@@ -17,15 +17,11 @@ interface PageData {
 
 interface DynamicHomeContentProps {
   page: PageData
-  services?: unknown[]
-  locations?: unknown[]
   testimonials?: unknown[]
 }
 
 export default function DynamicHomeContent({
   page,
-  services = [],
-  locations = [],
   testimonials = [],
 }: DynamicHomeContentProps) {
   if (!page.sections || page.sections.length === 0) {
@@ -39,8 +35,6 @@ export default function DynamicHomeContent({
   return (
     <SectionRenderer
       sections={page.sections as Parameters<typeof SectionRenderer>[0]['sections']}
-      services={services as Parameters<typeof SectionRenderer>[0]['services']}
-      locations={locations as Parameters<typeof SectionRenderer>[0]['locations']}
       testimonials={testimonials as Parameters<typeof SectionRenderer>[0]['testimonials']}
     />
   )

@@ -5,11 +5,11 @@ import TextSectionBlock from './TextSectionBlock'
 import CTASectionBlock from './CTASectionBlock'
 import ImageTextSection from './ImageTextSection'
 import CardsGridSection from './CardsGridSection'
-import ServiceListSection from './ServiceListSection'
+import ServiceSection from '@/components/ServiceSection'
 import TestimonialsSection from './TestimonialsSection'
 import RichTextSection from './RichTextSection'
 import GoogleMeetSection from './GoogleMeetSection'
-import type { ServiceFromQuery, LocationFromQuery } from '@/sanity/types'
+import type { ServiceFromQuery } from '@/sanity/types'
 
 // Type for section data from Sanity
 interface BaseSection {
@@ -24,6 +24,9 @@ interface HeroSectionData extends BaseSection {
   subtitle?: string
   primaryCta?: { text?: string; href?: string }
   secondaryCta?: { text?: string; href?: string }
+  imageUrl?: string
+  personName?: string
+  personRole?: string
 }
 
 interface TextSectionData extends BaseSection {
@@ -96,10 +99,13 @@ interface CardsGridSectionData extends BaseSection {
   }>
 }
 
-interface ServiceListSectionData extends BaseSection {
-  _type: 'serviceListSection'
-  showServicesFrom?: 'current' | 'yoga' | 'therapie'
-  alternateBackgrounds?: boolean
+interface ServiceSectionData extends BaseSection {
+  _type: 'serviceSection'
+  service?: ServiceFromQuery
+  background?: 'light' | 'cream'
+  imagePosition?: 'left' | 'right'
+  badge?: string
+  customId?: string
 }
 
 interface TestimonialsSectionData extends BaseSection {
@@ -137,7 +143,7 @@ type SectionData =
   | CTASectionData
   | ImageTextSectionData
   | CardsGridSectionData
-  | ServiceListSectionData
+  | ServiceSectionData
   | TestimonialsSectionData
   | RichTextSectionData
   | GoogleMeetSectionData
@@ -146,8 +152,6 @@ type SectionData =
 interface SectionRendererProps {
   sections: SectionData[]
   // Additional data that some sections need
-  services?: ServiceFromQuery[]
-  locations?: LocationFromQuery[]
   testimonials?: Array<{ _id: string; name: string; quote: string }>
 }
 
@@ -157,8 +161,6 @@ interface SectionRendererProps {
  */
 export function SectionRenderer({
   sections,
-  services = [],
-  locations = [],
   testimonials = [],
 }: SectionRendererProps) {
   return (
@@ -174,6 +176,9 @@ export function SectionRenderer({
                 subtitle={section.subtitle}
                 primaryCta={section.primaryCta}
                 secondaryCta={section.secondaryCta}
+                imageUrl={section.imageUrl}
+                personName={section.personName}
+                personRole={section.personRole}
               />
             )
 
@@ -242,14 +247,16 @@ export function SectionRenderer({
               />
             )
 
-          case 'serviceListSection':
+          case 'serviceSection':
+            if (!section.service) return null
             return (
-              <ServiceListSection
+              <ServiceSection
                 key={section._key}
-                showServicesFrom={section.showServicesFrom}
-                alternateBackgrounds={section.alternateBackgrounds}
-                services={services}
-                locations={locations}
+                service={section.service}
+                background={section.background || 'light'}
+                imagePosition={section.imagePosition || section.service.imagePosition || 'left'}
+                badge={section.badge || section.service.badge}
+                id={section.customId || section.service.slug}
               />
             )
 
@@ -306,7 +313,7 @@ export {
   CTASectionBlock,
   ImageTextSection,
   CardsGridSection,
-  ServiceListSection,
+  ServiceSection,
   TestimonialsSection,
   RichTextSection,
   GoogleMeetSection,

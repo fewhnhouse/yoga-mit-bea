@@ -3,12 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useSite } from "@/context/SiteContext";
 
 export default function Navbar() {
   const { currentSite, navLinks, isYoga } = useSite();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Check if a link is active (exact match or starts with for nested routes)
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,17 +61,26 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="font-body text-charcoal hover:text-primary-dark transition-colors relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </Link>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = isActiveLink(link.href);
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`font-body transition-colors relative group ${
+                    isActive ? "text-primary-dark" : "text-charcoal hover:text-primary-dark"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Right Side: CTA (desktop only) */}
@@ -116,17 +135,24 @@ export default function Navbar() {
         }`}
       >
         <ul className="container mx-auto px-6 py-6 space-y-4">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="block font-body text-lg text-charcoal hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = isActiveLink(link.href);
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`block font-body text-lg py-2 transition-colors ${
+                    isActive
+                      ? "text-primary-dark border-l-2 border-primary pl-3"
+                      : "text-charcoal hover:text-primary"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
           <li className="pt-4">
             <Link
               href="/kontakt"

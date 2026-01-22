@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import LotusIcon from '@/components/icons/LotusIcon'
 import { useSite } from '@/context/SiteContext'
 
@@ -85,27 +86,64 @@ export default function KontaktContent() {
         className='relative pt-32 pb-20 bg-gradient-to-br from-cream via-warm-white to-primary/10 overflow-hidden'
       >
         <div
-          className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float'
+          className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float hidden lg:block'
         />
         <div className='absolute bottom-10 left-10 w-48 h-48 bg-blush/10 organic-blob-2 animate-breathe' />
 
         <div className='container mx-auto px-6 relative'>
-          <div className='max-w-3xl'>
-            <span
-              className='text-primary-dark font-body text-sm tracking-widest uppercase mb-4 block'
-            >
-              Kontakt
-            </span>
-            <h1 className='font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6'>
-              Ich freue mich
-              <span className='block text-primary-dark'>auf dich</span>
-            </h1>
-            <div className='w-20 h-0.5 bg-primary mb-6' />
-            <p className='text-charcoal-light text-lg leading-relaxed'>
-              {isYoga
-                ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich so schnell wie möglich bei dir.'
-                : 'Hast du Fragen zu meinen therapeutischen Angeboten? Möchtest du einen Termin für eine Behandlung vereinbaren? Ich freue mich auf deine Nachricht.'}
-            </p>
+          <div className='grid lg:grid-cols-2 gap-12 items-center'>
+            <div className='max-w-xl'>
+              <span
+                className='text-primary-dark font-body text-sm tracking-widest uppercase mb-4 block'
+              >
+                Kontakt
+              </span>
+              <h1 className='font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6'>
+                Ich freue mich
+                <span className='block text-primary-dark'>auf dich</span>
+              </h1>
+              <div className='w-20 h-0.5 bg-primary mb-6' />
+              <p className='text-charcoal-light text-lg leading-relaxed'>
+                {isYoga
+                  ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich so schnell wie möglich bei dir.'
+                  : 'Hast du Fragen zu meinen therapeutischen Angeboten? Möchtest du einen Termin für eine Behandlung vereinbaren? Ich freue mich auf deine Nachricht.'}
+              </p>
+            </div>
+
+            {/* Organic Image Shape */}
+            <div className='relative hidden lg:flex justify-center'>
+              <div className='relative'>
+                {/* Decorative background blob */}
+                <div
+                  className='absolute -inset-4 bg-primary/10'
+                  style={{
+                    borderRadius: '60% 40% 55% 45% / 55% 60% 40% 45%',
+                  }}
+                />
+                {/* Image container with organic shape */}
+                <div
+                  className='relative w-72 h-80 overflow-hidden shadow-xl'
+                  style={{
+                    borderRadius: '55% 45% 50% 50% / 50% 55% 45% 50%',
+                  }}
+                >
+                  <Image
+                    src='/images/bea.jpg'
+                    alt='Beate Ilg-Wohnhaas'
+                    fill
+                    className='object-cover'
+                    priority
+                  />
+                </div>
+                {/* Small decorative accent */}
+                <div
+                  className='absolute -bottom-2 -right-2 w-16 h-16 bg-primary/20'
+                  style={{
+                    borderRadius: '40% 60% 55% 45% / 60% 45% 55% 40%',
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
