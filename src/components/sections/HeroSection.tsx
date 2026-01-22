@@ -141,7 +141,7 @@ export default function HeroSection({
                     boxShadow: '0 8px 32px -8px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5)',
                   }}
                 >
-                  <p className='font-display font-semibold text-charcoal text-sm sm:text-base'>
+                  <p className='font-display font-semibold text-charcoal text-base sm:text-lg'>
                     {personName}
                   </p>
                   <p className='text-primary-dark text-xs sm:text-sm'>
