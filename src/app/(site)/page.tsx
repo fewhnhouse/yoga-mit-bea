@@ -4,12 +4,10 @@ import { sanityFetch } from '@/sanity/lib/live'
 import { homepageFromSettingsQuery } from '@/sanity/lib/queries'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { notFound } from 'next/navigation'
-import { sites } from '@/config/sites'
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteId = await getSiteId()
   const { siteSettingsId } = getSingletonIds(siteId)
-  const currentSite = sites[siteId]
 
   const { data } = await sanityFetch({
     query: homepageFromSettingsQuery,
@@ -20,6 +18,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = data?.settings as any
   const homepage = settings?.homepage
   const pageTitle = homepage?.seoTitle || homepage?.title || 'Startseite'
+  const fallbackSiteName =
+    siteId === 'yoga' ? 'Yoga mit Bea' : 'Psychotherapie mit Bea'
+  const siteName = settings?.name || fallbackSiteName
   
   // Use page description, fall back to site description
   const description = homepage?.seoDescription || settings?.seoDescription || undefined
@@ -30,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords,
     openGraph: {
-      title: `${currentSite.name} | ${pageTitle}`,
+      title: `${siteName} | ${pageTitle}`,
       description,
     },
   }

@@ -76,8 +76,51 @@ export default defineType({
       name: "description",
       title: "Description",
       type: "array",
-      of: [{ type: "text", rows: 3 }],
-      description: "One or more paragraphs of text",
+      of: [
+        {
+          type: "block",
+          marks: {
+            annotations: [
+              defineField({
+                name: "link",
+                title: "Link",
+                type: "object",
+                fields: [
+                  defineField({
+                    name: "href",
+                    title: "URL",
+                    type: "url",
+                    validation: (Rule) =>
+                      Rule.uri({
+                        allowRelative: true,
+                        scheme: ["http", "https", "mailto", "tel"],
+                      }),
+                  }),
+                ],
+              }),
+              defineField({
+                name: "textColor",
+                title: "Text Color",
+                type: "object",
+                fields: [
+                  defineField({
+                    name: "hex",
+                    title: "Hex Color",
+                    type: "string",
+                    description: "Use a hex color like #8B5E3C",
+                    validation: (Rule) =>
+                      Rule.regex(
+                        /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
+                        { name: "hex color", invert: false }
+                      ).error("Please enter a valid hex color (e.g. #8B5E3C)"),
+                  }),
+                ],
+              }),
+            ],
+          },
+        },
+      ],
+      description: "Rich text description with formatting, links, and lists",
     }),
     defineField({
       name: "cta",
@@ -162,4 +205,3 @@ export default defineType({
     },
   },
 });
-

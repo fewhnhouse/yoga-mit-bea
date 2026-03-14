@@ -10,6 +10,7 @@ import TestimonialsSection from './TestimonialsSection'
 import RichTextSection from './RichTextSection'
 import GoogleMeetSection from './GoogleMeetSection'
 import type { ServiceFromQuery } from '@/sanity/types'
+import type { PortableTextBlock } from '@portabletext/types'
 
 // Type for section data from Sanity
 interface BaseSection {
@@ -33,7 +34,7 @@ interface TextSectionData extends BaseSection {
   _type: 'textSection'
   label?: string
   title: string
-  description?: string[]
+  description?: PortableTextBlock[] | string[] | string
   cta?: { text?: string; href?: string }
   align?: 'left' | 'center'
   background?: 'transparent' | 'light' | 'cream' | 'gradient' | 'primary'
@@ -65,7 +66,7 @@ interface ImageTextSectionData extends BaseSection {
   label?: string
   title: string
   tagline?: string
-  description?: string[]
+  description?: PortableTextBlock[] | string[] | string
   cta?: { text?: string; href?: string }
   headingLevel?: 'h1' | 'h2'
   background?: 'light' | 'cream' | 'gradient' | 'pattern'

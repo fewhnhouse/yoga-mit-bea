@@ -6,7 +6,6 @@ import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
 import { getSiteId, getSingletonIds } from "@/lib/getSiteId";
-import { sites } from "@/config/sites";
 import { sanityFetch } from "@/sanity/lib/live";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
 
@@ -29,14 +28,16 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogamitbea.de";
 export async function generateMetadata(): Promise<Metadata> {
   const siteId = await getSiteId();
   const { siteSettingsId } = getSingletonIds(siteId);
-  const currentSite = sites[siteId];
-  const siteName = currentSite.name;
 
   // Fetch site settings from Sanity for description
   const { data: settings } = await sanityFetch({
     query: siteSettingsQuery,
     params: { siteSettingsId },
   });
+
+  const fallbackSiteName =
+    siteId === "yoga" ? "Yoga mit Bea" : "Psychotherapie mit Bea";
+  const siteName = settings?.name || fallbackSiteName;
 
   // Use description from Sanity, or undefined to let pages set their own
   const siteDescription = settings?.seoDescription || undefined;

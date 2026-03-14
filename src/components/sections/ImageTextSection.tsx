@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { PortableTextBlock } from '@portabletext/types'
+import SectionDescription from '@/components/SectionDescription'
 import SectionHeader from '@/components/SectionHeader'
 
 interface ImageTextSectionProps {
@@ -13,7 +15,7 @@ interface ImageTextSectionProps {
   label?: string
   title: string
   tagline?: string
-  description?: string[]
+  description?: PortableTextBlock[] | string[] | string
   cta?: {
     text?: string
     href?: string
@@ -35,7 +37,7 @@ export default function ImageTextSection({
   label,
   title,
   tagline,
-  description = [],
+  description,
   cta,
   headingLevel = 'h2',
 
@@ -138,13 +140,9 @@ export default function ImageTextSection({
               </p>
             )}
 
-            {description.length > 0 && (
-              <div className='space-y-4 text-charcoal-light leading-relaxed'>
-                {description.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-            )}
+            <SectionDescription
+              value={description}
+            />
 
             {cta?.text && cta?.href && (
               <Link
@@ -174,4 +172,3 @@ export default function ImageTextSection({
     </section>
   )
 }
-

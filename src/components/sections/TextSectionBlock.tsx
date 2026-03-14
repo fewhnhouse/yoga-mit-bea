@@ -1,11 +1,13 @@
 import Link from 'next/link'
+import type { PortableTextBlock } from '@portabletext/types'
 import TextSection from '@/components/TextSection'
+import SectionDescription from '@/components/SectionDescription'
 import SectionHeader from '@/components/SectionHeader'
 
 interface TextSectionBlockProps {
   label?: string
   title: string
-  description?: string[]
+  description?: PortableTextBlock[] | string[] | string
   cta?: {
     text?: string
     href?: string
@@ -68,18 +70,10 @@ export default function TextSectionBlock({
               theme='light'
               align={align}
             />
-            {description && description.length > 0 && (
-              <div className='space-y-4'>
-                {description.map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className='text-white/90 text-lg leading-relaxed'
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            )}
+            <SectionDescription
+              value={description}
+              tone='light'
+            />
             {cta?.text && cta?.href && (
               <Link
                 href={cta.href}
@@ -108,7 +102,7 @@ export default function TextSectionBlock({
           <TextSection
             label={label || ''}
             title={title}
-            description={description || []}
+            description={description}
             cta={cta?.text && cta?.href ? { text: cta.text, href: cta.href } : undefined}
             align={align}
           />
@@ -117,4 +111,3 @@ export default function TextSectionBlock({
     </section>
   )
 }
-

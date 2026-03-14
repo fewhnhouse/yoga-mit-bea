@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import SectionHeader from './SectionHeader'
+import SectionDescription, { type SectionDescriptionValue } from './SectionDescription'
 
 export interface TextSectionProps {
   /** Small uppercase label above the title */
   label: string
   /** Main heading */
   title: string
-  /** Description text - can be a single string or array of paragraphs */
-  description: string | string[]
+  /** Description text - supports Sanity Portable Text and legacy plain strings */
+  description: SectionDescriptionValue
   /** Optional CTA button */
   cta?: {
     text: string
@@ -34,9 +35,6 @@ export default function TextSection({
   // Alignment classes
   const alignClass = align === 'center' ? 'text-center' : 'text-left'
 
-  // Normalize description to array
-  const paragraphs = Array.isArray(description) ? description : [description]
-
   return (
     <div className={`${maxWidth} ${alignClass} ${className}`}>
       <SectionHeader
@@ -44,16 +42,7 @@ export default function TextSection({
         title={title}
         align={align}
       />
-      <div className='space-y-4'>
-        {paragraphs.map((paragraph) => (
-          <p
-            key={paragraph.slice(0, 50)}
-            className='text-charcoal-light text-lg leading-relaxed'
-          >
-            {paragraph}
-          </p>
-        ))}
-      </div>
+      <SectionDescription value={description} />
       {cta && (
         <Link
           href={cta.href}

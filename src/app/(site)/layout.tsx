@@ -3,29 +3,46 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
-import { navigationDataQuery } from '@/sanity/lib/queries'
-import type { SanityNavigation } from '@/config/sites'
+import { navigationDataQuery, siteSettingsQuery } from '@/sanity/lib/queries'
+import type { SiteSettingsQueryResult } from '@/sanity/types'
+import type { SanityNavigation } from '@/types/site'
 
-async function getNavigation(): Promise<SanityNavigation | undefined> {
+interface SiteLayoutData {
+  nav?: SanityNavigation
+  settings?: SiteSettingsQueryResult
+}
+
+async function getSiteLayoutData(): Promise<SiteLayoutData> {
   try {
     const siteId = await getSiteId()
     const { siteSettingsId } = getSingletonIds(siteId)
 
-    const { data } = await sanityFetch({
-      query: navigationDataQuery,
-      params: { siteId, siteSettingsId },
-    })
+    const [{ data: navData }, { data: settingsData }] = await Promise.all([
+      sanityFetch({
+        query: navigationDataQuery,
+        params: { siteId, siteSettingsId },
+      }),
+      sanityFetch({
+        query: siteSettingsQuery,
+        params: { siteSettingsId },
+      }),
+    ])
 
-    if (!data) return undefined
+    const nav = navData
+      ? {
+          homepageSlug: navData.homepageSlug ?? undefined,
+          pages: navData.pages ?? undefined,
+          services: navData.services ?? undefined,
+        }
+      : undefined
 
     return {
-      homepageSlug: data.homepageSlug ?? undefined,
-      pages: data.pages ?? undefined,
-      services: data.services ?? undefined,
+      nav,
+      settings: settingsData ?? undefined,
     }
   } catch (error) {
     console.error('Error fetching navigation:', error)
-    return undefined
+    return {}
   }
 }
 
@@ -34,10 +51,10 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode
 }) {
-  const sanityNav = await getNavigation()
+  const { nav, settings } = await getSiteLayoutData()
 
   return (
-    <SiteProvider sanityNav={sanityNav}>
+    <SiteProvider sanityNav={nav} siteSettings={settings}>
       <Navbar />
       <main className='flex-grow'>{children}</main>
       <Footer />

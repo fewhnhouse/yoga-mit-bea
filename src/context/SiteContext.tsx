@@ -7,17 +7,71 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from 'react'
-import {
-  type SiteId,
-  type SiteConfig,
-  type SanityNavigation,
-  type NavLink,
-  sites,
-  defaultSite,
-} from '@/config/sites'
+import type { SiteId, SiteSettingsQueryResult } from '@/sanity/types'
+import type {
+  NavLink,
+  ResolvedSiteConfig,
+  SanityNavigation,
+} from '@/types/site'
+
+const DEFAULT_SITE_ID: SiteId = 'yoga'
+
+const FALLBACK_SITE_CONFIGS: Record<SiteId, ResolvedSiteConfig> = {
+  yoga: {
+    id: 'yoga',
+    name: 'Yoga mit Bea',
+    tagline: 'Durch Yoga gehst du nur auf dich selbst zu',
+    domain: 'yogamitbea.de',
+    primaryColor: 'sage',
+  },
+  therapie: {
+    id: 'therapie',
+    name: 'Psychotherapie mit Bea',
+    tagline: 'Heilung für Körper und Seele',
+    domain: 'therapiemitbea.de',
+    primaryColor: 'terracotta',
+  },
+}
+
+const STATIC_FOOTER_INFO_LINKS: NavLink[] = [
+  { href: '/kontakt', label: 'Kontakt' },
+  { href: '/impressum', label: 'Impressum' },
+  { href: '/datenschutz', label: 'Datenschutz' },
+]
+
+function resolveSiteConfig(
+  siteId: SiteId,
+  siteSettings?: SiteSettingsQueryResult
+): ResolvedSiteConfig {
+  const fallback = FALLBACK_SITE_CONFIGS[siteId]
+  const rawName = siteSettings?.name
+  const rawTagline = siteSettings?.tagline
+  const rawDomain = siteSettings?.domain
+  const rawPrimaryColor = siteSettings?.primaryColor
+
+  return {
+    id: siteId,
+    name:
+      typeof rawName === 'string' && rawName.trim().length > 0
+        ? rawName
+        : fallback.name,
+    tagline:
+      typeof rawTagline === 'string' && rawTagline.trim().length > 0
+        ? rawTagline
+        : fallback.tagline,
+    domain:
+      typeof rawDomain === 'string' && rawDomain.trim().length > 0
+        ? rawDomain
+        : fallback.domain,
+    primaryColor:
+      rawPrimaryColor === 'sage' || rawPrimaryColor === 'terracotta'
+        ? rawPrimaryColor
+        : fallback.primaryColor,
+  }
+}
 
 interface SiteContextType {
-  currentSite: SiteConfig
+  currentSite: ResolvedSiteConfig
   siteId: SiteId
   isYoga: boolean
   isPsychotherapie: boolean
@@ -32,7 +86,7 @@ const SiteContext = createContext<SiteContextType | undefined>(undefined)
 
 // Helper to get site from cookie
 function getSiteFromCookie(): SiteId {
-  if (typeof document === 'undefined') return defaultSite
+  if (typeof document === 'undefined') return DEFAULT_SITE_ID
 
   const cookies = document.cookie.split(';')
   for (const cookie of cookies) {
@@ -41,12 +95,12 @@ function getSiteFromCookie(): SiteId {
       return value as SiteId
     }
   }
-  return defaultSite
+  return DEFAULT_SITE_ID
 }
 
 // Helper to detect site from hostname (fallback for initial load)
 function getSiteFromHostname(): SiteId {
-  if (typeof window === 'undefined') return defaultSite
+  if (typeof window === 'undefined') return DEFAULT_SITE_ID
 
   const hostname = window.location.hostname
   if (hostname.includes('therapie')) {
@@ -60,7 +114,7 @@ function getClientSiteId(): SiteId {
   const cookieSite = getSiteFromCookie()
   const hostnameSite = getSiteFromHostname()
   // Prefer cookie as it's set by middleware, but use hostname as fallback
-  return cookieSite !== defaultSite ? cookieSite : hostnameSite
+  return cookieSite !== DEFAULT_SITE_ID ? cookieSite : hostnameSite
 }
 
 // Subscribe function for useSyncExternalStore (no-op since site doesn't change dynamically)
@@ -74,17 +128,23 @@ function useSiteId(): SiteId {
   return useSyncExternalStore(
     subscribe,
     getClientSiteId, // Client snapshot
-    () => defaultSite // Server snapshot (for SSR)
+    () => DEFAULT_SITE_ID // Server snapshot (for SSR)
   )
 }
 
 interface SiteProviderProps {
   children: ReactNode
   sanityNav?: SanityNavigation
+  siteSettings?: SiteSettingsQueryResult
 }
 
-export function SiteProvider({ children, sanityNav }: SiteProviderProps) {
+export function SiteProvider({
+  children,
+  sanityNav,
+  siteSettings,
+}: SiteProviderProps) {
   const siteId = useSiteId()
+  const currentSite = resolveSiteConfig(siteId, siteSettings)
 
   // Sync site ID to HTML element for CSS styling (scrollbar, etc.)
   useEffect(() => {
@@ -105,11 +165,10 @@ export function SiteProvider({ children, sanityNav }: SiteProviderProps) {
       href: `/${siteId}#${service.slug}`,
     })) || []
 
-  // Footer info links are static from config
-  const footerInfoLinks = sites[siteId].footerInfoLinks
+  const footerInfoLinks = STATIC_FOOTER_INFO_LINKS
 
   const value: SiteContextType = {
-    currentSite: sites[siteId],
+    currentSite,
     siteId,
     isYoga: siteId === 'yoga',
     isPsychotherapie: siteId === 'therapie',
