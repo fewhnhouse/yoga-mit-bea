@@ -16,23 +16,6 @@ import type {
 
 const DEFAULT_SITE_ID: SiteId = 'yoga'
 
-const FALLBACK_SITE_CONFIGS: Record<SiteId, ResolvedSiteConfig> = {
-  yoga: {
-    id: 'yoga',
-    name: 'Yoga mit Bea',
-    tagline: 'Durch Yoga gehst du nur auf dich selbst zu',
-    domain: 'yogamitbea.de',
-    primaryColor: 'sage',
-  },
-  therapie: {
-    id: 'therapie',
-    name: 'Psychotherapie mit Bea',
-    tagline: 'Heilung für Körper und Seele',
-    domain: 'therapiemitbea.de',
-    primaryColor: 'terracotta',
-  },
-}
-
 const STATIC_FOOTER_INFO_LINKS: NavLink[] = [
   { href: '/kontakt', label: 'Kontakt' },
   { href: '/impressum', label: 'Impressum' },
@@ -41,32 +24,38 @@ const STATIC_FOOTER_INFO_LINKS: NavLink[] = [
 
 function resolveSiteConfig(
   siteId: SiteId,
-  siteSettings?: SiteSettingsQueryResult
+  siteSettings: SiteSettingsQueryResult
 ): ResolvedSiteConfig {
-  const fallback = FALLBACK_SITE_CONFIGS[siteId]
+  if (!siteSettings) {
+    throw new Error(`[SiteContext] Missing site settings for site "${siteId}".`)
+  }
+
   const rawName = siteSettings?.name
   const rawTagline = siteSettings?.tagline
   const rawDomain = siteSettings?.domain
   const rawPrimaryColor = siteSettings?.primaryColor
 
+  if (typeof rawName !== 'string' || rawName.trim().length === 0) {
+    throw new Error(`[SiteContext] Missing required field "name" for site "${siteId}".`)
+  }
+  if (typeof rawDomain !== 'string' || rawDomain.trim().length === 0) {
+    throw new Error(`[SiteContext] Missing required field "domain" for site "${siteId}".`)
+  }
+  if (rawPrimaryColor !== 'sage' && rawPrimaryColor !== 'terracotta') {
+    throw new Error(
+      `[SiteContext] Missing or invalid required field "primaryColor" for site "${siteId}".`
+    )
+  }
+
   return {
     id: siteId,
-    name:
-      typeof rawName === 'string' && rawName.trim().length > 0
-        ? rawName
-        : fallback.name,
+    name: rawName,
     tagline:
       typeof rawTagline === 'string' && rawTagline.trim().length > 0
         ? rawTagline
-        : fallback.tagline,
-    domain:
-      typeof rawDomain === 'string' && rawDomain.trim().length > 0
-        ? rawDomain
-        : fallback.domain,
-    primaryColor:
-      rawPrimaryColor === 'sage' || rawPrimaryColor === 'terracotta'
-        ? rawPrimaryColor
-        : fallback.primaryColor,
+        : undefined,
+    domain: rawDomain,
+    primaryColor: rawPrimaryColor,
   }
 }
 
@@ -134,8 +123,8 @@ function useSiteId(): SiteId {
 
 interface SiteProviderProps {
   children: ReactNode
-  sanityNav?: SanityNavigation
-  siteSettings?: SiteSettingsQueryResult
+  sanityNav: SanityNavigation
+  siteSettings: SiteSettingsQueryResult
 }
 
 export function SiteProvider({
@@ -152,7 +141,7 @@ export function SiteProvider({
   }, [siteId])
 
   // Build nav links from Sanity pages (already sorted by order field in query)
-  const navLinks: NavLink[] = (sanityNav?.pages || []).map((page) => ({
+  const navLinks: NavLink[] = (sanityNav.pages || []).map((page) => ({
     label: page.title,
     href: `/${page.slug}`,
   }))
@@ -160,7 +149,7 @@ export function SiteProvider({
   // Build footer service links from Sanity services
   // Each service links to the services page with an anchor
   const footerServiceLinks: NavLink[] =
-    sanityNav?.services?.map((service) => ({
+    sanityNav.services?.map((service) => ({
       label: service.title,
       href: `/${siteId}#${service.slug}`,
     })) || []

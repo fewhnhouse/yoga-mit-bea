@@ -21,9 +21,11 @@ export default function Footer() {
                 {currentSite.name}
               </span>
             </Link>
-            <p className="text-charcoal-light text-sm leading-relaxed mb-6 italic">
-              &bdquo;{currentSite.tagline}&ldquo;
-            </p>
+            {currentSite.tagline && (
+              <p className="text-charcoal-light text-sm leading-relaxed mb-6 italic">
+                &bdquo;{currentSite.tagline}&ldquo;
+              </p>
+            )}
           </div>
 
           {/* Services Links */}

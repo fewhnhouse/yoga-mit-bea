@@ -14,7 +14,7 @@ export interface SanityNavigation {
 export interface ResolvedSiteConfig {
   id: SiteId;
   name: string;
-  tagline: string;
+  tagline?: string;
   domain: string;
   primaryColor: "sage" | "terracotta";
 }

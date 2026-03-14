@@ -8,41 +8,40 @@ import type { SiteSettingsQueryResult } from '@/sanity/types'
 import type { SanityNavigation } from '@/types/site'
 
 interface SiteLayoutData {
-  nav?: SanityNavigation
-  settings?: SiteSettingsQueryResult
+  nav: SanityNavigation
+  settings: SiteSettingsQueryResult
 }
 
 async function getSiteLayoutData(): Promise<SiteLayoutData> {
-  try {
-    const siteId = await getSiteId()
-    const { siteSettingsId } = getSingletonIds(siteId)
+  const siteId = await getSiteId()
+  const { siteSettingsId } = getSingletonIds(siteId)
 
-    const [{ data: navData }, { data: settingsData }] = await Promise.all([
-      sanityFetch({
-        query: navigationDataQuery,
-        params: { siteId, siteSettingsId },
-      }),
-      sanityFetch({
-        query: siteSettingsQuery,
-        params: { siteSettingsId },
-      }),
-    ])
+  const [{ data: navData }, { data: settingsData }] = await Promise.all([
+    sanityFetch({
+      query: navigationDataQuery,
+      params: { siteId, siteSettingsId },
+    }),
+    sanityFetch({
+      query: siteSettingsQuery,
+      params: { siteSettingsId },
+    }),
+  ])
 
-    const nav = navData
-      ? {
-          homepageSlug: navData.homepageSlug ?? undefined,
-          pages: navData.pages ?? undefined,
-          services: navData.services ?? undefined,
-        }
-      : undefined
+  if (!navData) {
+    throw new Error(`[SiteLayout] Missing navigation data for site "${siteId}".`)
+  }
 
-    return {
-      nav,
-      settings: settingsData ?? undefined,
-    }
-  } catch (error) {
-    console.error('Error fetching navigation:', error)
-    return {}
+  if (!settingsData) {
+    throw new Error(`[SiteLayout] Missing site settings for site "${siteId}".`)
+  }
+
+  return {
+    nav: {
+      homepageSlug: navData.homepageSlug ?? undefined,
+      pages: navData.pages ?? undefined,
+      services: navData.services ?? undefined,
+    },
+    settings: settingsData,
   }
 }
 

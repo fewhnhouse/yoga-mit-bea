@@ -35,9 +35,15 @@ export async function generateMetadata(): Promise<Metadata> {
     params: { siteSettingsId },
   });
 
-  const fallbackSiteName =
-    siteId === "yoga" ? "Yoga mit Bea" : "Psychotherapie mit Bea";
-  const siteName = settings?.name || fallbackSiteName;
+  if (!settings) {
+    throw new Error(`[RootLayout] Missing site settings for site "${siteId}".`);
+  }
+
+  if (typeof settings.name !== "string" || settings.name.trim().length === 0) {
+    throw new Error(`[RootLayout] Missing required field "name" for site "${siteId}".`);
+  }
+
+  const siteName = settings.name;
 
   // Use description from Sanity, or undefined to let pages set their own
   const siteDescription = settings?.seoDescription || undefined;
