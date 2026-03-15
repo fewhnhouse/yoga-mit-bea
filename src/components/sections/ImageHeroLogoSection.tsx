@@ -12,8 +12,8 @@ export default function ImageHeroLogoSection({
   logoUrl,
 }: ImageHeroLogoSectionProps) {
   return (
-    <section className='w-full h-screen overflow-hidden flex flex-col'>
-      <div className='relative w-full flex-[2] min-h-0'>
+    <section className='relative w-full h-screen overflow-hidden flex flex-col'>
+      <div className='relative w-full flex-[3] min-h-0'>
         {imageUrl ? (
           <>
             <Image
@@ -48,6 +48,23 @@ export default function ImageHeroLogoSection({
             />
           </div>
         ) : null}
+      </div>
+
+      <div className='absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce'>
+        <svg
+          className='w-6 h-6 text-primary-dark'
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+          aria-hidden='true'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M19 14l-7 7m0 0l-7-7m7 7V3'
+          />
+        </svg>
       </div>
     </section>
   )
