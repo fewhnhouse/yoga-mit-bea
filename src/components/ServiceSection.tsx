@@ -102,7 +102,7 @@ export default function ServiceSection({
                   {service.subtitle}
                 </span>
               )}
-              <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4'>
+              <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
                 {service.title}
               </h2>
               {service.shortDescription && (
@@ -202,7 +202,7 @@ function EventsLayout({
         >
           {service.subtitle}
         </span>
-        <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4'>
+        <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
           {service.title}
         </h2>
         {service.shortDescription && (
@@ -219,7 +219,7 @@ function EventsLayout({
             key={event._id}
             className={`${cardBgClass} rounded-2xl p-6`}
           >
-            <h3 className='font-display text-xl font-semibold text-primary-dark mb-2'>
+            <h3 className='font-display text-xl font-light text-primary-dark mb-2'>
               {event.title}
             </h3>
             {event.description && (
@@ -260,7 +260,7 @@ function LocationsLayout({
         >
           {service.subtitle || 'Gruppenkurse'}
         </span>
-        <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4'>
+        <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
           {service.title}
         </h2>
         {service.shortDescription && (
@@ -291,7 +291,7 @@ function LocationsLayout({
 
             {/* Content */}
             <div className='p-6'>
-              <h3 className='font-display text-xl font-semibold text-charcoal mb-2'>
+              <h3 className='font-display text-xl font-light text-charcoal mb-2'>
                 {location.name}
               </h3>
               {location.description && (

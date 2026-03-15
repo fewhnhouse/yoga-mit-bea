@@ -97,11 +97,11 @@ export default function CTASection({
 
           {/* Title */}
           {isQuote ? (
-            <h3 className={`font-display text-2xl font-semibold mb-6 ${titleClass} ${isSolid ? 'opacity-90' : ''}`}>
+            <h3 className={`font-display text-2xl font-light mb-6 ${titleClass} ${isSolid ? 'opacity-90' : ''}`}>
               {title}
             </h3>
           ) : (
-            <h2 className={`font-display text-3xl md:text-4xl font-semibold mb-6 ${titleClass}`}>
+            <h2 className={`font-display text-3xl md:text-4xl font-light mb-6 ${titleClass}`}>
               {title}
             </h2>
           )}

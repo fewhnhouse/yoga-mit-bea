@@ -49,7 +49,7 @@ export default function GoogleMeetSection({
             </div>
 
             {/* Title */}
-            <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mb-4'>
+            <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
               {title}
             </h2>
 
@@ -63,7 +63,7 @@ export default function GoogleMeetSection({
             {/* Instructions */}
             {instructions.length > 0 && (
               <div className='bg-white/80 backdrop-blur rounded-2xl p-6 md:p-8 mb-10 text-left max-w-2xl mx-auto'>
-                <h3 className='font-display text-xl font-semibold text-charcoal mb-4'>
+                <h3 className='font-display text-xl font-light text-charcoal mb-4'>
                   {instructionsTitle}
                 </h3>
                 <ol className='space-y-4 text-charcoal-light'>

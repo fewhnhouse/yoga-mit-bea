@@ -49,7 +49,7 @@ function createComponents(tone: 'default' | 'light'): PortableTextComponents {
       ),
     },
     marks: {
-      strong: ({ children }) => <strong className={`font-semibold ${strongColorClass}`}>{children}</strong>,
+      strong: ({ children }) => <strong className={`font-light ${strongColorClass}`}>{children}</strong>,
       em: ({ children }) => <em className='italic'>{children}</em>,
       textColor: ({ children, value }) => {
         const hex = getValidHexColor(value?.hex || value?.color)

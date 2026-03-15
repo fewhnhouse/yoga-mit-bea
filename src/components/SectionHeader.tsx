@@ -45,7 +45,7 @@ export default function SectionHeader({
       >
         {label}
       </span>
-      <Tag className={`font-display text-4xl md:text-5xl lg:text-6xl font-semibold ${titleClass} mb-6`}>
+      <Tag className={`font-display text-4xl md:text-5xl lg:text-6xl font-light ${titleClass} mb-6`}>
         {title}
       </Tag>
       <div

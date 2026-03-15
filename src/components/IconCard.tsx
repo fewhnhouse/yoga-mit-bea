@@ -46,12 +46,12 @@ export default function IconCard({
   const iconMargin = isFlat ? 'mb-4' : size === 'default' ? 'mb-6' : 'mb-4'
 
   const titleClasses = size === 'default'
-    ? 'font-display text-xl font-semibold text-charcoal mb-3'
-    : 'font-display text-lg font-semibold text-charcoal mb-2'
+    ? 'font-display text-xl font-light text-charcoal mb-3'
+    : 'font-display text-lg font-light text-charcoal mb-2'
 
   // Flat variant uses smaller margin
   const titleClassesWithVariant = isFlat
-    ? 'font-display text-xl font-semibold text-charcoal mb-2'
+    ? 'font-display text-xl font-light text-charcoal mb-2'
     : titleClasses
 
   const descriptionClasses = size === 'default'

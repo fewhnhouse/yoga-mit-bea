@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link href="/" className="block mb-6">
-              <span className="font-display text-2xl font-semibold text-primary-dark block leading-tight">
+              <span className="font-display text-2xl font-light text-primary-dark block leading-tight">
                 {currentSite.name}
               </span>
             </Link>
@@ -31,7 +31,7 @@ export default function Footer() {
           {/* Services Links */}
           {footerServiceLinks.length > 0 && (
             <div>
-              <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
+              <h4 className="font-display text-lg font-light text-primary-dark mb-6">
                 Angebote
               </h4>
               <ul className="space-y-3">
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Info Links */}
           <div>
-            <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
+            <h4 className="font-display text-lg font-light text-primary-dark mb-6">
               Information
             </h4>
             <ul className="space-y-3">
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-display text-lg font-semibold text-primary-dark mb-6">
+            <h4 className="font-display text-lg font-light text-primary-dark mb-6">
               Kontakt
             </h4>
             <div className="mb-4">

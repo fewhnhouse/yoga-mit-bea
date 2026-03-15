@@ -61,7 +61,7 @@ export default function HeroSection({
             )}
 
             {title && (
-              <h1 className={`font-display ${hasImage ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-7xl lg:text-8xl'} font-semibold text-charcoal mb-6 animate-fade-in-up`}>
+              <h1 className={`font-display ${hasImage ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-7xl lg:text-8xl'} font-light text-charcoal mb-6 animate-fade-in-up`}>
                 {title}
               </h1>
             )}
@@ -141,7 +141,7 @@ export default function HeroSection({
                     boxShadow: '0 8px 32px -8px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5)',
                   }}
                 >
-                  <p className='font-display font-semibold text-charcoal text-base sm:text-lg'>
+                  <p className='font-display font-light text-charcoal text-base sm:text-lg'>
                     {personName}
                   </p>
                   <p className='text-primary-dark text-xs sm:text-sm'>

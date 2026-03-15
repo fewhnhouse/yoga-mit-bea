@@ -98,7 +98,7 @@ export default function KontaktContent() {
               >
                 Kontakt
               </span>
-              <h1 className='font-display text-5xl md:text-6xl font-semibold text-charcoal mb-6'>
+              <h1 className='font-display text-5xl md:text-6xl font-light text-charcoal mb-6'>
                 Ich freue mich
                 <span className='block text-primary-dark'>auf dich</span>
               </h1>
@@ -154,7 +154,7 @@ export default function KontaktContent() {
           <div className='grid lg:grid-cols-2 gap-16'>
             {/* Contact Form */}
             <div>
-              <h2 className='font-display text-3xl font-semibold text-charcoal mb-8'>
+              <h2 className='font-display text-3xl font-light text-charcoal mb-8'>
                 Nachricht senden
               </h2>
 
@@ -180,7 +180,7 @@ export default function KontaktContent() {
                       />
                     </svg>
                   </div>
-                  <h3 className='font-display text-xl font-semibold text-charcoal mb-2'>
+                  <h3 className='font-display text-xl font-light text-charcoal mb-2'>
                     Vielen Dank!
                   </h3>
                   <p className='text-charcoal-light'>
@@ -346,7 +346,7 @@ export default function KontaktContent() {
 
             {/* Contact Info */}
             <div>
-              <h2 className='font-display text-3xl font-semibold text-charcoal mb-8'>
+              <h2 className='font-display text-3xl font-light text-charcoal mb-8'>
                 So erreichst du mich
               </h2>
 
@@ -371,7 +371,7 @@ export default function KontaktContent() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className='font-display text-lg font-semibold text-charcoal mb-1'>
+                    <h3 className='font-display text-lg font-light text-charcoal mb-1'>
                       E-Mail
                     </h3>
                     <a
@@ -403,7 +403,7 @@ export default function KontaktContent() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className='font-display text-lg font-semibold text-charcoal mb-1'>
+                    <h3 className='font-display text-lg font-light text-charcoal mb-1'>
                       Website
                     </h3>
                     <a
@@ -429,7 +429,7 @@ export default function KontaktContent() {
 
               {/* Offerings Quick Links */}
               <div className='mt-8'>
-                <h3 className='font-display text-lg font-semibold text-charcoal mb-4'>
+                <h3 className='font-display text-lg font-light text-charcoal mb-4'>
                   Meine Angebote
                 </h3>
                 <div className='flex flex-wrap gap-2'>

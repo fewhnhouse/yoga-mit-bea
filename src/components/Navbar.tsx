@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -63,9 +64,16 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-xl md:text-2xl font-semibold text-primary-dark tracking-wide hover:text-primary transition-colors"
+          className="inline-flex items-center transition-opacity hover:opacity-90"
         >
-          {currentSite.name}
+          <Image
+            src="/images/logo-new.png"
+            alt={`${currentSite.name} logo`}
+            width={190}
+            height={93}
+            priority
+            className="h-11 md:h-12 w-auto"
+          />
         </Link>
 
         {/* Desktop Navigation */}

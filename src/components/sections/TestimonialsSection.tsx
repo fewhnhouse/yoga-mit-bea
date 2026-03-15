@@ -81,11 +81,11 @@ export default function TestimonialsSection({
             {/* Author */}
             <div className='flex items-center justify-center gap-3 pt-4'>
               <div className='w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center'>
-                <span className='text-primary-dark font-display font-semibold'>
+                <span className='text-primary-dark font-display font-light'>
                   {current.name.charAt(0)}
                 </span>
               </div>
-              <p className='font-display font-semibold text-charcoal'>
+              <p className='font-display font-light text-charcoal'>
                 {current.name}
               </p>
             </div>

@@ -42,22 +42,22 @@ const components: PortableTextComponents = {
   },
   block: {
     h1: ({ children }) => (
-      <h1 className='font-display text-4xl md:text-5xl font-semibold text-charcoal mt-12 mb-6'>
+      <h1 className='font-display text-4xl md:text-5xl font-light text-charcoal mt-12 mb-6'>
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className='font-display text-3xl md:text-4xl font-semibold text-charcoal mt-10 mb-4'>
+      <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mt-10 mb-4'>
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className='font-display text-2xl md:text-3xl font-semibold text-charcoal mt-8 mb-3'>
+      <h3 className='font-display text-2xl md:text-3xl font-light text-charcoal mt-8 mb-3'>
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className='font-display text-xl font-semibold text-charcoal mt-6 mb-2'>
+      <h4 className='font-display text-xl font-light text-charcoal mt-6 mb-2'>
         {children}
       </h4>
     ),
@@ -83,7 +83,7 @@ const components: PortableTextComponents = {
     ),
   },
   marks: {
-    strong: ({ children }) => <strong className='font-semibold'>{children}</strong>,
+    strong: ({ children }) => <strong className='font-light'>{children}</strong>,
     em: ({ children }) => <em className='italic'>{children}</em>,
     link: ({ children, value }) => (
       <a
