@@ -9,6 +9,7 @@ import {
 } from 'react'
 import type { SiteId, SiteSettingsQueryResult } from '@/sanity/types'
 import type {
+  HeaderNavLink,
   NavLink,
   ResolvedSiteConfig,
   SanityNavigation,
@@ -64,8 +65,8 @@ interface SiteContextType {
   siteId: SiteId
   isYoga: boolean
   isPsychotherapie: boolean
-  // Navigation links derived from Sanity pages
-  navLinks: NavLink[]
+  // Navigation links from site settings (or fallback to pages)
+  navLinks: HeaderNavLink[]
   // Footer links
   footerServiceLinks: NavLink[]
   footerInfoLinks: NavLink[]
@@ -140,11 +141,68 @@ export function SiteProvider({
     document.documentElement.setAttribute('data-site', siteId)
   }, [siteId])
 
-  // Build nav links from Sanity pages (already sorted by order field in query)
-  const navLinks: NavLink[] = (sanityNav.pages || []).map((page) => ({
+  const normalizeHref = (href: string | null | undefined): string | undefined => {
+    if (!href) return undefined
+    return href.startsWith('/') ? href : `/${href}`
+  }
+
+  // Fallback nav links from Sanity pages (already sorted by order field in query)
+  const fallbackNavLinks: HeaderNavLink[] = (sanityNav.pages || []).map((page) => ({
     label: page.title,
     href: `/${page.slug}`,
   }))
+
+  // Configured header nav from site settings (supports optional submenus)
+  const configuredNavLinks = (sanityNav.headerNavigation || []).reduce<HeaderNavLink[]>(
+    (acc, item) => {
+      const label =
+        typeof item.label === 'string' && item.label.trim().length > 0
+          ? item.label.trim()
+          : undefined
+
+      const subLinks =
+        item.subLinks
+          ?.map((subLink) => {
+            const subLabel =
+              typeof subLink.label === 'string' && subLink.label.trim().length > 0
+                ? subLink.label.trim()
+                : undefined
+            const subHref = normalizeHref(subLink.href)
+
+            if (!subLabel || !subHref) return null
+
+            return {
+              label: subLabel,
+              href: subHref,
+            }
+          })
+          .filter((subLink): subLink is { label: string; href: string } => Boolean(subLink)) ||
+        []
+
+      if (!label) return acc
+
+      // If sublinks exist, treat this as a submenu parent (no direct href)
+      if (subLinks.length > 0) {
+        acc.push({
+          label,
+          subLinks,
+        })
+        return acc
+      }
+
+      const href = normalizeHref(item.href)
+      if (!href) return acc
+
+      acc.push({
+        label,
+        href,
+      })
+      return acc
+    },
+    []
+  )
+
+  const navLinks = configuredNavLinks.length > 0 ? configuredNavLinks : fallbackNavLinks
 
   // Build footer service links from Sanity services
   // Each service links to the services page with an anchor

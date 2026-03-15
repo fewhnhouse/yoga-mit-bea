@@ -1,6 +1,7 @@
 'use client'
 
 import HeroSection from './HeroSection'
+import ImageHeroLogoSection from './ImageHeroLogoSection'
 import TextSectionBlock from './TextSectionBlock'
 import CTASectionBlock from './CTASectionBlock'
 import ImageTextSection from './ImageTextSection'
@@ -28,6 +29,13 @@ interface HeroSectionData extends BaseSection {
   imageUrl?: string
   personName?: string
   personRole?: string
+}
+
+interface ImageHeroLogoSectionData extends BaseSection {
+  _type: 'imageHeroLogoSection'
+  imageUrl?: string
+  imageAlt?: string
+  logoUrl?: string
 }
 
 interface TextSectionData extends BaseSection {
@@ -140,6 +148,7 @@ interface GoogleMeetSectionData extends BaseSection {
 // Union type for all sections
 type SectionData =
   | HeroSectionData
+  | ImageHeroLogoSectionData
   | TextSectionData
   | CTASectionData
   | ImageTextSectionData
@@ -194,6 +203,16 @@ export function SectionRenderer({
                 align={section.align}
                 background={section.background}
                 padding={section.padding}
+              />
+            )
+
+          case 'imageHeroLogoSection':
+            return (
+              <ImageHeroLogoSection
+                key={section._key}
+                imageUrl={section.imageUrl}
+                imageAlt={section.imageAlt}
+                logoUrl={section.logoUrl}
               />
             )
 
@@ -310,6 +329,7 @@ export function SectionRenderer({
 // Re-export individual components for direct use
 export {
   HeroSection,
+  ImageHeroLogoSection,
   TextSectionBlock,
   CTASectionBlock,
   ImageTextSection,

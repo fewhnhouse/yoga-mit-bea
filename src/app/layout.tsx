@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Lora } from "next/font/google";
+import { Cormorant_Garamond, Lora, Roboto, Noto_Sans } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import "./globals.css";
@@ -9,14 +9,14 @@ import { getSiteId, getSingletonIds } from "@/lib/getSiteId";
 import { sanityFetch } from "@/sanity/lib/live";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
 
-const cormorant = Cormorant_Garamond({
+const cormorant = Roboto({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const lora = Lora({
+const lora = Noto_Sans({
   variable: "--font-lora",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],

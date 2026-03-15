@@ -1,4 +1,5 @@
 import heroSection from './heroSection'
+import imageHeroLogoSection from './imageHeroLogoSection'
 import textSection from './textSection'
 import ctaSection from './ctaSection'
 import imageTextSection from './imageTextSection'
@@ -11,6 +12,7 @@ import googleMeetSection from './googleMeetSection'
 // Export all section schemas
 export const sectionSchemas = [
   heroSection,
+  imageHeroLogoSection,
   textSection,
   ctaSection,
   imageTextSection,
@@ -24,6 +26,7 @@ export const sectionSchemas = [
 // Export individual schemas for type generation
 export {
   heroSection,
+  imageHeroLogoSection,
   textSection,
   ctaSection,
   imageTextSection,

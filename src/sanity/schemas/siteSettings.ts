@@ -1,5 +1,8 @@
 import { defineType, defineField } from "sanity";
 
+const pageReferenceFilter =
+  '_type == "page" && site in ["yoga", "therapie", "both"] && defined(slug.current) && enabled != false';
+
 export default defineType({
   name: "siteSettings",
   title: "Site Settings",
@@ -87,6 +90,134 @@ export default defineType({
       type: "reference",
       to: [{ type: "page" }],
       description: "Select which page to use as the homepage for this site",
+      options: {
+        filter: pageReferenceFilter,
+      },
+    }),
+    defineField({
+      name: "headerNavigation",
+      title: "Header Navigation",
+      type: "array",
+      description:
+        "Choose exactly which links should appear in the header. Each item can be a direct link or a submenu.",
+      of: [
+        {
+          type: "object",
+          name: "headerNavigationItem",
+          title: "Navigation Item",
+          fields: [
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+              description:
+                'Top-level menu label (e.g. "Angebote", "Über mich").',
+            }),
+            defineField({
+              name: "page",
+              title: "Direct Link Page",
+              type: "reference",
+              to: [{ type: "page" }],
+              description: "Use this for a simple top-level link.",
+              options: {
+                filter: pageReferenceFilter,
+              },
+            }),
+            defineField({
+              name: "children",
+              title: "Submenu Items",
+              type: "array",
+              description:
+                'Use this for dropdown menus (e.g. top-level "Angebote" with multiple submenu links).',
+              of: [
+                {
+                  type: "object",
+                  name: "headerNavigationSubItem",
+                  title: "Submenu Item",
+                  fields: [
+                    defineField({
+                      name: "label",
+                      title: "Label Override",
+                      type: "string",
+                      description:
+                        "Optional. If empty, the referenced page title is used.",
+                    }),
+                    defineField({
+                      name: "page",
+                      title: "Page",
+                      type: "reference",
+                      to: [{ type: "page" }],
+                      options: {
+                        filter: pageReferenceFilter,
+                      },
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      label: "label",
+                      pageTitle: "page.title",
+                    },
+                    prepare(selection) {
+                      const title = selection.label || selection.pageTitle || "Untitled item";
+                      return {
+                        title,
+                        subtitle: "Submenu item",
+                      };
+                    },
+                  },
+                },
+              ],
+            }),
+          ],
+          validation: (Rule) =>
+            Rule.custom(
+              (
+                value:
+                  | {
+                      page?: { _ref?: string };
+                      children?: Array<{ page?: { _ref?: string } }>;
+                    }
+                  | undefined
+              ) => {
+                const hasPage = Boolean(value?.page?._ref);
+                const hasChildren = Array.isArray(value?.children) && value.children.length > 0;
+
+                if (!hasPage && !hasChildren) {
+                  return "Add either a direct link page or at least one submenu item.";
+                }
+                if (hasPage && hasChildren) {
+                  return "Use either a direct link page or submenu items, not both.";
+                }
+                return true;
+              }
+            ),
+          preview: {
+            select: {
+              label: "label",
+              pageTitle: "page.title",
+              childCount: "children.length",
+            },
+            prepare(selection) {
+              const title = selection.label || selection.pageTitle || "Untitled navigation item";
+              const childCount = typeof selection.childCount === "number" ? selection.childCount : 0;
+
+              if (childCount > 0) {
+                return {
+                  title,
+                  subtitle: `${childCount} submenu item${childCount !== 1 ? "s" : ""}`,
+                };
+              }
+
+              return {
+                title,
+                subtitle: "Direct header link",
+              };
+            },
+          },
+        },
+      ],
     }),
   ],
   preview: {

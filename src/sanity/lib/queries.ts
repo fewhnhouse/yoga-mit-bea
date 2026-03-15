@@ -35,6 +35,22 @@ export const siteSettingsQuery = defineQuery(`
 export const navigationDataQuery = defineQuery(`
 {
   "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,
+  "headerNavigation": *[_id == $siteSettingsId][0].headerNavigation[] {
+    _key,
+    "label": coalesce(label, page->title),
+    "href": select(
+      defined(page->slug.current) => "/" + page->slug.current,
+      null
+    ),
+    "subLinks": coalesce(
+      children[defined(page->slug.current)][] {
+        _key,
+        "label": coalesce(label, page->title),
+        "href": "/" + page->slug.current
+      },
+      []
+    )
+  },
   "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {
     _id,
     title,
@@ -259,6 +275,11 @@ export const pageBySlugQuery = defineQuery(`
         ...,
         "imageUrl": image.asset->url
       },
+      _type == "imageHeroLogoSection" => {
+        ...,
+        "imageUrl": image.asset->url,
+        "logoUrl": logo.asset->url
+      },
       // Expand image URLs in imageTextSection
       _type == "imageTextSection" => {
         ...,
@@ -342,6 +363,11 @@ export const pageWithSectionsDataQuery = defineQuery(`
       _type == "heroSection" => {
         ...,
         "imageUrl": image.asset->url
+      },
+      _type == "imageHeroLogoSection" => {
+        ...,
+        "imageUrl": image.asset->url,
+        "logoUrl": logo.asset->url
       },
       _type == "imageTextSection" => {
         ...,
@@ -449,6 +475,11 @@ export const homepageFromSettingsQuery = defineQuery(`
         _type == "heroSection" => {
           ...,
           "imageUrl": image.asset->url
+        },
+        _type == "imageHeroLogoSection" => {
+          ...,
+          "imageUrl": image.asset->url,
+          "logoUrl": logo.asset->url
         },
         _type == "imageTextSection" => {
           ...,

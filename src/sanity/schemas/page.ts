@@ -58,6 +58,7 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'heroSection' },
+        { type: 'imageHeroLogoSection' },
         { type: 'textSection' },
         { type: 'ctaSection' },
         { type: 'imageTextSection' },
