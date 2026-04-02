@@ -1,9 +1,10 @@
 'use client'
 
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import type { PortableTextBlock } from '@portabletext/types'
+import type { ReactNode } from 'react'
 import IconCard from '@/components/IconCard'
-import SectionHeader from '@/components/SectionHeader'
 import ServiceIcon from '@/components/ServiceIcon'
-import { useSite } from '@/context/SiteContext'  // Still needed for siteId
 
 interface CardItem {
   // Service reference data (expanded in query)
@@ -12,19 +13,18 @@ interface CardItem {
     title: string
     shortDescription?: string
     icon?: string
-    slug?: string
+    pageSlug?: string
   }
   // Custom card fields
   icon?: string
-  title?: string
+  title?: PortableTextBlock[]
   description?: string
-  href?: string
   ctaText?: string
 }
 
 interface CardsGridSectionProps {
   label?: string
-  title?: string
+  title?: PortableTextBlock[]
   description?: string
   columns?: 2 | 3 | 4
   background?: 'light' | 'cream'
@@ -32,6 +32,48 @@ interface CardsGridSectionProps {
   cardSize?: 'default' | 'compact'
   cardAlign?: 'center' | 'left'
   cards?: CardItem[]
+}
+
+const HEX_COLOR_REGEX = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
+
+function getValidHexColor(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  return HEX_COLOR_REGEX.test(value) ? value : undefined
+}
+
+function isPortableTextArray(value: unknown): value is PortableTextBlock[] {
+  return (
+    Array.isArray(value) &&
+    value.length > 0 &&
+    typeof value[0] === 'object' &&
+    value[0] !== null &&
+    '_type' in value[0]
+  )
+}
+
+const inlinePortableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <>{children}</>,
+  },
+  marks: {
+    textColor: ({ children, value }) => {
+      const hex = getValidHexColor(value?.hex || value?.color)
+      return <span style={hex ? { color: hex } : undefined}>{children}</span>
+    },
+  },
+}
+
+function renderInlineColorText(value?: PortableTextBlock[] | string): ReactNode {
+  if (!value) return null
+  if (typeof value === 'string') return value
+  if (!isPortableTextArray(value)) return null
+
+  return (
+    <PortableText
+      value={value}
+      components={inlinePortableTextComponents}
+    />
+  )
 }
 
 export default function CardsGridSection({
@@ -45,8 +87,6 @@ export default function CardsGridSection({
   cardAlign = 'center',
   cards = [],
 }: CardsGridSectionProps) {
-  const { siteId } = useSite()  // Still needed for URL construction
-
   // Background classes
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
 
@@ -65,11 +105,22 @@ export default function CardsGridSection({
       <div className='container mx-auto px-6'>
         {/* Section header */}
         {(label || title) && (
-          <div className='max-w-2xl mx-auto mb-16'>
-            <SectionHeader
-              label={label || ''}
-              title={title || ''}
-              align='center'
+          <div className='max-w-2xl mx-auto mb-16 text-center'>
+            {label && (
+              <span className='text-primary-dark font-body text-sm tracking-widest uppercase mb-4 block'>
+                {label}
+              </span>
+            )}
+            {title && (
+              <h2 className='font-display text-4xl md:text-5xl lg:text-6xl font-light text-charcoal mb-6'>
+                {renderInlineColorText(title)}
+              </h2>
+            )}
+            <div
+              className='w-20 h-0.5 mb-6 mx-auto'
+              style={{
+                background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
+              }}
             />
             {description && (
               <p className='text-charcoal-light text-center'>
@@ -86,16 +137,16 @@ export default function CardsGridSection({
             const isServiceRef = !!card.serviceRef
             const cardTitle = isServiceRef
               ? card.serviceRef?.title
-              : card.title
+              : renderInlineColorText(card.title)
             const cardDescription = isServiceRef
               ? card.serviceRef?.shortDescription
               : card.description
             const cardIcon = isServiceRef
               ? card.serviceRef?.icon
               : card.icon
-            const cardHref = card.href || (isServiceRef && card.serviceRef?.slug
-              ? `/${siteId}#${card.serviceRef.slug}`
-              : undefined)
+            const cardHref = isServiceRef && card.serviceRef?.pageSlug
+              ? `/${card.serviceRef.pageSlug}`
+              : undefined
 
             return (
               <IconCard

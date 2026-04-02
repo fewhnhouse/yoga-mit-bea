@@ -95,7 +95,10 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .title("Yoga Services")
                     .filter('_type == "service" && site in ["yoga", "both"]')
-                    .defaultOrdering([{ field: "order", direction: "asc" }])
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "title", direction: "asc" },
+                    ])
                 ),
               S.listItem()
                 .title("💆 Psychotherapie Services")
@@ -103,7 +106,10 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .title("Psychotherapie Services")
                     .filter('_type == "service" && site in ["therapie", "both"]')
-                    .defaultOrdering([{ field: "order", direction: "asc" }])
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "title", direction: "asc" },
+                    ])
                 ),
               S.divider(),
               S.listItem()
@@ -112,7 +118,10 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .title("All Services")
                     .filter('_type == "service"')
-                    .defaultOrdering([{ field: "order", direction: "asc" }])
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "title", direction: "asc" },
+                    ])
                 ),
             ])
         ),

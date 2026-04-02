@@ -36,6 +36,14 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "page",
+      title: "Service Page",
+      type: "reference",
+      to: [{ type: "page" }],
+      description:
+        "Page used for navigation links (e.g. footer service links).",
+    }),
+    defineField({
       name: "subtitle",
       title: "Subtitle",
       type: "string",
@@ -131,6 +139,8 @@ export default defineType({
       title: "Display Order",
       type: "number",
       description: "Lower numbers appear first",
+      initialValue: 100,
+      validation: (Rule) => Rule.required().integer().min(0),
     }),
     defineField({
       name: "imagePosition",
@@ -171,7 +181,23 @@ export default defineType({
     {
       title: "Display Order",
       name: "orderAsc",
-      by: [{ field: "order", direction: "asc" }],
+      by: [
+        { field: "order", direction: "asc" },
+        { field: "title", direction: "asc" },
+      ],
+    },
+    {
+      title: "Display Order (High to Low)",
+      name: "orderDesc",
+      by: [
+        { field: "order", direction: "desc" },
+        { field: "title", direction: "asc" },
+      ],
+    },
+    {
+      title: "Title (A-Z)",
+      name: "titleAsc",
+      by: [{ field: "title", direction: "asc" }],
     },
   ],
   preview: {

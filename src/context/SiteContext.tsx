@@ -35,6 +35,8 @@ function resolveSiteConfig(
   const rawTagline = siteSettings?.tagline
   const rawDomain = siteSettings?.domain
   const rawPrimaryColor = siteSettings?.primaryColor
+  const rawContactEmail = siteSettings?.contactEmail
+  const rawContactPhone = siteSettings?.contactPhone
 
   if (typeof rawName !== 'string' || rawName.trim().length === 0) {
     throw new Error(`[SiteContext] Missing required field "name" for site "${siteId}".`)
@@ -57,6 +59,14 @@ function resolveSiteConfig(
         : undefined,
     domain: rawDomain,
     primaryColor: rawPrimaryColor,
+    contactEmail:
+      typeof rawContactEmail === 'string' && rawContactEmail.trim().length > 0
+        ? rawContactEmail
+        : undefined,
+    contactPhone:
+      typeof rawContactPhone === 'string' && rawContactPhone.trim().length > 0
+        ? rawContactPhone
+        : undefined,
   }
 }
 
@@ -204,13 +214,19 @@ export function SiteProvider({
 
   const navLinks = configuredNavLinks.length > 0 ? configuredNavLinks : fallbackNavLinks
 
-  // Build footer service links from Sanity services
-  // Each service links to the services page with an anchor
+  // Build footer service links from explicit service->page references in Sanity
   const footerServiceLinks: NavLink[] =
-    sanityNav.services?.map((service) => ({
-      label: service.title,
-      href: `/${siteId}#${service.slug}`,
-    })) || []
+    sanityNav.services
+      ?.map((service) => {
+        const href = normalizeHref(service.pageSlug)
+        if (!href) return null
+
+        return {
+          label: service.title,
+          href,
+        }
+      })
+      .filter((link): link is NavLink => Boolean(link)) || []
 
   const footerInfoLinks = STATIC_FOOTER_INFO_LINKS
 

@@ -57,10 +57,11 @@ export const navigationDataQuery = defineQuery(`
     "slug": slug.current,
     "order": coalesce(order, 100)
   },
-  "services": *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
+  "services": *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {
     _id,
     title,
-    "slug": slug.current
+    "slug": slug.current,
+    "pageSlug": page->slug.current
   }
 }
 `)
@@ -73,7 +74,7 @@ export const navigationDataQuery = defineQuery(`
  * Get all services for a specific site
  */
 export const servicesForSiteQuery = defineQuery(`
-  *[_type == "service" && site in [$siteId, "both"]] | order(order asc) {
+  *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {
     _id,
     site,
     title,
@@ -295,7 +296,8 @@ export const pageBySlugQuery = defineQuery(`
             title,
             shortDescription,
             icon,
-            "slug": slug.current
+            "slug": slug.current,
+            "pageSlug": page->slug.current
           }
         }
       },
@@ -382,7 +384,8 @@ export const pageWithSectionsDataQuery = defineQuery(`
             title,
             shortDescription,
             icon,
-            "slug": slug.current
+            "slug": slug.current,
+            "pageSlug": page->slug.current
           }
         }
       },
@@ -494,7 +497,8 @@ export const homepageFromSettingsQuery = defineQuery(`
               title,
               shortDescription,
               icon,
-              "slug": slug.current
+              "slug": slug.current,
+              "pageSlug": page->slug.current
             }
           }
         },

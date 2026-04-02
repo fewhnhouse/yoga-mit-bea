@@ -20,7 +20,38 @@ export default defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "array",
+      of: [
+        {
+          type: "block",
+          styles: [{ title: "Normal", value: "normal" }],
+          lists: [],
+          marks: {
+            decorators: [],
+            annotations: [
+              defineField({
+                name: "textColor",
+                title: "Text Color",
+                type: "object",
+                fields: [
+                  defineField({
+                    name: "hex",
+                    title: "Hex Color",
+                    type: "string",
+                    description: "Use a hex color like #8B5E3C",
+                    validation: (Rule) =>
+                      Rule.regex(
+                        /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
+                        { name: "hex color", invert: false }
+                      ).error("Please enter a valid hex color (e.g. #8B5E3C)"),
+                  }),
+                ],
+              }),
+            ],
+          },
+        },
+      ],
+      description: "Title with optional inline text color (size is fixed in the frontend)",
     }),
     defineField({
       name: "description",
@@ -115,7 +146,8 @@ export default defineType({
               title: "Link to Service",
               type: "reference",
               to: [{ type: "service" }],
-              description: "If set, pulls icon, title, and description from this service",
+              description:
+                "If set, pulls icon, title, description, and link target from this service",
             }),
             // Option 2: Custom card content
             defineField({
@@ -143,7 +175,38 @@ export default defineType({
             defineField({
               name: "title",
               title: "Title",
-              type: "string",
+              type: "array",
+              of: [
+                {
+                  type: "block",
+                  styles: [{ title: "Normal", value: "normal" }],
+                  lists: [],
+                  marks: {
+                    decorators: [],
+                    annotations: [
+                      defineField({
+                        name: "textColor",
+                        title: "Text Color",
+                        type: "object",
+                        fields: [
+                          defineField({
+                            name: "hex",
+                            title: "Hex Color",
+                            type: "string",
+                            description: "Use a hex color like #8B5E3C",
+                            validation: (Rule) =>
+                              Rule.regex(
+                                /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
+                                { name: "hex color", invert: false }
+                              ).error("Please enter a valid hex color (e.g. #8B5E3C)"),
+                          }),
+                        ],
+                      }),
+                    ],
+                  },
+                },
+              ],
+              description: "Card title with optional inline text color",
               hidden: ({ parent }) => !!parent?.serviceRef,
             }),
             defineField({
@@ -154,12 +217,6 @@ export default defineType({
               hidden: ({ parent }) => !!parent?.serviceRef,
             }),
             defineField({
-              name: "href",
-              title: "Link URL",
-              type: "string",
-              description: "Optional link for the card",
-            }),
-            defineField({
               name: "ctaText",
               title: "CTA Text",
               type: "string",
@@ -168,7 +225,7 @@ export default defineType({
           ],
           preview: {
             select: {
-              customTitle: "title",
+              customTitle: "title.0.children.0.text",
               serviceTitle: "serviceRef.title",
               icon: "icon",
             },
@@ -186,7 +243,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.0.children.0.text",
       cards: "cards",
     },
     prepare({ title, cards }) {

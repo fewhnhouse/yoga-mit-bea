@@ -85,7 +85,7 @@ interface ImageTextSectionData extends BaseSection {
 interface CardsGridSectionData extends BaseSection {
   _type: 'cardsGridSection'
   label?: string
-  title?: string
+  title?: PortableTextBlock[]
   description?: string
   columns?: 2 | 3 | 4
   background?: 'light' | 'cream'
@@ -98,12 +98,11 @@ interface CardsGridSectionData extends BaseSection {
       title: string
       shortDescription?: string
       icon?: string
-      slug?: string
+      pageSlug?: string
     }
     icon?: string
-    title?: string
+    title?: PortableTextBlock[]
     description?: string
-    href?: string
     ctaText?: string
   }>
 }

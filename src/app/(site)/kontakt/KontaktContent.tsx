@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import LotusIcon from '@/components/icons/LotusIcon'
 import { useSite } from '@/context/SiteContext'
 
 export default function KontaktContent() {
   const { currentSite, isYoga, siteId, footerServiceLinks } = useSite()
+  const contactEmail = currentSite.contactEmail || `info@${currentSite.domain}`
+  const contactPhone = currentSite.contactPhone || '+49 151 2220011'
+  const telHref = `tel:${contactPhone.replace(/\s+/g, '')}`
 
   const [formData, setFormData] = useState({
     name: '',
@@ -19,23 +21,15 @@ export default function KontaktContent() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const subjectOptions = isYoga
-    ? [
-        { value: 'individuell', label: 'Yoga Individuell' },
-        { value: 'kurse', label: 'Yogakurse' },
-        { value: 'aktuell', label: 'Yoga aktuell (Yogatag/Wochenende)' },
-        { value: 'weg', label: 'Yoga Weg im Lonetal' },
-        { value: 'frage', label: 'Allgemeine Frage' },
-        { value: 'sonstiges', label: 'Sonstiges' },
-      ]
-    : [
-        { value: 'massage', label: 'Therapeutische Massage' },
-        { value: 'atemtherapie', label: 'Atemtherapie' },
-        { value: 'klangschalen', label: 'Klangschalentherapie' },
-        { value: 'einzelsitzung', label: 'Therapeutische Einzelsitzung' },
-        { value: 'frage', label: 'Allgemeine Frage' },
-        { value: 'sonstiges', label: 'Sonstiges' },
-      ]
+  const subjectOptions = [
+    ...footerServiceLinks.map((link) => ({
+      value:
+        link.href.split('#')[1] ||
+        link.label.toLowerCase().replace(/\s+/g, '-'),
+      label: link.label,
+    })),
+    { value: 'sonstiges', label: 'Sonstiges' },
+  ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -105,7 +99,7 @@ export default function KontaktContent() {
               <div className='w-20 h-0.5 bg-primary mb-6' />
               <p className='text-charcoal-light text-lg leading-relaxed'>
                 {isYoga
-                  ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich so schnell wie möglich bei dir.'
+                  ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich bei dir.'
                   : 'Hast du Fragen zu meinen therapeutischen Angeboten? Möchtest du einen Termin für eine Behandlung vereinbaren? Ich freue mich auf deine Nachricht.'}
               </p>
             </div>
@@ -375,10 +369,42 @@ export default function KontaktContent() {
                       E-Mail
                     </h3>
                     <a
-                      href={`mailto:info@${currentSite.domain}`}
+                      href={`mailto:${contactEmail}`}
                       className='text-primary-dark hover:opacity-80 transition-opacity'
                     >
-                      info@{currentSite.domain}
+                      {contactEmail}
+                    </a>
+                  </div>
+                </div>
+
+                <div className='flex gap-4'>
+                  <div
+                    className='w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0'
+                  >
+                    <svg
+                      className='w-6 h-6 text-primary-dark'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                      aria-hidden='true'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={1.5}
+                        d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className='font-display text-lg font-light text-charcoal mb-1'>
+                      Telefon
+                    </h3>
+                    <a
+                      href={telHref}
+                      className='text-primary-dark hover:opacity-80 transition-opacity'
+                    >
+                      {contactPhone}
                     </a>
                   </div>
                 </div>
@@ -418,20 +444,11 @@ export default function KontaktContent() {
                 </div>
               </div>
 
-              {/* Quote */}
-              <div className='mt-12 bg-cream rounded-2xl p-8'>
-                <LotusIcon className='w-10 h-10 text-primary/40 mb-4' />
-                <p className='font-display text-xl text-charcoal italic leading-relaxed'>
-                  &bdquo;{currentSite.tagline}&ldquo;
-                </p>
-                <p className='text-primary-dark mt-4 font-medium'>– Bea</p>
-              </div>
-
               {/* Offerings Quick Links */}
               <div className='mt-8'>
-                <h3 className='font-display text-lg font-light text-charcoal mb-4'>
+                <h2 className='font-display text-3xl font-light text-charcoal mb-8'>
                   Meine Angebote
-                </h3>
+                </h2>
                 <div className='flex flex-wrap gap-2'>
                   {footerServiceLinks.map((link) => (
                     <a

@@ -6,6 +6,9 @@ import SiteSwitcher from "./SiteSwitcher";
 
 export default function Footer() {
   const { currentSite, footerServiceLinks, footerInfoLinks } = useSite();
+  const phoneNumber = currentSite.contactPhone || "+49 151 2220011";
+  const telHref = `tel:${phoneNumber.replace(/\s+/g, "")}`;
+  const emailAddress = currentSite.contactEmail || `info@${currentSite.domain}`;
 
   return (
     <footer className="bg-cream border-t border-sand/50">
@@ -93,10 +96,10 @@ export default function Footer() {
                   />
                 </svg>
                 <a
-                  href="tel:+491512220011"
+                  href={telHref}
                   className="hover:text-primary-dark transition-colors"
                 >
-                  +49 151 2220011
+                  {phoneNumber}
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -114,10 +117,10 @@ export default function Footer() {
                   />
                 </svg>
                 <a
-                  href={`mailto:info@${currentSite.domain}`}
+                  href={`mailto:${emailAddress}`}
                   className="hover:text-primary-dark transition-colors"
                 >
-                  info@{currentSite.domain}
+                  {emailAddress}
                 </a>
               </li>
             </ul>

@@ -5,7 +5,7 @@ export interface IconCardProps {
   /** The icon to display - pass an SVG element or icon component */
   icon: ReactNode
   /** Card title */
-  title: string
+  title: ReactNode
   /** Card description */
   description: string
   /** Optional link - if provided with ctaText, shows a CTA; otherwise makes card clickable */
