@@ -3,11 +3,27 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// The email address where contact form submissions will be sent
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "info@yogamitbea.de";
+const CONTACT_EMAIL = "info@yogamitbea.de";
+const RESEND_FROM_EMAIL = "Kontaktformular <kontakt@yogamitbea.de>";
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 export async function POST(request: NextRequest) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: "E-Mail-Versand ist noch nicht konfiguriert (RESEND_API_KEY fehlt)." },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { name, email, phone, subject, message, site } = body;
 
@@ -48,9 +64,16 @@ export async function POST(request: NextRequest) {
     const subjectLabel = subjectLabels[subject] || subject;
     const siteName = site === "therapie" ? "Psychotherapie mit Bea" : "Yoga mit Bea";
 
+    // Escape user content before interpolating into HTML email.
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safePhone = phone ? escapeHtml(phone) : "";
+    const safeSubjectLabel = escapeHtml(subjectLabel);
+    const safeMessage = escapeHtml(message);
+
     // Send email via Resend
     const { data, error } = await resend.emails.send({
-      from: "Kontaktformular <onboarding@resend.dev>", // Update this after verifying your domain
+      from: RESEND_FROM_EMAIL,
       to: [CONTACT_EMAIL],
       replyTo: email,
       subject: `[${siteName}] Neue Anfrage: ${subjectLabel}`,
@@ -67,12 +90,12 @@ export async function POST(request: NextRequest) {
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Name:</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${name}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${safeName}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">E-Mail:</td>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                <a href="mailto:${email}" style="color: #5a6b5d;">${email}</a>
+                <a href="mailto:${safeEmail}" style="color: #5a6b5d;">${safeEmail}</a>
               </td>
             </tr>
             ${
@@ -81,7 +104,7 @@ export async function POST(request: NextRequest) {
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Telefon:</td>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                <a href="tel:${phone}" style="color: #5a6b5d;">${phone}</a>
+                <a href="tel:${safePhone}" style="color: #5a6b5d;">${safePhone}</a>
               </td>
             </tr>
             `
@@ -89,14 +112,14 @@ export async function POST(request: NextRequest) {
             }
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Betreff:</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${subjectLabel}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${safeSubjectLabel}</td>
             </tr>
           </table>
           
           <div style="margin: 20px 0;">
             <h3 style="color: #5a6b5d; margin-bottom: 10px;">Nachricht:</h3>
             <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; white-space: pre-wrap;">
-${message}
+${safeMessage}
             </div>
           </div>
           
@@ -123,6 +146,19 @@ Diese Nachricht wurde über das Kontaktformular gesendet.
 
     if (error) {
       console.error("Resend error:", error);
+      if (
+        error.statusCode === 403 &&
+        typeof error.message === "string" &&
+        error.message.includes("You can only send testing emails")
+      ) {
+        return NextResponse.json(
+          {
+            error:
+              "Resend blockiert den Versand (Testmodus). Prüfe, ob der API-Key zur verifizierten Domain gehoert und der From-Header eine Adresse auf yogamitbea.de verwendet.",
+          },
+          { status: 503 }
+        );
+      }
       return NextResponse.json(
         { error: "Fehler beim Senden der Nachricht. Bitte versuche es später erneut." },
         { status: 500 }
