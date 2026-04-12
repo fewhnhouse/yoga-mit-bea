@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSite } from "@/context/SiteContext";
 import SiteSwitcher from "./SiteSwitcher";
@@ -19,10 +20,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="block mb-6">
-              <span className="font-display text-2xl font-light text-primary-dark block leading-tight">
-                {currentSite.name}
-              </span>
+            <Link
+              href="/"
+              className="inline-flex items-center transition-opacity hover:opacity-90 mb-6"
+            >
+              <Image
+                src="/images/logo-new.png"
+                alt={`${currentSite.name} logo`}
+                width={190}
+                height={93}
+                className="h-14 w-auto"
+              />
             </Link>
             {currentSite.tagline && (
               <p className="text-charcoal-light text-sm leading-relaxed mb-6 italic">

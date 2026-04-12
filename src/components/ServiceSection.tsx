@@ -448,14 +448,16 @@ function LocationsLayout({
       </div>
 
       {/* CTA */}
-      <div className='text-center mt-10'>
-        <Link 
-          href={service.ctaLink || '/kontakt'} 
-          className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
-        >
-          {service.ctaText || 'Kurs anfragen'}
-        </Link>
-      </div>
+      {service.ctaText && service.ctaLink && (
+        <div className='text-center mt-10'>
+          <Link
+            href={service.ctaLink}
+            className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
+          >
+            {service.ctaText}
+          </Link>
+        </div>
+      )}
     </>
   )
 }
