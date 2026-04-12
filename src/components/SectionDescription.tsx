@@ -27,9 +27,40 @@ function createComponents(tone: 'default' | 'light'): PortableTextComponents {
     ? 'text-white hover:text-white/80'
     : 'text-primary-dark hover:text-primary'
   const strongColorClass = tone === 'light' ? 'text-white' : ''
+  const headingColorClass = tone === 'light' ? 'text-white' : 'text-charcoal'
 
   return {
     block: {
+      h1: ({ children }) => (
+        <h1 className={`${headingColorClass} font-display text-4xl md:text-5xl font-light leading-tight mt-10 mb-5`}>
+          {children}
+        </h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className={`${headingColorClass} font-display text-3xl md:text-4xl font-light leading-tight mt-8 mb-4`}>
+          {children}
+        </h2>
+      ),
+      h3: ({ children }) => (
+        <h3 className={`${headingColorClass} font-display text-2xl md:text-3xl font-light leading-tight mt-7 mb-3`}>
+          {children}
+        </h3>
+      ),
+      h4: ({ children }) => (
+        <h4 className={`${headingColorClass} font-display text-xl md:text-2xl font-light leading-snug mt-6 mb-3`}>
+          {children}
+        </h4>
+      ),
+      h5: ({ children }) => (
+        <h5 className={`${headingColorClass} font-display text-lg md:text-xl font-light leading-snug mt-5 mb-2`}>
+          {children}
+        </h5>
+      ),
+      h6: ({ children }) => (
+        <h6 className={`${headingColorClass} font-display text-base md:text-lg font-light leading-snug mt-5 mb-2`}>
+          {children}
+        </h6>
+      ),
       normal: ({ children }) => (
         <p className={`${textColorClass} text-lg leading-relaxed mb-4 last:mb-0`}>
           {children}
@@ -49,7 +80,7 @@ function createComponents(tone: 'default' | 'light'): PortableTextComponents {
       ),
     },
     marks: {
-      strong: ({ children }) => <strong className={`font-light ${strongColorClass}`}>{children}</strong>,
+      strong: ({ children }) => <strong className={`font-semibold ${strongColorClass}`}>{children}</strong>,
       em: ({ children }) => <em className='italic'>{children}</em>,
       textColor: ({ children, value }) => {
         const hex = getValidHexColor(value?.hex || value?.color)

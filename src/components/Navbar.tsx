@@ -72,7 +72,7 @@ export default function Navbar() {
             width={190}
             height={93}
             priority
-            className="h-11 md:h-12 w-auto"
+            className="h-12 md:h-14 w-auto"
           />
         </Link>
 
@@ -92,7 +92,14 @@ export default function Navbar() {
                       isActive ? "text-primary-dark" : "text-charcoal hover:text-primary-dark"
                     }`}
                   >
-                    {link.label}
+                    <span className="relative inline-block">
+                      {link.label}
+                      <span
+                        className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full group-focus-within:w-full"
+                        }`}
+                      />
+                    </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -104,11 +111,6 @@ export default function Navbar() {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full group-focus-within:w-full"
-                      }`}
-                    />
                   </button>
 
                   <ul className="absolute left-0 top-full mt-3 min-w-[14rem] rounded-xl border border-sand/60 bg-warm-white/98 p-2 shadow-lg opacity-0 invisible translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
