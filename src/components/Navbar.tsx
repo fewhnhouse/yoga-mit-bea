@@ -9,6 +9,7 @@ import { useSite } from "@/context/SiteContext";
 export default function Navbar() {
   const { currentSite, navLinks } = useSite();
   const pathname = usePathname();
+  const currentPath = pathname ?? "/";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSubmenus, setOpenMobileSubmenus] = useState<Record<string, boolean>>({});
@@ -16,9 +17,9 @@ export default function Navbar() {
   // Check if a link is active (exact match or starts with for nested routes)
   const isActiveLink = (href: string) => {
     if (href === "/") {
-      return pathname === "/";
+      return currentPath === "/";
     }
-    return pathname === href || pathname.startsWith(href + "/");
+    return currentPath === href || currentPath.startsWith(href + "/");
   };
 
   useEffect(() => {
