@@ -63,6 +63,12 @@ export type ServiceIconType =
 // Core value icon type (used in components for icon rendering)
 export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";
 
+export type PricingEntry = {
+  _key?: string;
+  title?: string | null;
+  description?: string | null;
+};
+
 // ============================================
 // EXTRACTED TYPES FROM QUERY RESULTS
 // These are the actual shapes returned by queries (with projections)
@@ -120,7 +126,7 @@ export type ServiceFromQuery = {
       times?: string;
       _key: string;
     }> | null;
-    pricing: string | null;
+    pricing: PricingEntry[] | string | null;
     maxParticipants: number | null;
   }> | null;
   events: Array<{

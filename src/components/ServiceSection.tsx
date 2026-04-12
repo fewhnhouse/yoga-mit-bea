@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import type { ServiceFromQuery } from '@/sanity/types'
+import type { PricingEntry, ServiceFromQuery } from '@/sanity/types'
 
 interface ServiceSectionProps {
   service: ServiceFromQuery
@@ -15,6 +15,50 @@ interface ServiceSectionProps {
   id?: string | null
   /** Fallback icon to show when no image is available */
   fallbackIcon?: ReactNode
+}
+
+type LocationPricing = NonNullable<ServiceFromQuery['locations']>[number]['pricing']
+
+function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: string; title?: string; description: string }> {
+  if (!pricing) return []
+
+  if (typeof pricing === 'string') {
+    return [{ description: pricing }]
+  }
+
+  return pricing
+    .map((entry) => {
+      if (entry?.title && entry?.description) {
+        return { _key: entry._key, title: entry.title, description: entry.description }
+      }
+
+      if (entry?.description) {
+        return { _key: entry._key, description: entry.description }
+      }
+
+      // Backward compatibility for entries created before schema simplification.
+      const legacyEntry = entry as PricingEntry & {
+        label?: string | null
+        price?: string | null
+        note?: string | null
+      }
+
+      if (!legacyEntry.price) return null
+
+      const legacyDescription = [
+        legacyEntry.label ? `${legacyEntry.label}: ${legacyEntry.price}` : legacyEntry.price,
+        legacyEntry.note ? `(${legacyEntry.note})` : null,
+      ]
+        .filter(Boolean)
+        .join(' ')
+
+      return {
+        _key: legacyEntry._key,
+        title: legacyEntry.label || undefined,
+        description: legacyDescription,
+      }
+    })
+    .filter((entry): entry is { _key?: string; title?: string; description: string } => Boolean(entry?.description))
 }
 
 export default function ServiceSection({
@@ -369,7 +413,7 @@ function LocationsLayout({
                 )}
 
                 {/* Pricing */}
-                {location.pricing && (
+                {normalizePricingEntries(location.pricing).length > 0 && (
                   <div className='flex items-start gap-2'>
                     <svg
                       className='w-4 h-4 text-primary mt-0.5 shrink-0'
@@ -385,9 +429,16 @@ function LocationsLayout({
                         d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
                       />
                     </svg>
-                    <p className='text-sm text-charcoal-light'>
-                      {location.pricing}
-                    </p>
+                    <ul className='space-y-1 text-sm text-charcoal-light'>
+                      {normalizePricingEntries(location.pricing).map((entry, index) => (
+                        <li key={entry._key || `price-${index}`} className='leading-snug'>
+                          {entry.title && (
+                            <p className='font-medium text-charcoal'>{entry.title}</p>
+                          )}
+                          <p className='text-charcoal-light'>{entry.description}</p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>

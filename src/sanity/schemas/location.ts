@@ -95,9 +95,44 @@ export default defineType({
     }),
     defineField({
       name: "pricing",
-      title: "Pricing Info",
-      type: "string",
-      description: 'e.g., "8er Karte: 110€/120€ · 5er Flex: 80€/90€"',
+      title: "Pricing Entries",
+      type: "array",
+      of: [
+        defineField({
+          name: "pricingEntry",
+          title: "Pricing Entry",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+              description: 'e.g., "8x Üben in 10 Wochen"',
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+              description: 'e.g., "8er Karte: 110€ / 120€ (60/90 Min.)"',
+            }),
+          ],
+          preview: {
+            select: {
+              title: "title",
+              subtitle: "description",
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || "Preis",
+                subtitle,
+              }
+            },
+          },
+        }),
+      ],
+      description: "Add one or more pricing rows for this location",
     }),
     defineField({
       name: "maxParticipants",
