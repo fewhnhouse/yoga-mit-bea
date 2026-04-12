@@ -26,14 +26,15 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
     return [{ description: pricing }]
   }
 
-  return pricing
-    .map((entry) => {
+  return pricing.reduce<Array<{ _key?: string; title?: string; description: string }>>((acc, entry) => {
       if (entry?.title && entry?.description) {
-        return { _key: entry._key, title: entry.title, description: entry.description }
+        acc.push({ _key: entry._key, title: entry.title, description: entry.description })
+        return acc
       }
 
       if (entry?.description) {
-        return { _key: entry._key, description: entry.description }
+        acc.push({ _key: entry._key, description: entry.description })
+        return acc
       }
 
       // Backward compatibility for entries created before schema simplification.
@@ -43,7 +44,7 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
         note?: string | null
       }
 
-      if (!legacyEntry.price) return null
+      if (!legacyEntry.price) return acc
 
       const legacyDescription = [
         legacyEntry.label ? `${legacyEntry.label}: ${legacyEntry.price}` : legacyEntry.price,
@@ -52,13 +53,22 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
         .filter(Boolean)
         .join(' ')
 
-      return {
+      if (!legacyDescription) {
+        return acc
+      }
+
+      const normalizedEntry: { _key?: string; title?: string; description: string } = {
         _key: legacyEntry._key,
-        title: legacyEntry.label || undefined,
         description: legacyDescription,
       }
-    })
-    .filter((entry): entry is { _key?: string; title?: string; description: string } => Boolean(entry?.description))
+
+      if (legacyEntry.label) {
+        normalizedEntry.title = legacyEntry.label
+      }
+
+      acc.push(normalizedEntry)
+      return acc
+    }, [])
 }
 
 export default function ServiceSection({
