@@ -1,0 +1,70 @@
+import Link from 'next/link'
+import SectionHeader from './SectionHeader'
+import SectionDescription, { type SectionDescriptionValue } from './SectionDescription'
+
+export interface TextSectionProps {
+  /** Small uppercase label above the title */
+  label: string
+  /** Main heading */
+  title: string
+  /** Description text - supports Sanity Portable Text and legacy plain strings */
+  description: SectionDescriptionValue
+  /** Optional CTA button */
+  cta?: {
+    text: string
+    href: string
+  }
+  /** Text alignment - defaults to 'left' */
+  align?: 'left' | 'center'
+  /** Maximum width class - defaults to 'max-w-3xl' */
+  maxWidth?: string
+  /** Additional className for the container */
+  className?: string
+}
+
+export default function TextSection({
+  label,
+  title,
+  description,
+  cta,
+  align = 'left',
+  maxWidth = 'max-w-3xl',
+  className = '',
+}: TextSectionProps) {
+
+  // Alignment classes
+  const alignClass = align === 'center' ? 'text-center' : 'text-left'
+
+  return (
+    <div className={`${maxWidth} ${alignClass} ${className}`}>
+      <SectionHeader
+        label={label}
+        title={title}
+        align={align}
+      />
+      <SectionDescription value={description} />
+      {cta && (
+        <Link
+          href={cta.href}
+          className='inline-flex items-center gap-2 mt-8 text-primary-dark hover:text-primary font-medium transition-colors group'
+        >
+          {cta.text}
+          <svg
+            className='w-5 h-5 transform group-hover:translate-x-1 transition-transform'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M17 8l4 4m0 0l-4 4m4-4H3'
+            />
+          </svg>
+        </Link>
+      )}
+    </div>
+  )
+}

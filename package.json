@@ -1,28 +1,35 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "yoga-und-therapie-mit-bea",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --single"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.0",
-    "@rollup/plugin-node-resolve": "^7.0.0",
-    "rollup": "^1.20.0",
-    "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "seed": "tsx scripts/seed-sanity.ts"
   },
   "dependencies": {
-    "@beyonk/svelte-carousel": "^2.4.0",
-    "@rollup/plugin-replace": "^2.3.1",
-    "axios": "^0.21.1",
-    "css-vars-ponyfill": "^2.2.1",
-    "dotenv": "^8.2.0",
-    "rollup-plugin-buble": "^0.19.8",
-    "sirv-cli": "^0.4.4",
-    "svelte-routing": "^1.4.2"
+    "@portabletext/react": "^6.0.0",
+    "@sanity/client": "^7.3.0",
+    "@sanity/image-url": "^2.0.2",
+    "next": "16.0.10",
+    "next-sanity": "^11.6.12",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "resend": "^6.6.0",
+    "sanity": "^4.22.0"
+  },
+  "devDependencies": {
+    "@portabletext/types": "^4.0.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "tailwindcss": "^4",
+    "tsx": "^4.19.0",
+    "typescript": "^5"
   }
 }

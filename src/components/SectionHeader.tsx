@@ -1,0 +1,58 @@
+export interface SectionHeaderProps {
+  /** Small uppercase label above the title */
+  label: string
+  /** Main heading */
+  title: string
+  /** Theme color - defaults to 'default'. Use 'light' for white text on colored backgrounds */
+  theme?: 'default' | 'light'
+  /** Text alignment - defaults to 'left' */
+  align?: 'left' | 'center'
+  /** Heading level - defaults to 'h2' */
+  as?: 'h1' | 'h2' | 'h3'
+  /** Additional className for the container */
+  className?: string
+}
+
+export default function SectionHeader({
+  label,
+  title,
+  theme = 'default',
+  align = 'left',
+  as: Tag = 'h2',
+  className = '',
+}: SectionHeaderProps) {
+  const isLight = theme === 'light'
+
+  // Theme-based classes - uses CSS custom properties that change per site
+  const labelClass = isLight ? 'text-white/80' : 'text-primary-dark'
+  const titleClass = isLight ? 'text-white' : 'text-charcoal'
+  const lineColor = isLight ? 'rgba(255,255,255,0.5)' : 'var(--primary)'
+
+  // Alignment classes
+  const alignClass = align === 'center' ? 'text-center' : 'text-left'
+  const lineAlignClass = align === 'center' ? 'mx-auto' : ''
+
+  // Line gradient - fade both sides when centered, fade right only when left-aligned
+  const lineGradient =
+    align === 'center'
+      ? `linear-gradient(90deg, transparent, ${lineColor}, transparent)`
+      : `linear-gradient(90deg, ${lineColor}, transparent)`
+
+  return (
+    <div className={`${alignClass} ${className}`}>
+      <span
+        className={`${labelClass} font-body text-sm tracking-widest uppercase mb-4 block`}
+      >
+        {label}
+      </span>
+      <Tag className={`font-display text-4xl md:text-5xl lg:text-6xl font-light ${titleClass} mb-6`}>
+        {title}
+      </Tag>
+      <div
+        className={`w-20 h-0.5 mb-6 ${lineAlignClass}`}
+        style={{ background: lineGradient }}
+      />
+    </div>
+  )
+}
+
