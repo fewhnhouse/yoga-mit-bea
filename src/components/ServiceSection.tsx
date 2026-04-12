@@ -304,6 +304,7 @@ function LocationsLayout({
   service: ServiceFromQuery
   locations: NonNullable<ServiceFromQuery['locations']>
 }) {
+  const hasSingleLocation = locations.length === 1
 
   return (
     <>
@@ -325,11 +326,15 @@ function LocationsLayout({
       </div>
 
       {/* Location Cards */}
-      <div className='grid lg:grid-cols-2 gap-8'>
+      <div
+        className={`grid gap-8 items-start ${
+          hasSingleLocation ? 'max-w-2xl mx-auto' : 'lg:grid-cols-2'
+        }`}
+      >
         {locations.map((location) => (
           <div
             key={location._id}
-            className='bg-warm-white rounded-2xl overflow-hidden shadow-lg'
+            className='bg-warm-white rounded-2xl overflow-hidden shadow-lg self-start'
           >
             {/* Image Area */}
             {location.imageUrl && (
@@ -341,6 +346,9 @@ function LocationsLayout({
                   className='object-cover'
                 />
               </div>
+            )}
+            {!location.imageUrl && (
+              <div className='h-1 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent' />
             )}
 
             {/* Content */}
@@ -414,7 +422,11 @@ function LocationsLayout({
                     <div className='text-sm'>
                       {location.schedule.map((slot) => (
                         <p key={`${slot.day}-${slot.times}`} className='text-charcoal'>
-                          <span className='font-medium'>{slot.day}:</span>{' '}
+                          {slot.day && (
+                            <>
+                              <span className='font-medium'>{slot.day}:</span>{' '}
+                            </>
+                          )}
                           <span className='text-charcoal-light'>{slot.times}</span>
                         </p>
                       ))}
