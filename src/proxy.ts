@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 // In Next.js 16, middleware is renamed to proxy
 export function proxy(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
-  const response = NextResponse.next();
+  const requestHeaders = new Headers(request.headers);
 
   // Check if we're on localhost or Vercel preview (allows site switching)
   const isLocalhost =
@@ -32,14 +32,22 @@ export function proxy(request: NextRequest) {
     siteId = "yoga";
   }
 
-  // Set the site ID in a header that can be read by the app
-  response.headers.set("x-site-id", siteId);
+  // Forward site ID as request header for server components/layouts.
+  requestHeaders.set("x-site-id", siteId);
 
-  // Set/update the cookie for client-side hydration
-  response.cookies.set("site-id", siteId, {
-    path: "/",
-    sameSite: "lax",
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
   });
+
+  // Set/update cookie only when it changed.
+  if (existingCookie !== siteId) {
+    response.cookies.set("site-id", siteId, {
+      path: "/",
+      sameSite: "lax",
+    });
+  }
 
   return response;
 }
