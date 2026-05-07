@@ -37,7 +37,6 @@ export default defineType({
           { title: "Psychotherapie only", value: "therapie" },
           { title: "Both sites", value: "both" },
         ],
-        layout: "radio",
       },
       validation: (Rule) => Rule.required(),
       initialValue: "yoga",
