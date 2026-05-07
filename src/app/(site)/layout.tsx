@@ -4,11 +4,17 @@ import Footer from '@/components/Footer'
 import LocalBusinessJsonLd from '@/components/LocalBusinessJsonLd'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
-import { navigationDataQuery, siteSettingsQuery, locationsForSiteQuery } from '@/sanity/lib/queries'
+import {
+  navigationDataQuery,
+  siteSettingsQuery,
+  locationsForSiteQuery,
+  servicesForSiteQuery,
+} from '@/sanity/lib/queries'
 import type {
   SiteSettingsQueryResult,
   SiteId,
   LocationsForSiteQueryResult,
+  ServicesForSiteQueryResult,
 } from '@/sanity/types'
 import type { SanityNavigation } from '@/types/site'
 
@@ -17,13 +23,14 @@ interface SiteLayoutData {
   nav: SanityNavigation
   settings: SiteSettingsQueryResult
   locations: LocationsForSiteQueryResult
+  services: ServicesForSiteQueryResult
 }
 
 async function getSiteLayoutData(): Promise<SiteLayoutData> {
   const siteId = await getSiteId()
   const { siteSettingsId } = getSingletonIds(siteId)
 
-  const [{ data: navData }, { data: settingsData }, { data: locationsData }] =
+  const [{ data: navData }, { data: settingsData }, { data: locationsData }, { data: servicesData }] =
     await Promise.all([
       sanityFetch({
         query: navigationDataQuery,
@@ -35,6 +42,10 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
       }),
       sanityFetch({
         query: locationsForSiteQuery,
+        params: { siteId },
+      }),
+      sanityFetch({
+        query: servicesForSiteQuery,
         params: { siteId },
       }),
     ])
@@ -57,6 +68,7 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
     },
     settings: settingsData,
     locations: locationsData ?? [],
+    services: servicesData ?? [],
   }
 }
 
@@ -65,11 +77,16 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { siteId, nav, settings, locations } = await getSiteLayoutData()
+  const { siteId, nav, settings, locations, services } = await getSiteLayoutData()
 
   return (
     <SiteProvider sanityNav={nav} siteSettings={settings}>
-      <LocalBusinessJsonLd settings={settings} siteId={siteId} locations={locations} />
+      <LocalBusinessJsonLd
+        settings={settings}
+        siteId={siteId}
+        locations={locations}
+        services={services}
+      />
       <Navbar />
       <main className='flex-grow'>{children}</main>
       <Footer />

@@ -2,6 +2,7 @@ import type {
   SiteId,
   SiteSettingsQueryResult,
   LocationsForSiteQueryResult,
+  ServicesForSiteQueryResult,
 } from '@/sanity/types'
 
 /** Fields projected from `siteSettingsQuery` → `businessLocation` */
@@ -26,6 +27,23 @@ type SettingsWithLocation = Omit<
   businessLocation?: BusinessLocationQuery | null
 }
 
+/** Minimal fields for schema.org Place (site locations + service → location derefs). */
+type VenueJsonLdInput = {
+  name?: string | null
+  streetAddress?: string | null
+  postalCode?: string | null
+  addressLocality?: string | null
+  addressRegion?: string | null
+  addressCountry?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  description?: string | null
+  googleMapsUrl?: string | null
+  imageUrl?: string | null
+}
+
+type PlaceWithId = Record<string, unknown> & { '@id': string }
+
 function resolveCanonicalSiteUrl(domain: string | null | undefined): string {
   const envBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '')
   if (envBase) return envBase
@@ -40,9 +58,11 @@ function defaultSchemaOrgType(siteId: SiteId): string {
   return siteId === 'yoga' ? 'YogaStudio' : 'ProfessionalService'
 }
 
-function buildPlaceFromVenue(
-  loc: LocationsForSiteQueryResult[number],
-): Record<string, unknown> | null {
+function placeUri(baseUrl: string, documentId: string): string {
+  return `${baseUrl}#place:${encodeURIComponent(documentId)}`
+}
+
+function buildPlaceFromVenue(loc: VenueJsonLdInput): Record<string, unknown> | null {
   const street = typeof loc.streetAddress === 'string' ? loc.streetAddress.trim() : ''
   const postal = typeof loc.postalCode === 'string' ? loc.postalCode.trim() : ''
   const locality = typeof loc.addressLocality === 'string' ? loc.addressLocality.trim() : ''
@@ -101,18 +121,53 @@ function buildPlaceFromVenue(
   return place
 }
 
+function collectPlacesById(
+  baseUrl: string,
+  locations: LocationsForSiteQueryResult,
+  services: ServicesForSiteQueryResult,
+): Map<string, PlaceWithId> {
+  const placeById = new Map<string, PlaceWithId>()
+
+  const ingest = (loc: VenueJsonLdInput & { _id?: string }) => {
+    if (typeof loc._id !== 'string' || !loc._id) return
+    if (placeById.has(loc._id)) return
+    const body = buildPlaceFromVenue(loc)
+    if (!body) return
+    placeById.set(loc._id, { ...body, '@id': placeUri(baseUrl, loc._id) })
+  }
+
+  for (const loc of locations ?? []) {
+    ingest(loc as VenueJsonLdInput & { _id: string })
+  }
+
+  for (const svc of services ?? []) {
+    const locs = svc.locations
+    if (!Array.isArray(locs)) continue
+    for (const loc of locs) {
+      if (loc && typeof loc === 'object') {
+        ingest(loc as VenueJsonLdInput & { _id?: string })
+      }
+    }
+  }
+
+  return placeById
+}
+
 /**
  * Schema.org JSON-LD for local business / yoga studio (Google Rich Results).
+ * Uses @graph with Service + ServiceChannel for venue-specific offerings.
  * See: https://developers.google.com/search/docs/appearance/structured-data/local-business
  */
 export default function LocalBusinessJsonLd({
   settings,
   siteId,
   locations = [],
+  services = [],
 }: {
   settings: SiteSettingsQueryResult
   siteId: SiteId
   locations?: LocationsForSiteQueryResult
+  services?: ServicesForSiteQueryResult
 }) {
   if (!settings || typeof settings !== 'object') return null
 
@@ -144,6 +199,7 @@ export default function LocalBusinessJsonLd({
       : null) || defaultSchemaOrgType(siteId)
 
   const baseUrl = resolveCanonicalSiteUrl(s.domain)
+  const businessId = `${baseUrl}#business`
 
   const telephone =
     typeof s.contactPhone === 'string' && s.contactPhone.trim()
@@ -161,8 +217,8 @@ export default function LocalBusinessJsonLd({
         ? s.logoUrl
         : `${baseUrl}/images/background.jpg`
 
-  const payload: Record<string, unknown> = {
-    '@context': 'https://schema.org',
+  const businessNode: Record<string, unknown> = {
+    '@id': businessId,
     '@type': schemaOrgType,
     name,
     url: baseUrl,
@@ -177,13 +233,13 @@ export default function LocalBusinessJsonLd({
     },
   }
 
-  if (telephone) payload.telephone = telephone
-  if (email) payload.email = email
+  if (telephone) businessNode.telephone = telephone
+  if (email) businessNode.email = email
 
   const lat = typeof bl?.latitude === 'number' ? bl.latitude : undefined
   const lng = typeof bl?.longitude === 'number' ? bl.longitude : undefined
   if (lat !== undefined && lng !== undefined) {
-    payload.geo = {
+    businessNode.geo = {
       '@type': 'GeoCoordinates',
       latitude: lat,
       longitude: lng,
@@ -195,7 +251,7 @@ export default function LocalBusinessJsonLd({
       ? bl.serviceAreaDescription.trim()
       : undefined
   if (areaText) {
-    payload.areaServed = areaText
+    businessNode.areaServed = areaText
   }
 
   const sameAs =
@@ -203,17 +259,72 @@ export default function LocalBusinessJsonLd({
       ? bl.sameAs.filter((u): u is string => typeof u === 'string' && /^https?:\/\//i.test(u))
       : []
   if (sameAs.length > 0) {
-    payload.sameAs = sameAs
+    businessNode.sameAs = sameAs
   }
 
-  const venuePlaces = (locations ?? [])
-    .map(buildPlaceFromVenue)
-    .filter((p): p is Record<string, unknown> => p !== null)
+  const placeById = collectPlacesById(baseUrl, locations, services)
+  const placeIds = [...placeById.keys()].sort()
 
-  if (venuePlaces.length === 1) {
-    payload.location = venuePlaces[0]
-  } else if (venuePlaces.length > 1) {
-    payload.location = venuePlaces
+  if (placeIds.length === 1) {
+    businessNode.location = { '@id': placeById.get(placeIds[0])!['@id'] }
+  } else if (placeIds.length > 1) {
+    businessNode.location = placeIds.map((id) => ({ '@id': placeById.get(id)!['@id'] }))
+  }
+
+  const placeNodes = placeIds.map((id) => placeById.get(id)!)
+
+  const serviceNodes: Record<string, unknown>[] = []
+  for (const svc of services ?? []) {
+    const slugToken =
+      typeof svc.slug === 'string' && svc.slug.trim() ? svc.slug.trim() : svc._id
+    const serviceId = `${baseUrl}#service:${encodeURIComponent(slugToken)}`
+
+    const channels: Record<string, unknown>[] = []
+    const locs = svc.locations
+    if (Array.isArray(locs)) {
+      for (const loc of locs) {
+        const lid = loc && typeof loc === 'object' && '_id' in loc ? (loc as { _id?: string })._id : undefined
+        if (typeof lid !== 'string') continue
+        const placeNode = placeById.get(lid)
+        if (!placeNode) continue
+        channels.push({
+          '@type': 'ServiceChannel',
+          serviceLocation: { '@id': placeNode['@id'] },
+          providesService: { '@id': serviceId },
+        })
+      }
+    }
+
+    const node: Record<string, unknown> = {
+      '@type': 'Service',
+      '@id': serviceId,
+      name: svc.title,
+      provider: { '@id': businessId },
+    }
+
+    const shortDesc =
+      typeof svc.shortDescription === 'string' ? svc.shortDescription.trim() : ''
+    if (shortDesc) node.description = shortDesc
+
+    const pageSlug = typeof svc.pageSlug === 'string' ? svc.pageSlug.trim() : ''
+    if (pageSlug) node.url = `${baseUrl}/${pageSlug}`
+
+    const svcImg =
+      typeof svc.imageUrl === 'string' && svc.imageUrl.trim()
+        ? svc.imageUrl.trim()
+        : undefined
+    if (svcImg) node.image = svcImg
+
+    if (channels.length > 0) node.availableChannel = channels
+
+    serviceNodes.push(node)
+  }
+
+  const graph: Record<string, unknown>[] = [businessNode, ...placeNodes, ...serviceNodes]
+
+  const payload = {
+    '@context': 'https://schema.org',
+    '@graph': graph,
   }
 
   return (

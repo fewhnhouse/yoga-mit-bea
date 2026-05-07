@@ -91,6 +91,7 @@ export const servicesForSiteQuery = defineQuery(`
     site,
     title,
     "slug": slug.current,
+    "pageSlug": page->slug.current,
     subtitle,
     shortDescription,
     "imageUrl": image.asset->url,
@@ -100,7 +101,25 @@ export const servicesForSiteQuery = defineQuery(`
     pricing,
     ctaText,
     ctaLink,
-    order
+    order,
+    locations[]-> {
+      _id,
+      name,
+      shortName,
+      "slug": slug.current,
+      description,
+      "imageUrl": image.asset->url,
+      streetAddress,
+      postalCode,
+      addressLocality,
+      addressRegion,
+      addressCountry,
+      latitude,
+      longitude,
+      googleMapsUrl,
+      schedule,
+      pricing
+    }
   }
 `)
 

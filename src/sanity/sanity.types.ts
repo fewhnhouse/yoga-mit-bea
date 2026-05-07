@@ -843,12 +843,13 @@ export type NavigationDataQueryResult = {
   }>;
 };
 // Variable: servicesForSiteQuery
-// Query: *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    order  }
+// Query: *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    site,    title,    "slug": slug.current,    "pageSlug": page->slug.current,    subtitle,    shortDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    order,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      description,      "imageUrl": image.asset->url,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl,      schedule,      pricing    }  }
 export type ServicesForSiteQueryResult = Array<{
   _id: string;
   site: "both" | "therapie" | "yoga";
   title: string;
   slug: string;
+  pageSlug: string | null;
   subtitle: string | null;
   shortDescription: string | null;
   imageUrl: string | null;
@@ -859,6 +860,33 @@ export type ServicesForSiteQueryResult = Array<{
   ctaText: string | null;
   ctaLink: string | null;
   order: number;
+  locations: Array<{
+    _id: string;
+    name: string;
+    shortName: string | null;
+    slug: string | null;
+    description: string | null;
+    imageUrl: string | null;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
+    googleMapsUrl: string | null;
+    schedule: Array<{
+      day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
+      times?: string;
+      _key: string;
+    }> | null;
+    pricing: Array<{
+      title: string;
+      description: string;
+      _type: "pricingEntry";
+      _key: string;
+    }> | null;
+  }> | null;
 }>;
 // Variable: serviceBySlugQuery
 // Query: *[_type == "service" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    fullDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl,      "imageUrl": image.asset->url,      schedule,      pricing    }  }
@@ -2287,7 +2315,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    tagline,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
     "\n{\n  \"homepageSlug\": *[_id == $siteSettingsId][0].homepage->slug.current,\n  \"headerNavigation\": *[_id == $siteSettingsId][0].headerNavigation[] {\n    _key,\n    \"label\": coalesce(label, page->title),\n    \"href\": select(\n      defined(page->slug.current) => \"/\" + page->slug.current,\n      null\n    ),\n    \"subLinks\": coalesce(\n      children[defined(page->slug.current)][] {\n        _key,\n        \"label\": coalesce(label, page->title),\n        \"href\": \"/\" + page->slug.current\n      },\n      []\n    )\n  },\n  \"pages\": *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"order\": coalesce(order, 100)\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current\n  }\n}\n": NavigationDataQueryResult;
-    "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    order\n  }\n": ServicesForSiteQueryResult;
+    "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current,\n    subtitle,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    order,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      description,\n      \"imageUrl\": image.asset->url,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl,\n      schedule,\n      pricing\n    }\n  }\n": ServicesForSiteQueryResult;
     "\n  *[_type == \"service\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl,\n      \"imageUrl\": image.asset->url,\n      schedule,\n      pricing\n    }\n  }\n": ServiceBySlugQueryResult;
     "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy,\n    order\n  }\n": LocationsForSiteQueryResult;
     "\n  *[_type == \"location\" && slug.current == $slug][0] {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy\n  }\n": LocationBySlugQueryResult;
