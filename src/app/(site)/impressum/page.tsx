@@ -1,14 +1,20 @@
 import type { Metadata } from 'next'
+import { resolveSiteDisplayName } from '@/lib/resolveSiteDisplayName'
 
-export const metadata: Metadata = {
-  title: 'Impressum',
-  description:
-    'Impressum und rechtliche Angaben zu Yoga mit Bea und Psychotherapie mit Bea.',
-  openGraph: {
-    title: 'Impressum | Yoga & Psychotherapie mit Bea',
+export async function generateMetadata(): Promise<Metadata> {
+  const siteName = await resolveSiteDisplayName()
+
+  return {
+    title: 'Impressum',
     description:
-      'Impressum und gesetzliche Anbieterkennzeichnung gemäß TMG.',
-  },
+      'Impressum und rechtliche Angaben zu Yoga mit Bea und Psychotherapie mit Bea.',
+    openGraph: {
+      siteName,
+      title: 'Impressum | Yoga & Psychotherapie mit Bea',
+      description:
+        'Impressum und gesetzliche Anbieterkennzeichnung gemäß TMG.',
+    },
+  }
 }
 
 export default function ImpressumPage() {

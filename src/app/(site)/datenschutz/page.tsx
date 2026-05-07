@@ -1,14 +1,20 @@
 import type { Metadata } from 'next'
+import { resolveSiteDisplayName } from '@/lib/resolveSiteDisplayName'
 
-export const metadata: Metadata = {
-  title: 'Datenschutz',
-  description:
-    'Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.',
-  openGraph: {
-    title: 'Datenschutz | Yoga & Psychotherapie mit Bea',
+export async function generateMetadata(): Promise<Metadata> {
+  const siteName = await resolveSiteDisplayName()
+
+  return {
+    title: 'Datenschutz',
     description:
-      'Datenschutzerklärung gemäß DSGVO für yogamitbea.de.',
-  },
+      'Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.',
+    openGraph: {
+      siteName,
+      title: 'Datenschutz | Yoga & Psychotherapie mit Bea',
+      description:
+        'Datenschutzerklärung gemäß DSGVO für yogamitbea.de.',
+    },
+  }
 }
 
 export default function DatenschutzPage() {

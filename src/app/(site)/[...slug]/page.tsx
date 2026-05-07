@@ -6,6 +6,7 @@ import {
   allPageSlugsQuery,
 } from '@/sanity/lib/queries'
 import { getSiteId } from '@/lib/getSiteId'
+import { resolveSiteDisplayName } from '@/lib/resolveSiteDisplayName'
 import DynamicPageContent from './DynamicPageContent'
 
 interface PageProps {
@@ -36,10 +37,13 @@ export async function generateMetadata({
 
   const siteId = await getSiteId()
 
-  const { data } = await sanityFetch({
-    query: pageWithSectionsDataQuery,
-    params: { slug, siteId },
-  })
+  const [{ data }, siteName] = await Promise.all([
+    sanityFetch({
+      query: pageWithSectionsDataQuery,
+      params: { slug, siteId },
+    }),
+    resolveSiteDisplayName(siteId),
+  ])
 
   if (!data?.page) {
     return {
@@ -56,11 +60,10 @@ export async function generateMetadata({
     alternates: {
       canonical: `/${slug}`,
     },
-    openGraph: page.ogImageUrl
-      ? {
-          images: [{ url: page.ogImageUrl }],
-        }
-      : undefined,
+    openGraph: {
+      siteName,
+      ...(page.ogImageUrl ? { images: [{ url: page.ogImageUrl }] } : {}),
+    },
     robots: page.noIndex ? { index: false, follow: false } : undefined,
   }
 }

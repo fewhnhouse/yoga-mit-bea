@@ -42,6 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: '/',
     },
     openGraph: {
+      siteName,
       title: `${siteName} | ${pageTitle}`,
       description,
       ...(ogImage
