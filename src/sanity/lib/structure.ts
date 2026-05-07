@@ -131,10 +131,44 @@ export const structure: StructureResolver = (S) =>
         .title("Locations")
         .icon(() => "📍")
         .child(
-          S.documentList()
+          S.list()
             .title("Locations")
-            .filter('_type == "location"')
-            .defaultOrdering([{ field: "order", direction: "asc" }])
+            .items([
+              S.listItem()
+                .title("🧘 Yoga Locations")
+                .child(
+                  S.documentList()
+                    .title("Yoga Locations")
+                    .filter('_type == "location" && usedBy in ["yoga", "both"]')
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name", direction: "asc" },
+                    ])
+                ),
+              S.listItem()
+                .title("💆 Psychotherapie Locations")
+                .child(
+                  S.documentList()
+                    .title("Psychotherapie Locations")
+                    .filter('_type == "location" && usedBy in ["therapie", "both"]')
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name", direction: "asc" },
+                    ])
+                ),
+              S.divider(),
+              S.listItem()
+                .title("All Locations")
+                .child(
+                  S.documentList()
+                    .title("All Locations")
+                    .filter('_type == "location"')
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name", direction: "asc" },
+                    ])
+                ),
+            ])
         ),
 
       // Events
