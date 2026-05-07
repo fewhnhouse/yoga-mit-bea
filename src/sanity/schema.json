@@ -3090,6 +3090,27 @@
         },
         "optional": true
       },
+      "usedBy": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "yoga"
+            },
+            {
+              "type": "string",
+              "value": "therapie"
+            },
+            {
+              "type": "string",
+              "value": "both"
+            }
+          ]
+        },
+        "optional": false
+      },
       "description": {
         "type": "objectAttribute",
         "value": {
@@ -3337,27 +3358,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "number"
-        },
-        "optional": true
-      },
-      "usedBy": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "yoga"
-            },
-            {
-              "type": "string",
-              "value": "therapie"
-            },
-            {
-              "type": "string",
-              "value": "both"
-            }
-          ]
         },
         "optional": true
       },

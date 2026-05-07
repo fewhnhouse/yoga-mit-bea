@@ -28,6 +28,21 @@ export default defineType({
       },
     }),
     defineField({
+      name: "usedBy",
+      title: "Belongs to Site",
+      type: "string",
+      options: {
+        list: [
+          { title: "Yoga only", value: "yoga" },
+          { title: "Psychotherapie only", value: "therapie" },
+          { title: "Both sites", value: "both" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+      initialValue: "yoga",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",
@@ -180,19 +195,6 @@ export default defineType({
       description: "Maximum number of participants (if applicable)",
     }),
     defineField({
-      name: "usedBy",
-      title: "Used By",
-      type: "string",
-      options: {
-        list: [
-          { title: "Yoga only", value: "yoga" },
-          { title: "Psychotherapie only", value: "therapie" },
-          { title: "Both", value: "both" },
-        ],
-      },
-      initialValue: "yoga",
-    }),
-    defineField({
       name: "order",
       title: "Display Order",
       type: "number",
@@ -209,15 +211,23 @@ export default defineType({
   preview: {
     select: {
       title: "name",
+      usedBy: "usedBy",
       streetAddress: "streetAddress",
       postalCode: "postalCode",
       addressLocality: "addressLocality",
       media: "image",
     },
-    prepare({ title, streetAddress, postalCode, addressLocality, media }) {
-      const subtitle = [streetAddress, postalCode, addressLocality]
+    prepare({ title, usedBy, streetAddress, postalCode, addressLocality, media }) {
+      const siteLabels: Record<string, string> = {
+        yoga: "Yoga",
+        therapie: "Psychotherapie",
+        both: "Both sites",
+      };
+      const siteLabel = usedBy ? siteLabels[usedBy] ?? usedBy : "";
+      const addressLine = [streetAddress, postalCode, addressLocality]
         .filter(Boolean)
         .join(", ");
+      const subtitle = [siteLabel, addressLine].filter(Boolean).join(" · ");
       return {
         title: title || "Standort",
         subtitle: subtitle || undefined,
