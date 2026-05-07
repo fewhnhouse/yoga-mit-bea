@@ -1,29 +1,27 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 import { client } from "@/sanity/client";
+import { getCanonicalOriginFromHeaders } from "@/lib/siteFromHost";
+import { getSiteId } from "@/lib/getSiteId";
+import { sitemapPagesForSiteQuery } from "@/sanity/lib/queries";
+
+export const dynamic = "force-dynamic";
 
 interface DynamicPage {
   slug: string;
   _updatedAt: string;
 }
 
-// Fetch all dynamic pages from Sanity
-async function getDynamicPages(): Promise<DynamicPage[]> {
-  const pages = await client.fetch<DynamicPage[]>(`
-    *[_type == "page" && defined(slug.current)] {
-      "slug": slug.current,
-      _updatedAt
-    }
-  `);
-  return pages;
-}
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogamitbea.de";
+  const headersList = await headers();
+  const baseUrl = getCanonicalOriginFromHeaders(headersList);
+  const siteId = await getSiteId();
 
-  // Fetch dynamic pages from Sanity
-  const dynamicPages = await getDynamicPages();
+  const dynamicPages = await client.fetch<DynamicPage[]>(
+    sitemapPagesForSiteQuery,
+    { siteId },
+  );
 
-  // Static routes (kept as static pages)
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -31,12 +29,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: `${baseUrl}/zum-mitueben`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
+    ...(siteId === "yoga"
+      ? [
+          {
+            url: `${baseUrl}/zum-mitueben`,
+            lastModified: new Date(),
+            changeFrequency: "weekly" as const,
+            priority: 0.7,
+          },
+        ]
+      : []),
     {
       url: `${baseUrl}/kontakt`,
       lastModified: new Date(),
@@ -57,8 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic routes from Sanity
-  const dynamicRoutes: MetadataRoute.Sitemap = dynamicPages.map((page: DynamicPage) => ({
+  const dynamicRoutes: MetadataRoute.Sitemap = dynamicPages.map((page) => ({
     url: `${baseUrl}/${page.slug}`,
     lastModified: new Date(page._updatedAt),
     changeFrequency: "weekly" as const,

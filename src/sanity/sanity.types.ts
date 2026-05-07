@@ -13,15 +13,20 @@
  */
 
 // Source: schema.json
-export type Page = {
-  _id: string;
-  _type: "page";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  site: "yoga" | "therapie" | "both";
+export type GoogleMeetSection = {
+  _type: "googleMeetSection";
   title: string;
-  slug: Slug;
+  schedule?: string;
+  instructionsTitle?: string;
+  instructions?: Array<string>;
+  meetLink: string;
+  buttonText?: string;
+  footnote?: string;
+  background?: "light" | "cream";
+};
+
+export type RichTextSection = {
+  _type: "richTextSection";
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -54,9 +59,95 @@ export type Page = {
     _type: "image";
     _key: string;
   }>;
-  seoTitle?: string;
-  seoDescription?: string;
-  ogImage?: {
+  background?: "light" | "cream" | "transparent";
+  maxWidth?: "narrow" | "medium" | "wide";
+};
+
+export type TestimonialsSection = {
+  _type: "testimonialsSection";
+  label?: string;
+  title?: string;
+  showTestimonialsFrom?: "current" | "yoga" | "therapie" | "both";
+  featuredOnly?: boolean;
+};
+
+export type ServiceSection = {
+  _type: "serviceSection";
+  service: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
+  background?: "light" | "cream";
+  imagePosition?: "left" | "right";
+  badge?: string;
+  customId?: string;
+};
+
+export type CardsGridSection = {
+  _type: "cardsGridSection";
+  label?: string;
+  title?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      hex?: string;
+      _type: "textColor";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  description?: string;
+  columns?: 2 | 3 | 4;
+  background?: "light" | "cream";
+  cardVariant?: "card" | "flat";
+  cardSize?: "default" | "compact";
+  cardAlign?: "center" | "left";
+  cards?: Array<{
+    serviceRef?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "service";
+    };
+    icon?: "lotus" | "group" | "calendar" | "path" | "hands" | "wind" | "sound" | "video" | "heart" | "clock" | "check" | "home";
+    title?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: Array<{
+        hex?: string;
+        _type: "textColor";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    description?: string;
+    ctaText?: string;
+    _type: "card";
+    _key: string;
+  }>;
+};
+
+export type ImageTextSection = {
+  _type: "imageTextSection";
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -68,29 +159,152 @@ export type Page = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  noIndex?: boolean;
+  imageAlt?: string;
+  imagePosition?: "left" | "right";
+  aspectRatio?: "4/5" | "3/4" | "4/3";
+  label?: string;
+  title: string;
+  tagline?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    } | {
+      hex?: string;
+      _type: "textColor";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  cta?: {
+    text?: string;
+    href?: string;
+  };
+  headingLevel?: "h1" | "h2";
+  background?: "light" | "cream" | "gradient" | "pattern";
+  decorativeBlobs?: boolean;
+  padding?: "hero" | "section";
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
+export type CtaSection = {
+  _type: "ctaSection";
+  title: string;
+  description: string;
+  ctas?: Array<{
+    text: string;
+    href: string;
+    variant?: "primary" | "secondary";
+    _key: string;
+  }>;
+  variant?: "solid" | "light";
+  isQuote?: boolean;
+  icon?: "" | "lotus" | "group" | "calendar" | "path" | "hands" | "wind" | "sound" | "video" | "heart" | "clock" | "check";
+  decorative?: boolean;
+  padding?: "default" | "large";
 };
 
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
+export type TextSection = {
+  _type: "textSection";
+  label?: string;
+  title: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    } | {
+      hex?: string;
+      _type: "textColor";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  cta?: {
+    text?: string;
+    href?: string;
+  };
+  align?: "left" | "center";
+  background?: "transparent" | "light" | "cream" | "gradient" | "primary";
+  padding?: "hero" | "section";
 };
 
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
+export type ImageHeroLogoSection = {
+  _type: "imageHeroLogoSection";
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  imageAlt?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type HeroSection = {
+  _type: "heroSection";
+  title: string;
+  tagline?: string;
+  subtitle?: string;
+  primaryCta?: {
+    text?: string;
+    href?: string;
+  };
+  secondaryCta?: {
+    text?: string;
+    href?: string;
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  personName?: string;
+  personRole?: string;
 };
 
 export type Testimonial = {
@@ -165,6 +379,28 @@ export type Event = {
   maxParticipants?: number;
 };
 
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
 export type Location = {
   _id: string;
   _type: "location";
@@ -194,10 +430,145 @@ export type Location = {
     times?: string;
     _key: string;
   }>;
-  pricing?: string;
+  pricing?: Array<{
+    title: string;
+    description: string;
+    _type: "pricingEntry";
+    _key: string;
+  }>;
   maxParticipants?: number;
   usedBy?: "yoga" | "therapie" | "both";
   order?: number;
+};
+
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteId: "yoga" | "therapie";
+  name: string;
+  tagline?: string;
+  domain?: string;
+  primaryColor?: "sage" | "terracotta";
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  seoDescription?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  businessLocation?: {
+    schemaOrgType?: "YogaStudio" | "ProfessionalService" | "LocalBusiness";
+    streetAddress?: string;
+    addressLocality?: string;
+    postalCode?: string;
+    addressRegion?: string;
+    addressCountry?: string;
+    latitude?: number;
+    longitude?: number;
+    serviceAreaDescription?: string;
+    sameAs?: Array<string>;
+  };
+  homepage?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
+  headerNavigation?: Array<{
+    label: string;
+    page?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "page";
+    };
+    children?: Array<{
+      label?: string;
+      page: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
+      _type: "headerNavigationSubItem";
+      _key: string;
+    }>;
+    _type: "headerNavigationItem";
+    _key: string;
+  }>;
+};
+
+export type Page = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  enabled?: boolean;
+  site: "yoga" | "therapie" | "both";
+  title: string;
+  slug: Slug;
+  order?: number;
+  sections?: Array<{
+    _key: string;
+  } & HeroSection | {
+    _key: string;
+  } & ImageHeroLogoSection | {
+    _key: string;
+  } & TextSection | {
+    _key: string;
+  } & CtaSection | {
+    _key: string;
+  } & ImageTextSection | {
+    _key: string;
+  } & CardsGridSection | {
+    _key: string;
+  } & ServiceSection | {
+    _key: string;
+  } & TestimonialsSection | {
+    _key: string;
+  } & RichTextSection | {
+    _key: string;
+  } & GoogleMeetSection>;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: Array<string>;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  noIndex?: boolean;
 };
 
 export type Service = {
@@ -209,6 +580,12 @@ export type Service = {
   site: "yoga" | "therapie" | "both";
   title: string;
   slug: Slug;
+  page?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
   subtitle?: string;
   shortDescription?: string;
   fullDescription?: Array<{
@@ -261,209 +638,10 @@ export type Service = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "event";
   }>;
-  order?: number;
+  order: number;
   imagePosition?: "left" | "right";
   sectionBackground?: "light" | "cream";
   badge?: string;
-};
-
-export type HomepageContent = {
-  _id: string;
-  _type: "homepageContent";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  siteId: "yoga" | "therapie";
-  heroSection?: {
-    subtitle?: string;
-    primaryCtaText?: string;
-    primaryCtaLink?: string;
-    secondaryCtaText?: string;
-    secondaryCtaLink?: string;
-  };
-  aboutPreview?: {
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    paragraph1?: string;
-    paragraph2?: string;
-  };
-  quoteSection?: {
-    heading?: string;
-    quote?: string;
-    ctaText?: string;
-    ctaLink?: string;
-  };
-  servicesSection?: {
-    heading?: string;
-    description?: string;
-  };
-  ctaSection?: {
-    heading?: string;
-    text?: string;
-    primaryCtaText?: string;
-    primaryCtaLink?: string;
-    secondaryCtaText?: string;
-    secondaryCtaLink?: string;
-  };
-};
-
-export type AboutBea = {
-  _id: string;
-  _type: "aboutBea";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
-  photo: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  photoAlt?: string;
-  yogaContent?: {
-    intro?: string;
-    philosophyHeading?: string;
-    philosophy?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    approach?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-  };
-  therapieContent?: {
-    intro?: string;
-    philosophyHeading?: string;
-    philosophy?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    approach?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-  };
-  coreValues?: Array<{
-    title: string;
-    yogaDescription?: string;
-    therapieDescription?: string;
-    icon?: "heart" | "clock" | "lotus" | "hands" | "path";
-    _key: string;
-  }>;
-};
-
-export type SiteSettings = {
-  _id: string;
-  _type: "siteSettings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  siteId: "yoga" | "therapie";
-  name: string;
-  tagline?: string;
-  domain?: string;
-  primaryColor?: "sage" | "terracotta";
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  seoDescription?: string;
-  contactEmail?: string;
-  contactPhone?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -562,7 +740,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = Page | SanityImageCrop | SanityImageHotspot | Slug | Testimonial | Event | Location | Service | HomepageContent | AboutBea | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = GoogleMeetSection | RichTextSection | TestimonialsSection | ServiceSection | CardsGridSection | ImageTextSection | CtaSection | TextSection | ImageHeroLogoSection | HeroSection | Testimonial | Event | SanityImageCrop | SanityImageHotspot | Slug | Location | SiteSettings | Page | Service | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: siteSettingsQuery
@@ -570,19 +748,6 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 export type SiteSettingsQueryResult = {
   _id: string;
   siteId: null;
-  name: null;
-  tagline: null;
-  domain: null;
-  primaryColor: null;
-  logoUrl: null;
-  ogImageUrl: null;
-  seoDescription: null;
-  contactEmail: null;
-  contactPhone: null;
-  businessLocation: null;
-} | {
-  _id: string;
-  siteId: "therapie" | "yoga";
   name: null;
   tagline: null;
   domain: null;
@@ -631,24 +796,44 @@ export type SiteSettingsQueryResult = {
   seoDescription: string | null;
   contactEmail: string | null;
   contactPhone: string | null;
-  businessLocation: null;
+  businessLocation: {
+    schemaOrgType: "LocalBusiness" | "ProfessionalService" | "YogaStudio" | null;
+    streetAddress: string | null;
+    addressLocality: string | null;
+    postalCode: string | null;
+    addressRegion: string | null;
+    addressCountry: string | null;
+    latitude: number | null;
+    longitude: number | null;
+    serviceAreaDescription: string | null;
+    sameAs: Array<string> | null;
+  } | null;
 } | null;
 // Variable: navigationDataQuery
 // Query: {  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,  "headerNavigation": *[_id == $siteSettingsId][0].headerNavigation[] {    _key,    "label": coalesce(label, page->title),    "href": select(      defined(page->slug.current) => "/" + page->slug.current,      null    ),    "subLinks": coalesce(      children[defined(page->slug.current)][] {        _key,        "label": coalesce(label, page->title),        "href": "/" + page->slug.current      },      []    )  },  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "order": coalesce(order, 100)  },  "services": *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "pageSlug": page->slug.current  }}
 export type NavigationDataQueryResult = {
-  homepageSlug: null;
-  headerNavigation: null;
+  homepageSlug: string | null;
+  headerNavigation: Array<{
+    _key: string;
+    label: string;
+    href: string | null;
+    subLinks: Array<{
+      _key: string;
+      label: string;
+      href: string;
+    }> | Array<never>;
+  }> | null;
   pages: Array<{
     _id: string;
     title: string;
     slug: string;
-    order: 100;
+    order: number | 100;
   }>;
   services: Array<{
     _id: string;
     title: string;
     slug: string;
-    pageSlug: null;
+    pageSlug: string | null;
   }>;
 };
 // Variable: servicesForSiteQuery
@@ -667,7 +852,7 @@ export type ServicesForSiteQueryResult = Array<{
   pricing: string | null;
   ctaText: string | null;
   ctaLink: string | null;
-  order: number | null;
+  order: number;
 }>;
 // Variable: serviceBySlugQuery
 // Query: *[_type == "service" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    fullDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      address,      googleMapsUrl,      "imageUrl": image.asset->url,      schedule,      pricing    }  }
@@ -716,7 +901,12 @@ export type ServiceBySlugQueryResult = {
       times?: string;
       _key: string;
     }> | null;
-    pricing: string | null;
+    pricing: Array<{
+      title: string;
+      description: string;
+      _type: "pricingEntry";
+      _key: string;
+    }> | null;
   }> | null;
 } | null;
 // Variable: locationsForSiteQuery
@@ -735,7 +925,12 @@ export type LocationsForSiteQueryResult = Array<{
     times?: string;
     _key: string;
   }> | null;
-  pricing: string | null;
+  pricing: Array<{
+    title: string;
+    description: string;
+    _type: "pricingEntry";
+    _key: string;
+  }> | null;
   maxParticipants: number | null;
   usedBy: "both" | "therapie" | "yoga" | null;
   order: number | null;
@@ -756,7 +951,12 @@ export type LocationBySlugQueryResult = {
     times?: string;
     _key: string;
   }> | null;
-  pricing: string | null;
+  pricing: Array<{
+    title: string;
+    description: string;
+    _type: "pricingEntry";
+    _key: string;
+  }> | null;
   maxParticipants: number | null;
   usedBy: "both" | "therapie" | "yoga" | null;
 } | null;
@@ -848,10 +1048,355 @@ export type PageBySlugQueryResult = {
   site: "both" | "therapie" | "yoga";
   title: string;
   slug: string;
-  sections: null;
+  sections: Array<{
+    _key: string;
+    _type: "cardsGridSection";
+    label?: string;
+    title?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: Array<{
+        hex?: string;
+        _type: "textColor";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    description?: string;
+    columns?: 2 | 3 | 4;
+    background?: "cream" | "light";
+    cardVariant?: "card" | "flat";
+    cardSize?: "compact" | "default";
+    cardAlign?: "center" | "left";
+    cards: Array<{
+      serviceRef: {
+        _id: string;
+        title: string;
+        shortDescription: string | null;
+        icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+        slug: string;
+        pageSlug: string | null;
+      } | null;
+      icon?: "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "home" | "lotus" | "path" | "sound" | "video" | "wind";
+      title?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          hex?: string;
+          _type: "textColor";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      description?: string;
+      ctaText?: string;
+      _type: "card";
+      _key: string;
+    }> | null;
+  } | {
+    _key: string;
+    _type: "ctaSection";
+    title: string;
+    description: string;
+    ctas?: Array<{
+      text: string;
+      href: string;
+      variant?: "primary" | "secondary";
+      _key: string;
+    }>;
+    variant?: "light" | "solid";
+    isQuote?: boolean;
+    icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
+    decorative?: boolean;
+    padding?: "default" | "large";
+  } | {
+    _key: string;
+    _type: "googleMeetSection";
+    title: string;
+    schedule?: string;
+    instructionsTitle?: string;
+    instructions?: Array<string>;
+    meetLink: string;
+    buttonText?: string;
+    footnote?: string;
+    background?: "cream" | "light";
+  } | {
+    _key: string;
+    _type: "heroSection";
+    title: string;
+    tagline?: string;
+    subtitle?: string;
+    primaryCta?: {
+      text?: string;
+      href?: string;
+    };
+    secondaryCta?: {
+      text?: string;
+      href?: string;
+    };
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    personName?: string;
+    personRole?: string;
+    imageUrl: string | null;
+  } | {
+    _key: string;
+    _type: "imageHeroLogoSection";
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    imageAlt?: string;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    imageUrl: string | null;
+    logoUrl: string | null;
+  } | {
+    _key: string;
+    _type: "imageTextSection";
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    imageAlt?: string;
+    imagePosition?: "left" | "right";
+    aspectRatio?: "3/4" | "4/3" | "4/5";
+    label?: string;
+    title: string;
+    tagline?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      } | {
+        hex?: string;
+        _type: "textColor";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    cta?: {
+      text?: string;
+      href?: string;
+    };
+    headingLevel?: "h1" | "h2";
+    background?: "cream" | "gradient" | "light" | "pattern";
+    decorativeBlobs?: boolean;
+    padding?: "hero" | "section";
+    imageUrl: string | null;
+  } | {
+    _key: string;
+    _type: "richTextSection";
+    content?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+      _key: string;
+    }>;
+    background?: "cream" | "light" | "transparent";
+    maxWidth?: "medium" | "narrow" | "wide";
+  } | {
+    _key: string;
+    _type: "serviceSection";
+    service: {
+      _id: string;
+      title: string;
+      slug: string;
+      subtitle: string | null;
+      shortDescription: string | null;
+      fullDescription: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }> | null;
+      imageUrl: string | null;
+      icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+      features: Array<string> | null;
+      duration: string | null;
+      pricing: string | null;
+      ctaText: string | null;
+      ctaLink: string | null;
+      imagePosition: "left" | "right" | null;
+      sectionBackground: "cream" | "light" | null;
+      badge: string | null;
+      locations: Array<{
+        _id: string;
+        name: string;
+        shortName: string | null;
+        description: string | null;
+        address: string;
+        googleMapsUrl: string | null;
+        imageUrl: string | null;
+        schedule: Array<{
+          day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
+          times?: string;
+          _key: string;
+        }> | null;
+        pricing: Array<{
+          title: string;
+          description: string;
+          _type: "pricingEntry";
+          _key: string;
+        }> | null;
+        maxParticipants: number | null;
+      }> | null;
+      events: Array<{
+        _id: string;
+        title: string;
+        description: string | null;
+      }> | null;
+    };
+    background?: "cream" | "light";
+    imagePosition?: "left" | "right";
+    badge?: string;
+    customId?: string;
+  } | {
+    _key: string;
+    _type: "testimonialsSection";
+    label?: string;
+    title?: string;
+    showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
+    featuredOnly?: boolean;
+  } | {
+    _key: string;
+    _type: "textSection";
+    label?: string;
+    title: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      } | {
+        hex?: string;
+        _type: "textColor";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    cta?: {
+      text?: string;
+      href?: string;
+    };
+    align?: "center" | "left";
+    background?: "cream" | "gradient" | "light" | "primary" | "transparent";
+    padding?: "hero" | "section";
+  }> | null;
   seoTitle: string | null;
   seoDescription: string | null;
-  seoKeywords: null;
+  seoKeywords: Array<string> | null;
   ogImageUrl: string | null;
   noIndex: boolean | null;
 } | null;
@@ -863,10 +1408,355 @@ export type PageWithSectionsDataQueryResult = {
     site: "both" | "therapie" | "yoga";
     title: string;
     slug: string;
-    sections: null;
+    sections: Array<{
+      _key: string;
+      _type: "cardsGridSection";
+      label?: string;
+      title?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          hex?: string;
+          _type: "textColor";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      description?: string;
+      columns?: 2 | 3 | 4;
+      background?: "cream" | "light";
+      cardVariant?: "card" | "flat";
+      cardSize?: "compact" | "default";
+      cardAlign?: "center" | "left";
+      cards: Array<{
+        serviceRef: {
+          _id: string;
+          title: string;
+          shortDescription: string | null;
+          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+          slug: string;
+          pageSlug: string | null;
+        } | null;
+        icon?: "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "home" | "lotus" | "path" | "sound" | "video" | "wind";
+        title?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "normal";
+          listItem?: never;
+          markDefs?: Array<{
+            hex?: string;
+            _type: "textColor";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+        description?: string;
+        ctaText?: string;
+        _type: "card";
+        _key: string;
+      }> | null;
+    } | {
+      _key: string;
+      _type: "ctaSection";
+      title: string;
+      description: string;
+      ctas?: Array<{
+        text: string;
+        href: string;
+        variant?: "primary" | "secondary";
+        _key: string;
+      }>;
+      variant?: "light" | "solid";
+      isQuote?: boolean;
+      icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
+      decorative?: boolean;
+      padding?: "default" | "large";
+    } | {
+      _key: string;
+      _type: "googleMeetSection";
+      title: string;
+      schedule?: string;
+      instructionsTitle?: string;
+      instructions?: Array<string>;
+      meetLink: string;
+      buttonText?: string;
+      footnote?: string;
+      background?: "cream" | "light";
+    } | {
+      _key: string;
+      _type: "heroSection";
+      title: string;
+      tagline?: string;
+      subtitle?: string;
+      primaryCta?: {
+        text?: string;
+        href?: string;
+      };
+      secondaryCta?: {
+        text?: string;
+        href?: string;
+      };
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      personName?: string;
+      personRole?: string;
+      imageUrl: string | null;
+    } | {
+      _key: string;
+      _type: "imageHeroLogoSection";
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      imageAlt?: string;
+      logo?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      imageUrl: string | null;
+      logoUrl: string | null;
+    } | {
+      _key: string;
+      _type: "imageTextSection";
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      imageAlt?: string;
+      imagePosition?: "left" | "right";
+      aspectRatio?: "3/4" | "4/3" | "4/5";
+      label?: string;
+      title: string;
+      tagline?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        } | {
+          hex?: string;
+          _type: "textColor";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      cta?: {
+        text?: string;
+        href?: string;
+      };
+      headingLevel?: "h1" | "h2";
+      background?: "cream" | "gradient" | "light" | "pattern";
+      decorativeBlobs?: boolean;
+      padding?: "hero" | "section";
+      imageUrl: string | null;
+    } | {
+      _key: string;
+      _type: "richTextSection";
+      content?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      } | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        _type: "image";
+        _key: string;
+      }>;
+      background?: "cream" | "light" | "transparent";
+      maxWidth?: "medium" | "narrow" | "wide";
+    } | {
+      _key: string;
+      _type: "serviceSection";
+      service: {
+        _id: string;
+        title: string;
+        slug: string;
+        subtitle: string | null;
+        shortDescription: string | null;
+        fullDescription: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }> | null;
+        imageUrl: string | null;
+        icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+        features: Array<string> | null;
+        duration: string | null;
+        pricing: string | null;
+        ctaText: string | null;
+        ctaLink: string | null;
+        imagePosition: "left" | "right" | null;
+        sectionBackground: "cream" | "light" | null;
+        badge: string | null;
+        locations: Array<{
+          _id: string;
+          name: string;
+          shortName: string | null;
+          description: string | null;
+          address: string;
+          googleMapsUrl: string | null;
+          imageUrl: string | null;
+          schedule: Array<{
+            day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
+            times?: string;
+            _key: string;
+          }> | null;
+          pricing: Array<{
+            title: string;
+            description: string;
+            _type: "pricingEntry";
+            _key: string;
+          }> | null;
+          maxParticipants: number | null;
+        }> | null;
+        events: Array<{
+          _id: string;
+          title: string;
+          description: string | null;
+        }> | null;
+      };
+      background?: "cream" | "light";
+      imagePosition?: "left" | "right";
+      badge?: string;
+      customId?: string;
+    } | {
+      _key: string;
+      _type: "testimonialsSection";
+      label?: string;
+      title?: string;
+      showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
+      featuredOnly?: boolean;
+    } | {
+      _key: string;
+      _type: "textSection";
+      label?: string;
+      title: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        } | {
+          hex?: string;
+          _type: "textColor";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      cta?: {
+        text?: string;
+        href?: string;
+      };
+      align?: "center" | "left";
+      background?: "cream" | "gradient" | "light" | "primary" | "transparent";
+      padding?: "hero" | "section";
+    }> | null;
     seoTitle: string | null;
     seoDescription: string | null;
-    seoKeywords: null;
+    seoKeywords: Array<string> | null;
     ogImageUrl: string | null;
     noIndex: boolean | null;
   } | null;
@@ -883,7 +1773,12 @@ export type PageWithSectionsDataQueryResult = {
       times?: string;
       _key: string;
     }> | null;
-    pricing: string | null;
+    pricing: Array<{
+      title: string;
+      description: string;
+      _type: "pricingEntry";
+      _key: string;
+    }> | null;
   }>;
   testimonials: Array<{
     _id: string;
@@ -892,7 +1787,7 @@ export type PageWithSectionsDataQueryResult = {
   }>;
 };
 // Variable: homepageFromSettingsQuery
-// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    tagline,    primaryColor,    contactEmail,    seoDescription,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      sections[] {        _key,        _type,        ...,        _type == "heroSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "imageHeroLogoSection" => {          ...,          "imageUrl": image.asset->url,          "logoUrl": logo.asset->url        },        _type == "imageTextSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "cardsGridSection" => {          ...,          cards[] {            ...,            serviceRef-> {              _id,              title,              shortDescription,              icon,              "slug": slug.current,              "pageSlug": page->slug.current            }          }        },        _type == "serviceSection" => {          ...,          service-> {            _id,            title,            "slug": slug.current,            subtitle,            shortDescription,            fullDescription,            "imageUrl": image.asset->url,            icon,            features,            duration,            pricing,            ctaText,            ctaLink,            imagePosition,            sectionBackground,            badge,            locations[]-> {              _id,              name,              shortName,              address,              googleMapsUrl,              "imageUrl": image.asset->url,              schedule,              pricing,              maxParticipants            },            events[]-> {              _id,              title,              description            }          }        }      }    }  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    address,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
+// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    tagline,    primaryColor,    contactEmail,    seoDescription,    "ogImageUrl": ogImage.asset->url,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      "ogImageUrl": ogImage.asset->url,      sections[] {        _key,        _type,        ...,        _type == "heroSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "imageHeroLogoSection" => {          ...,          "imageUrl": image.asset->url,          "logoUrl": logo.asset->url        },        _type == "imageTextSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "cardsGridSection" => {          ...,          cards[] {            ...,            serviceRef-> {              _id,              title,              shortDescription,              icon,              "slug": slug.current,              "pageSlug": page->slug.current            }          }        },        _type == "serviceSection" => {          ...,          service-> {            _id,            title,            "slug": slug.current,            subtitle,            shortDescription,            fullDescription,            "imageUrl": image.asset->url,            icon,            features,            duration,            pricing,            ctaText,            ctaLink,            imagePosition,            sectionBackground,            badge,            locations[]-> {              _id,              name,              shortName,              address,              googleMapsUrl,              "imageUrl": image.asset->url,              schedule,              pricing,              maxParticipants            },            events[]-> {              _id,              title,              description            }          }        }      }    }  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    address,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
 export type HomepageFromSettingsQueryResult = {
   settings: {
     name: null;
@@ -900,6 +1795,7 @@ export type HomepageFromSettingsQueryResult = {
     primaryColor: null;
     contactEmail: null;
     seoDescription: null;
+    ogImageUrl: null;
     homepage: null;
   } | {
     name: null;
@@ -907,6 +1803,7 @@ export type HomepageFromSettingsQueryResult = {
     primaryColor: null;
     contactEmail: null;
     seoDescription: string | null;
+    ogImageUrl: string | null;
     homepage: null;
   } | {
     name: string;
@@ -914,6 +1811,7 @@ export type HomepageFromSettingsQueryResult = {
     primaryColor: null;
     contactEmail: null;
     seoDescription: null;
+    ogImageUrl: null;
     homepage: null;
   } | {
     name: string;
@@ -921,7 +1819,361 @@ export type HomepageFromSettingsQueryResult = {
     primaryColor: "sage" | "terracotta" | null;
     contactEmail: string | null;
     seoDescription: string | null;
-    homepage: null;
+    ogImageUrl: string | null;
+    homepage: {
+      _id: string;
+      title: string;
+      seoTitle: string | null;
+      seoDescription: string | null;
+      seoKeywords: Array<string> | null;
+      slug: string;
+      ogImageUrl: string | null;
+      sections: Array<{
+        _key: string;
+        _type: "cardsGridSection";
+        label?: string;
+        title?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "normal";
+          listItem?: never;
+          markDefs?: Array<{
+            hex?: string;
+            _type: "textColor";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+        description?: string;
+        columns?: 2 | 3 | 4;
+        background?: "cream" | "light";
+        cardVariant?: "card" | "flat";
+        cardSize?: "compact" | "default";
+        cardAlign?: "center" | "left";
+        cards: Array<{
+          serviceRef: {
+            _id: string;
+            title: string;
+            shortDescription: string | null;
+            icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+            slug: string;
+            pageSlug: string | null;
+          } | null;
+          icon?: "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "home" | "lotus" | "path" | "sound" | "video" | "wind";
+          title?: Array<{
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "normal";
+            listItem?: never;
+            markDefs?: Array<{
+              hex?: string;
+              _type: "textColor";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }>;
+          description?: string;
+          ctaText?: string;
+          _type: "card";
+          _key: string;
+        }> | null;
+      } | {
+        _key: string;
+        _type: "ctaSection";
+        title: string;
+        description: string;
+        ctas?: Array<{
+          text: string;
+          href: string;
+          variant?: "primary" | "secondary";
+          _key: string;
+        }>;
+        variant?: "light" | "solid";
+        isQuote?: boolean;
+        icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
+        decorative?: boolean;
+        padding?: "default" | "large";
+      } | {
+        _key: string;
+        _type: "googleMeetSection";
+        title: string;
+        schedule?: string;
+        instructionsTitle?: string;
+        instructions?: Array<string>;
+        meetLink: string;
+        buttonText?: string;
+        footnote?: string;
+        background?: "cream" | "light";
+      } | {
+        _key: string;
+        _type: "heroSection";
+        title: string;
+        tagline?: string;
+        subtitle?: string;
+        primaryCta?: {
+          text?: string;
+          href?: string;
+        };
+        secondaryCta?: {
+          text?: string;
+          href?: string;
+        };
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        personName?: string;
+        personRole?: string;
+        imageUrl: string | null;
+      } | {
+        _key: string;
+        _type: "imageHeroLogoSection";
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        imageAlt?: string;
+        logo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        imageUrl: string | null;
+        logoUrl: string | null;
+      } | {
+        _key: string;
+        _type: "imageTextSection";
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        imageAlt?: string;
+        imagePosition?: "left" | "right";
+        aspectRatio?: "3/4" | "4/3" | "4/5";
+        label?: string;
+        title: string;
+        tagline?: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          } | {
+            hex?: string;
+            _type: "textColor";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+        cta?: {
+          text?: string;
+          href?: string;
+        };
+        headingLevel?: "h1" | "h2";
+        background?: "cream" | "gradient" | "light" | "pattern";
+        decorativeBlobs?: boolean;
+        padding?: "hero" | "section";
+        imageUrl: string | null;
+      } | {
+        _key: string;
+        _type: "richTextSection";
+        content?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        } | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          _type: "image";
+          _key: string;
+        }>;
+        background?: "cream" | "light" | "transparent";
+        maxWidth?: "medium" | "narrow" | "wide";
+      } | {
+        _key: string;
+        _type: "serviceSection";
+        service: {
+          _id: string;
+          title: string;
+          slug: string;
+          subtitle: string | null;
+          shortDescription: string | null;
+          fullDescription: Array<{
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }> | null;
+          imageUrl: string | null;
+          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+          features: Array<string> | null;
+          duration: string | null;
+          pricing: string | null;
+          ctaText: string | null;
+          ctaLink: string | null;
+          imagePosition: "left" | "right" | null;
+          sectionBackground: "cream" | "light" | null;
+          badge: string | null;
+          locations: Array<{
+            _id: string;
+            name: string;
+            shortName: string | null;
+            address: string;
+            googleMapsUrl: string | null;
+            imageUrl: string | null;
+            schedule: Array<{
+              day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
+              times?: string;
+              _key: string;
+            }> | null;
+            pricing: Array<{
+              title: string;
+              description: string;
+              _type: "pricingEntry";
+              _key: string;
+            }> | null;
+            maxParticipants: number | null;
+          }> | null;
+          events: Array<{
+            _id: string;
+            title: string;
+            description: string | null;
+          }> | null;
+        };
+        background?: "cream" | "light";
+        imagePosition?: "left" | "right";
+        badge?: string;
+        customId?: string;
+      } | {
+        _key: string;
+        _type: "testimonialsSection";
+        label?: string;
+        title?: string;
+        showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
+        featuredOnly?: boolean;
+      } | {
+        _key: string;
+        _type: "textSection";
+        label?: string;
+        title: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          } | {
+            hex?: string;
+            _type: "textColor";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+        cta?: {
+          text?: string;
+          href?: string;
+        };
+        align?: "center" | "left";
+        background?: "cream" | "gradient" | "light" | "primary" | "transparent";
+        padding?: "hero" | "section";
+      }> | null;
+    } | null;
   } | null;
   locations: Array<{
     _id: string;
@@ -936,7 +2188,12 @@ export type HomepageFromSettingsQueryResult = {
       times?: string;
       _key: string;
     }> | null;
-    pricing: string | null;
+    pricing: Array<{
+      title: string;
+      description: string;
+      _type: "pricingEntry";
+      _key: string;
+    }> | null;
   }>;
   testimonials: Array<{
     _id: string;
@@ -949,6 +2206,12 @@ export type HomepageFromSettingsQueryResult = {
 export type AllPageSlugsQueryResult = Array<{
   slug: string;
   site: "both" | "therapie" | "yoga";
+}>;
+// Variable: sitemapPagesForSiteQuery
+// Query: *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] {    "slug": slug.current,    _updatedAt  }
+export type SitemapPagesForSiteQueryResult = Array<{
+  slug: string;
+  _updatedAt: string;
 }>;
 
 // Query TypeMap
@@ -967,7 +2230,8 @@ declare module "@sanity/client" {
     "\n  *[_type == \"testimonial\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    quote,\n    site,\n    featured,\n    service-> { title }\n  }\n": AllTestimonialsQueryResult;
     "\n  *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      // Expand image URLs in heroSection\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      // Expand image URLs in imageTextSection\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      // Expand service references in cardsGridSection\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            address,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  }\n": PageBySlugQueryResult;
     "\n{\n  \"page\": *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            address,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    address,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": PageWithSectionsDataQueryResult;
-    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    tagline,\n    primaryColor,\n    contactEmail,\n    seoDescription,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      sections[] {\n        _key,\n        _type,\n        ...,\n        _type == \"heroSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"imageHeroLogoSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url,\n          \"logoUrl\": logo.asset->url\n        },\n        _type == \"imageTextSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"cardsGridSection\" => {\n          ...,\n          cards[] {\n            ...,\n            serviceRef-> {\n              _id,\n              title,\n              shortDescription,\n              icon,\n              \"slug\": slug.current,\n              \"pageSlug\": page->slug.current\n            }\n          }\n        },\n        _type == \"serviceSection\" => {\n          ...,\n          service-> {\n            _id,\n            title,\n            \"slug\": slug.current,\n            subtitle,\n            shortDescription,\n            fullDescription,\n            \"imageUrl\": image.asset->url,\n            icon,\n            features,\n            duration,\n            pricing,\n            ctaText,\n            ctaLink,\n            imagePosition,\n            sectionBackground,\n            badge,\n            locations[]-> {\n              _id,\n              name,\n              shortName,\n              address,\n              googleMapsUrl,\n              \"imageUrl\": image.asset->url,\n              schedule,\n              pricing,\n              maxParticipants\n            },\n            events[]-> {\n              _id,\n              title,\n              description\n            }\n          }\n        }\n      }\n    }\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    address,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": HomepageFromSettingsQueryResult;
+    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    tagline,\n    primaryColor,\n    contactEmail,\n    seoDescription,\n    \"ogImageUrl\": ogImage.asset->url,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      \"ogImageUrl\": ogImage.asset->url,\n      sections[] {\n        _key,\n        _type,\n        ...,\n        _type == \"heroSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"imageHeroLogoSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url,\n          \"logoUrl\": logo.asset->url\n        },\n        _type == \"imageTextSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"cardsGridSection\" => {\n          ...,\n          cards[] {\n            ...,\n            serviceRef-> {\n              _id,\n              title,\n              shortDescription,\n              icon,\n              \"slug\": slug.current,\n              \"pageSlug\": page->slug.current\n            }\n          }\n        },\n        _type == \"serviceSection\" => {\n          ...,\n          service-> {\n            _id,\n            title,\n            \"slug\": slug.current,\n            subtitle,\n            shortDescription,\n            fullDescription,\n            \"imageUrl\": image.asset->url,\n            icon,\n            features,\n            duration,\n            pricing,\n            ctaText,\n            ctaLink,\n            imagePosition,\n            sectionBackground,\n            badge,\n            locations[]-> {\n              _id,\n              name,\n              shortName,\n              address,\n              googleMapsUrl,\n              \"imageUrl\": image.asset->url,\n              schedule,\n              pricing,\n              maxParticipants\n            },\n            events[]-> {\n              _id,\n              title,\n              description\n            }\n          }\n        }\n      }\n    }\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    address,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": HomepageFromSettingsQueryResult;
     "\n  *[_type == \"page\" && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    site\n  }\n": AllPageSlugsQueryResult;
+    "\n  *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    _updatedAt\n  }\n": SitemapPagesForSiteQueryResult;
   }
 }

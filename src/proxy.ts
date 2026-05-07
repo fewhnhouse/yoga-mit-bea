@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getSiteIdFromHostname } from "@/lib/siteFromHost";
 
 // In Next.js 16, middleware is renamed to proxy
 export function proxy(request: NextRequest) {
@@ -18,18 +19,13 @@ export function proxy(request: NextRequest) {
   // On production domains, always use domain-based detection
   let siteId: string;
 
-  if ((isLocalhost || isVercelPreview) && existingCookie) {
-    // Dev/preview mode: respect the cookie set by SiteSwitcher
+  const validCookie =
+    existingCookie === "yoga" || existingCookie === "therapie";
+
+  if ((isLocalhost || isVercelPreview) && validCookie) {
     siteId = existingCookie;
-  } else if (
-    hostname.includes("therapie") ||
-    hostname.includes("therapie-mit-bea")
-  ) {
-    // Production: domain-based detection
-    siteId = "therapie";
   } else {
-    // Default to yoga
-    siteId = "yoga";
+    siteId = getSiteIdFromHostname(hostname);
   }
 
   // Forward site ID as request header for server components/layouts.
@@ -60,10 +56,13 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico
-     * - public files
+     * - public files (paths containing a dot)
      * - studio (Sanity)
+     * Plus explicit SEO routes that contain a dot in the filename:
      */
     "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|studio).*)",
+    "/sitemap.xml",
+    "/robots.txt",
   ],
 };
 

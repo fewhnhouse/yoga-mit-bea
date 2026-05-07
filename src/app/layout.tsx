@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto, Noto_Sans } from 'next/font/google'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { VisualEditing } from 'next-sanity/visual-editing'
 import './globals.css'
 import { SanityLive } from '@/sanity/lib/live'
@@ -9,6 +9,7 @@ import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
 import { Analytics } from '@vercel/analytics/next'
+import { getCanonicalOriginFromHeaders } from '@/lib/siteFromHost'
 
 const cormorant = Roboto({
   variable: '--font-cormorant',
@@ -24,9 +25,11 @@ const lora = Noto_Sans({
   display: 'swap',
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yogamitbea.de'
-
 export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers()
+  const canonicalOrigin = getCanonicalOriginFromHeaders(headersList)
+  const metadataBase = new URL(canonicalOrigin)
+
   const siteId = await getSiteId()
   const { siteSettingsId } = getSingletonIds(siteId)
 
@@ -51,8 +54,24 @@ export async function generateMetadata(): Promise<Metadata> {
   // Use description from Sanity, or undefined to let pages set their own
   const siteDescription = settings?.seoDescription || undefined
 
+  const ogPrimary =
+    typeof settings.ogImageUrl === 'string' && settings.ogImageUrl.trim()
+      ? settings.ogImageUrl.trim()
+      : null
+
+  const defaultImages = ogPrimary
+    ? [{ url: ogPrimary, width: 1200, height: 630, alt: siteName }]
+    : [
+        {
+          url: '/images/background.jpg',
+          width: 1200,
+          height: 630,
+          alt: siteName,
+        },
+      ]
+
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase,
     title: {
       default: siteName,
       template: `${siteName} | %s`,
@@ -82,24 +101,17 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: 'de_DE',
-      url: siteUrl,
+      url: canonicalOrigin,
       siteName: siteName,
       title: siteName,
       description: siteDescription,
-      images: [
-        {
-          url: '/images/background.jpg',
-          width: 1200,
-          height: 630,
-          alt: siteName,
-        },
-      ],
+      images: defaultImages,
     },
     twitter: {
       card: 'summary_large_image',
       title: siteName,
       description: siteDescription,
-      images: ['/images/background.jpg'],
+      images: defaultImages.map((img) => img.url),
     },
     robots: {
       index: true,

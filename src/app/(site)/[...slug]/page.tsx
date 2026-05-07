@@ -53,6 +53,9 @@ export async function generateMetadata({
     title: page.seoTitle || page.title,
     description: page.seoDescription,
     keywords: page.seoKeywords || undefined,
+    alternates: {
+      canonical: `/${slug}`,
+    },
     openGraph: page.ogImageUrl
       ? {
           images: [{ url: page.ogImageUrl }],

@@ -26,13 +26,29 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = homepage?.seoDescription || settings?.seoDescription || undefined
   const keywords = homepage?.seoKeywords || undefined
 
+  const ogImage =
+    (typeof homepage?.ogImageUrl === 'string' && homepage.ogImageUrl.trim()
+      ? homepage.ogImageUrl.trim()
+      : null) ||
+    (typeof settings?.ogImageUrl === 'string' && settings.ogImageUrl.trim()
+      ? settings.ogImageUrl.trim()
+      : null)
+
   return {
     title: pageTitle,
     description,
     keywords,
+    alternates: {
+      canonical: '/',
+    },
     openGraph: {
       title: `${siteName} | ${pageTitle}`,
       description,
+      ...(ogImage
+        ? {
+            images: [{ url: ogImage, width: 1200, height: 630, alt: pageTitle }],
+          }
+        : {}),
     },
   }
 }

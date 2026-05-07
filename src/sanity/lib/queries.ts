@@ -476,6 +476,7 @@ export const homepageFromSettingsQuery = defineQuery(`
     primaryColor,
     contactEmail,
     seoDescription,
+    "ogImageUrl": ogImage.asset->url,
     homepage-> {
       _id,
       title,
@@ -483,6 +484,7 @@ export const homepageFromSettingsQuery = defineQuery(`
       seoDescription,
       seoKeywords,
       "slug": slug.current,
+      "ogImageUrl": ogImage.asset->url,
       sections[] {
         _key,
         _type,
@@ -580,5 +582,13 @@ export const allPageSlugsQuery = defineQuery(`
   *[_type == "page" && defined(slug.current) && enabled != false] {
     "slug": slug.current,
     site
+  }
+`)
+
+/** URLs for sitemap — only pages visible on this site */
+export const sitemapPagesForSiteQuery = defineQuery(`
+  *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] {
+    "slug": slug.current,
+    _updatedAt
   }
 `)
