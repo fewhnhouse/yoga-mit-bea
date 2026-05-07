@@ -162,6 +162,11 @@ interface SectionRendererProps {
   sections: SectionData[]
   // Additional data that some sections need
   testimonials?: Array<{ _id: string; name: string; quote: string }>
+  /**
+   * When true, the page renders `<h1 class="sr-only">{document title}</h1>` above sections.
+   * Hero titles become styled paragraphs; section h1 choices are coerced to avoid duplicate h1.
+   */
+  pageUsesSanityDocumentTitleAsH1?: boolean
 }
 
 /**
@@ -171,7 +176,10 @@ interface SectionRendererProps {
 export function SectionRenderer({
   sections,
   testimonials = [],
+  pageUsesSanityDocumentTitleAsH1 = false,
 }: SectionRendererProps) {
+  const heroTitleAs = pageUsesSanityDocumentTitleAsH1 ? 'p' : 'h1'
+
   return (
     <>
       {sections.map((section) => {
@@ -181,6 +189,7 @@ export function SectionRenderer({
               <HeroSection
                 key={section._key}
                 title={section.title}
+                titleAs={heroTitleAs}
                 tagline={section.tagline}
                 subtitle={section.subtitle}
                 primaryCta={section.primaryCta}
@@ -243,7 +252,11 @@ export function SectionRenderer({
                 tagline={section.tagline}
                 description={section.description}
                 cta={section.cta}
-                headingLevel={section.headingLevel}
+                headingLevel={
+                  pageUsesSanityDocumentTitleAsH1 && section.headingLevel === 'h1'
+                    ? 'h2'
+                    : section.headingLevel
+                }
                 background={section.background}
                 decorativeBlobs={section.decorativeBlobs}
                 padding={section.padding}
