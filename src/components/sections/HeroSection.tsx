@@ -4,8 +4,6 @@ import LotusIcon from '@/components/icons/LotusIcon'
 
 interface HeroSectionProps {
   title?: string
-  /** When the document title is rendered as sr-only h1 elsewhere, use a styled paragraph for the visible hero title. */
-  titleAs?: 'h1' | 'p'
   tagline?: string
   subtitle?: string
   primaryCta?: {
@@ -23,7 +21,6 @@ interface HeroSectionProps {
 
 export default function HeroSection({
   title,
-  titleAs = 'h1',
   tagline,
   subtitle,
   primaryCta,
@@ -64,12 +61,7 @@ export default function HeroSection({
               </span>
             )}
 
-            {title &&
-              (titleAs === 'p' ? (
-                <p className={titleClassName}>{title}</p>
-              ) : (
-                <h1 className={titleClassName}>{title}</h1>
-              ))}
+            {title && <h2 className={titleClassName}>{title}</h2>}
 
             {tagline && (
               <p

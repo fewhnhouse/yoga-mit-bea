@@ -52,7 +52,6 @@ export default function DynamicPageContent({
       <SectionRenderer
         sections={page.sections as Parameters<typeof SectionRenderer>[0]['sections']}
         testimonials={testimonials}
-        pageUsesSanityDocumentTitleAsH1
       />
     </>
   )

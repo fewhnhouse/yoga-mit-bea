@@ -20,7 +20,6 @@ interface ImageTextSectionProps {
     text?: string
     href?: string
   }
-  headingLevel?: 'h1' | 'h2'
 
   // Section styling
   background?: 'light' | 'cream' | 'gradient' | 'pattern'
@@ -39,7 +38,6 @@ export default function ImageTextSection({
   tagline,
   description,
   cta,
-  headingLevel = 'h2',
 
   background = 'pattern',
   decorativeBlobs = true,
@@ -131,7 +129,7 @@ export default function ImageTextSection({
             <SectionHeader
               label={label || ''}
               title={title}
-              as={headingLevel}
+              as='h2'
             />
 
             {tagline && (

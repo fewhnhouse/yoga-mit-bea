@@ -46,7 +46,6 @@ export default function DynamicHomeContent({
       <SectionRenderer
         sections={page.sections as Parameters<typeof SectionRenderer>[0]['sections']}
         testimonials={testimonials as Parameters<typeof SectionRenderer>[0]['testimonials']}
-        pageUsesSanityDocumentTitleAsH1
       />
     </>
   )
