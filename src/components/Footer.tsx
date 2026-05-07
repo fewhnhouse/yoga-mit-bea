@@ -42,9 +42,9 @@ export default function Footer() {
           {/* Services Links */}
           {footerServiceLinks.length > 0 && (
             <div>
-              <h4 className="font-display text-lg font-light text-primary-dark mb-6">
+              <p className="font-display text-lg font-light text-primary-dark mb-6">
                 Angebote
-              </h4>
+              </p>
               <ul className="space-y-3">
                 {footerServiceLinks.map((link) => (
                   <li key={link.href}>
@@ -62,9 +62,9 @@ export default function Footer() {
 
           {/* Info Links */}
           <div>
-            <h4 className="font-display text-lg font-light text-primary-dark mb-6">
+            <p className="font-display text-lg font-light text-primary-dark mb-6">
               Information
-            </h4>
+            </p>
             <ul className="space-y-3">
               {footerInfoLinks.map((link) => (
                 <li key={link.href}>
@@ -81,9 +81,9 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-display text-lg font-light text-primary-dark mb-6">
+            <p className="font-display text-lg font-light text-primary-dark mb-6">
               Kontakt
-            </h4>
+            </p>
             <div className="mb-4">
               <p className="font-medium text-charcoal">Beate Ilg-Wohnhaas</p>
               <p className="text-sm text-charcoal-light">Yoga und Psychotherapie</p>
