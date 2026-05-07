@@ -25,7 +25,19 @@ export const siteSettingsQuery = defineQuery(`
     "ogImageUrl": ogImage.asset->url,
     seoDescription,
     contactEmail,
-    contactPhone
+    contactPhone,
+    businessLocation {
+      schemaOrgType,
+      streetAddress,
+      addressLocality,
+      postalCode,
+      addressRegion,
+      addressCountry,
+      latitude,
+      longitude,
+      serviceAreaDescription,
+      sameAs
+    }
   }
 `)
 

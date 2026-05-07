@@ -84,6 +84,85 @@ export default defineType({
       title: "Contact Phone",
       type: "string",
     }),
+
+    defineField({
+      name: "businessLocation",
+      title: "Standort & lokales SEO",
+      type: "object",
+      description:
+        "Strukturierte Adresse für Google (Rich Results). Namen, Telefon und Adresse sollten mit dem Google-Unternehmensprofil übereinstimmen.",
+      fields: [
+        defineField({
+          name: "schemaOrgType",
+          title: "Art des Betriebs (Schema.org)",
+          type: "string",
+          options: {
+            list: [
+              { title: "YogaStudio", value: "YogaStudio" },
+              { title: "ProfessionalService (z. B. Therapie)", value: "ProfessionalService" },
+              { title: "LocalBusiness (allgemein)", value: "LocalBusiness" },
+            ],
+            layout: "radio",
+          },
+          initialValue: "YogaStudio",
+        }),
+        defineField({
+          name: "streetAddress",
+          title: "Straße und Hausnummer",
+          type: "string",
+        }),
+        defineField({
+          name: "addressLocality",
+          title: "Ort",
+          type: "string",
+        }),
+        defineField({
+          name: "postalCode",
+          title: "PLZ",
+          type: "string",
+        }),
+        defineField({
+          name: "addressRegion",
+          title: "Bundesland",
+          type: "string",
+          description: "z. B. Baden-Württemberg",
+        }),
+        defineField({
+          name: "addressCountry",
+          title: "Land (ISO 3166-1)",
+          type: "string",
+          initialValue: "DE",
+        }),
+        defineField({
+          name: "latitude",
+          title: "Breitengrad (optional)",
+          type: "number",
+          description: "Für Geo-Koordinaten in den strukturierten Daten",
+        }),
+        defineField({
+          name: "longitude",
+          title: "Längengrad (optional)",
+          type: "number",
+        }),
+        defineField({
+          name: "serviceAreaDescription",
+          title: "Einzugsgebiet / Region",
+          type: "text",
+          rows: 2,
+          description:
+            "Kurz, z. B. „Yoga und Kurse im Lonetal, Deggingen und Umgebung.“ Wird als areaServed ausgegeben.",
+        }),
+        defineField({
+          name: "sameAs",
+          title: "Öffentliche Profile (sameAs)",
+          type: "array",
+          of: [{ type: "url" }],
+          description:
+            "Links zu Instagram, Facebook, Google-Maps-Eintrag usw. — hilft Google, Entitäten zu verknüpfen.",
+        }),
+      ],
+    }),
+
     defineField({
       name: "homepage",
       title: "Homepage",

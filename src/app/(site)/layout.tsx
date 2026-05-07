@@ -1,13 +1,15 @@
 import { SiteProvider } from '@/context/SiteContext'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import LocalBusinessJsonLd from '@/components/LocalBusinessJsonLd'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
 import { navigationDataQuery, siteSettingsQuery } from '@/sanity/lib/queries'
-import type { SiteSettingsQueryResult } from '@/sanity/types'
+import type { SiteSettingsQueryResult, SiteId } from '@/sanity/types'
 import type { SanityNavigation } from '@/types/site'
 
 interface SiteLayoutData {
+  siteId: SiteId
   nav: SanityNavigation
   settings: SiteSettingsQueryResult
 }
@@ -36,6 +38,7 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
   }
 
   return {
+    siteId,
     nav: {
       homepageSlug: navData.homepageSlug ?? undefined,
       headerNavigation: navData.headerNavigation ?? undefined,
@@ -51,10 +54,11 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { nav, settings } = await getSiteLayoutData()
+  const { siteId, nav, settings } = await getSiteLayoutData()
 
   return (
     <SiteProvider sanityNav={nav} siteSettings={settings}>
+      <LocalBusinessJsonLd settings={settings} siteId={siteId} />
       <Navbar />
       <main className='flex-grow'>{children}</main>
       <Footer />
