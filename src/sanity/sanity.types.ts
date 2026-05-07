@@ -423,7 +423,13 @@ export type Location = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  address: string;
+  streetAddress: string;
+  postalCode: string;
+  addressLocality: string;
+  addressRegion?: string;
+  addressCountry: string;
+  latitude?: number;
+  longitude?: number;
   googleMapsUrl?: string;
   schedule?: Array<{
     day?: "Montag" | "Dienstag" | "Mittwoch" | "Donnerstag" | "Freitag" | "Samstag" | "Sonntag";
@@ -855,7 +861,7 @@ export type ServicesForSiteQueryResult = Array<{
   order: number;
 }>;
 // Variable: serviceBySlugQuery
-// Query: *[_type == "service" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    fullDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      address,      googleMapsUrl,      "imageUrl": image.asset->url,      schedule,      pricing    }  }
+// Query: *[_type == "service" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    fullDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl,      "imageUrl": image.asset->url,      schedule,      pricing    }  }
 export type ServiceBySlugQueryResult = {
   _id: string;
   site: "both" | "therapie" | "yoga";
@@ -893,7 +899,13 @@ export type ServiceBySlugQueryResult = {
     name: string;
     shortName: string | null;
     slug: string | null;
-    address: string;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
     googleMapsUrl: string | null;
     imageUrl: string | null;
     schedule: Array<{
@@ -910,7 +922,7 @@ export type ServiceBySlugQueryResult = {
   }> | null;
 } | null;
 // Variable: locationsForSiteQuery
-// Query: *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    address,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy,    order  }
+// Query: *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy,    order  }
 export type LocationsForSiteQueryResult = Array<{
   _id: string;
   name: string;
@@ -918,7 +930,13 @@ export type LocationsForSiteQueryResult = Array<{
   slug: string | null;
   description: string | null;
   imageUrl: string | null;
-  address: string;
+  streetAddress: string;
+  postalCode: string;
+  addressLocality: string;
+  addressRegion: string | null;
+  addressCountry: string;
+  latitude: number | null;
+  longitude: number | null;
   googleMapsUrl: string | null;
   schedule: Array<{
     day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
@@ -936,7 +954,7 @@ export type LocationsForSiteQueryResult = Array<{
   order: number | null;
 }>;
 // Variable: locationBySlugQuery
-// Query: *[_type == "location" && slug.current == $slug][0] {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    address,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy  }
+// Query: *[_type == "location" && slug.current == $slug][0] {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy  }
 export type LocationBySlugQueryResult = {
   _id: string;
   name: string;
@@ -944,7 +962,13 @@ export type LocationBySlugQueryResult = {
   slug: string | null;
   description: string | null;
   imageUrl: string | null;
-  address: string;
+  streetAddress: string;
+  postalCode: string;
+  addressLocality: string;
+  addressRegion: string | null;
+  addressCountry: string;
+  latitude: number | null;
+  longitude: number | null;
   googleMapsUrl: string | null;
   schedule: Array<{
     day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
@@ -961,7 +985,7 @@ export type LocationBySlugQueryResult = {
   usedBy: "both" | "therapie" | "yoga" | null;
 } | null;
 // Variable: upcomingEventsQuery
-// Query: *[_type == "event" && site in [$siteId, "both"] && startDate >= now()] | order(startDate asc) {    _id,    site,    title,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      name,      address    },    customLocation,    price,    maxParticipants  }
+// Query: *[_type == "event" && site in [$siteId, "both"] && startDate >= now()] | order(startDate asc) {    _id,    site,    title,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      name,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude    },    customLocation,    price,    maxParticipants  }
 export type UpcomingEventsQueryResult = Array<{
   _id: string;
   site: "both" | "therapie" | "yoga";
@@ -973,14 +997,20 @@ export type UpcomingEventsQueryResult = Array<{
   endDate: string | null;
   location: {
     name: string;
-    address: string;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
   } | null;
   customLocation: string | null;
   price: string | null;
   maxParticipants: number | null;
 }>;
 // Variable: eventBySlugQuery
-// Query: *[_type == "event" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    description,    fullDescription,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      _id,      name,      address,      googleMapsUrl    },    customLocation,    price,    maxParticipants  }
+// Query: *[_type == "event" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    description,    fullDescription,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      _id,      name,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl    },    customLocation,    price,    maxParticipants  }
 export type EventBySlugQueryResult = {
   _id: string;
   site: "both" | "therapie" | "yoga";
@@ -1011,7 +1041,13 @@ export type EventBySlugQueryResult = {
   location: {
     _id: string;
     name: string;
-    address: string;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
     googleMapsUrl: string | null;
   } | null;
   customLocation: string | null;
@@ -1042,7 +1078,7 @@ export type AllTestimonialsQueryResult = Array<{
   } | null;
 }>;
 // Variable: pageBySlugQuery
-// Query: *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      // Expand image URLs in heroSection      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      // Expand image URLs in imageTextSection      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      // Expand service references in cardsGridSection      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            address,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  }
+// Query: *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      // Expand image URLs in heroSection      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      // Expand image URLs in imageTextSection      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      // Expand service references in cardsGridSection      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            streetAddress,            postalCode,            addressLocality,            addressRegion,            addressCountry,            latitude,            longitude,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  }
 export type PageBySlugQueryResult = {
   _id: string;
   site: "both" | "therapie" | "yoga";
@@ -1326,7 +1362,13 @@ export type PageBySlugQueryResult = {
         name: string;
         shortName: string | null;
         description: string | null;
-        address: string;
+        streetAddress: string;
+        postalCode: string;
+        addressLocality: string;
+        addressRegion: string | null;
+        addressCountry: string;
+        latitude: number | null;
+        longitude: number | null;
         googleMapsUrl: string | null;
         imageUrl: string | null;
         schedule: Array<{
@@ -1401,7 +1443,7 @@ export type PageBySlugQueryResult = {
   noIndex: boolean | null;
 } | null;
 // Variable: pageWithSectionsDataQuery
-// Query: {  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            address,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    address,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
+// Query: {  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            streetAddress,            postalCode,            addressLocality,            addressRegion,            addressCountry,            latitude,            longitude,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
 export type PageWithSectionsDataQueryResult = {
   page: {
     _id: string;
@@ -1686,7 +1728,13 @@ export type PageWithSectionsDataQueryResult = {
           name: string;
           shortName: string | null;
           description: string | null;
-          address: string;
+          streetAddress: string;
+          postalCode: string;
+          addressLocality: string;
+          addressRegion: string | null;
+          addressCountry: string;
+          latitude: number | null;
+          longitude: number | null;
           googleMapsUrl: string | null;
           imageUrl: string | null;
           schedule: Array<{
@@ -1765,7 +1813,13 @@ export type PageWithSectionsDataQueryResult = {
     name: string;
     shortName: string | null;
     description: string | null;
-    address: string;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
     googleMapsUrl: string | null;
     imageUrl: string | null;
     schedule: Array<{
@@ -1787,7 +1841,7 @@ export type PageWithSectionsDataQueryResult = {
   }>;
 };
 // Variable: homepageFromSettingsQuery
-// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    tagline,    primaryColor,    contactEmail,    seoDescription,    "ogImageUrl": ogImage.asset->url,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      "ogImageUrl": ogImage.asset->url,      sections[] {        _key,        _type,        ...,        _type == "heroSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "imageHeroLogoSection" => {          ...,          "imageUrl": image.asset->url,          "logoUrl": logo.asset->url        },        _type == "imageTextSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "cardsGridSection" => {          ...,          cards[] {            ...,            serviceRef-> {              _id,              title,              shortDescription,              icon,              "slug": slug.current,              "pageSlug": page->slug.current            }          }        },        _type == "serviceSection" => {          ...,          service-> {            _id,            title,            "slug": slug.current,            subtitle,            shortDescription,            fullDescription,            "imageUrl": image.asset->url,            icon,            features,            duration,            pricing,            ctaText,            ctaLink,            imagePosition,            sectionBackground,            badge,            locations[]-> {              _id,              name,              shortName,              address,              googleMapsUrl,              "imageUrl": image.asset->url,              schedule,              pricing,              maxParticipants            },            events[]-> {              _id,              title,              description            }          }        }      }    }  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    address,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
+// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    tagline,    primaryColor,    contactEmail,    seoDescription,    "ogImageUrl": ogImage.asset->url,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      "ogImageUrl": ogImage.asset->url,      sections[] {        _key,        _type,        ...,        _type == "heroSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "imageHeroLogoSection" => {          ...,          "imageUrl": image.asset->url,          "logoUrl": logo.asset->url        },        _type == "imageTextSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "cardsGridSection" => {          ...,          cards[] {            ...,            serviceRef-> {              _id,              title,              shortDescription,              icon,              "slug": slug.current,              "pageSlug": page->slug.current            }          }        },        _type == "serviceSection" => {          ...,          service-> {            _id,            title,            "slug": slug.current,            subtitle,            shortDescription,            fullDescription,            "imageUrl": image.asset->url,            icon,            features,            duration,            pricing,            ctaText,            ctaLink,            imagePosition,            sectionBackground,            badge,            locations[]-> {              _id,              name,              shortName,              description,              streetAddress,              postalCode,              addressLocality,              addressRegion,              addressCountry,              latitude,              longitude,              googleMapsUrl,              "imageUrl": image.asset->url,              schedule,              pricing,              maxParticipants            },            events[]-> {              _id,              title,              description            }          }        }      }    }  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
 export type HomepageFromSettingsQueryResult = {
   settings: {
     name: null;
@@ -2105,7 +2159,14 @@ export type HomepageFromSettingsQueryResult = {
             _id: string;
             name: string;
             shortName: string | null;
-            address: string;
+            description: string | null;
+            streetAddress: string;
+            postalCode: string;
+            addressLocality: string;
+            addressRegion: string | null;
+            addressCountry: string;
+            latitude: number | null;
+            longitude: number | null;
             googleMapsUrl: string | null;
             imageUrl: string | null;
             schedule: Array<{
@@ -2180,7 +2241,13 @@ export type HomepageFromSettingsQueryResult = {
     name: string;
     shortName: string | null;
     description: string | null;
-    address: string;
+    streetAddress: string;
+    postalCode: string;
+    addressLocality: string;
+    addressRegion: string | null;
+    addressCountry: string;
+    latitude: number | null;
+    longitude: number | null;
     googleMapsUrl: string | null;
     imageUrl: string | null;
     schedule: Array<{
@@ -2221,16 +2288,16 @@ declare module "@sanity/client" {
     "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    tagline,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
     "\n{\n  \"homepageSlug\": *[_id == $siteSettingsId][0].homepage->slug.current,\n  \"headerNavigation\": *[_id == $siteSettingsId][0].headerNavigation[] {\n    _key,\n    \"label\": coalesce(label, page->title),\n    \"href\": select(\n      defined(page->slug.current) => \"/\" + page->slug.current,\n      null\n    ),\n    \"subLinks\": coalesce(\n      children[defined(page->slug.current)][] {\n        _key,\n        \"label\": coalesce(label, page->title),\n        \"href\": \"/\" + page->slug.current\n      },\n      []\n    )\n  },\n  \"pages\": *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"order\": coalesce(order, 100)\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current\n  }\n}\n": NavigationDataQueryResult;
     "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    order\n  }\n": ServicesForSiteQueryResult;
-    "\n  *[_type == \"service\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      address,\n      googleMapsUrl,\n      \"imageUrl\": image.asset->url,\n      schedule,\n      pricing\n    }\n  }\n": ServiceBySlugQueryResult;
-    "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    address,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy,\n    order\n  }\n": LocationsForSiteQueryResult;
-    "\n  *[_type == \"location\" && slug.current == $slug][0] {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    address,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy\n  }\n": LocationBySlugQueryResult;
-    "\n  *[_type == \"event\" && site in [$siteId, \"both\"] && startDate >= now()] | order(startDate asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      name,\n      address\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": UpcomingEventsQueryResult;
-    "\n  *[_type == \"event\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      _id,\n      name,\n      address,\n      googleMapsUrl\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": EventBySlugQueryResult;
+    "\n  *[_type == \"service\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl,\n      \"imageUrl\": image.asset->url,\n      schedule,\n      pricing\n    }\n  }\n": ServiceBySlugQueryResult;
+    "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy,\n    order\n  }\n": LocationsForSiteQueryResult;
+    "\n  *[_type == \"location\" && slug.current == $slug][0] {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy\n  }\n": LocationBySlugQueryResult;
+    "\n  *[_type == \"event\" && site in [$siteId, \"both\"] && startDate >= now()] | order(startDate asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      name,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": UpcomingEventsQueryResult;
+    "\n  *[_type == \"event\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      _id,\n      name,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": EventBySlugQueryResult;
     "\n  *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote,\n    site,\n    service-> { title }\n  }\n": FeaturedTestimonialsQueryResult;
     "\n  *[_type == \"testimonial\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    quote,\n    site,\n    featured,\n    service-> { title }\n  }\n": AllTestimonialsQueryResult;
-    "\n  *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      // Expand image URLs in heroSection\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      // Expand image URLs in imageTextSection\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      // Expand service references in cardsGridSection\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            address,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  }\n": PageBySlugQueryResult;
-    "\n{\n  \"page\": *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            address,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    address,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": PageWithSectionsDataQueryResult;
-    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    tagline,\n    primaryColor,\n    contactEmail,\n    seoDescription,\n    \"ogImageUrl\": ogImage.asset->url,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      \"ogImageUrl\": ogImage.asset->url,\n      sections[] {\n        _key,\n        _type,\n        ...,\n        _type == \"heroSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"imageHeroLogoSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url,\n          \"logoUrl\": logo.asset->url\n        },\n        _type == \"imageTextSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"cardsGridSection\" => {\n          ...,\n          cards[] {\n            ...,\n            serviceRef-> {\n              _id,\n              title,\n              shortDescription,\n              icon,\n              \"slug\": slug.current,\n              \"pageSlug\": page->slug.current\n            }\n          }\n        },\n        _type == \"serviceSection\" => {\n          ...,\n          service-> {\n            _id,\n            title,\n            \"slug\": slug.current,\n            subtitle,\n            shortDescription,\n            fullDescription,\n            \"imageUrl\": image.asset->url,\n            icon,\n            features,\n            duration,\n            pricing,\n            ctaText,\n            ctaLink,\n            imagePosition,\n            sectionBackground,\n            badge,\n            locations[]-> {\n              _id,\n              name,\n              shortName,\n              address,\n              googleMapsUrl,\n              \"imageUrl\": image.asset->url,\n              schedule,\n              pricing,\n              maxParticipants\n            },\n            events[]-> {\n              _id,\n              title,\n              description\n            }\n          }\n        }\n      }\n    }\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    address,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": HomepageFromSettingsQueryResult;
+    "\n  *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      // Expand image URLs in heroSection\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      // Expand image URLs in imageTextSection\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      // Expand service references in cardsGridSection\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            streetAddress,\n            postalCode,\n            addressLocality,\n            addressRegion,\n            addressCountry,\n            latitude,\n            longitude,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  }\n": PageBySlugQueryResult;
+    "\n{\n  \"page\": *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            streetAddress,\n            postalCode,\n            addressLocality,\n            addressRegion,\n            addressCountry,\n            latitude,\n            longitude,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": PageWithSectionsDataQueryResult;
+    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    tagline,\n    primaryColor,\n    contactEmail,\n    seoDescription,\n    \"ogImageUrl\": ogImage.asset->url,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      \"ogImageUrl\": ogImage.asset->url,\n      sections[] {\n        _key,\n        _type,\n        ...,\n        _type == \"heroSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"imageHeroLogoSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url,\n          \"logoUrl\": logo.asset->url\n        },\n        _type == \"imageTextSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"cardsGridSection\" => {\n          ...,\n          cards[] {\n            ...,\n            serviceRef-> {\n              _id,\n              title,\n              shortDescription,\n              icon,\n              \"slug\": slug.current,\n              \"pageSlug\": page->slug.current\n            }\n          }\n        },\n        _type == \"serviceSection\" => {\n          ...,\n          service-> {\n            _id,\n            title,\n            \"slug\": slug.current,\n            subtitle,\n            shortDescription,\n            fullDescription,\n            \"imageUrl\": image.asset->url,\n            icon,\n            features,\n            duration,\n            pricing,\n            ctaText,\n            ctaLink,\n            imagePosition,\n            sectionBackground,\n            badge,\n            locations[]-> {\n              _id,\n              name,\n              shortName,\n              description,\n              streetAddress,\n              postalCode,\n              addressLocality,\n              addressRegion,\n              addressCountry,\n              latitude,\n              longitude,\n              googleMapsUrl,\n              \"imageUrl\": image.asset->url,\n              schedule,\n              pricing,\n              maxParticipants\n            },\n            events[]-> {\n              _id,\n              title,\n              description\n            }\n          }\n        }\n      }\n    }\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": HomepageFromSettingsQueryResult;
     "\n  *[_type == \"page\" && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    site\n  }\n": AllPageSlugsQueryResult;
     "\n  *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    _updatedAt\n  }\n": SitemapPagesForSiteQueryResult;
   }

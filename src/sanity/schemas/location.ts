@@ -42,12 +42,51 @@ export default defineType({
         hotspot: true,
       },
     }),
+
     defineField({
-      name: "address",
-      title: "Address",
+      name: "streetAddress",
+      title: "Straße und Hausnummer",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "postalCode",
+      title: "PLZ",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "addressLocality",
+      title: "Ort",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "addressRegion",
+      title: "Bundesland",
+      type: "string",
+      description: "Optional, z. B. Baden-Württemberg",
+    }),
+    defineField({
+      name: "addressCountry",
+      title: "Land (ISO 3166-1 alpha-2)",
+      type: "string",
+      initialValue: "DE",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "latitude",
+      title: "Breitengrad",
+      type: "number",
+      description: "Optional — für Karten und strukturierte Daten",
+    }),
+    defineField({
+      name: "longitude",
+      title: "Längengrad",
+      type: "number",
+      description: "Optional — für Karten und strukturierte Daten",
+    }),
+
     defineField({
       name: "googleMapsUrl",
       title: "Google Maps URL",
@@ -170,8 +209,20 @@ export default defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "address",
+      streetAddress: "streetAddress",
+      postalCode: "postalCode",
+      addressLocality: "addressLocality",
       media: "image",
+    },
+    prepare({ title, streetAddress, postalCode, addressLocality, media }) {
+      const subtitle = [streetAddress, postalCode, addressLocality]
+        .filter(Boolean)
+        .join(", ");
+      return {
+        title: title || "Standort",
+        subtitle: subtitle || undefined,
+        media,
+      };
     },
   },
 });

@@ -76,6 +76,7 @@ export type PricingEntry = {
 
 import type {
   PageWithSectionsDataQueryResult,
+  LocationsForSiteQueryResult,
 } from "./sanity.types";
 
 /** Service type as returned by serviceSection in page queries */
@@ -113,22 +114,7 @@ export type ServiceFromQuery = {
   imagePosition: "left" | "right" | null;
   sectionBackground: "light" | "cream" | null;
   badge: string | null;
-  locations: Array<{
-    _id: string;
-    name: string;
-    shortName: string | null;
-    description: string | null;
-    address: string;
-    googleMapsUrl: string | null;
-    imageUrl: string | null;
-    schedule: Array<{
-      day?: string;
-      times?: string;
-      _key: string;
-    }> | null;
-    pricing: PricingEntry[] | string | null;
-    maxParticipants: number | null;
-  }> | null;
+  locations: LocationsForSiteQueryResult | null;
   events: Array<{
     _id: string;
     title: string | null;

@@ -4,30 +4,40 @@ import Footer from '@/components/Footer'
 import LocalBusinessJsonLd from '@/components/LocalBusinessJsonLd'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
-import { navigationDataQuery, siteSettingsQuery } from '@/sanity/lib/queries'
-import type { SiteSettingsQueryResult, SiteId } from '@/sanity/types'
+import { navigationDataQuery, siteSettingsQuery, locationsForSiteQuery } from '@/sanity/lib/queries'
+import type {
+  SiteSettingsQueryResult,
+  SiteId,
+  LocationsForSiteQueryResult,
+} from '@/sanity/types'
 import type { SanityNavigation } from '@/types/site'
 
 interface SiteLayoutData {
   siteId: SiteId
   nav: SanityNavigation
   settings: SiteSettingsQueryResult
+  locations: LocationsForSiteQueryResult
 }
 
 async function getSiteLayoutData(): Promise<SiteLayoutData> {
   const siteId = await getSiteId()
   const { siteSettingsId } = getSingletonIds(siteId)
 
-  const [{ data: navData }, { data: settingsData }] = await Promise.all([
-    sanityFetch({
-      query: navigationDataQuery,
-      params: { siteId, siteSettingsId },
-    }),
-    sanityFetch({
-      query: siteSettingsQuery,
-      params: { siteSettingsId },
-    }),
-  ])
+  const [{ data: navData }, { data: settingsData }, { data: locationsData }] =
+    await Promise.all([
+      sanityFetch({
+        query: navigationDataQuery,
+        params: { siteId, siteSettingsId },
+      }),
+      sanityFetch({
+        query: siteSettingsQuery,
+        params: { siteSettingsId },
+      }),
+      sanityFetch({
+        query: locationsForSiteQuery,
+        params: { siteId },
+      }),
+    ])
 
   if (!navData) {
     throw new Error(`[SiteLayout] Missing navigation data for site "${siteId}".`)
@@ -46,6 +56,7 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
       services: navData.services ?? undefined,
     },
     settings: settingsData,
+    locations: locationsData ?? [],
   }
 }
 
@@ -54,11 +65,11 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { siteId, nav, settings } = await getSiteLayoutData()
+  const { siteId, nav, settings, locations } = await getSiteLayoutData()
 
   return (
     <SiteProvider sanityNav={nav} siteSettings={settings}>
-      <LocalBusinessJsonLd settings={settings} siteId={siteId} />
+      <LocalBusinessJsonLd settings={settings} siteId={siteId} locations={locations} />
       <Navbar />
       <main className='flex-grow'>{children}</main>
       <Footer />

@@ -3166,12 +3166,54 @@
         },
         "optional": true
       },
-      "address": {
+      "streetAddress": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
         "optional": false
+      },
+      "postalCode": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "addressLocality": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "addressRegion": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "addressCountry": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "latitude": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "longitude": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
       },
       "googleMapsUrl": {
         "type": "objectAttribute",

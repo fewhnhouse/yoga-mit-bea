@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
 import type { PricingEntry, ServiceFromQuery } from '@/sanity/types'
+import { formatLocationAddress } from '@/lib/formatLocationAddress'
 
 interface ServiceSectionProps {
   service: ServiceFromQuery
@@ -275,11 +276,11 @@ function LocationsLayout({
                       rel='noopener noreferrer'
                       className='text-sm text-charcoal-light hover:text-primary-dark underline underline-offset-2 transition-colors'
                     >
-                      {location.address}
+                      {formatLocationAddress(location)}
                     </a>
                   ) : (
                     <span className='text-sm text-charcoal-light'>
-                      {location.address}
+                      {formatLocationAddress(location)}
                     </span>
                   )}
                 </div>

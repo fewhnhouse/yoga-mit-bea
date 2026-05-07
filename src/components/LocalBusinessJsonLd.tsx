@@ -1,4 +1,8 @@
-import type { SiteId, SiteSettingsQueryResult } from '@/sanity/types'
+import type {
+  SiteId,
+  SiteSettingsQueryResult,
+  LocationsForSiteQueryResult,
+} from '@/sanity/types'
 
 /** Fields projected from `siteSettingsQuery` → `businessLocation` */
 export type BusinessLocationQuery = {
@@ -36,6 +40,67 @@ function defaultSchemaOrgType(siteId: SiteId): string {
   return siteId === 'yoga' ? 'YogaStudio' : 'ProfessionalService'
 }
 
+function buildPlaceFromVenue(
+  loc: LocationsForSiteQueryResult[number],
+): Record<string, unknown> | null {
+  const street = typeof loc.streetAddress === 'string' ? loc.streetAddress.trim() : ''
+  const postal = typeof loc.postalCode === 'string' ? loc.postalCode.trim() : ''
+  const locality = typeof loc.addressLocality === 'string' ? loc.addressLocality.trim() : ''
+  if (!street || !postal || !locality || !loc.name?.trim()) return null
+
+  const country =
+    typeof loc.addressCountry === 'string' && loc.addressCountry.trim()
+      ? loc.addressCountry.trim()
+      : 'DE'
+  const region =
+    typeof loc.addressRegion === 'string' && loc.addressRegion.trim()
+      ? loc.addressRegion.trim()
+      : undefined
+
+  const place: Record<string, unknown> = {
+    '@type': 'Place',
+    name: loc.name.trim(),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: street,
+      postalCode: postal,
+      addressLocality: locality,
+      addressCountry: country,
+      ...(region ? { addressRegion: region } : {}),
+    },
+  }
+
+  const lat = typeof loc.latitude === 'number' ? loc.latitude : undefined
+  const lng = typeof loc.longitude === 'number' ? loc.longitude : undefined
+  if (lat !== undefined && lng !== undefined) {
+    place.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: lat,
+      longitude: lng,
+    }
+  }
+
+  const desc =
+    typeof loc.description === 'string' && loc.description.trim()
+      ? loc.description.trim()
+      : undefined
+  if (desc) place.description = desc
+
+  const mapUrl =
+    typeof loc.googleMapsUrl === 'string' && loc.googleMapsUrl.trim()
+      ? loc.googleMapsUrl.trim()
+      : undefined
+  if (mapUrl) place.hasMap = mapUrl
+
+  const img =
+    typeof loc.imageUrl === 'string' && loc.imageUrl.trim()
+      ? loc.imageUrl.trim()
+      : undefined
+  if (img) place.image = img
+
+  return place
+}
+
 /**
  * Schema.org JSON-LD for local business / yoga studio (Google Rich Results).
  * See: https://developers.google.com/search/docs/appearance/structured-data/local-business
@@ -43,9 +108,11 @@ function defaultSchemaOrgType(siteId: SiteId): string {
 export default function LocalBusinessJsonLd({
   settings,
   siteId,
+  locations = [],
 }: {
   settings: SiteSettingsQueryResult
   siteId: SiteId
+  locations?: LocationsForSiteQueryResult
 }) {
   if (!settings || typeof settings !== 'object') return null
 
@@ -137,6 +204,16 @@ export default function LocalBusinessJsonLd({
       : []
   if (sameAs.length > 0) {
     payload.sameAs = sameAs
+  }
+
+  const venuePlaces = (locations ?? [])
+    .map(buildPlaceFromVenue)
+    .filter((p): p is Record<string, unknown> => p !== null)
+
+  if (venuePlaces.length === 1) {
+    payload.location = venuePlaces[0]
+  } else if (venuePlaces.length > 1) {
+    payload.location = venuePlaces
   }
 
   return (
