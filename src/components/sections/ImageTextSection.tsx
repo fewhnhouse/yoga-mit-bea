@@ -69,14 +69,14 @@ export default function ImageTextSection({
   const imageOrderClass = isHero
     ? `order-2 ${isImageRight ? 'lg:order-2' : 'lg:order-1'}`
     : isImageRight
-      ? 'lg:order-1'
-      : ''
+      ? 'lg:order-2'
+      : 'lg:order-1'
 
   const textOrderClass = isHero
     ? `order-1 ${isImageRight ? 'lg:order-1' : 'lg:order-2'}`
     : isImageRight
-      ? 'lg:order-2'
-      : ''
+      ? 'lg:order-1'
+      : 'lg:order-2'
 
   return (
     <section
