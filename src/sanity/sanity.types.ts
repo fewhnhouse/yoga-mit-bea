@@ -79,6 +79,8 @@ export type ServiceSection = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "service";
   };
+  subtitle?: string;
+  title?: string;
   background?: "light" | "cream";
   imagePosition?: "left" | "right";
   badge?: string;
@@ -1422,6 +1424,8 @@ export type PageBySlugQueryResult = {
     imagePosition?: "left" | "right";
     badge?: string;
     customId?: string;
+    subtitle?: string;
+    title?: string;
   } | {
     _key: string;
     _type: "testimonialsSection";
@@ -1788,6 +1792,8 @@ export type PageWithSectionsDataQueryResult = {
       imagePosition?: "left" | "right";
       badge?: string;
       customId?: string;
+      subtitle?: string;
+      title?: string;
     } | {
       _key: string;
       _type: "testimonialsSection";
@@ -2220,6 +2226,8 @@ export type HomepageFromSettingsQueryResult = {
         imagePosition?: "left" | "right";
         badge?: string;
         customId?: string;
+        subtitle?: string;
+        title?: string;
       } | {
         _key: string;
         _type: "testimonialsSection";

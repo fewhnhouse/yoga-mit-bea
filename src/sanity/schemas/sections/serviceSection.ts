@@ -18,6 +18,18 @@ export default defineType({
       description: "Select the service to display",
     }),
     defineField({
+      name: "subtitle",
+      title: "Subtitle",
+      type: "string",
+      description: "Override the service subtitle (leave empty to use the service default)",
+    }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      description: "Override the service title (leave empty to use the service default)",
+    }),
+    defineField({
       name: "background",
       title: "Background",
       type: "string",
@@ -58,13 +70,14 @@ export default defineType({
   ],
   preview: {
     select: {
+      title: "title",
       serviceTitle: "service.title",
       background: "background",
       imageUrl: "service.image.asset.url",
     },
-    prepare({ serviceTitle, background, imageUrl }) {
+    prepare({ title, serviceTitle, background, imageUrl }) {
       return {
-        title: serviceTitle || "No service selected",
+        title: title || serviceTitle || "No service selected",
         subtitle: `Service Section (${background || "light"} background)`,
         media: imageUrl ? undefined : undefined,
       };

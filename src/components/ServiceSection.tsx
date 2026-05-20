@@ -3,9 +3,14 @@ import Image from 'next/image'
 import type { ReactNode } from 'react'
 import type { PricingEntry, ServiceFromQuery } from '@/sanity/types'
 import { formatLocationAddress } from '@/lib/formatLocationAddress'
+import SectionHeader from '@/components/SectionHeader'
 
 interface ServiceSectionProps {
   service: ServiceFromQuery
+  /** Override the service title for this section */
+  title?: string
+  /** Override the service subtitle for this section */
+  subtitle?: string
   /** Background style - alternates between sections */
   background?: 'light' | 'cream'
   /** Image position */
@@ -74,6 +79,8 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
 
 export default function ServiceSection({
   service,
+  title,
+  subtitle,
   background = 'light',
   imagePosition = 'left',
   badge,
@@ -81,6 +88,8 @@ export default function ServiceSection({
   fallbackIcon,
 }: ServiceSectionProps) {
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
+  const displayTitle = title ?? service.title
+  const displaySubtitle = subtitle ?? service.subtitle
 
   // Use locations from the service itself (embedded via reference)
   const serviceLocations = service.locations
@@ -101,12 +110,16 @@ export default function ServiceSection({
             service={service}
             events={serviceEvents}
             background={background}
+            title={displayTitle}
+            subtitle={displaySubtitle}
           />
         ) : hasLocations && serviceLocations ? (
           // Layout with locations (for group courses)
           <LocationsLayout
             service={service}
             locations={serviceLocations}
+            title={displayTitle}
+            subtitle={displaySubtitle}
           />
         ) : null}
       </div>
@@ -122,10 +135,14 @@ function EventsLayout({
   service,
   events,
   background = 'light',
+  title,
+  subtitle,
 }: {
   service: ServiceFromQuery
   events: ServiceEvent[]
   background?: 'light' | 'cream'
+  title: string
+  subtitle?: string | null
 }) {
   // Use contrasting background for cards
   const cardBgClass = background === 'light' ? 'bg-cream' : 'bg-warm-white'
@@ -134,14 +151,10 @@ function EventsLayout({
     <>
       {/* Header */}
       <div className='max-w-3xl'>
-        <span
-          className='text-primary-dark font-body text-sm tracking-widest uppercase mb-2 block'
-        >
-          {service.subtitle}
-        </span>
-        <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
-          {service.title}
-        </h2>
+        <SectionHeader
+          label={subtitle || ''}
+          title={title}
+        />
         {service.shortDescription && (
           <p className='text-charcoal-light leading-relaxed mb-8'>
             {service.shortDescription}
@@ -183,26 +196,27 @@ function EventsLayout({
 function LocationsLayout({
   service,
   locations,
+  title,
+  subtitle,
 }: {
   service: ServiceFromQuery
   locations: NonNullable<ServiceFromQuery['locations']>
+  title: string
+  subtitle?: string | null
 }) {
   const hasSingleLocation = locations.length === 1
 
   return (
     <>
       {/* Header */}
-      <div className='text-center mb-12'>
-        <span
-          className='text-primary-dark font-body text-sm tracking-widest uppercase mb-2 block'
-        >
-          {service.subtitle || 'Gruppenkurse'}
-        </span>
-        <h2 className='font-display text-3xl md:text-4xl font-light text-charcoal mb-4'>
-          {service.title}
-        </h2>
+      <div className='mb-12'>
+        <SectionHeader
+          label={subtitle || 'Gruppenkurse'}
+          title={title}
+          align='center'
+        />
         {service.shortDescription && (
-          <p className='text-charcoal-light leading-relaxed max-w-2xl mx-auto'>
+          <p className='text-charcoal-light leading-relaxed max-w-2xl mx-auto text-center'>
             {service.shortDescription}
           </p>
         )}

@@ -111,6 +111,8 @@ interface CardsGridSectionData extends BaseSection {
 interface ServiceSectionData extends BaseSection {
   _type: 'serviceSection'
   service?: ServiceFromQuery
+  title?: string
+  subtitle?: string
   background?: 'light' | 'cream'
   imagePosition?: 'left' | 'right'
   badge?: string
@@ -272,6 +274,8 @@ export function SectionRenderer({
               <ServiceSection
                 key={section._key}
                 service={section.service}
+                title={section.title}
+                subtitle={section.subtitle}
                 background={section.background || 'light'}
                 imagePosition={section.imagePosition || section.service.imagePosition || 'left'}
                 badge={section.badge || section.service.badge}
