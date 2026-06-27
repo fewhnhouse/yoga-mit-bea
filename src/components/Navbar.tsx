@@ -39,6 +39,20 @@ export default function Navbar() {
     return subLinks?.some((subLink) => isActiveLink(subLink.href)) ?? false;
   };
 
+  // At the top (over the hero photo) the nav sits in translucent "island"
+  // pills so it stays legible without a full-width scrim; text stays dark.
+  // Treat an open mobile menu like the scrolled state: solid bar, no pills, so
+  // the menu panel and the top row read as one continuous surface.
+  const onDark = !isScrolled && !isMobileMenuOpen;
+  const navTextClass = "text-charcoal hover:text-primary-dark";
+  const navActiveClass = "text-primary-dark";
+  // On lg+ the bar collapses into one centered pill at the top (logo · links ·
+  // Kontakt) and grows to full width on scroll. Small screens keep the normal
+  // full-width navbar (no pill).
+  const navGroupClass = onDark
+    ? "lg:max-w-3xl lg:gap-4 lg:px-5 lg:py-2.5 lg:rounded-full lg:bg-warm-white/80 lg:backdrop-blur-md lg:shadow-lg"
+    : "lg:max-w-7xl";
+
   const getMobileSubmenuKey = (label: string, index: number) => `${label}-${index}`;
 
   const toggleMobileSubmenu = (key: string) => {
@@ -56,16 +70,25 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-warm-white/95 backdrop-blur-md shadow-sm py-3"
-          : "bg-transparent py-6"
+        onDark
+          ? "bg-transparent py-6"
+          : isScrolled
+            ? "bg-warm-white/95 backdrop-blur-md shadow-sm py-3"
+            : "bg-warm-white/98 backdrop-blur-md py-6"
       }`}
     >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
+      <nav className="container mx-auto px-6">
+        <div
+          className={`mx-auto flex items-center justify-between transition-all duration-500 ${navGroupClass}`}
+        >
         {/* Logo */}
         <Link
           href="/"
-          className="inline-flex items-center transition-opacity hover:opacity-90"
+          className={`inline-flex items-center transition-all hover:opacity-90 ${
+            onDark
+              ? "max-lg:h-12 max-lg:px-4 max-lg:rounded-full max-lg:bg-warm-white/80 max-lg:backdrop-blur-md max-lg:shadow-md"
+              : ""
+          }`}
         >
           <Image
             src="/images/logo-new.png"
@@ -73,7 +96,7 @@ export default function Navbar() {
             width={190}
             height={93}
             priority
-            className="h-12 md:h-14 w-auto"
+            className="h-9 lg:h-14 w-auto"
           />
         </Link>
 
@@ -90,7 +113,7 @@ export default function Navbar() {
                     type="button"
                     aria-haspopup="true"
                     className={`font-body transition-colors relative group flex items-center gap-1 ${
-                      isActive ? "text-primary-dark" : "text-charcoal hover:text-primary-dark"
+                      isActive ? navActiveClass : navTextClass
                     }`}
                   >
                     <span className="relative inline-block">
@@ -147,7 +170,7 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={`font-body transition-colors relative group ${
-                    isActive ? "text-primary-dark" : "text-charcoal hover:text-primary-dark"
+                    isActive ? navActiveClass : navTextClass
                   }`}
                 >
                   {link.label}
@@ -175,7 +198,11 @@ export default function Navbar() {
         {/* Mobile/Tablet: Menu Button */}
         <div className="flex lg:hidden items-center gap-3">
           <button
-            className="p-2 text-charcoal hover:text-primary-dark transition-colors"
+            className={`flex items-center justify-center text-charcoal hover:text-primary-dark transition-all ${
+              onDark
+                ? "h-12 w-12 rounded-full bg-warm-white/80 backdrop-blur-md shadow-md"
+                : "p-2"
+            }`}
             onClick={() => {
               if (isMobileMenuOpen) {
                 closeMobileMenu();
@@ -210,6 +237,7 @@ export default function Navbar() {
               )}
             </svg>
           </button>
+        </div>
         </div>
       </nav>
 

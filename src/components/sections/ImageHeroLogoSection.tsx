@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 interface ImageHeroLogoSectionProps {
@@ -9,63 +11,55 @@ interface ImageHeroLogoSectionProps {
 export default function ImageHeroLogoSection({
   imageUrl,
   imageAlt = '',
-  logoUrl,
 }: ImageHeroLogoSectionProps) {
   return (
-    <section className='relative w-full h-screen overflow-hidden flex flex-col'>
-      <div className='relative w-full flex-[3] min-h-0'>
-        {imageUrl ? (
-          <>
-            <Image
-              src={imageUrl}
-              alt={imageAlt || 'Hero image'}
-              fill
-              priority
-              sizes='100vw'
-              className='object-cover'
-            />
-            <div className='absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/10' />
-          </>
-        ) : (
-          <div className='absolute inset-0 bg-gradient-to-br from-cream via-warm-white to-primary/10' />
-        )}
-      </div>
+    <section className='relative w-full h-screen overflow-hidden'>
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={imageAlt || 'Hero image'}
+          fill
+          priority
+          sizes='100vw'
+          className='object-cover'
+        />
+      ) : (
+        <div className='absolute inset-0 bg-gradient-to-br from-cream via-warm-white to-primary/10' />
+      )}
 
-      <div className='relative flex-[1] min-h-0 overflow-hidden bg-gradient-to-b from-cream/60 to-warm-white flex items-center justify-center px-6'>
-        {/* Decorative moving bubbles */}
-        <div className='absolute -left-10 top-8 w-40 h-40 bg-primary/8 organic-blob animate-float' />
-        <div className='absolute right-[12%] bottom-4 w-56 h-56 bg-primary/6 organic-blob-2 animate-breathe' />
-        <div className='absolute left-1/2 -translate-x-1/2 top-6 w-80 h-24 bg-primary/6 rounded-full blur-3xl' />
-
-        {logoUrl ? (
-          <div className='relative z-10 w-full max-w-[460px] h-24 md:h-[7.5rem]'>
-            <Image
-              src={logoUrl}
-              alt='Logo'
-              fill
-              sizes='(max-width: 768px) 72vw, 460px'
-              className='object-contain'
-            />
-          </div>
-        ) : null}
-      </div>
-
-      <div className='absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce'>
+      {/* Scroll hint — click to advance one viewport */}
+      <button
+        type='button'
+        onClick={(e) => {
+          const section = e.currentTarget.closest('section')
+          const next = section?.nextElementSibling
+          if (next) {
+            next.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          } else {
+            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })
+          }
+        }}
+        aria-label='Mehr entdecken'
+        className='absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-row items-center gap-2 cursor-pointer rounded-full bg-warm-white/80 backdrop-blur-md shadow-md px-4 py-2 transition-colors hover:bg-warm-white/90'
+      >
+        <span className='font-body text-xs tracking-wide text-primary-dark'>
+          Mehr entdecken
+        </span>
         <svg
-          className='w-6 h-6 text-primary-dark'
+          className='w-4 h-4 text-primary-dark animate-bounce'
           fill='none'
           stroke='currentColor'
+          strokeWidth={1.5}
           viewBox='0 0 24 24'
           aria-hidden='true'
         >
           <path
             strokeLinecap='round'
             strokeLinejoin='round'
-            strokeWidth={2}
-            d='M19 14l-7 7m0 0l-7-7m7 7V3'
+            d='m19.5 8.25-7.5 7.5-7.5-7.5'
           />
         </svg>
-      </div>
+      </button>
     </section>
   )
 }
