@@ -41,17 +41,19 @@ export default function Navbar() {
 
   // At the top (over the hero photo) the nav sits in translucent "island"
   // pills so it stays legible without a full-width scrim; text stays dark.
-  // Treat an open mobile menu like the scrolled state: solid bar, no pills, so
-  // the menu panel and the top row read as one continuous surface.
-  const onDark = !isScrolled && !isMobileMenuOpen;
+  // atTop = over the hero photo → glass "island" pills. The bar turns solid
+  // when scrolled OR when the mobile menu is open, but the pill geometry stays
+  // put either way, so the logo/burger never move or resize — only the pill
+  // background fades.
+  const atTop = !isScrolled;
   const navTextClass = "text-charcoal hover:text-primary-dark";
   const navActiveClass = "text-primary-dark";
   // On lg+ the bar collapses into one centered pill at the top (logo · links ·
   // Kontakt) and grows to full width on scroll. Small screens keep the normal
-  // full-width navbar (no pill).
-  const navGroupClass = onDark
+  // full-width navbar with individual pills.
+  const navGroupClass = atTop
     ? "lg:max-w-3xl lg:gap-4 lg:px-5 lg:py-2.5 lg:rounded-full lg:bg-warm-white/80 lg:backdrop-blur-md lg:shadow-lg"
-    : "lg:max-w-7xl";
+    : "lg:max-w-7xl lg:bg-warm-white/0";
 
   const getMobileSubmenuKey = (label: string, index: number) => `${label}-${index}`;
 
@@ -70,11 +72,11 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        onDark
-          ? "bg-transparent py-6"
-          : isScrolled
-            ? "bg-warm-white/95 backdrop-blur-md shadow-sm py-3"
-            : "bg-warm-white/98 backdrop-blur-md py-6"
+        isScrolled
+          ? "bg-warm-white/95 backdrop-blur-md shadow-sm py-3"
+          : isMobileMenuOpen
+            ? "bg-warm-white/98 backdrop-blur-md py-6"
+            : "bg-warm-white/0 py-6"
       }`}
     >
       <nav className="container mx-auto px-6">
@@ -84,10 +86,10 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className={`inline-flex items-center transition-all hover:opacity-90 ${
-            onDark
-              ? "max-lg:h-12 max-lg:px-4 max-lg:rounded-full max-lg:bg-warm-white/80 max-lg:backdrop-blur-md max-lg:shadow-md"
-              : ""
+          className={`inline-flex items-center transition-all hover:opacity-90 max-lg:h-12 max-lg:px-4 max-lg:rounded-full max-lg:backdrop-blur-md ${
+            atTop && !isMobileMenuOpen
+              ? "max-lg:bg-warm-white/80 max-lg:shadow-md"
+              : "max-lg:bg-warm-white/0"
           }`}
         >
           <Image
@@ -198,10 +200,10 @@ export default function Navbar() {
         {/* Mobile/Tablet: Menu Button */}
         <div className="flex lg:hidden items-center gap-3">
           <button
-            className={`flex items-center justify-center text-charcoal hover:text-primary-dark transition-all ${
-              onDark
-                ? "h-12 w-12 rounded-full bg-warm-white/80 backdrop-blur-md shadow-md"
-                : "p-2"
+            className={`flex items-center justify-center text-charcoal hover:text-primary-dark transition-all h-12 w-12 rounded-full backdrop-blur-md ${
+              atTop && !isMobileMenuOpen
+                ? "bg-warm-white/80 shadow-md"
+                : "bg-warm-white/0"
             }`}
             onClick={() => {
               if (isMobileMenuOpen) {
