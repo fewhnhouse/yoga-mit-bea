@@ -166,9 +166,10 @@ export default defineType({
             defineField({
               name: "description",
               title: "Description",
-              type: "string",
+              type: "text",
+              rows: 3,
               validation: (Rule) => Rule.required(),
-              description: 'e.g., "8er Karte: 110€ / 120€ (60/90 Min.)"',
+              description: 'e.g., "8er Karte: 110€ / 120€ (60/90 Min.)" — line breaks are preserved',
             }),
           ],
           preview: {

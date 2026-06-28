@@ -6,7 +6,7 @@ import { useSite } from "@/context/SiteContext";
 import SiteSwitcher from "./SiteSwitcher";
 
 export default function Footer() {
-  const { currentSite, footerServiceLinks, footerInfoLinks } = useSite();
+  const { currentSite, footerServiceLinks, footerInfoLinks, isYoga } = useSite();
   const phoneNumber = currentSite.contactPhone || "+49 151 2220011";
   const telHref = `tel:${phoneNumber.replace(/\s+/g, "")}`;
   const emailAddress = currentSite.contactEmail || `info@${currentSite.domain}`;
@@ -86,7 +86,7 @@ export default function Footer() {
             </p>
             <div className="mb-4">
               <p className="font-medium text-charcoal">Beate Ilg-Wohnhaas</p>
-              <p className="text-sm text-charcoal-light">Yoga und Psychotherapie</p>
+              <p className="text-sm text-charcoal-light">{isYoga ? "Yoga und Psychotherapie" : "Heilpraktikerin für Psychotherapie"}</p>
             </div>
             <ul className="space-y-4 text-sm text-charcoal-light">
               <li className="flex items-start gap-3">

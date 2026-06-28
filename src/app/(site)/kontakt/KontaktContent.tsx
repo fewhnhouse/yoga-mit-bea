@@ -100,7 +100,7 @@ export default function KontaktContent() {
               <p className='text-charcoal-light text-lg leading-relaxed'>
                 {isYoga
                   ? 'Hast du Fragen zu meinen Yoga-Angeboten? Möchtest du einen Termin vereinbaren oder einfach mehr erfahren? Schreib mir – ich melde mich bei dir.'
-                  : 'Hast du Fragen zu meinen therapeutischen Angeboten? Möchtest du einen Termin für eine Behandlung vereinbaren? Ich freue mich auf deine Nachricht.'}
+                  : 'Hast du Fragen zu meinen Therapie Angeboten? Möchtest du einen Termin vereinbaren order einfach mehr erfahren? Schreib mir – ich melde mich bei dir.'}
               </p>
             </div>
 

@@ -85,6 +85,8 @@ export default defineType({
           { title: "Wind", value: "wind" },
           { title: "Sound", value: "sound" },
           { title: "Video", value: "video" },
+          { title: "Shell", value: "shell" },
+          { title: "Sun-Moon", value: "sun-moon" },
         ],
       },
       description: "Icon shown in service cards",

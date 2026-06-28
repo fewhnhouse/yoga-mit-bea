@@ -211,7 +211,7 @@ function LocationsLayout({
       {/* Header */}
       <div className='mb-12'>
         <SectionHeader
-          label={subtitle || 'Gruppenkurse'}
+          label={subtitle ?? ''}
           title={title}
           align='center'
         />
@@ -354,7 +354,7 @@ function LocationsLayout({
                           {entry.title && (
                             <p className='font-medium text-charcoal'>{entry.title}</p>
                           )}
-                          <p className='text-charcoal-light'>{entry.description}</p>
+                          <p className='whitespace-pre-line text-charcoal-light'>{entry.description}</p>
                         </li>
                       ))}
                     </ul>

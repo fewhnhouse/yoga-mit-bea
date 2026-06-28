@@ -58,7 +58,9 @@ export type ServiceIconType =
   | "video"
   | "heart"
   | "clock"
-  | "check";
+  | "check"
+  | "shell"
+  | "sun-moon";
 
 // Core value icon type (used in components for icon rendering)
 export type CoreValueIcon = "heart" | "clock" | "lotus" | "hands" | "path";

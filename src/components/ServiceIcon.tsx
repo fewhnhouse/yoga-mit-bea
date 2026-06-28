@@ -72,6 +72,18 @@ export default function ServiceIcon({ icon, className = 'w-8 h-8' }: ServiceIcon
           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' />
         </svg>
       )
+    case 'shell':
+      return (
+        <svg className={iconClass} fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M14 11a2 2 0 1 1-4 0 4 4 0 0 1 8 0 6 6 0 0 1-12 0 8 8 0 0 1 16 0 10 10 0 1 1-20 0 11.93 11.93 0 0 1 2.42-7.22 2 2 0 1 1 3.16 2.44' />
+        </svg>
+      )
+    case 'sun-moon':
+      return (
+        <svg className={iconClass} fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4' />
+        </svg>
+      )
     default:
       return <LotusIcon className={iconClass} />
   }
