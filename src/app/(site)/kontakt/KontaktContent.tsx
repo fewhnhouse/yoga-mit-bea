@@ -122,7 +122,7 @@ export default function KontaktContent() {
                   }}
                 >
                   <Image
-                    src='/images/bea.jpg'
+                    src='/images/bea-new.jpg'
                     alt='Beate Ilg-Wohnhaas'
                     fill
                     className='object-cover'
