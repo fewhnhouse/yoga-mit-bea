@@ -122,7 +122,7 @@ export default function KontaktContent() {
                   }}
                 >
                   <Image
-                    src='/images/bea-new.jpg'
+                    src={isYoga ? '/images/bea-yoga.jpg' : '/images/bea-therapie.jpeg'}
                     alt='Beate Ilg-Wohnhaas'
                     fill
                     className='object-cover'
