@@ -17,8 +17,8 @@ interface TestimonialsSectionProps {
 }
 
 export default function TestimonialsSection({
-  label = 'Teilnehmerstimmen',
-  title = 'Was andere sagen',
+  label = '',
+  title = '',
   testimonials = [],
 }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
