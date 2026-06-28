@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LotusIcon from '@/components/icons/LotusIcon'
+import SanityImage, { type SanityImageValue } from '@/components/SanityImage'
 
 interface HeroSectionProps {
   title?: string
@@ -14,6 +15,9 @@ interface HeroSectionProps {
     text?: string
     href?: string
   }
+  /** Rich Sanity image object (carries crop + hotspot). Preferred. */
+  image?: SanityImageValue
+  /** Legacy flat URL (no hotspot support). Fallback when `image` is absent. */
   imageUrl?: string
   personName?: string
   personRole?: string
@@ -25,12 +29,13 @@ export default function HeroSection({
   subtitle,
   primaryCta,
   secondaryCta,
+  image,
   imageUrl,
   personName = 'Beate Ilg-Wohnhaas',
   personRole = 'Yoga und Psychotherapie',
 }: HeroSectionProps) {
   // Use two-column layout when image is provided
-  const hasImage = !!imageUrl
+  const hasImage = !!image?.asset?._ref || !!imageUrl
   const titleClassName = `font-display ${hasImage ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-7xl lg:text-8xl'} font-light text-charcoal mb-6 animate-fade-in-up`
 
   return (
@@ -115,13 +120,33 @@ export default function HeroSection({
                     borderRadius: '55% 45% 50% 50% / 50% 55% 45% 50%',
                   }}
                 >
-                  <Image
-                    src={imageUrl}
-                    alt='Beate Ilg-Wohnhaas'
-                    fill
-                    className='object-cover'
-                    priority
-                  />
+                  {image?.asset?._ref ? (
+                    // Viewport-dependent, hotspot-aware crops. Each size matches
+                    // the container's responsive dimensions; all pivot around
+                    // the editor's focal point so Bea's face stays in frame.
+                    <SanityImage
+                      image={image}
+                      alt={personName}
+                      width={256}
+                      height={288}
+                      sources={[
+                        { media: '(min-width: 1024px)', width: 320, height: 384 },
+                        { media: '(min-width: 640px)', width: 288, height: 320 },
+                      ]}
+                      priority
+                      className='absolute inset-0 h-full w-full object-cover'
+                    />
+                  ) : (
+                    imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        alt={personName}
+                        fill
+                        className='object-cover'
+                        priority
+                      />
+                    )
+                  )}
                 </div>
                 {/* Small decorative accent */}
                 <div

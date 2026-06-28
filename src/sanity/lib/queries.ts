@@ -335,12 +335,22 @@ export const pageBySlugQuery = defineQuery(`
       // Expand image URLs in heroSection
       _type == "heroSection" => {
         ...,
-        "imageUrl": image.asset->url
+        "imageUrl": image.asset->url,
+        image {
+          ...,
+          "lqip": asset->metadata.lqip,
+          "dimensions": asset->metadata.dimensions
+        }
       },
       _type == "imageHeroLogoSection" => {
         ...,
         "imageUrl": image.asset->url,
-        "logoUrl": logo.asset->url
+        "logoUrl": logo.asset->url,
+        image {
+          ...,
+          "lqip": asset->metadata.lqip,
+          "dimensions": asset->metadata.dimensions
+        }
       },
       // Expand image URLs in imageTextSection
       _type == "imageTextSection" => {
@@ -431,12 +441,22 @@ export const pageWithSectionsDataQuery = defineQuery(`
       ...,
       _type == "heroSection" => {
         ...,
-        "imageUrl": image.asset->url
+        "imageUrl": image.asset->url,
+        image {
+          ...,
+          "lqip": asset->metadata.lqip,
+          "dimensions": asset->metadata.dimensions
+        }
       },
       _type == "imageHeroLogoSection" => {
         ...,
         "imageUrl": image.asset->url,
-        "logoUrl": logo.asset->url
+        "logoUrl": logo.asset->url,
+        image {
+          ...,
+          "lqip": asset->metadata.lqip,
+          "dimensions": asset->metadata.dimensions
+        }
       },
       _type == "imageTextSection" => {
         ...,
@@ -558,12 +578,22 @@ export const homepageFromSettingsQuery = defineQuery(`
         ...,
         _type == "heroSection" => {
           ...,
-          "imageUrl": image.asset->url
+          "imageUrl": image.asset->url,
+          image {
+            ...,
+            "lqip": asset->metadata.lqip,
+            "dimensions": asset->metadata.dimensions
+          }
         },
         _type == "imageHeroLogoSection" => {
           ...,
           "imageUrl": image.asset->url,
-          "logoUrl": logo.asset->url
+          "logoUrl": logo.asset->url,
+          image {
+            ...,
+            "lqip": asset->metadata.lqip,
+            "dimensions": asset->metadata.dimensions
+          }
         },
         _type == "imageTextSection" => {
           ...,

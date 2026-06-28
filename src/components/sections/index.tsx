@@ -1,6 +1,7 @@
 'use client'
 
 import HeroSection from './HeroSection'
+import type { SanityImageValue } from '@/components/SanityImage'
 import ImageHeroLogoSection from './ImageHeroLogoSection'
 import TextSectionBlock from './TextSectionBlock'
 import CTASectionBlock from './CTASectionBlock'
@@ -26,6 +27,7 @@ interface HeroSectionData extends BaseSection {
   subtitle?: string
   primaryCta?: { text?: string; href?: string }
   secondaryCta?: { text?: string; href?: string }
+  image?: SanityImageValue
   imageUrl?: string
   personName?: string
   personRole?: string
@@ -33,6 +35,7 @@ interface HeroSectionData extends BaseSection {
 
 interface ImageHeroLogoSectionData extends BaseSection {
   _type: 'imageHeroLogoSection'
+  image?: SanityImageValue
   imageUrl?: string
   imageAlt?: string
   logoUrl?: string
@@ -188,6 +191,7 @@ export function SectionRenderer({
                 subtitle={section.subtitle}
                 primaryCta={section.primaryCta}
                 secondaryCta={section.secondaryCta}
+                image={section.image}
                 imageUrl={section.imageUrl}
                 personName={section.personName}
                 personRole={section.personRole}
@@ -212,6 +216,7 @@ export function SectionRenderer({
             return (
               <ImageHeroLogoSection
                 key={section._key}
+                image={section.image}
                 imageUrl={section.imageUrl}
                 imageAlt={section.imageAlt}
                 logoUrl={section.logoUrl}

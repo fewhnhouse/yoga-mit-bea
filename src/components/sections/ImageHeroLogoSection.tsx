@@ -1,20 +1,40 @@
 'use client'
 
 import Image from 'next/image'
+import SanityImage, { type SanityImageValue } from '@/components/SanityImage'
 
 interface ImageHeroLogoSectionProps {
+  image?: SanityImageValue
   imageUrl?: string
   imageAlt?: string
   logoUrl?: string
 }
 
 export default function ImageHeroLogoSection({
+  image,
   imageUrl,
   imageAlt = '',
 }: ImageHeroLogoSectionProps) {
   return (
     <section className='relative w-full h-screen overflow-hidden'>
-      {imageUrl ? (
+      {image?.asset?._ref ? (
+        // Crop around the hotspot per viewport. Because each crop is centered
+        // on the editor's focal point (the face), the face lands in the middle
+        // of the hero — clear of the floating navbar at the top. Portrait crop
+        // on phones, landscape on desktop.
+        <SanityImage
+          image={image}
+          alt={imageAlt || 'Hero image'}
+          width={768}
+          height={1024}
+          sources={[
+            { media: '(min-width: 1024px)', width: 1600, height: 900 },
+            { media: '(min-width: 640px)', width: 1024, height: 850 },
+          ]}
+          priority
+          className='absolute inset-0 h-full w-full object-cover'
+        />
+      ) : imageUrl ? (
         <Image
           src={imageUrl}
           alt={imageAlt || 'Hero image'}
