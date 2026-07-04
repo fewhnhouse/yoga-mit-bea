@@ -5,11 +5,25 @@ import Link from "next/link";
 import { useSite } from "@/context/SiteContext";
 import SiteSwitcher from "./SiteSwitcher";
 
+const SITE_LOGOS = {
+  yoga: {
+    src: "/images/logo-new.png",
+    width: 474,
+    height: 231,
+  },
+  therapie: {
+    src: "/images/logo-therapie.png",
+    width: 1004,
+    height: 650,
+  },
+} as const;
+
 export default function Footer() {
-  const { currentSite, footerServiceLinks, footerInfoLinks, isYoga } = useSite();
+  const { currentSite, footerServiceLinks, footerInfoLinks, isYoga, siteId } = useSite();
   const phoneNumber = currentSite.contactPhone || "+49 151 2220011";
   const telHref = `tel:${phoneNumber.replace(/\s+/g, "")}`;
   const emailAddress = currentSite.contactEmail || `info@${currentSite.domain}`;
+  const logo = SITE_LOGOS[siteId];
 
   return (
     <footer className="bg-cream border-t border-sand/50">
@@ -25,10 +39,10 @@ export default function Footer() {
               className="inline-flex items-center transition-opacity hover:opacity-90 mb-6"
             >
               <Image
-                src="/images/logo-new.png"
+                src={logo.src}
                 alt={`${currentSite.name} logo`}
-                width={190}
-                height={93}
+                width={logo.width}
+                height={logo.height}
                 className="h-14 w-auto"
               />
             </Link>

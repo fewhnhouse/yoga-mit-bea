@@ -80,7 +80,11 @@ export default async function SiteLayout({
   const { siteId, nav, settings, locations, services } = await getSiteLayoutData()
 
   return (
-    <SiteProvider sanityNav={nav} siteSettings={settings}>
+    <SiteProvider
+      sanityNav={nav}
+      siteSettings={settings}
+      initialSiteId={siteId}
+    >
       <LocalBusinessJsonLd
         settings={settings}
         siteId={siteId}

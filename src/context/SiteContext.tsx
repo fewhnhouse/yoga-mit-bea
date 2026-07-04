@@ -124,11 +124,11 @@ function subscribe(): () => void {
 }
 
 // Hook to get site ID using useSyncExternalStore for proper hydration
-function useSiteId(): SiteId {
+function useSiteId(initialSiteId: SiteId): SiteId {
   return useSyncExternalStore(
     subscribe,
     getClientSiteId, // Client snapshot
-    () => DEFAULT_SITE_ID // Server snapshot (for SSR)
+    () => initialSiteId // Server snapshot (for SSR)
   )
 }
 
@@ -136,14 +136,16 @@ interface SiteProviderProps {
   children: ReactNode
   sanityNav: SanityNavigation
   siteSettings: SiteSettingsQueryResult
+  initialSiteId: SiteId
 }
 
 export function SiteProvider({
   children,
   sanityNav,
   siteSettings,
+  initialSiteId,
 }: SiteProviderProps) {
-  const siteId = useSiteId()
+  const siteId = useSiteId(initialSiteId)
   const currentSite = resolveSiteConfig(siteId, siteSettings)
 
   // Sync site ID to HTML element for CSS styling (scrollbar, etc.)

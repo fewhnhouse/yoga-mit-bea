@@ -6,13 +6,27 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSite } from "@/context/SiteContext";
 
+const SITE_LOGOS = {
+  yoga: {
+    src: "/images/logo-new.png",
+    width: 474,
+    height: 231,
+  },
+  therapie: {
+    src: "/images/logo-therapie.png",
+    width: 1004,
+    height: 650,
+  },
+} as const;
+
 export default function Navbar() {
-  const { currentSite, navLinks } = useSite();
+  const { currentSite, navLinks, siteId } = useSite();
   const pathname = usePathname();
   const currentPath = pathname ?? "/";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSubmenus, setOpenMobileSubmenus] = useState<Record<string, boolean>>({});
+  const logo = SITE_LOGOS[siteId];
 
   // Check if a link is active (exact match or starts with for nested routes)
   const isActiveLink = (href: string) => {
@@ -93,10 +107,10 @@ export default function Navbar() {
           }`}
         >
           <Image
-            src="/images/logo-new.png"
+            src={logo.src}
             alt={`${currentSite.name} logo`}
-            width={190}
-            height={93}
+            width={logo.width}
+            height={logo.height}
             priority
             className="h-9 lg:h-14 w-auto"
           />
