@@ -63,7 +63,7 @@ export default function TextSectionBlock({
       <div className='container mx-auto px-6 relative'>
         {isPrimaryBg ? (
           // Primary background: render with white text
-          <div className={`max-w-3xl ${alignClass}`}>
+          <div className={`w-full ${alignClass}`}>
             <SectionHeader
               label={label || ''}
               title={title}
@@ -105,6 +105,7 @@ export default function TextSectionBlock({
             description={description}
             cta={cta?.text && cta?.href ? { text: cta.text, href: cta.href } : undefined}
             align={align}
+            maxWidth='w-full'
           />
         )}
       </div>

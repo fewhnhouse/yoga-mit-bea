@@ -21,6 +21,15 @@ function getValidHexColor(value: unknown): string | undefined {
   return HEX_COLOR_REGEX.test(value) ? value : undefined
 }
 
+function isEmptyTextBlock(value: PortableTextBlock): boolean {
+  return (
+    value.children.length === 0 ||
+    value.children.every(
+      (child) => child._type === 'span' && child.text.trim().length === 0
+    )
+  )
+}
+
 function createComponents(tone: 'default' | 'light'): PortableTextComponents {
   const textColorClass = tone === 'light' ? 'text-white/90' : 'text-charcoal-light'
   const linkColorClass = tone === 'light'
@@ -28,6 +37,13 @@ function createComponents(tone: 'default' | 'light'): PortableTextComponents {
     : 'text-primary-dark hover:text-primary'
   const strongColorClass = tone === 'light' ? 'text-white' : ''
   const headingColorClass = tone === 'light' ? 'text-white' : 'text-charcoal'
+
+  const listSpacing = (level: number) => level > 1 ? 'mt-2 mb-0' : 'mb-4'
+  const bulletStyle = (level: number) => {
+    if (level === 1) return 'list-disc'
+    if (level === 2) return 'list-[circle]'
+    return 'list-[square]'
+  }
 
   return {
     block: {
@@ -61,20 +77,20 @@ function createComponents(tone: 'default' | 'light'): PortableTextComponents {
           {children}
         </h6>
       ),
-      normal: ({ children }) => (
-        <p className={`${textColorClass} text-lg leading-relaxed mb-4 last:mb-0`}>
-          {children}
+      normal: ({ children, value }) => (
+        <p className={`${textColorClass} whitespace-pre-line text-lg leading-relaxed mb-4 last:mb-0`}>
+          {isEmptyTextBlock(value) ? <br /> : children}
         </p>
       ),
     },
     list: {
-      bullet: ({ children }) => (
-        <ul className={`list-disc list-inside ${textColorClass} text-lg leading-relaxed mb-4 space-y-2`}>
+      bullet: ({ children, value }) => (
+        <ul className={`${bulletStyle(value.level)} list-outside pl-8 ${textColorClass} text-lg leading-relaxed ${listSpacing(value.level)} space-y-2`}>
           {children}
         </ul>
       ),
-      number: ({ children }) => (
-        <ol className={`list-decimal list-inside ${textColorClass} text-lg leading-relaxed mb-4 space-y-2`}>
+      number: ({ children, value }) => (
+        <ol className={`list-decimal list-outside pl-8 ${textColorClass} text-lg leading-relaxed ${listSpacing(value.level)} space-y-2`}>
           {children}
         </ol>
       ),
@@ -168,7 +184,7 @@ export default function SectionDescription({
       {paragraphs.map((paragraph) => (
         <p
           key={paragraph.slice(0, 50)}
-          className={`${textColorClass} text-lg leading-relaxed mb-4 last:mb-0`}
+          className={`${textColorClass} whitespace-pre-line text-lg leading-relaxed mb-4 last:mb-0`}
         >
           {paragraph}
         </p>
