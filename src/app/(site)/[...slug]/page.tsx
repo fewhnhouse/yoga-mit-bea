@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { sanityFetch } from '@/sanity/lib/live'
 import {
   pageWithSectionsDataQuery,
@@ -81,6 +81,10 @@ export default async function DynamicPage({ params }: PageProps) {
 
   if (!data?.page) {
     return notFound()
+  }
+
+  if (data.page.isHomepage) {
+    permanentRedirect('/')
   }
 
   return (

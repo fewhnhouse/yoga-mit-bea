@@ -10,10 +10,14 @@ export const SINGLETON_IDS = {
 // SHARED PROJECTIONS
 // ============================================
 
+/** The current site's homepage, which is served at "/" rather than its slug. */
+const homepageRef = `*[_type == "siteSettings" && siteId == $siteId][0].homepage._ref`
+
 /** Resolves a `link` object to `{ text, href }`. */
 const linkProjection = `{
   text,
   "href": select(
+    page._ref == ${homepageRef} => "/",
     defined(page) => "/" + page->slug.current,
     defined(route) => "/" + route
   )
@@ -134,6 +138,7 @@ export const navigationDataQuery = defineQuery(`
     _key,
     "label": coalesce(label, page->title),
     "href": select(
+      page._ref == ${homepageRef} => "/",
       defined(page->slug.current) => "/" + page->slug.current,
       null
     ),
@@ -141,7 +146,7 @@ export const navigationDataQuery = defineQuery(`
       children[defined(page->slug.current)][] {
         _key,
         "label": coalesce(label, page->title),
-        "href": "/" + page->slug.current
+        "href": select(page._ref == ${homepageRef} => "/", "/" + page->slug.current)
       },
       []
     )
@@ -218,6 +223,7 @@ export const pageWithSectionsDataQuery = defineQuery(`
 {
   "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {
     _id,
+    "isHomepage": _id == ${homepageRef},
     site,
     title,
     "slug": slug.current,
@@ -268,7 +274,7 @@ export const allPageSlugsQuery = defineQuery(`
 
 /** URLs for sitemap — only pages visible on this site */
 export const sitemapPagesForSiteQuery = defineQuery(`
-  *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] {
+  *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false && _id != ${homepageRef}] {
     "slug": slug.current,
     _updatedAt
   }
