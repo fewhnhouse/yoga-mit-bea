@@ -61,9 +61,7 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
   return {
     siteId,
     nav: {
-      homepageSlug: navData.homepageSlug ?? undefined,
       headerNavigation: navData.headerNavigation ?? undefined,
-      pages: navData.pages ?? undefined,
       services: navData.services ?? undefined,
     },
     settings: settingsData,

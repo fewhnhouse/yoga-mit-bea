@@ -34,13 +34,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "service",
-      title: "Related Service",
-      type: "reference",
-      to: [{ type: "service" }],
-      description: "Which service is this testimonial about? (optional)",
-    }),
-    defineField({
       name: "featured",
       title: "Featured",
       type: "boolean",

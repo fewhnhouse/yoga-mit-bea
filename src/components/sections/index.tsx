@@ -1,6 +1,5 @@
 'use client'
 
-import HeroSection from './HeroSection'
 import type { SanityImageValue } from '@/components/SanityImage'
 import ImageHeroLogoSection from './ImageHeroLogoSection'
 import TextSectionBlock from './TextSectionBlock'
@@ -9,7 +8,6 @@ import ImageTextSection from './ImageTextSection'
 import CardsGridSection from './CardsGridSection'
 import ServiceSection from '@/components/ServiceSection'
 import TestimonialsSection from './TestimonialsSection'
-import RichTextSection from './RichTextSection'
 import GoogleMeetSection from './GoogleMeetSection'
 import type { ServiceFromQuery } from '@/sanity/types'
 import type { PortableTextBlock } from '@portabletext/types'
@@ -18,19 +16,6 @@ import type { PortableTextBlock } from '@portabletext/types'
 interface BaseSection {
   _key: string
   _type: string
-}
-
-interface HeroSectionData extends BaseSection {
-  _type: 'heroSection'
-  title?: string
-  tagline?: string
-  subtitle?: string
-  primaryCta?: { text?: string; href?: string }
-  secondaryCta?: { text?: string; href?: string }
-  image?: SanityImageValue
-  imageUrl?: string
-  personName?: string
-  personRole?: string
 }
 
 interface ImageHeroLogoSectionData extends BaseSection {
@@ -43,10 +28,9 @@ interface ImageHeroLogoSectionData extends BaseSection {
 
 interface TextSectionData extends BaseSection {
   _type: 'textSection'
-  label?: string
   title: string
   description?: PortableTextBlock[] | string[] | string
-  cta?: { text?: string; href?: string }
+  cta?: { text?: string | null; href?: string | null } | null
   align?: 'left' | 'center'
   background?: 'transparent' | 'light' | 'cream' | 'gradient' | 'primary'
   padding?: 'hero' | 'section'
@@ -56,14 +40,9 @@ interface CTASectionData extends BaseSection {
   _type: 'ctaSection'
   title: string
   description: string
-  ctas?: Array<{
-    text: string
-    href: string
-    variant?: 'primary' | 'secondary'
-  }>
+  ctas?: Array<{ _key: string; text?: string | null; href?: string | null }>
   variant?: 'solid' | 'light'
   isQuote?: boolean
-  icon?: string
   decorative?: boolean
   padding?: 'default' | 'large'
 }
@@ -74,13 +53,9 @@ interface ImageTextSectionData extends BaseSection {
   imageAlt?: string
   imagePosition?: 'left' | 'right'
   aspectRatio?: '4/5' | '3/4' | '4/3'
-  label?: string
   title: string
-  tagline?: string
   description?: PortableTextBlock[] | string[] | string
-  cta?: { text?: string; href?: string }
-  /** @deprecated Ignored in UI; document uses sr-only h1; sections use h2. */
-  headingLevel?: 'h1' | 'h2'
+  cta?: { text?: string | null; href?: string | null } | null
   background?: 'light' | 'cream' | 'gradient' | 'pattern'
   decorativeBlobs?: boolean
   padding?: 'hero' | 'section'
@@ -117,25 +92,11 @@ interface ServiceSectionData extends BaseSection {
   title?: string
   subtitle?: string
   background?: 'light' | 'cream'
-  imagePosition?: 'left' | 'right'
-  badge?: string
-  customId?: string
 }
 
 interface TestimonialsSectionData extends BaseSection {
   _type: 'testimonialsSection'
-  label?: string
   title?: string
-  showTestimonialsFrom?: 'current' | 'yoga' | 'therapie' | 'both'
-  featuredOnly?: boolean
-}
-
-interface RichTextSectionData extends BaseSection {
-  _type: 'richTextSection'
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content?: any[]
-  background?: 'light' | 'cream' | 'transparent'
-  maxWidth?: 'narrow' | 'medium' | 'wide'
 }
 
 interface GoogleMeetSectionData extends BaseSection {
@@ -152,7 +113,6 @@ interface GoogleMeetSectionData extends BaseSection {
 
 // Union type for all sections
 type SectionData =
-  | HeroSectionData
   | ImageHeroLogoSectionData
   | TextSectionData
   | CTASectionData
@@ -160,7 +120,6 @@ type SectionData =
   | CardsGridSectionData
   | ServiceSectionData
   | TestimonialsSectionData
-  | RichTextSectionData
   | GoogleMeetSectionData
 
 // Props for the SectionRenderer
@@ -182,27 +141,11 @@ export function SectionRenderer({
     <>
       {sections.map((section) => {
         switch (section._type) {
-          case 'heroSection':
-            return (
-              <HeroSection
-                key={section._key}
-                title={section.title}
-                tagline={section.tagline}
-                subtitle={section.subtitle}
-                primaryCta={section.primaryCta}
-                secondaryCta={section.secondaryCta}
-                image={section.image}
-                imageUrl={section.imageUrl}
-                personName={section.personName}
-                personRole={section.personRole}
-              />
-            )
 
           case 'textSection':
             return (
               <TextSectionBlock
                 key={section._key}
-                label={section.label}
                 title={section.title}
                 description={section.description}
                 cta={section.cta}
@@ -232,7 +175,6 @@ export function SectionRenderer({
                 ctas={section.ctas}
                 variant={section.variant}
                 isQuote={section.isQuote}
-                icon={section.icon}
                 decorative={section.decorative}
                 padding={section.padding}
               />
@@ -246,9 +188,7 @@ export function SectionRenderer({
                 imageAlt={section.imageAlt}
                 imagePosition={section.imagePosition}
                 aspectRatio={section.aspectRatio}
-                label={section.label}
                 title={section.title}
-                tagline={section.tagline}
                 description={section.description}
                 cta={section.cta}
                 background={section.background}
@@ -282,9 +222,6 @@ export function SectionRenderer({
                 title={section.title}
                 subtitle={section.subtitle}
                 background={section.background || 'light'}
-                imagePosition={section.imagePosition || section.service.imagePosition || 'left'}
-                badge={section.badge || section.service.badge}
-                id={section.customId || section.service.slug}
               />
             )
 
@@ -292,21 +229,11 @@ export function SectionRenderer({
             return (
               <TestimonialsSection
                 key={section._key}
-                label={section.label}
                 title={section.title}
                 testimonials={testimonials}
               />
             )
 
-          case 'richTextSection':
-            return (
-              <RichTextSection
-                key={section._key}
-                content={section.content}
-                background={section.background}
-                maxWidth={section.maxWidth}
-              />
-            )
 
           case 'googleMeetSection':
             return (
@@ -336,7 +263,6 @@ export function SectionRenderer({
 
 // Re-export individual components for direct use
 export {
-  HeroSection,
   ImageHeroLogoSection,
   TextSectionBlock,
   CTASectionBlock,
@@ -344,6 +270,5 @@ export {
   CardsGridSection,
   ServiceSection,
   TestimonialsSection,
-  RichTextSection,
   GoogleMeetSection,
 }

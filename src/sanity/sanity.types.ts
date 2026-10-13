@@ -25,50 +25,9 @@ export type GoogleMeetSection = {
   background?: "light" | "cream";
 };
 
-export type RichTextSection = {
-  _type: "richTextSection";
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    caption?: string;
-    _type: "image";
-    _key: string;
-  }>;
-  background?: "light" | "cream" | "transparent";
-  maxWidth?: "narrow" | "medium" | "wide";
-};
-
 export type TestimonialsSection = {
   _type: "testimonialsSection";
-  label?: string;
   title?: string;
-  showTestimonialsFrom?: "current" | "yoga" | "therapie" | "both";
-  featuredOnly?: boolean;
 };
 
 export type ServiceSection = {
@@ -82,9 +41,6 @@ export type ServiceSection = {
   subtitle?: string;
   title?: string;
   background?: "light" | "cream";
-  imagePosition?: "left" | "right";
-  badge?: string;
-  customId?: string;
 };
 
 export type CardsGridSection = {
@@ -164,9 +120,7 @@ export type ImageTextSection = {
   imageAlt?: string;
   imagePosition?: "left" | "right";
   aspectRatio?: "4/5" | "3/4" | "4/3";
-  label?: string;
   title: string;
-  tagline?: string;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -189,11 +143,7 @@ export type ImageTextSection = {
     _type: "block";
     _key: string;
   }>;
-  cta?: {
-    text?: string;
-    href?: string;
-  };
-  headingLevel?: "h1" | "h2";
+  cta?: Link;
   background?: "light" | "cream" | "gradient" | "pattern";
   decorativeBlobs?: boolean;
   padding?: "hero" | "section";
@@ -204,21 +154,16 @@ export type CtaSection = {
   title: string;
   description: string;
   ctas?: Array<{
-    text: string;
-    href: string;
-    variant?: "primary" | "secondary";
     _key: string;
-  }>;
+  } & Link>;
   variant?: "solid" | "light";
   isQuote?: boolean;
-  icon?: "" | "lotus" | "group" | "calendar" | "path" | "hands" | "wind" | "sound" | "video" | "heart" | "clock" | "check";
   decorative?: boolean;
   padding?: "default" | "large";
 };
 
 export type TextSection = {
   _type: "textSection";
-  label?: string;
   title: string;
   description?: Array<{
     children?: Array<{
@@ -242,10 +187,7 @@ export type TextSection = {
     _type: "block";
     _key: string;
   }>;
-  cta?: {
-    text?: string;
-    href?: string;
-  };
+  cta?: Link;
   align?: "left" | "center";
   background?: "transparent" | "light" | "cream" | "gradient" | "primary";
   padding?: "hero" | "section";
@@ -280,33 +222,16 @@ export type ImageHeroLogoSection = {
   };
 };
 
-export type HeroSection = {
-  _type: "heroSection";
-  title: string;
-  tagline?: string;
-  subtitle?: string;
-  primaryCta?: {
-    text?: string;
-    href?: string;
+export type Link = {
+  _type: "link";
+  text: string;
+  page?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
   };
-  secondaryCta?: {
-    text?: string;
-    href?: string;
-  };
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  personName?: string;
-  personRole?: string;
+  route?: "kontakt" | "impressum" | "datenschutz";
 };
 
 export type Testimonial = {
@@ -318,89 +243,8 @@ export type Testimonial = {
   site: "yoga" | "therapie" | "both";
   name: string;
   quote: string;
-  service?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "service";
-  };
   featured?: boolean;
   order?: number;
-};
-
-export type Event = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  site: "yoga" | "therapie" | "both";
-  title: string;
-  slug?: Slug;
-  description?: string;
-  fullDescription?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  startDate?: string;
-  endDate?: string;
-  location?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "location";
-  };
-  customLocation?: string;
-  price?: string;
-  maxParticipants?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
 };
 
 export type Location = {
@@ -410,8 +254,7 @@ export type Location = {
   _updatedAt: string;
   _rev: string;
   name: string;
-  shortName?: string;
-  slug?: Slug;
+  usedBy: "yoga" | "therapie" | "both";
   description?: string;
   image?: {
     asset?: {
@@ -444,9 +287,23 @@ export type Location = {
     _type: "pricingEntry";
     _key: string;
   }>;
-  maxParticipants?: number;
-  usedBy?: "yoga" | "therapie" | "both";
   order?: number;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SiteSettings = {
@@ -457,7 +314,6 @@ export type SiteSettings = {
   _rev: string;
   siteId: "yoga" | "therapie";
   name: string;
-  tagline?: string;
   domain?: string;
   primaryColor?: "sage" | "terracotta";
   logo?: {
@@ -539,10 +395,7 @@ export type Page = {
   site: "yoga" | "therapie" | "both";
   title: string;
   slug: Slug;
-  order?: number;
   sections?: Array<{
-    _key: string;
-  } & HeroSection | {
     _key: string;
   } & ImageHeroLogoSection | {
     _key: string;
@@ -557,8 +410,6 @@ export type Page = {
   } & ServiceSection | {
     _key: string;
   } & TestimonialsSection | {
-    _key: string;
-  } & RichTextSection | {
     _key: string;
   } & GoogleMeetSection>;
   seoTitle?: string;
@@ -596,24 +447,6 @@ export type Service = {
   };
   subtitle?: string;
   shortDescription?: string;
-  fullDescription?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
   image?: {
     asset?: {
       _ref: string;
@@ -626,12 +459,8 @@ export type Service = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  icon?: "lotus" | "group" | "calendar" | "path" | "hands" | "wind" | "sound" | "video";
-  features?: Array<string>;
-  duration?: string;
-  pricing?: string;
-  ctaText?: string;
-  ctaLink?: string;
+  icon?: "lotus" | "group" | "calendar" | "path" | "hands" | "wind" | "sound" | "video" | "shell" | "sun-moon";
+  cta?: Link;
   locations?: Array<{
     _ref: string;
     _type: "reference";
@@ -639,17 +468,13 @@ export type Service = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "location";
   }>;
-  events?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "event";
-  }>;
   order: number;
-  imagePosition?: "left" | "right";
-  sectionBackground?: "light" | "cream";
-  badge?: string;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -748,16 +573,15 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = GoogleMeetSection | RichTextSection | TestimonialsSection | ServiceSection | CardsGridSection | ImageTextSection | CtaSection | TextSection | ImageHeroLogoSection | HeroSection | Testimonial | Event | SanityImageCrop | SanityImageHotspot | Slug | Location | SiteSettings | Page | Service | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = GoogleMeetSection | TestimonialsSection | ServiceSection | CardsGridSection | ImageTextSection | CtaSection | TextSection | ImageHeroLogoSection | Link | Testimonial | Location | SanityImageCrop | SanityImageHotspot | SiteSettings | Page | Service | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: siteSettingsQuery
-// Query: *[_id == $siteSettingsId][0] {    _id,    siteId,    name,    tagline,    domain,    primaryColor,    "logoUrl": logo.asset->url,    "ogImageUrl": ogImage.asset->url,    seoDescription,    contactEmail,    contactPhone,    businessLocation {      schemaOrgType,      streetAddress,      addressLocality,      postalCode,      addressRegion,      addressCountry,      latitude,      longitude,      serviceAreaDescription,      sameAs    }  }
+// Query: *[_id == $siteSettingsId][0] {    _id,    siteId,    name,    domain,    primaryColor,    "logoUrl": logo.asset->url,    "ogImageUrl": ogImage.asset->url,    seoDescription,    contactEmail,    contactPhone,    businessLocation {      schemaOrgType,      streetAddress,      addressLocality,      postalCode,      addressRegion,      addressCountry,      latitude,      longitude,      serviceAreaDescription,      sameAs    }  }
 export type SiteSettingsQueryResult = {
   _id: string;
   siteId: null;
   name: null;
-  tagline: null;
   domain: null;
   primaryColor: null;
   logoUrl: null;
@@ -770,7 +594,6 @@ export type SiteSettingsQueryResult = {
   _id: string;
   siteId: null;
   name: null;
-  tagline: null;
   domain: null;
   primaryColor: null;
   logoUrl: null;
@@ -783,7 +606,6 @@ export type SiteSettingsQueryResult = {
   _id: string;
   siteId: null;
   name: string;
-  tagline: null;
   domain: null;
   primaryColor: null;
   logoUrl: null;
@@ -796,7 +618,6 @@ export type SiteSettingsQueryResult = {
   _id: string;
   siteId: "therapie" | "yoga";
   name: string;
-  tagline: string | null;
   domain: string | null;
   primaryColor: "sage" | "terracotta" | null;
   logoUrl: string | null;
@@ -818,9 +639,8 @@ export type SiteSettingsQueryResult = {
   } | null;
 } | null;
 // Variable: navigationDataQuery
-// Query: {  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,  "headerNavigation": *[_id == $siteSettingsId][0].headerNavigation[] {    _key,    "label": coalesce(label, page->title),    "href": select(      defined(page->slug.current) => "/" + page->slug.current,      null    ),    "subLinks": coalesce(      children[defined(page->slug.current)][] {        _key,        "label": coalesce(label, page->title),        "href": "/" + page->slug.current      },      []    )  },  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "order": coalesce(order, 100)  },  "services": *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "pageSlug": page->slug.current  }}
+// Query: {  "headerNavigation": *[_id == $siteSettingsId][0].headerNavigation[] {    _key,    "label": coalesce(label, page->title),    "href": select(      defined(page->slug.current) => "/" + page->slug.current,      null    ),    "subLinks": coalesce(      children[defined(page->slug.current)][] {        _key,        "label": coalesce(label, page->title),        "href": "/" + page->slug.current      },      []    )  },  "services": *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "pageSlug": page->slug.current  }}
 export type NavigationDataQueryResult = {
-  homepageSlug: string | null;
   headerNavigation: Array<{
     _key: string;
     label: string;
@@ -831,12 +651,6 @@ export type NavigationDataQueryResult = {
       href: string;
     }> | Array<never>;
   }> | null;
-  pages: Array<{
-    _id: string;
-    title: string;
-    slug: string;
-    order: number | 100;
-  }>;
   services: Array<{
     _id: string;
     title: string;
@@ -845,28 +659,17 @@ export type NavigationDataQueryResult = {
   }>;
 };
 // Variable: servicesForSiteQuery
-// Query: *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    site,    title,    "slug": slug.current,    "pageSlug": page->slug.current,    subtitle,    shortDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    order,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      description,      "imageUrl": image.asset->url,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl,      schedule,      pricing    }  }
+// Query: *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {    _id,    title,    "slug": slug.current,    "pageSlug": page->slug.current,    shortDescription,    "imageUrl": image.asset->url,    locations[]-> {      _id,      name,      description,      "imageUrl": image.asset->url,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl    }  }
 export type ServicesForSiteQueryResult = Array<{
   _id: string;
-  site: "both" | "therapie" | "yoga";
   title: string;
   slug: string;
   pageSlug: string | null;
-  subtitle: string | null;
   shortDescription: string | null;
   imageUrl: string | null;
-  icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-  features: Array<string> | null;
-  duration: string | null;
-  pricing: string | null;
-  ctaText: string | null;
-  ctaLink: string | null;
-  order: number;
   locations: Array<{
     _id: string;
     name: string;
-    shortName: string | null;
-    slug: string | null;
     description: string | null;
     imageUrl: string | null;
     streetAddress: string;
@@ -877,87 +680,13 @@ export type ServicesForSiteQueryResult = Array<{
     latitude: number | null;
     longitude: number | null;
     googleMapsUrl: string | null;
-    schedule: Array<{
-      day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-      times?: string;
-      _key: string;
-    }> | null;
-    pricing: Array<{
-      title: string;
-      description: string;
-      _type: "pricingEntry";
-      _key: string;
-    }> | null;
   }> | null;
 }>;
-// Variable: serviceBySlugQuery
-// Query: *[_type == "service" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    subtitle,    shortDescription,    fullDescription,    "imageUrl": image.asset->url,    icon,    features,    duration,    pricing,    ctaText,    ctaLink,    locations[]-> {      _id,      name,      shortName,      "slug": slug.current,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl,      "imageUrl": image.asset->url,      schedule,      pricing    }  }
-export type ServiceBySlugQueryResult = {
-  _id: string;
-  site: "both" | "therapie" | "yoga";
-  title: string;
-  slug: string;
-  subtitle: string | null;
-  shortDescription: string | null;
-  fullDescription: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  imageUrl: string | null;
-  icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-  features: Array<string> | null;
-  duration: string | null;
-  pricing: string | null;
-  ctaText: string | null;
-  ctaLink: string | null;
-  locations: Array<{
-    _id: string;
-    name: string;
-    shortName: string | null;
-    slug: string | null;
-    streetAddress: string;
-    postalCode: string;
-    addressLocality: string;
-    addressRegion: string | null;
-    addressCountry: string;
-    latitude: number | null;
-    longitude: number | null;
-    googleMapsUrl: string | null;
-    imageUrl: string | null;
-    schedule: Array<{
-      day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-      times?: string;
-      _key: string;
-    }> | null;
-    pricing: Array<{
-      title: string;
-      description: string;
-      _type: "pricingEntry";
-      _key: string;
-    }> | null;
-  }> | null;
-} | null;
 // Variable: locationsForSiteQuery
-// Query: *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy,    order  }
+// Query: *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    description,    "imageUrl": image.asset->url,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl  }
 export type LocationsForSiteQueryResult = Array<{
   _id: string;
   name: string;
-  shortName: string | null;
-  slug: string | null;
   description: string | null;
   imageUrl: string | null;
   streetAddress: string;
@@ -968,514 +697,9 @@ export type LocationsForSiteQueryResult = Array<{
   latitude: number | null;
   longitude: number | null;
   googleMapsUrl: string | null;
-  schedule: Array<{
-    day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-    times?: string;
-    _key: string;
-  }> | null;
-  pricing: Array<{
-    title: string;
-    description: string;
-    _type: "pricingEntry";
-    _key: string;
-  }> | null;
-  maxParticipants: number | null;
-  usedBy: "both" | "therapie" | "yoga" | null;
-  order: number | null;
 }>;
-// Variable: locationBySlugQuery
-// Query: *[_type == "location" && slug.current == $slug][0] {    _id,    name,    shortName,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    schedule,    pricing,    maxParticipants,    usedBy  }
-export type LocationBySlugQueryResult = {
-  _id: string;
-  name: string;
-  shortName: string | null;
-  slug: string | null;
-  description: string | null;
-  imageUrl: string | null;
-  streetAddress: string;
-  postalCode: string;
-  addressLocality: string;
-  addressRegion: string | null;
-  addressCountry: string;
-  latitude: number | null;
-  longitude: number | null;
-  googleMapsUrl: string | null;
-  schedule: Array<{
-    day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-    times?: string;
-    _key: string;
-  }> | null;
-  pricing: Array<{
-    title: string;
-    description: string;
-    _type: "pricingEntry";
-    _key: string;
-  }> | null;
-  maxParticipants: number | null;
-  usedBy: "both" | "therapie" | "yoga" | null;
-} | null;
-// Variable: upcomingEventsQuery
-// Query: *[_type == "event" && site in [$siteId, "both"] && startDate >= now()] | order(startDate asc) {    _id,    site,    title,    "slug": slug.current,    description,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      name,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude    },    customLocation,    price,    maxParticipants  }
-export type UpcomingEventsQueryResult = Array<{
-  _id: string;
-  site: "both" | "therapie" | "yoga";
-  title: string;
-  slug: string | null;
-  description: string | null;
-  imageUrl: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  location: {
-    name: string;
-    streetAddress: string;
-    postalCode: string;
-    addressLocality: string;
-    addressRegion: string | null;
-    addressCountry: string;
-    latitude: number | null;
-    longitude: number | null;
-  } | null;
-  customLocation: string | null;
-  price: string | null;
-  maxParticipants: number | null;
-}>;
-// Variable: eventBySlugQuery
-// Query: *[_type == "event" && slug.current == $slug][0] {    _id,    site,    title,    "slug": slug.current,    description,    fullDescription,    "imageUrl": image.asset->url,    startDate,    endDate,    location-> {      _id,      name,      streetAddress,      postalCode,      addressLocality,      addressRegion,      addressCountry,      latitude,      longitude,      googleMapsUrl    },    customLocation,    price,    maxParticipants  }
-export type EventBySlugQueryResult = {
-  _id: string;
-  site: "both" | "therapie" | "yoga";
-  title: string;
-  slug: string | null;
-  description: string | null;
-  fullDescription: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  imageUrl: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  location: {
-    _id: string;
-    name: string;
-    streetAddress: string;
-    postalCode: string;
-    addressLocality: string;
-    addressRegion: string | null;
-    addressCountry: string;
-    latitude: number | null;
-    longitude: number | null;
-    googleMapsUrl: string | null;
-  } | null;
-  customLocation: string | null;
-  price: string | null;
-  maxParticipants: number | null;
-} | null;
-// Variable: featuredTestimonialsQuery
-// Query: *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote,    site,    service-> { title }  }
-export type FeaturedTestimonialsQueryResult = Array<{
-  _id: string;
-  name: string;
-  quote: string;
-  site: "both" | "therapie" | "yoga";
-  service: {
-    title: string;
-  } | null;
-}>;
-// Variable: allTestimonialsQuery
-// Query: *[_type == "testimonial" && site in [$siteId, "both"]] | order(order asc) {    _id,    name,    quote,    site,    featured,    service-> { title }  }
-export type AllTestimonialsQueryResult = Array<{
-  _id: string;
-  name: string;
-  quote: string;
-  site: "both" | "therapie" | "yoga";
-  featured: boolean | null;
-  service: {
-    title: string;
-  } | null;
-}>;
-// Variable: pageBySlugQuery
-// Query: *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      // Expand image URLs in heroSection      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      // Expand image URLs in imageTextSection      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      // Expand service references in cardsGridSection      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            streetAddress,            postalCode,            addressLocality,            addressRegion,            addressCountry,            latitude,            longitude,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  }
-export type PageBySlugQueryResult = {
-  _id: string;
-  site: "both" | "therapie" | "yoga";
-  title: string;
-  slug: string;
-  sections: Array<{
-    _key: string;
-    _type: "cardsGridSection";
-    label?: string;
-    title?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal";
-      listItem?: never;
-      markDefs?: Array<{
-        hex?: string;
-        _type: "textColor";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    description?: string;
-    columns?: 2 | 3 | 4;
-    background?: "cream" | "light";
-    cardVariant?: "card" | "flat";
-    cardSize?: "compact" | "default";
-    cardAlign?: "center" | "left";
-    cards: Array<{
-      serviceRef: {
-        _id: string;
-        title: string;
-        shortDescription: string | null;
-        icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-        slug: string;
-        pageSlug: string | null;
-      } | null;
-      icon?: "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "home" | "lotus" | "path" | "sound" | "video" | "wind";
-      title?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal";
-        listItem?: never;
-        markDefs?: Array<{
-          hex?: string;
-          _type: "textColor";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      description?: string;
-      ctaText?: string;
-      _type: "card";
-      _key: string;
-    }> | null;
-  } | {
-    _key: string;
-    _type: "ctaSection";
-    title: string;
-    description: string;
-    ctas?: Array<{
-      text: string;
-      href: string;
-      variant?: "primary" | "secondary";
-      _key: string;
-    }>;
-    variant?: "light" | "solid";
-    isQuote?: boolean;
-    icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
-    decorative?: boolean;
-    padding?: "default" | "large";
-  } | {
-    _key: string;
-    _type: "googleMeetSection";
-    title: string;
-    schedule?: string;
-    instructionsTitle?: string;
-    instructions?: Array<string>;
-    meetLink: string;
-    buttonText?: string;
-    footnote?: string;
-    background?: "cream" | "light";
-  } | {
-    _key: string;
-    _type: "heroSection";
-    title: string;
-    tagline?: string;
-    subtitle?: string;
-    primaryCta?: {
-      text?: string;
-      href?: string;
-    };
-    secondaryCta?: {
-      text?: string;
-      href?: string;
-    };
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    personName?: string;
-    personRole?: string;
-    imageUrl: string | null;
-  } | {
-    _key: string;
-    _type: "imageHeroLogoSection";
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    imageAlt?: string;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    imageUrl: string | null;
-    logoUrl: string | null;
-  } | {
-    _key: string;
-    _type: "imageTextSection";
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    imageAlt?: string;
-    imagePosition?: "left" | "right";
-    aspectRatio?: "3/4" | "4/3" | "4/5";
-    label?: string;
-    title: string;
-    tagline?: string;
-    description?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      } | {
-        hex?: string;
-        _type: "textColor";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    cta?: {
-      text?: string;
-      href?: string;
-    };
-    headingLevel?: "h1" | "h2";
-    background?: "cream" | "gradient" | "light" | "pattern";
-    decorativeBlobs?: boolean;
-    padding?: "hero" | "section";
-    imageUrl: string | null;
-  } | {
-    _key: string;
-    _type: "richTextSection";
-    content?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      caption?: string;
-      _type: "image";
-      _key: string;
-    }>;
-    background?: "cream" | "light" | "transparent";
-    maxWidth?: "medium" | "narrow" | "wide";
-  } | {
-    _key: string;
-    _type: "serviceSection";
-    service: {
-      _id: string;
-      title: string;
-      slug: string;
-      subtitle: string | null;
-      shortDescription: string | null;
-      fullDescription: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }> | null;
-      imageUrl: string | null;
-      icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-      features: Array<string> | null;
-      duration: string | null;
-      pricing: string | null;
-      ctaText: string | null;
-      ctaLink: string | null;
-      imagePosition: "left" | "right" | null;
-      sectionBackground: "cream" | "light" | null;
-      badge: string | null;
-      locations: Array<{
-        _id: string;
-        name: string;
-        shortName: string | null;
-        description: string | null;
-        streetAddress: string;
-        postalCode: string;
-        addressLocality: string;
-        addressRegion: string | null;
-        addressCountry: string;
-        latitude: number | null;
-        longitude: number | null;
-        googleMapsUrl: string | null;
-        imageUrl: string | null;
-        schedule: Array<{
-          day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-          times?: string;
-          _key: string;
-        }> | null;
-        pricing: Array<{
-          title: string;
-          description: string;
-          _type: "pricingEntry";
-          _key: string;
-        }> | null;
-        maxParticipants: number | null;
-      }> | null;
-      events: Array<{
-        _id: string;
-        title: string;
-        description: string | null;
-      }> | null;
-    };
-    background?: "cream" | "light";
-    imagePosition?: "left" | "right";
-    badge?: string;
-    customId?: string;
-    subtitle?: string;
-    title?: string;
-  } | {
-    _key: string;
-    _type: "testimonialsSection";
-    label?: string;
-    title?: string;
-    showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
-    featuredOnly?: boolean;
-  } | {
-    _key: string;
-    _type: "textSection";
-    label?: string;
-    title: string;
-    description?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      } | {
-        hex?: string;
-        _type: "textColor";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    cta?: {
-      text?: string;
-      href?: string;
-    };
-    align?: "center" | "left";
-    background?: "cream" | "gradient" | "light" | "primary" | "transparent";
-    padding?: "hero" | "section";
-  }> | null;
-  seoTitle: string | null;
-  seoDescription: string | null;
-  seoKeywords: Array<string> | null;
-  ogImageUrl: string | null;
-  noIndex: boolean | null;
-} | null;
 // Variable: pageWithSectionsDataQuery
-// Query: {  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {      _key,      _type,      ...,      _type == "heroSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "imageHeroLogoSection" => {        ...,        "imageUrl": image.asset->url,        "logoUrl": logo.asset->url      },      _type == "imageTextSection" => {        ...,        "imageUrl": image.asset->url      },      _type == "cardsGridSection" => {        ...,        cards[] {          ...,          serviceRef-> {            _id,            title,            shortDescription,            icon,            "slug": slug.current,            "pageSlug": page->slug.current          }        }      },      _type == "serviceSection" => {        ...,        service-> {          _id,          title,          "slug": slug.current,          subtitle,          shortDescription,          fullDescription,          "imageUrl": image.asset->url,          icon,          features,          duration,          pricing,          ctaText,          ctaLink,          imagePosition,          sectionBackground,          badge,          locations[]-> {            _id,            name,            shortName,            description,            streetAddress,            postalCode,            addressLocality,            addressRegion,            addressCountry,            latitude,            longitude,            googleMapsUrl,            "imageUrl": image.asset->url,            schedule,            pricing,            maxParticipants          },          events[]-> {            _id,            title,            description          }        }      }    },    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
+// Query: {  "page": *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {    _id,    site,    title,    "slug": slug.current,    sections[] {  _key,  _type,  ...,  _type == "imageHeroLogoSection" => {    "imageUrl": image.asset->url,    "logoUrl": logo.asset->url,    image {      ...,      "lqip": asset->metadata.lqip,      "dimensions": asset->metadata.dimensions    }  },  _type == "textSection" => {    cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}  },  _type == "imageTextSection" => {    "imageUrl": image.asset->url,    cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}  },  _type == "ctaSection" => {    ctas[] {      _key,      ...{  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}    }  },  _type == "cardsGridSection" => {    cards[] {      ...,      serviceRef-> {        _id,        title,        shortDescription,        icon,        "slug": slug.current,        "pageSlug": page->slug.current      }    }  },  _type == "serviceSection" => {    service-> {      _id,      title,      "slug": slug.current,      subtitle,      shortDescription,      "imageUrl": image.asset->url,      icon,      cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )},      locations[]-> {        _id,        name,        description,        streetAddress,        postalCode,        addressLocality,        addressRegion,        addressCountry,        latitude,        longitude,        googleMapsUrl,        "imageUrl": image.asset->url,        schedule,        pricing      }    }  }},    seoTitle,    seoDescription,    seoKeywords,    "ogImageUrl": ogImage.asset->url,    noIndex  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {  _id,  name,  quote}}
 export type PageWithSectionsDataQueryResult = {
   page: {
     _id: string;
@@ -1515,7 +739,7 @@ export type PageWithSectionsDataQueryResult = {
           _id: string;
           title: string;
           shortDescription: string | null;
-          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "shell" | "sound" | "sun-moon" | "video" | "wind" | null;
           slug: string;
           pageSlug: string | null;
         } | null;
@@ -1548,15 +772,13 @@ export type PageWithSectionsDataQueryResult = {
       _type: "ctaSection";
       title: string;
       description: string;
-      ctas?: Array<{
-        text: string;
-        href: string;
-        variant?: "primary" | "secondary";
+      ctas: Array<{
         _key: string;
-      }>;
+        text: string;
+        href: string | null | "/datenschutz" | "/impressum" | "/kontakt";
+      }> | null;
       variant?: "light" | "solid";
       isQuote?: boolean;
-      icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
       decorative?: boolean;
       padding?: "default" | "large";
     } | {
@@ -1572,35 +794,6 @@ export type PageWithSectionsDataQueryResult = {
       background?: "cream" | "light";
     } | {
       _key: string;
-      _type: "heroSection";
-      title: string;
-      tagline?: string;
-      subtitle?: string;
-      primaryCta?: {
-        text?: string;
-        href?: string;
-      };
-      secondaryCta?: {
-        text?: string;
-        href?: string;
-      };
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      };
-      personName?: string;
-      personRole?: string;
-      imageUrl: string | null;
-    } | {
-      _key: string;
       _type: "imageHeroLogoSection";
       image: {
         asset?: {
@@ -1613,6 +806,8 @@ export type PageWithSectionsDataQueryResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
+        lqip: string | null;
+        dimensions: SanityImageDimensions | null;
       };
       imageAlt?: string;
       logo?: {
@@ -1647,9 +842,7 @@ export type PageWithSectionsDataQueryResult = {
       imageAlt?: string;
       imagePosition?: "left" | "right";
       aspectRatio?: "3/4" | "4/3" | "4/5";
-      label?: string;
       title: string;
-      tagline?: string;
       description?: Array<{
         children?: Array<{
           marks?: Array<string>;
@@ -1672,52 +865,14 @@ export type PageWithSectionsDataQueryResult = {
         _type: "block";
         _key: string;
       }>;
-      cta?: {
-        text?: string;
-        href?: string;
-      };
-      headingLevel?: "h1" | "h2";
+      cta: {
+        text: string;
+        href: string | "/datenschutz" | "/impressum" | "/kontakt";
+      } | null;
       background?: "cream" | "gradient" | "light" | "pattern";
       decorativeBlobs?: boolean;
       padding?: "hero" | "section";
       imageUrl: string | null;
-    } | {
-      _key: string;
-      _type: "richTextSection";
-      content?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      } | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        caption?: string;
-        _type: "image";
-        _key: string;
-      }>;
-      background?: "cream" | "light" | "transparent";
-      maxWidth?: "medium" | "narrow" | "wide";
     } | {
       _key: string;
       _type: "serviceSection";
@@ -1727,38 +882,15 @@ export type PageWithSectionsDataQueryResult = {
         slug: string;
         subtitle: string | null;
         shortDescription: string | null;
-        fullDescription: Array<{
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          _key: string;
-        }> | null;
         imageUrl: string | null;
-        icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-        features: Array<string> | null;
-        duration: string | null;
-        pricing: string | null;
-        ctaText: string | null;
-        ctaLink: string | null;
-        imagePosition: "left" | "right" | null;
-        sectionBackground: "cream" | "light" | null;
-        badge: string | null;
+        icon: "calendar" | "group" | "hands" | "lotus" | "path" | "shell" | "sound" | "sun-moon" | "video" | "wind" | null;
+        cta: {
+          text: string;
+          href: string | "/datenschutz" | "/impressum" | "/kontakt";
+        } | null;
         locations: Array<{
           _id: string;
           name: string;
-          shortName: string | null;
           description: string | null;
           streetAddress: string;
           postalCode: string;
@@ -1780,31 +912,18 @@ export type PageWithSectionsDataQueryResult = {
             _type: "pricingEntry";
             _key: string;
           }> | null;
-          maxParticipants: number | null;
-        }> | null;
-        events: Array<{
-          _id: string;
-          title: string;
-          description: string | null;
         }> | null;
       };
-      background?: "cream" | "light";
-      imagePosition?: "left" | "right";
-      badge?: string;
-      customId?: string;
       subtitle?: string;
       title?: string;
+      background?: "cream" | "light";
     } | {
       _key: string;
       _type: "testimonialsSection";
-      label?: string;
       title?: string;
-      showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
-      featuredOnly?: boolean;
     } | {
       _key: string;
       _type: "textSection";
-      label?: string;
       title: string;
       description?: Array<{
         children?: Array<{
@@ -1828,10 +947,10 @@ export type PageWithSectionsDataQueryResult = {
         _type: "block";
         _key: string;
       }>;
-      cta?: {
-        text?: string;
-        href?: string;
-      };
+      cta: {
+        text: string;
+        href: string | "/datenschutz" | "/impressum" | "/kontakt";
+      } | null;
       align?: "center" | "left";
       background?: "cream" | "gradient" | "light" | "primary" | "transparent";
       padding?: "hero" | "section";
@@ -1842,32 +961,6 @@ export type PageWithSectionsDataQueryResult = {
     ogImageUrl: string | null;
     noIndex: boolean | null;
   } | null;
-  locations: Array<{
-    _id: string;
-    name: string;
-    shortName: string | null;
-    description: string | null;
-    streetAddress: string;
-    postalCode: string;
-    addressLocality: string;
-    addressRegion: string | null;
-    addressCountry: string;
-    latitude: number | null;
-    longitude: number | null;
-    googleMapsUrl: string | null;
-    imageUrl: string | null;
-    schedule: Array<{
-      day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-      times?: string;
-      _key: string;
-    }> | null;
-    pricing: Array<{
-      title: string;
-      description: string;
-      _type: "pricingEntry";
-      _key: string;
-    }> | null;
-  }>;
   testimonials: Array<{
     _id: string;
     name: string;
@@ -1875,37 +968,25 @@ export type PageWithSectionsDataQueryResult = {
   }>;
 };
 // Variable: homepageFromSettingsQuery
-// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    tagline,    primaryColor,    contactEmail,    seoDescription,    "ogImageUrl": ogImage.asset->url,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      "ogImageUrl": ogImage.asset->url,      sections[] {        _key,        _type,        ...,        _type == "heroSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "imageHeroLogoSection" => {          ...,          "imageUrl": image.asset->url,          "logoUrl": logo.asset->url        },        _type == "imageTextSection" => {          ...,          "imageUrl": image.asset->url        },        _type == "cardsGridSection" => {          ...,          cards[] {            ...,            serviceRef-> {              _id,              title,              shortDescription,              icon,              "slug": slug.current,              "pageSlug": page->slug.current            }          }        },        _type == "serviceSection" => {          ...,          service-> {            _id,            title,            "slug": slug.current,            subtitle,            shortDescription,            fullDescription,            "imageUrl": image.asset->url,            icon,            features,            duration,            pricing,            ctaText,            ctaLink,            imagePosition,            sectionBackground,            badge,            locations[]-> {              _id,              name,              shortName,              description,              streetAddress,              postalCode,              addressLocality,              addressRegion,              addressCountry,              latitude,              longitude,              googleMapsUrl,              "imageUrl": image.asset->url,              schedule,              pricing,              maxParticipants            },            events[]-> {              _id,              title,              description            }          }        }      }    }  },  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {    _id,    name,    shortName,    description,    streetAddress,    postalCode,    addressLocality,    addressRegion,    addressCountry,    latitude,    longitude,    googleMapsUrl,    "imageUrl": image.asset->url,    schedule,    pricing  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {    _id,    name,    quote  }}
+// Query: {  "settings": *[_id == $siteSettingsId][0] {    name,    seoDescription,    "ogImageUrl": ogImage.asset->url,    homepage-> {      _id,      title,      seoTitle,      seoDescription,      seoKeywords,      "slug": slug.current,      "ogImageUrl": ogImage.asset->url,      sections[] {  _key,  _type,  ...,  _type == "imageHeroLogoSection" => {    "imageUrl": image.asset->url,    "logoUrl": logo.asset->url,    image {      ...,      "lqip": asset->metadata.lqip,      "dimensions": asset->metadata.dimensions    }  },  _type == "textSection" => {    cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}  },  _type == "imageTextSection" => {    "imageUrl": image.asset->url,    cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}  },  _type == "ctaSection" => {    ctas[] {      _key,      ...{  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )}    }  },  _type == "cardsGridSection" => {    cards[] {      ...,      serviceRef-> {        _id,        title,        shortDescription,        icon,        "slug": slug.current,        "pageSlug": page->slug.current      }    }  },  _type == "serviceSection" => {    service-> {      _id,      title,      "slug": slug.current,      subtitle,      shortDescription,      "imageUrl": image.asset->url,      icon,      cta {  text,  "href": select(    defined(page) => "/" + page->slug.current,    defined(route) => "/" + route  )},      locations[]-> {        _id,        name,        description,        streetAddress,        postalCode,        addressLocality,        addressRegion,        addressCountry,        latitude,        longitude,        googleMapsUrl,        "imageUrl": image.asset->url,        schedule,        pricing      }    }  }}    }  },  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {  _id,  name,  quote}}
 export type HomepageFromSettingsQueryResult = {
   settings: {
     name: null;
-    tagline: null;
-    primaryColor: null;
-    contactEmail: null;
     seoDescription: null;
     ogImageUrl: null;
     homepage: null;
   } | {
     name: null;
-    tagline: null;
-    primaryColor: null;
-    contactEmail: null;
     seoDescription: string | null;
     ogImageUrl: string | null;
     homepage: null;
   } | {
     name: string;
-    tagline: null;
-    primaryColor: null;
-    contactEmail: null;
     seoDescription: null;
     ogImageUrl: null;
     homepage: null;
   } | {
     name: string;
-    tagline: string | null;
-    primaryColor: "sage" | "terracotta" | null;
-    contactEmail: string | null;
     seoDescription: string | null;
     ogImageUrl: string | null;
     homepage: {
@@ -1949,7 +1030,7 @@ export type HomepageFromSettingsQueryResult = {
             _id: string;
             title: string;
             shortDescription: string | null;
-            icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
+            icon: "calendar" | "group" | "hands" | "lotus" | "path" | "shell" | "sound" | "sun-moon" | "video" | "wind" | null;
             slug: string;
             pageSlug: string | null;
           } | null;
@@ -1982,15 +1063,13 @@ export type HomepageFromSettingsQueryResult = {
         _type: "ctaSection";
         title: string;
         description: string;
-        ctas?: Array<{
-          text: string;
-          href: string;
-          variant?: "primary" | "secondary";
+        ctas: Array<{
           _key: string;
-        }>;
+          text: string;
+          href: string | null | "/datenschutz" | "/impressum" | "/kontakt";
+        }> | null;
         variant?: "light" | "solid";
         isQuote?: boolean;
-        icon?: "" | "calendar" | "check" | "clock" | "group" | "hands" | "heart" | "lotus" | "path" | "sound" | "video" | "wind";
         decorative?: boolean;
         padding?: "default" | "large";
       } | {
@@ -2006,35 +1085,6 @@ export type HomepageFromSettingsQueryResult = {
         background?: "cream" | "light";
       } | {
         _key: string;
-        _type: "heroSection";
-        title: string;
-        tagline?: string;
-        subtitle?: string;
-        primaryCta?: {
-          text?: string;
-          href?: string;
-        };
-        secondaryCta?: {
-          text?: string;
-          href?: string;
-        };
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-        };
-        personName?: string;
-        personRole?: string;
-        imageUrl: string | null;
-      } | {
-        _key: string;
         _type: "imageHeroLogoSection";
         image: {
           asset?: {
@@ -2047,6 +1097,8 @@ export type HomepageFromSettingsQueryResult = {
           hotspot?: SanityImageHotspot;
           crop?: SanityImageCrop;
           _type: "image";
+          lqip: string | null;
+          dimensions: SanityImageDimensions | null;
         };
         imageAlt?: string;
         logo?: {
@@ -2081,9 +1133,7 @@ export type HomepageFromSettingsQueryResult = {
         imageAlt?: string;
         imagePosition?: "left" | "right";
         aspectRatio?: "3/4" | "4/3" | "4/5";
-        label?: string;
         title: string;
-        tagline?: string;
         description?: Array<{
           children?: Array<{
             marks?: Array<string>;
@@ -2106,52 +1156,14 @@ export type HomepageFromSettingsQueryResult = {
           _type: "block";
           _key: string;
         }>;
-        cta?: {
-          text?: string;
-          href?: string;
-        };
-        headingLevel?: "h1" | "h2";
+        cta: {
+          text: string;
+          href: string | "/datenschutz" | "/impressum" | "/kontakt";
+        } | null;
         background?: "cream" | "gradient" | "light" | "pattern";
         decorativeBlobs?: boolean;
         padding?: "hero" | "section";
         imageUrl: string | null;
-      } | {
-        _key: string;
-        _type: "richTextSection";
-        content?: Array<{
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          _key: string;
-        } | {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          caption?: string;
-          _type: "image";
-          _key: string;
-        }>;
-        background?: "cream" | "light" | "transparent";
-        maxWidth?: "medium" | "narrow" | "wide";
       } | {
         _key: string;
         _type: "serviceSection";
@@ -2161,38 +1173,15 @@ export type HomepageFromSettingsQueryResult = {
           slug: string;
           subtitle: string | null;
           shortDescription: string | null;
-          fullDescription: Array<{
-            children?: Array<{
-              marks?: Array<string>;
-              text?: string;
-              _type: "span";
-              _key: string;
-            }>;
-            style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-            listItem?: "bullet" | "number";
-            markDefs?: Array<{
-              href?: string;
-              _type: "link";
-              _key: string;
-            }>;
-            level?: number;
-            _type: "block";
-            _key: string;
-          }> | null;
           imageUrl: string | null;
-          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "sound" | "video" | "wind" | null;
-          features: Array<string> | null;
-          duration: string | null;
-          pricing: string | null;
-          ctaText: string | null;
-          ctaLink: string | null;
-          imagePosition: "left" | "right" | null;
-          sectionBackground: "cream" | "light" | null;
-          badge: string | null;
+          icon: "calendar" | "group" | "hands" | "lotus" | "path" | "shell" | "sound" | "sun-moon" | "video" | "wind" | null;
+          cta: {
+            text: string;
+            href: string | "/datenschutz" | "/impressum" | "/kontakt";
+          } | null;
           locations: Array<{
             _id: string;
             name: string;
-            shortName: string | null;
             description: string | null;
             streetAddress: string;
             postalCode: string;
@@ -2214,31 +1203,18 @@ export type HomepageFromSettingsQueryResult = {
               _type: "pricingEntry";
               _key: string;
             }> | null;
-            maxParticipants: number | null;
-          }> | null;
-          events: Array<{
-            _id: string;
-            title: string;
-            description: string | null;
           }> | null;
         };
-        background?: "cream" | "light";
-        imagePosition?: "left" | "right";
-        badge?: string;
-        customId?: string;
         subtitle?: string;
         title?: string;
+        background?: "cream" | "light";
       } | {
         _key: string;
         _type: "testimonialsSection";
-        label?: string;
         title?: string;
-        showTestimonialsFrom?: "both" | "current" | "therapie" | "yoga";
-        featuredOnly?: boolean;
       } | {
         _key: string;
         _type: "textSection";
-        label?: string;
         title: string;
         description?: Array<{
           children?: Array<{
@@ -2262,42 +1238,16 @@ export type HomepageFromSettingsQueryResult = {
           _type: "block";
           _key: string;
         }>;
-        cta?: {
-          text?: string;
-          href?: string;
-        };
+        cta: {
+          text: string;
+          href: string | "/datenschutz" | "/impressum" | "/kontakt";
+        } | null;
         align?: "center" | "left";
         background?: "cream" | "gradient" | "light" | "primary" | "transparent";
         padding?: "hero" | "section";
       }> | null;
     } | null;
   } | null;
-  locations: Array<{
-    _id: string;
-    name: string;
-    shortName: string | null;
-    description: string | null;
-    streetAddress: string;
-    postalCode: string;
-    addressLocality: string;
-    addressRegion: string | null;
-    addressCountry: string;
-    latitude: number | null;
-    longitude: number | null;
-    googleMapsUrl: string | null;
-    imageUrl: string | null;
-    schedule: Array<{
-      day?: "Dienstag" | "Donnerstag" | "Freitag" | "Mittwoch" | "Montag" | "Samstag" | "Sonntag";
-      times?: string;
-      _key: string;
-    }> | null;
-    pricing: Array<{
-      title: string;
-      description: string;
-      _type: "pricingEntry";
-      _key: string;
-    }> | null;
-  }>;
   testimonials: Array<{
     _id: string;
     name: string;
@@ -2321,19 +1271,12 @@ export type SitemapPagesForSiteQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    tagline,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
-    "\n{\n  \"homepageSlug\": *[_id == $siteSettingsId][0].homepage->slug.current,\n  \"headerNavigation\": *[_id == $siteSettingsId][0].headerNavigation[] {\n    _key,\n    \"label\": coalesce(label, page->title),\n    \"href\": select(\n      defined(page->slug.current) => \"/\" + page->slug.current,\n      null\n    ),\n    \"subLinks\": coalesce(\n      children[defined(page->slug.current)][] {\n        _key,\n        \"label\": coalesce(label, page->title),\n        \"href\": \"/\" + page->slug.current\n      },\n      []\n    )\n  },\n  \"pages\": *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"order\": coalesce(order, 100)\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current\n  }\n}\n": NavigationDataQueryResult;
-    "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current,\n    subtitle,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    order,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      description,\n      \"imageUrl\": image.asset->url,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl,\n      schedule,\n      pricing\n    }\n  }\n": ServicesForSiteQueryResult;
-    "\n  *[_type == \"service\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    subtitle,\n    shortDescription,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    icon,\n    features,\n    duration,\n    pricing,\n    ctaText,\n    ctaLink,\n    locations[]-> {\n      _id,\n      name,\n      shortName,\n      \"slug\": slug.current,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl,\n      \"imageUrl\": image.asset->url,\n      schedule,\n      pricing\n    }\n  }\n": ServiceBySlugQueryResult;
-    "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy,\n    order\n  }\n": LocationsForSiteQueryResult;
-    "\n  *[_type == \"location\" && slug.current == $slug][0] {\n    _id,\n    name,\n    shortName,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    schedule,\n    pricing,\n    maxParticipants,\n    usedBy\n  }\n": LocationBySlugQueryResult;
-    "\n  *[_type == \"event\" && site in [$siteId, \"both\"] && startDate >= now()] | order(startDate asc) {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      name,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": UpcomingEventsQueryResult;
-    "\n  *[_type == \"event\" && slug.current == $slug][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    description,\n    fullDescription,\n    \"imageUrl\": image.asset->url,\n    startDate,\n    endDate,\n    location-> {\n      _id,\n      name,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl\n    },\n    customLocation,\n    price,\n    maxParticipants\n  }\n": EventBySlugQueryResult;
-    "\n  *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote,\n    site,\n    service-> { title }\n  }\n": FeaturedTestimonialsQueryResult;
-    "\n  *[_type == \"testimonial\" && site in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    quote,\n    site,\n    featured,\n    service-> { title }\n  }\n": AllTestimonialsQueryResult;
-    "\n  *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      // Expand image URLs in heroSection\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      // Expand image URLs in imageTextSection\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      // Expand service references in cardsGridSection\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            streetAddress,\n            postalCode,\n            addressLocality,\n            addressRegion,\n            addressCountry,\n            latitude,\n            longitude,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  }\n": PageBySlugQueryResult;
-    "\n{\n  \"page\": *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n      _key,\n      _type,\n      ...,\n      _type == \"heroSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"imageHeroLogoSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url,\n        \"logoUrl\": logo.asset->url\n      },\n      _type == \"imageTextSection\" => {\n        ...,\n        \"imageUrl\": image.asset->url\n      },\n      _type == \"cardsGridSection\" => {\n        ...,\n        cards[] {\n          ...,\n          serviceRef-> {\n            _id,\n            title,\n            shortDescription,\n            icon,\n            \"slug\": slug.current,\n            \"pageSlug\": page->slug.current\n          }\n        }\n      },\n      _type == \"serviceSection\" => {\n        ...,\n        service-> {\n          _id,\n          title,\n          \"slug\": slug.current,\n          subtitle,\n          shortDescription,\n          fullDescription,\n          \"imageUrl\": image.asset->url,\n          icon,\n          features,\n          duration,\n          pricing,\n          ctaText,\n          ctaLink,\n          imagePosition,\n          sectionBackground,\n          badge,\n          locations[]-> {\n            _id,\n            name,\n            shortName,\n            description,\n            streetAddress,\n            postalCode,\n            addressLocality,\n            addressRegion,\n            addressCountry,\n            latitude,\n            longitude,\n            googleMapsUrl,\n            \"imageUrl\": image.asset->url,\n            schedule,\n            pricing,\n            maxParticipants\n          },\n          events[]-> {\n            _id,\n            title,\n            description\n          }\n        }\n      }\n    },\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": PageWithSectionsDataQueryResult;
-    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    tagline,\n    primaryColor,\n    contactEmail,\n    seoDescription,\n    \"ogImageUrl\": ogImage.asset->url,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      \"ogImageUrl\": ogImage.asset->url,\n      sections[] {\n        _key,\n        _type,\n        ...,\n        _type == \"heroSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"imageHeroLogoSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url,\n          \"logoUrl\": logo.asset->url\n        },\n        _type == \"imageTextSection\" => {\n          ...,\n          \"imageUrl\": image.asset->url\n        },\n        _type == \"cardsGridSection\" => {\n          ...,\n          cards[] {\n            ...,\n            serviceRef-> {\n              _id,\n              title,\n              shortDescription,\n              icon,\n              \"slug\": slug.current,\n              \"pageSlug\": page->slug.current\n            }\n          }\n        },\n        _type == \"serviceSection\" => {\n          ...,\n          service-> {\n            _id,\n            title,\n            \"slug\": slug.current,\n            subtitle,\n            shortDescription,\n            fullDescription,\n            \"imageUrl\": image.asset->url,\n            icon,\n            features,\n            duration,\n            pricing,\n            ctaText,\n            ctaLink,\n            imagePosition,\n            sectionBackground,\n            badge,\n            locations[]-> {\n              _id,\n              name,\n              shortName,\n              description,\n              streetAddress,\n              postalCode,\n              addressLocality,\n              addressRegion,\n              addressCountry,\n              latitude,\n              longitude,\n              googleMapsUrl,\n              \"imageUrl\": image.asset->url,\n              schedule,\n              pricing,\n              maxParticipants\n            },\n            events[]-> {\n              _id,\n              title,\n              description\n            }\n          }\n        }\n      }\n    }\n  },\n  \"locations\": *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    shortName,\n    description,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl,\n    \"imageUrl\": image.asset->url,\n    schedule,\n    pricing\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n    _id,\n    name,\n    quote\n  }\n}\n": HomepageFromSettingsQueryResult;
+    "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
+    "\n{\n  \"headerNavigation\": *[_id == $siteSettingsId][0].headerNavigation[] {\n    _key,\n    \"label\": coalesce(label, page->title),\n    \"href\": select(\n      defined(page->slug.current) => \"/\" + page->slug.current,\n      null\n    ),\n    \"subLinks\": coalesce(\n      children[defined(page->slug.current)][] {\n        _key,\n        \"label\": coalesce(label, page->title),\n        \"href\": \"/\" + page->slug.current\n      },\n      []\n    )\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current\n  }\n}\n": NavigationDataQueryResult;
+    "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    locations[]-> {\n      _id,\n      name,\n      description,\n      \"imageUrl\": image.asset->url,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl\n    }\n  }\n": ServicesForSiteQueryResult;
+    "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl\n  }\n": LocationsForSiteQueryResult;
+    "\n{\n  \"page\": *[_type == \"page\" && slug.current == $slug && site in [$siteId, \"both\"] && enabled != false][0] {\n    _id,\n    site,\n    title,\n    \"slug\": slug.current,\n    sections[] {\n  _key,\n  _type,\n  ...,\n  _type == \"imageHeroLogoSection\" => {\n    \"imageUrl\": image.asset->url,\n    \"logoUrl\": logo.asset->url,\n    image {\n      ...,\n      \"lqip\": asset->metadata.lqip,\n      \"dimensions\": asset->metadata.dimensions\n    }\n  },\n  _type == \"textSection\" => {\n    cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n  },\n  _type == \"imageTextSection\" => {\n    \"imageUrl\": image.asset->url,\n    cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n  },\n  _type == \"ctaSection\" => {\n    ctas[] {\n      _key,\n      ...{\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n    }\n  },\n  _type == \"cardsGridSection\" => {\n    cards[] {\n      ...,\n      serviceRef-> {\n        _id,\n        title,\n        shortDescription,\n        icon,\n        \"slug\": slug.current,\n        \"pageSlug\": page->slug.current\n      }\n    }\n  },\n  _type == \"serviceSection\" => {\n    service-> {\n      _id,\n      title,\n      \"slug\": slug.current,\n      subtitle,\n      shortDescription,\n      \"imageUrl\": image.asset->url,\n      icon,\n      cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n},\n      locations[]-> {\n        _id,\n        name,\n        description,\n        streetAddress,\n        postalCode,\n        addressLocality,\n        addressRegion,\n        addressCountry,\n        latitude,\n        longitude,\n        googleMapsUrl,\n        \"imageUrl\": image.asset->url,\n        schedule,\n        pricing\n      }\n    }\n  }\n},\n    seoTitle,\n    seoDescription,\n    seoKeywords,\n    \"ogImageUrl\": ogImage.asset->url,\n    noIndex\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n  _id,\n  name,\n  quote\n}\n}\n": PageWithSectionsDataQueryResult;
+    "\n{\n  \"settings\": *[_id == $siteSettingsId][0] {\n    name,\n    seoDescription,\n    \"ogImageUrl\": ogImage.asset->url,\n    homepage-> {\n      _id,\n      title,\n      seoTitle,\n      seoDescription,\n      seoKeywords,\n      \"slug\": slug.current,\n      \"ogImageUrl\": ogImage.asset->url,\n      sections[] {\n  _key,\n  _type,\n  ...,\n  _type == \"imageHeroLogoSection\" => {\n    \"imageUrl\": image.asset->url,\n    \"logoUrl\": logo.asset->url,\n    image {\n      ...,\n      \"lqip\": asset->metadata.lqip,\n      \"dimensions\": asset->metadata.dimensions\n    }\n  },\n  _type == \"textSection\" => {\n    cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n  },\n  _type == \"imageTextSection\" => {\n    \"imageUrl\": image.asset->url,\n    cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n  },\n  _type == \"ctaSection\" => {\n    ctas[] {\n      _key,\n      ...{\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n}\n    }\n  },\n  _type == \"cardsGridSection\" => {\n    cards[] {\n      ...,\n      serviceRef-> {\n        _id,\n        title,\n        shortDescription,\n        icon,\n        \"slug\": slug.current,\n        \"pageSlug\": page->slug.current\n      }\n    }\n  },\n  _type == \"serviceSection\" => {\n    service-> {\n      _id,\n      title,\n      \"slug\": slug.current,\n      subtitle,\n      shortDescription,\n      \"imageUrl\": image.asset->url,\n      icon,\n      cta {\n  text,\n  \"href\": select(\n    defined(page) => \"/\" + page->slug.current,\n    defined(route) => \"/\" + route\n  )\n},\n      locations[]-> {\n        _id,\n        name,\n        description,\n        streetAddress,\n        postalCode,\n        addressLocality,\n        addressRegion,\n        addressCountry,\n        latitude,\n        longitude,\n        googleMapsUrl,\n        \"imageUrl\": image.asset->url,\n        schedule,\n        pricing\n      }\n    }\n  }\n}\n    }\n  },\n  \"testimonials\": *[_type == \"testimonial\" && site in [$siteId, \"both\"] && featured == true] | order(order asc) {\n  _id,\n  name,\n  quote\n}\n}\n": HomepageFromSettingsQueryResult;
     "\n  *[_type == \"page\" && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    site\n  }\n": AllPageSlugsQueryResult;
     "\n  *[_type == \"page\" && site in [$siteId, \"both\"] && defined(slug.current) && enabled != false] {\n    \"slug\": slug.current,\n    _updatedAt\n  }\n": SitemapPagesForSiteQueryResult;
   }

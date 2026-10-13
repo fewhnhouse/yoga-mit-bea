@@ -3,8 +3,6 @@ import SectionHeader from './SectionHeader'
 import SectionDescription, { type SectionDescriptionValue } from './SectionDescription'
 
 export interface TextSectionProps {
-  /** Small uppercase label above the title */
-  label: string
   /** Main heading */
   title: string
   /** Description text - supports Sanity Portable Text and legacy plain strings */
@@ -23,7 +21,6 @@ export interface TextSectionProps {
 }
 
 export default function TextSection({
-  label,
   title,
   description,
   cta,
@@ -38,7 +35,6 @@ export default function TextSection({
   return (
     <div className={`${maxWidth} ${alignClass} ${className}`}>
       <SectionHeader
-        label={label}
         title={title}
         align={align}
       />

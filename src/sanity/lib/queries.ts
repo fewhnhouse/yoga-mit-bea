@@ -7,6 +7,94 @@ export const SINGLETON_IDS = {
 }
 
 // ============================================
+// SHARED PROJECTIONS
+// ============================================
+
+/** Resolves a `link` object to `{ text, href }`. */
+const linkProjection = `{
+  text,
+  "href": select(
+    defined(page) => "/" + page->slug.current,
+    defined(route) => "/" + route
+  )
+}`
+
+const sectionsProjection = `sections[] {
+  _key,
+  _type,
+  ...,
+  _type == "imageHeroLogoSection" => {
+    "imageUrl": image.asset->url,
+    "logoUrl": logo.asset->url,
+    image {
+      ...,
+      "lqip": asset->metadata.lqip,
+      "dimensions": asset->metadata.dimensions
+    }
+  },
+  _type == "textSection" => {
+    cta ${linkProjection}
+  },
+  _type == "imageTextSection" => {
+    "imageUrl": image.asset->url,
+    cta ${linkProjection}
+  },
+  _type == "ctaSection" => {
+    ctas[] {
+      _key,
+      ...${linkProjection}
+    }
+  },
+  _type == "cardsGridSection" => {
+    cards[] {
+      ...,
+      serviceRef-> {
+        _id,
+        title,
+        shortDescription,
+        icon,
+        "slug": slug.current,
+        "pageSlug": page->slug.current
+      }
+    }
+  },
+  _type == "serviceSection" => {
+    service-> {
+      _id,
+      title,
+      "slug": slug.current,
+      subtitle,
+      shortDescription,
+      "imageUrl": image.asset->url,
+      icon,
+      cta ${linkProjection},
+      locations[]-> {
+        _id,
+        name,
+        description,
+        streetAddress,
+        postalCode,
+        addressLocality,
+        addressRegion,
+        addressCountry,
+        latitude,
+        longitude,
+        googleMapsUrl,
+        "imageUrl": image.asset->url,
+        schedule,
+        pricing
+      }
+    }
+  }
+}`
+
+const featuredTestimonialsProjection = `*[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
+  _id,
+  name,
+  quote
+}`
+
+// ============================================
 // SITE SETTINGS QUERIES
 // ============================================
 
@@ -18,7 +106,6 @@ export const siteSettingsQuery = defineQuery(`
     _id,
     siteId,
     name,
-    tagline,
     domain,
     primaryColor,
     "logoUrl": logo.asset->url,
@@ -42,11 +129,10 @@ export const siteSettingsQuery = defineQuery(`
 `)
 
 /**
- * Get navigation data - pages and services for a site
+ * Get navigation data - header navigation and services for a site
  */
 export const navigationDataQuery = defineQuery(`
 {
-  "homepageSlug": *[_id == $siteSettingsId][0].homepage->slug.current,
   "headerNavigation": *[_id == $siteSettingsId][0].headerNavigation[] {
     _key,
     "label": coalesce(label, page->title),
@@ -63,12 +149,6 @@ export const navigationDataQuery = defineQuery(`
       []
     )
   },
-  "pages": *[_type == "page" && site in [$siteId, "both"] && defined(slug.current) && enabled != false] | order(coalesce(order, 100) asc, title asc) {
-    _id,
-    title,
-    "slug": slug.current,
-    "order": coalesce(order, 100)
-  },
   "services": *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {
     _id,
     title,
@@ -79,7 +159,7 @@ export const navigationDataQuery = defineQuery(`
 `)
 
 // ============================================
-// SERVICES QUERIES
+// SERVICES & LOCATIONS QUERIES
 // ============================================
 
 /**
@@ -88,25 +168,14 @@ export const navigationDataQuery = defineQuery(`
 export const servicesForSiteQuery = defineQuery(`
   *[_type == "service" && site in [$siteId, "both"]] | order(coalesce(order, 100) asc, title asc) {
     _id,
-    site,
     title,
     "slug": slug.current,
     "pageSlug": page->slug.current,
-    subtitle,
     shortDescription,
     "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    order,
     locations[]-> {
       _id,
       name,
-      shortName,
-      "slug": slug.current,
       description,
       "imageUrl": image.asset->url,
       streetAddress,
@@ -116,55 +185,10 @@ export const servicesForSiteQuery = defineQuery(`
       addressCountry,
       latitude,
       longitude,
-      googleMapsUrl,
-      schedule,
-      pricing
+      googleMapsUrl
     }
   }
 `)
-
-/**
- * Get a single service by slug
- */
-export const serviceBySlugQuery = defineQuery(`
-  *[_type == "service" && slug.current == $slug][0] {
-    _id,
-    site,
-    title,
-    "slug": slug.current,
-    subtitle,
-    shortDescription,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    icon,
-    features,
-    duration,
-    pricing,
-    ctaText,
-    ctaLink,
-    locations[]-> {
-      _id,
-      name,
-      shortName,
-      "slug": slug.current,
-      streetAddress,
-      postalCode,
-      addressLocality,
-      addressRegion,
-      addressCountry,
-      latitude,
-      longitude,
-      googleMapsUrl,
-      "imageUrl": image.asset->url,
-      schedule,
-      pricing
-    }
-  }
-`)
-
-// ============================================
-// LOCATIONS QUERIES
-// ============================================
 
 /**
  * Get all locations for a specific site
@@ -173,8 +197,6 @@ export const locationsForSiteQuery = defineQuery(`
   *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
     _id,
     name,
-    shortName,
-    "slug": slug.current,
     description,
     "imageUrl": image.asset->url,
     streetAddress,
@@ -184,246 +206,13 @@ export const locationsForSiteQuery = defineQuery(`
     addressCountry,
     latitude,
     longitude,
-    googleMapsUrl,
-    schedule,
-    pricing,
-    maxParticipants,
-    usedBy,
-    order
-  }
-`)
-
-/**
- * Get a single location by slug
- */
-export const locationBySlugQuery = defineQuery(`
-  *[_type == "location" && slug.current == $slug][0] {
-    _id,
-    name,
-    shortName,
-    "slug": slug.current,
-    description,
-    "imageUrl": image.asset->url,
-    streetAddress,
-    postalCode,
-    addressLocality,
-    addressRegion,
-    addressCountry,
-    latitude,
-    longitude,
-    googleMapsUrl,
-    schedule,
-    pricing,
-    maxParticipants,
-    usedBy
-  }
-`)
-
-// ============================================
-// EVENTS QUERIES
-// ============================================
-
-/**
- * Get upcoming events for a specific site
- */
-export const upcomingEventsQuery = defineQuery(`
-  *[_type == "event" && site in [$siteId, "both"] && startDate >= now()] | order(startDate asc) {
-    _id,
-    site,
-    title,
-    "slug": slug.current,
-    description,
-    "imageUrl": image.asset->url,
-    startDate,
-    endDate,
-    location-> {
-      name,
-      streetAddress,
-      postalCode,
-      addressLocality,
-      addressRegion,
-      addressCountry,
-      latitude,
-      longitude
-    },
-    customLocation,
-    price,
-    maxParticipants
-  }
-`)
-
-/**
- * Get a single event by slug
- */
-export const eventBySlugQuery = defineQuery(`
-  *[_type == "event" && slug.current == $slug][0] {
-    _id,
-    site,
-    title,
-    "slug": slug.current,
-    description,
-    fullDescription,
-    "imageUrl": image.asset->url,
-    startDate,
-    endDate,
-    location-> {
-      _id,
-      name,
-      streetAddress,
-      postalCode,
-      addressLocality,
-      addressRegion,
-      addressCountry,
-      latitude,
-      longitude,
-      googleMapsUrl
-    },
-    customLocation,
-    price,
-    maxParticipants
-  }
-`)
-
-// ============================================
-// TESTIMONIALS QUERIES
-// ============================================
-
-/**
- * Get featured testimonials for a specific site
- */
-export const featuredTestimonialsQuery = defineQuery(`
-  *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
-    _id,
-    name,
-    quote,
-    site,
-    service-> { title }
-  }
-`)
-
-/**
- * Get all testimonials for a specific site
- */
-export const allTestimonialsQuery = defineQuery(`
-  *[_type == "testimonial" && site in [$siteId, "both"]] | order(order asc) {
-    _id,
-    name,
-    quote,
-    site,
-    featured,
-    service-> { title }
+    googleMapsUrl
   }
 `)
 
 // ============================================
 // PAGES QUERIES
 // ============================================
-
-/**
- * Get a page by slug with expanded sections
- */
-export const pageBySlugQuery = defineQuery(`
-  *[_type == "page" && slug.current == $slug && site in [$siteId, "both"] && enabled != false][0] {
-    _id,
-    site,
-    title,
-    "slug": slug.current,
-    sections[] {
-      _key,
-      _type,
-      ...,
-      // Expand image URLs in heroSection
-      _type == "heroSection" => {
-        ...,
-        "imageUrl": image.asset->url,
-        image {
-          ...,
-          "lqip": asset->metadata.lqip,
-          "dimensions": asset->metadata.dimensions
-        }
-      },
-      _type == "imageHeroLogoSection" => {
-        ...,
-        "imageUrl": image.asset->url,
-        "logoUrl": logo.asset->url,
-        image {
-          ...,
-          "lqip": asset->metadata.lqip,
-          "dimensions": asset->metadata.dimensions
-        }
-      },
-      // Expand image URLs in imageTextSection
-      _type == "imageTextSection" => {
-        ...,
-        "imageUrl": image.asset->url
-      },
-      // Expand service references in cardsGridSection
-      _type == "cardsGridSection" => {
-        ...,
-        cards[] {
-          ...,
-          serviceRef-> {
-            _id,
-            title,
-            shortDescription,
-            icon,
-            "slug": slug.current,
-            "pageSlug": page->slug.current
-          }
-        }
-      },
-      _type == "serviceSection" => {
-        ...,
-        service-> {
-          _id,
-          title,
-          "slug": slug.current,
-          subtitle,
-          shortDescription,
-          fullDescription,
-          "imageUrl": image.asset->url,
-          icon,
-          features,
-          duration,
-          pricing,
-          ctaText,
-          ctaLink,
-          imagePosition,
-          sectionBackground,
-          badge,
-          locations[]-> {
-            _id,
-            name,
-            shortName,
-            description,
-            streetAddress,
-            postalCode,
-            addressLocality,
-            addressRegion,
-            addressCountry,
-            latitude,
-            longitude,
-            googleMapsUrl,
-            "imageUrl": image.asset->url,
-            schedule,
-            pricing,
-            maxParticipants
-          },
-          events[]-> {
-            _id,
-            title,
-            description
-          }
-        }
-      }
-    },
-    seoTitle,
-    seoDescription,
-    seoKeywords,
-    "ogImageUrl": ogImage.asset->url,
-    noIndex
-  }
-`)
 
 /**
  * Get a page with all related data needed for sections
@@ -435,120 +224,14 @@ export const pageWithSectionsDataQuery = defineQuery(`
     site,
     title,
     "slug": slug.current,
-    sections[] {
-      _key,
-      _type,
-      ...,
-      _type == "heroSection" => {
-        ...,
-        "imageUrl": image.asset->url,
-        image {
-          ...,
-          "lqip": asset->metadata.lqip,
-          "dimensions": asset->metadata.dimensions
-        }
-      },
-      _type == "imageHeroLogoSection" => {
-        ...,
-        "imageUrl": image.asset->url,
-        "logoUrl": logo.asset->url,
-        image {
-          ...,
-          "lqip": asset->metadata.lqip,
-          "dimensions": asset->metadata.dimensions
-        }
-      },
-      _type == "imageTextSection" => {
-        ...,
-        "imageUrl": image.asset->url
-      },
-      _type == "cardsGridSection" => {
-        ...,
-        cards[] {
-          ...,
-          serviceRef-> {
-            _id,
-            title,
-            shortDescription,
-            icon,
-            "slug": slug.current,
-            "pageSlug": page->slug.current
-          }
-        }
-      },
-      _type == "serviceSection" => {
-        ...,
-        service-> {
-          _id,
-          title,
-          "slug": slug.current,
-          subtitle,
-          shortDescription,
-          fullDescription,
-          "imageUrl": image.asset->url,
-          icon,
-          features,
-          duration,
-          pricing,
-          ctaText,
-          ctaLink,
-          imagePosition,
-          sectionBackground,
-          badge,
-          locations[]-> {
-            _id,
-            name,
-            shortName,
-            description,
-            streetAddress,
-            postalCode,
-            addressLocality,
-            addressRegion,
-            addressCountry,
-            latitude,
-            longitude,
-            googleMapsUrl,
-            "imageUrl": image.asset->url,
-            schedule,
-            pricing,
-            maxParticipants
-          },
-          events[]-> {
-            _id,
-            title,
-            description
-          }
-        }
-      }
-    },
+    ${sectionsProjection},
     seoTitle,
     seoDescription,
     seoKeywords,
     "ogImageUrl": ogImage.asset->url,
     noIndex
   },
-  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
-    _id,
-    name,
-    shortName,
-    description,
-    streetAddress,
-    postalCode,
-    addressLocality,
-    addressRegion,
-    addressCountry,
-    latitude,
-    longitude,
-    googleMapsUrl,
-    "imageUrl": image.asset->url,
-    schedule,
-    pricing
-  },
-  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
-    _id,
-    name,
-    quote
-  }
+  "testimonials": ${featuredTestimonialsProjection}
 }
 `)
 
@@ -559,9 +242,6 @@ export const homepageFromSettingsQuery = defineQuery(`
 {
   "settings": *[_id == $siteSettingsId][0] {
     name,
-    tagline,
-    primaryColor,
-    contactEmail,
     seoDescription,
     "ogImageUrl": ogImage.asset->url,
     homepage-> {
@@ -572,116 +252,10 @@ export const homepageFromSettingsQuery = defineQuery(`
       seoKeywords,
       "slug": slug.current,
       "ogImageUrl": ogImage.asset->url,
-      sections[] {
-        _key,
-        _type,
-        ...,
-        _type == "heroSection" => {
-          ...,
-          "imageUrl": image.asset->url,
-          image {
-            ...,
-            "lqip": asset->metadata.lqip,
-            "dimensions": asset->metadata.dimensions
-          }
-        },
-        _type == "imageHeroLogoSection" => {
-          ...,
-          "imageUrl": image.asset->url,
-          "logoUrl": logo.asset->url,
-          image {
-            ...,
-            "lqip": asset->metadata.lqip,
-            "dimensions": asset->metadata.dimensions
-          }
-        },
-        _type == "imageTextSection" => {
-          ...,
-          "imageUrl": image.asset->url
-        },
-        _type == "cardsGridSection" => {
-          ...,
-          cards[] {
-            ...,
-            serviceRef-> {
-              _id,
-              title,
-              shortDescription,
-              icon,
-              "slug": slug.current,
-              "pageSlug": page->slug.current
-            }
-          }
-        },
-        _type == "serviceSection" => {
-          ...,
-          service-> {
-            _id,
-            title,
-            "slug": slug.current,
-            subtitle,
-            shortDescription,
-            fullDescription,
-            "imageUrl": image.asset->url,
-            icon,
-            features,
-            duration,
-            pricing,
-            ctaText,
-            ctaLink,
-            imagePosition,
-            sectionBackground,
-            badge,
-            locations[]-> {
-              _id,
-              name,
-              shortName,
-              description,
-              streetAddress,
-              postalCode,
-              addressLocality,
-              addressRegion,
-              addressCountry,
-              latitude,
-              longitude,
-              googleMapsUrl,
-              "imageUrl": image.asset->url,
-              schedule,
-              pricing,
-              maxParticipants
-            },
-            events[]-> {
-              _id,
-              title,
-              description
-            }
-          }
-        }
-      }
+      ${sectionsProjection}
     }
   },
-  "locations": *[_type == "location" && usedBy in [$siteId, "both"]] | order(order asc) {
-    _id,
-    name,
-    shortName,
-    description,
-    streetAddress,
-    postalCode,
-    addressLocality,
-    addressRegion,
-    addressCountry,
-    latitude,
-    longitude,
-    googleMapsUrl,
-    "imageUrl": image.asset->url,
-    schedule,
-    pricing
-  },
-  "testimonials": *[_type == "testimonial" && site in [$siteId, "both"] && featured == true] | order(order asc) {
-    _id,
-    name,
-    quote
-  }
+  "testimonials": ${featuredTestimonialsProjection}
 }
 `)
 

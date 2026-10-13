@@ -13,21 +13,6 @@ export default defineType({
       description: 'e.g., "Yoga mit Bea im Schloss"',
     }),
     defineField({
-      name: "shortName",
-      title: "Short Name",
-      type: "string",
-      description: 'e.g., "Schloss" or "Wacholder"',
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "shortName",
-        maxLength: 96,
-      },
-    }),
-    defineField({
       name: "usedBy",
       title: "Belongs to Site",
       type: "string",
@@ -187,12 +172,6 @@ export default defineType({
         }),
       ],
       description: "Add one or more pricing rows for this location",
-    }),
-    defineField({
-      name: "maxParticipants",
-      title: "Max Participants",
-      type: "number",
-      description: "Maximum number of participants (if applicable)",
     }),
     defineField({
       name: "order",

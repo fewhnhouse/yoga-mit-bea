@@ -1,6 +1,6 @@
 export interface SectionHeaderProps {
   /** Small uppercase label above the title */
-  label: string
+  label?: string
   /** Main heading */
   title: string
   /** Theme color - defaults to 'default'. Use 'light' for white text on colored backgrounds */
@@ -14,7 +14,7 @@ export interface SectionHeaderProps {
 }
 
 export default function SectionHeader({
-  label,
+  label = '',
   title,
   theme = 'default',
   align = 'left',

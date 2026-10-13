@@ -10,12 +10,6 @@ export default defineType({
   type: "object",
   fields: [
     defineField({
-      name: "label",
-      title: "Label",
-      type: "string",
-      description: "Small uppercase text above the title",
-    }),
-    defineField({
       name: "title",
       title: "Title",
       type: "string",
@@ -74,19 +68,7 @@ export default defineType({
     defineField({
       name: "cta",
       title: "Call to Action Link",
-      type: "object",
-      fields: [
-        defineField({
-          name: "text",
-          title: "Link Text",
-          type: "string",
-        }),
-        defineField({
-          name: "href",
-          title: "Link URL",
-          type: "string",
-        }),
-      ],
+      type: "link",
     }),
     defineField({
       name: "align",
@@ -133,12 +115,11 @@ export default defineType({
   preview: {
     select: {
       title: "title",
-      label: "label",
     },
-    prepare({ title, label }) {
+    prepare({ title }) {
       return {
         title: title || "Text Section",
-        subtitle: label || "Text content section",
+        subtitle: "Text content section",
       };
     },
   },

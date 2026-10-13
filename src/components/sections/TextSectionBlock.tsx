@@ -5,20 +5,18 @@ import SectionDescription from '@/components/SectionDescription'
 import SectionHeader from '@/components/SectionHeader'
 
 interface TextSectionBlockProps {
-  label?: string
   title: string
   description?: PortableTextBlock[] | string[] | string
   cta?: {
-    text?: string
-    href?: string
-  }
+    text?: string | null
+    href?: string | null
+  } | null
   align?: 'left' | 'center'
   background?: 'transparent' | 'light' | 'cream' | 'gradient' | 'primary'
   padding?: 'hero' | 'section'
 }
 
 export default function TextSectionBlock({
-  label,
   title,
   description,
   cta,
@@ -65,7 +63,6 @@ export default function TextSectionBlock({
           // Primary background: render with white text
           <div className={`w-full ${alignClass}`}>
             <SectionHeader
-              label={label || ''}
               title={title}
               theme='light'
               align={align}
@@ -100,7 +97,6 @@ export default function TextSectionBlock({
         ) : (
           // Default: use TextSection component
           <TextSection
-            label={label || ''}
             title={title}
             description={description}
             cta={cta?.text && cta?.href ? { text: cta.text, href: cta.href } : undefined}

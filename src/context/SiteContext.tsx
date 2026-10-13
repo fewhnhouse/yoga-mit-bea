@@ -32,7 +32,6 @@ function resolveSiteConfig(
   }
 
   const rawName = siteSettings?.name
-  const rawTagline = siteSettings?.tagline
   const rawDomain = siteSettings?.domain
   const rawPrimaryColor = siteSettings?.primaryColor
   const rawContactEmail = siteSettings?.contactEmail
@@ -53,10 +52,6 @@ function resolveSiteConfig(
   return {
     id: siteId,
     name: rawName,
-    tagline:
-      typeof rawTagline === 'string' && rawTagline.trim().length > 0
-        ? rawTagline
-        : undefined,
     domain: rawDomain,
     primaryColor: rawPrimaryColor,
     contactEmail:
@@ -75,7 +70,7 @@ interface SiteContextType {
   siteId: SiteId
   isYoga: boolean
   isPsychotherapie: boolean
-  // Navigation links from site settings (or fallback to pages)
+  // Navigation links from site settings
   navLinks: HeaderNavLink[]
   // Footer links
   footerServiceLinks: NavLink[]
@@ -158,14 +153,8 @@ export function SiteProvider({
     return href.startsWith('/') ? href : `/${href}`
   }
 
-  // Fallback nav links from Sanity pages (already sorted by order field in query)
-  const fallbackNavLinks: HeaderNavLink[] = (sanityNav.pages || []).map((page) => ({
-    label: page.title,
-    href: `/${page.slug}`,
-  }))
-
   // Configured header nav from site settings (supports optional submenus)
-  const configuredNavLinks = (sanityNav.headerNavigation || []).reduce<HeaderNavLink[]>(
+  const navLinks = (sanityNav.headerNavigation || []).reduce<HeaderNavLink[]>(
     (acc, item) => {
       const label =
         typeof item.label === 'string' && item.label.trim().length > 0
@@ -213,8 +202,6 @@ export function SiteProvider({
     },
     []
   )
-
-  const navLinks = configuredNavLinks.length > 0 ? configuredNavLinks : fallbackNavLinks
 
   // Build footer service links from explicit service->page references in Sanity
   const footerServiceLinks: NavLink[] =

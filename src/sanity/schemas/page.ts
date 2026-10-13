@@ -42,14 +42,6 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'order',
-      title: 'Navigation Order',
-      type: 'number',
-      description:
-        'Order in which this page appears in the navigation (lower numbers first)',
-      initialValue: 100,
-    }),
 
     // Sections array - composable page content
     defineField({
@@ -57,7 +49,6 @@ export default defineType({
       title: 'Page Sections',
       type: 'array',
       of: [
-        { type: 'heroSection' },
         { type: 'imageHeroLogoSection' },
         { type: 'textSection' },
         { type: 'ctaSection' },
@@ -65,7 +56,6 @@ export default defineType({
         { type: 'cardsGridSection' },
         { type: 'serviceSection' },
         { type: 'testimonialsSection' },
-        { type: 'richTextSection' },
         { type: 'googleMeetSection' },
       ],
     }),

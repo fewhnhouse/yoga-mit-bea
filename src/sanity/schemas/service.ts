@@ -57,13 +57,6 @@ export default defineType({
       description: "Brief description shown in cards/previews",
     }),
     defineField({
-      name: "fullDescription",
-      title: "Full Description",
-      type: "array",
-      of: [{ type: "block" }],
-      description: "Detailed description shown on the service page",
-    }),
-    defineField({
       name: "image",
       title: "Image",
       type: "image",
@@ -92,35 +85,9 @@ export default defineType({
       description: "Icon shown in service cards",
     }),
     defineField({
-      name: "features",
-      title: "Features",
-      type: "array",
-      of: [{ type: "string" }],
-      description: "List of features/highlights shown with checkmarks",
-    }),
-    defineField({
-      name: "duration",
-      title: "Duration",
-      type: "string",
-      description: 'e.g., "60 Minuten" or "Termine nach Vereinbarung"',
-    }),
-    defineField({
-      name: "pricing",
-      title: "Pricing",
-      type: "string",
-      description: 'e.g., "8er Karte: 110€" or "60€ pro Stunde"',
-    }),
-    defineField({
-      name: "ctaText",
-      title: "CTA Button Text",
-      type: "string",
-      initialValue: "Anfragen",
-    }),
-    defineField({
-      name: "ctaLink",
-      title: "CTA Button Link",
-      type: "string",
-      initialValue: "/kontakt",
+      name: "cta",
+      title: "CTA Button",
+      type: "link",
     }),
     defineField({
       name: "locations",
@@ -130,53 +97,12 @@ export default defineType({
       description: "Where this service is offered",
     }),
     defineField({
-      name: "events",
-      title: "Related Events",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "event" }] }],
-      description: "Events associated with this service (e.g., Yogatag, Yogawochenende)",
-    }),
-    defineField({
       name: "order",
       title: "Display Order",
       type: "number",
       description: "Lower numbers appear first",
       initialValue: 100,
       validation: (Rule) => Rule.required().integer().min(0),
-    }),
-    defineField({
-      name: "imagePosition",
-      title: "Image Position",
-      type: "string",
-      options: {
-        list: [
-          { title: "Left", value: "left" },
-          { title: "Right", value: "right" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "left",
-      description: "Where the image appears in the section layout",
-    }),
-    defineField({
-      name: "sectionBackground",
-      title: "Section Background",
-      type: "string",
-      options: {
-        list: [
-          { title: "Light (warm-white)", value: "light" },
-          { title: "Cream", value: "cream" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "light",
-      description: "Background color for the section",
-    }),
-    defineField({
-      name: "badge",
-      title: "Badge Text",
-      type: "string",
-      description: "Optional badge shown on the image (e.g., 'Einzelstunden', 'Lonetal')",
     }),
   ],
   orderings: [

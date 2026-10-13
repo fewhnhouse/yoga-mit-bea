@@ -1,10 +1,8 @@
 import CTASection from '@/components/CTASection'
-import ServiceIcon from '@/components/ServiceIcon'
 
 interface CTAButton {
-  text: string
-  href: string
-  variant?: 'primary' | 'secondary'
+  text?: string | null
+  href?: string | null
 }
 
 interface CTASectionBlockProps {
@@ -13,7 +11,6 @@ interface CTASectionBlockProps {
   ctas?: CTAButton[]
   variant?: 'solid' | 'light'
   isQuote?: boolean
-  icon?: string
   decorative?: boolean
   padding?: 'default' | 'large'
 }
@@ -24,17 +21,16 @@ export default function CTASectionBlock({
   ctas = [],
   variant = 'solid',
   isQuote = false,
-  icon,
   decorative = false,
   padding = 'default',
 }: CTASectionBlockProps) {
   // Ensure ctas is properly formatted
   const formattedCtas = ctas
-    .filter((cta) => cta.text && cta.href)
+    .filter((cta): cta is { text: string; href: string } => Boolean(cta.text && cta.href))
     .map((cta) => ({
       text: cta.text,
       href: cta.href,
-      variant: cta.variant || 'primary',
+      variant: 'primary' as const,
     }))
 
   // If no CTAs, provide a default empty array (component handles this)
@@ -49,7 +45,6 @@ export default function CTASectionBlock({
       isQuote={isQuote}
       decorative={decorative}
       padding={padding}
-      icon={icon ? <ServiceIcon icon={icon} className='w-12 h-12 text-white' /> : undefined}
     />
   )
 }

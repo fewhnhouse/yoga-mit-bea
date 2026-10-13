@@ -171,42 +171,6 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
 
-      // Events
-      S.listItem()
-        .title("Events")
-        .icon(() => "📅")
-        .child(
-          S.list()
-            .title("Events")
-            .items([
-              S.listItem()
-                .title("Upcoming Events")
-                .child(
-                  S.documentList()
-                    .title("Upcoming Events")
-                    .filter('_type == "event" && startDate >= now()')
-                    .defaultOrdering([{ field: "startDate", direction: "asc" }])
-                ),
-              S.listItem()
-                .title("Past Events")
-                .child(
-                  S.documentList()
-                    .title("Past Events")
-                    .filter('_type == "event" && startDate < now()')
-                    .defaultOrdering([{ field: "startDate", direction: "desc" }])
-                ),
-              S.divider(),
-              S.listItem()
-                .title("All Events")
-                .child(
-                  S.documentList()
-                    .title("All Events")
-                    .filter('_type == "event"')
-                    .defaultOrdering([{ field: "startDate", direction: "desc" }])
-                ),
-            ])
-        ),
-
       S.divider(),
 
       // Testimonials

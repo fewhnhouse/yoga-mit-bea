@@ -42,31 +42,6 @@ export default defineType({
       },
       initialValue: "light",
     }),
-    defineField({
-      name: "imagePosition",
-      title: "Image Position",
-      type: "string",
-      options: {
-        list: [
-          { title: "Left", value: "left" },
-          { title: "Right", value: "right" },
-        ],
-        layout: "radio",
-      },
-      description: "Override the service's default image position",
-    }),
-    defineField({
-      name: "badge",
-      title: "Badge Text",
-      type: "string",
-      description: "Override the service's default badge (leave empty to use service default)",
-    }),
-    defineField({
-      name: "customId",
-      title: "Custom Section ID",
-      type: "string",
-      description: "Override the anchor ID (defaults to service slug)",
-    }),
   ],
   preview: {
     select: {

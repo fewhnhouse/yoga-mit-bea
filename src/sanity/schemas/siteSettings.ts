@@ -28,12 +28,6 @@ export default defineType({
       description: 'e.g., "Yoga mit Bea" or "Psychotherapie mit Bea"',
     }),
     defineField({
-      name: "tagline",
-      title: "Tagline",
-      type: "string",
-      description: "The main tagline shown in quotes on the homepage",
-    }),
-    defineField({
       name: "domain",
       title: "Domain",
       type: "string",

@@ -10,14 +10,12 @@ interface Testimonial {
 }
 
 interface TestimonialsSectionProps {
-  label?: string
   title?: string
   // Testimonials are passed in from the page query
   testimonials?: Testimonial[]
 }
 
 export default function TestimonialsSection({
-  label = '',
   title = '',
   testimonials = [],
 }: TestimonialsSectionProps) {
@@ -54,7 +52,6 @@ export default function TestimonialsSection({
       <div className='container mx-auto px-6'>
         <div className='max-w-2xl mx-auto mb-12'>
           <SectionHeader
-            label={label}
             title={title}
             align='center'
           />

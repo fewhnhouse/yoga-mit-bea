@@ -55,22 +55,10 @@ export default defineType({
 
     // Text content
     defineField({
-      name: "label",
-      title: "Label",
-      type: "string",
-      description: "Small uppercase text above the title",
-    }),
-    defineField({
       name: "title",
       title: "Title",
       type: "string",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "tagline",
-      title: "Tagline",
-      type: "string",
-      description: "Optional italic quote text below title",
     }),
     defineField({
       name: "description",
@@ -125,33 +113,7 @@ export default defineType({
     defineField({
       name: "cta",
       title: "Call to Action Link",
-      type: "object",
-      fields: [
-        defineField({
-          name: "text",
-          title: "Link Text",
-          type: "string",
-        }),
-        defineField({
-          name: "href",
-          title: "Link URL",
-          type: "string",
-        }),
-      ],
-    }),
-    defineField({
-      name: "headingLevel",
-      title: "Heading Level",
-      type: "string",
-      options: {
-        list: [
-          { title: "H1 (page title)", value: "h1" },
-          { title: "H2 (section)", value: "h2" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "h2",
-      description: "Use H1 for page hero sections",
+      type: "link",
     }),
 
     // Section styling
@@ -193,13 +155,12 @@ export default defineType({
   preview: {
     select: {
       title: "title",
-      label: "label",
       media: "image",
     },
-    prepare({ title, label, media }) {
+    prepare({ title, media }) {
       return {
         title: title || "Image + Text Section",
-        subtitle: label || "Two-column layout",
+        subtitle: "Two-column layout",
         media,
       };
     },

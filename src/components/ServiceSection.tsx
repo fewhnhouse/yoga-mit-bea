@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import type { ReactNode } from 'react'
 import type { PricingEntry, ServiceFromQuery } from '@/sanity/types'
 import { formatLocationAddress } from '@/lib/formatLocationAddress'
 import SectionHeader from '@/components/SectionHeader'
@@ -13,14 +12,6 @@ interface ServiceSectionProps {
   subtitle?: string
   /** Background style - alternates between sections */
   background?: 'light' | 'cream'
-  /** Image position */
-  imagePosition?: 'left' | 'right'
-  /** Badge text to show on the image */
-  badge?: string | null
-  /** Section ID for anchor links */
-  id?: string | null
-  /** Fallback icon to show when no image is available */
-  fallbackIcon?: ReactNode
 }
 
 type LocationPricing = NonNullable<ServiceFromQuery['locations']>[number]['pricing']
@@ -82,10 +73,6 @@ export default function ServiceSection({
   title,
   subtitle,
   background = 'light',
-  imagePosition = 'left',
-  badge,
-  id,
-  fallbackIcon,
 }: ServiceSectionProps) {
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
   const displayTitle = title ?? service.title
@@ -94,26 +81,14 @@ export default function ServiceSection({
   // Use locations from the service itself (embedded via reference)
   const serviceLocations = service.locations
   const hasLocations = serviceLocations && serviceLocations.length > 0
-  // Determine if we should show events (only yoga services have events)
-  const serviceEvents = 'events' in service && service.events ? service.events : null
-  const hasEvents = serviceEvents && serviceEvents.length > 0
 
   return (
     <section
-      id={id ?? service.slug}
+      id={service.slug}
       className={`py-24 ${bgClass} scroll-mt-24`}
     >
       <div className='container mx-auto px-6'>
-        {hasEvents && serviceEvents ? (
-          // Layout with events (for Yoga aktuell)
-          <EventsLayout
-            service={service}
-            events={serviceEvents}
-            background={background}
-            title={displayTitle}
-            subtitle={displaySubtitle}
-          />
-        ) : hasLocations && serviceLocations ? (
+        {hasLocations && serviceLocations ? (
           // Layout with locations (for group courses)
           <LocationsLayout
             service={service}
@@ -124,71 +99,6 @@ export default function ServiceSection({
         ) : null}
       </div>
     </section>
-  )
-}
-
-// Event type from yoga service query
-type ServiceEvent = { _id: string; title: string | null; description: string | null }
-
-// Sub-component for services with events (like Yoga aktuell)
-function EventsLayout({
-  service,
-  events,
-  background = 'light',
-  title,
-  subtitle,
-}: {
-  service: ServiceFromQuery
-  events: ServiceEvent[]
-  background?: 'light' | 'cream'
-  title: string
-  subtitle?: string | null
-}) {
-  // Use contrasting background for cards
-  const cardBgClass = background === 'light' ? 'bg-cream' : 'bg-warm-white'
-
-  return (
-    <>
-      {/* Header */}
-      <div className='max-w-3xl'>
-        <SectionHeader
-          label={subtitle || ''}
-          title={title}
-        />
-        {service.shortDescription && (
-          <p className='text-charcoal-light leading-relaxed mb-8'>
-            {service.shortDescription}
-          </p>
-        )}
-      </div>
-
-      {/* Event Cards */}
-      <div className='space-y-4 mb-8'>
-        {events.map((event) => (
-          <div
-            key={event._id}
-            className={`${cardBgClass} rounded-2xl p-6`}
-          >
-            <h3 className='font-display text-xl font-light text-primary-dark mb-2'>
-              {event.title}
-            </h3>
-            {event.description && (
-              <p className='text-charcoal-light'>
-                {event.description}
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <Link 
-        href={service.ctaLink || '/kontakt'} 
-        className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
-      >
-        {service.ctaText || 'Termine erfragen'}
-      </Link>
-    </>
   )
 }
 
@@ -367,13 +277,13 @@ function LocationsLayout({
       </div>
 
       {/* CTA */}
-      {service.ctaText && service.ctaLink && (
+      {service.cta?.text && service.cta.href && (
         <div className='text-center mt-10'>
           <Link
-            href={service.ctaLink}
+            href={service.cta.href}
             className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
           >
-            {service.ctaText}
+            {service.cta.text}
           </Link>
         </div>
       )}

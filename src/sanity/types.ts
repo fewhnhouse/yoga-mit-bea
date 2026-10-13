@@ -13,7 +13,6 @@ export type {
   SiteSettings,
   Service,
   Location,
-  Event,
   Testimonial,
   Page,
   Slug,
@@ -26,14 +25,7 @@ export type {
 export type {
   SiteSettingsQueryResult,
   ServicesForSiteQueryResult,
-  ServiceBySlugQueryResult,
   LocationsForSiteQueryResult,
-  LocationBySlugQueryResult,
-  UpcomingEventsQueryResult,
-  EventBySlugQueryResult,
-  FeaturedTestimonialsQueryResult,
-  AllTestimonialsQueryResult,
-  PageBySlugQueryResult,
   PageWithSectionsDataQueryResult,
   HomepageFromSettingsQueryResult,
   AllPageSlugsQueryResult,
@@ -76,53 +68,16 @@ export type PricingEntry = {
 // These are the actual shapes returned by queries (with projections)
 // ============================================
 
-import type {
-  PageWithSectionsDataQueryResult,
-  LocationsForSiteQueryResult,
-} from "./sanity.types";
+import type { PageWithSectionsDataQueryResult } from "./sanity.types";
+
+type PageSection = NonNullable<
+  NonNullable<PageWithSectionsDataQueryResult["page"]>["sections"]
+>[number];
 
 /** Service type as returned by serviceSection in page queries */
-export type ServiceFromQuery = {
-  _id: string;
-  title: string;
-  slug: string;
-  subtitle: string | null;
-  shortDescription: string | null;
-  fullDescription: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  imageUrl: string | null;
-  icon: ServiceIconType | null;
-  features: Array<string> | null;
-  duration: string | null;
-  pricing: string | null;
-  ctaText: string | null;
-  ctaLink: string | null;
-  imagePosition: "left" | "right" | null;
-  sectionBackground: "light" | "cream" | null;
-  badge: string | null;
-  locations: LocationsForSiteQueryResult | null;
-  events: Array<{
-    _id: string;
-    title: string | null;
-    description: string | null;
-  }> | null;
-};
+export type ServiceFromQuery = NonNullable<
+  Extract<PageSection, { _type: "serviceSection" }>["service"]
+>;
 
-/** Location type as returned by page data query */
-export type LocationFromQuery = NonNullable<PageWithSectionsDataQueryResult>["locations"][number];
+/** Location type as returned by serviceSection in page queries */
+export type LocationFromQuery = NonNullable<ServiceFromQuery["locations"]>[number];

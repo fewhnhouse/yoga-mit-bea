@@ -46,11 +46,6 @@ export default function Footer() {
                 className="h-14 w-auto"
               />
             </Link>
-            {currentSite.tagline && (
-              <p className="text-charcoal-light text-sm leading-relaxed mb-6 italic">
-                &bdquo;{currentSite.tagline}&ldquo;
-              </p>
-            )}
           </div>
 
           {/* Services Links */}

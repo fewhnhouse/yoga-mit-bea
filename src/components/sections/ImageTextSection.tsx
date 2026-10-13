@@ -12,14 +12,12 @@ interface ImageTextSectionProps {
   aspectRatio?: '4/5' | '3/4' | '4/3'
 
   // Text content
-  label?: string
   title: string
-  tagline?: string
   description?: PortableTextBlock[] | string[] | string
   cta?: {
-    text?: string
-    href?: string
-  }
+    text?: string | null
+    href?: string | null
+  } | null
 
   // Section styling
   background?: 'light' | 'cream' | 'gradient' | 'pattern'
@@ -33,9 +31,7 @@ export default function ImageTextSection({
   imagePosition = 'left',
   aspectRatio = '4/5',
 
-  label,
   title,
-  tagline,
   description,
   cta,
 
@@ -127,16 +123,9 @@ export default function ImageTextSection({
           {/* Text content */}
           <div className={textOrderClass}>
             <SectionHeader
-              label={label || ''}
               title={title}
               as='h2'
             />
-
-            {tagline && (
-              <p className='font-display text-xl text-primary-dark italic mb-6'>
-                &bdquo;{tagline}&ldquo;
-              </p>
-            )}
 
             <SectionDescription
               value={description}
