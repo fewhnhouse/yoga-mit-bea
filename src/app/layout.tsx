@@ -141,7 +141,7 @@ export default async function RootLayout({
   const { isEnabled: isDraftMode } = await draftMode()
 
   return (
-    <html lang='de' className={`${cormorant.variable} ${lora.variable}`}>
+    <html lang='de' data-scroll-behavior='smooth' className={`${cormorant.variable} ${lora.variable}`}>
       <Analytics />
       <body className='antialiased min-h-screen flex flex-col'>
         {children}
