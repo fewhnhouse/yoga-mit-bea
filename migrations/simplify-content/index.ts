@@ -1,5 +1,5 @@
 import { at, defineMigration, set, unset } from "sanity/migrate";
-import type { SanityClient } from "@sanity/client";
+import type { MigrationContext, NodePatch } from "sanity/migrate";
 
 const CODE_ROUTES = new Set(["kontakt", "impressum", "datenschutz"]);
 
@@ -35,7 +35,7 @@ type Section = { _type: string; _key: string; [field: string]: unknown };
 
 let pageIdsBySlug: Promise<Map<string, string>> | undefined;
 
-function loadPageIds(client: SanityClient) {
+function loadPageIds(client: MigrationContext["client"]) {
   pageIdsBySlug ??= client
     .fetch<{ _id: string; slug: string }[]>(
       `*[_type == "page" && !(_id in path("drafts.**"))]{ _id, "slug": slug.current }`
@@ -90,7 +90,7 @@ export default defineMigration({
   migrate: {
     async document(doc, context) {
       const pageIds = await loadPageIds(context.client);
-      const patches = DOCUMENT_FIELDS_TO_DROP[doc._type]
+      const patches: NodePatch[] = DOCUMENT_FIELDS_TO_DROP[doc._type]
         .filter((field) => field in doc)
         .map((field) => at(field, unset()));
 
