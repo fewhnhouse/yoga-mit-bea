@@ -51,9 +51,7 @@ interface ImageTextSectionData extends BaseSection {
   title: string
   description?: PortableTextBlock[] | string[] | string
   cta?: { text?: string | null; href?: string | null } | null
-  background?: 'light' | 'cream' | 'gradient' | 'pattern'
-  decorativeBlobs?: boolean
-  padding?: 'hero' | 'section'
+  background?: 'light' | 'pattern'
 }
 
 interface CardsGridSectionData extends BaseSection {
@@ -130,7 +128,7 @@ export function SectionRenderer({
 }: SectionRendererProps) {
   return (
     <>
-      {sections.map((section) => {
+      {sections.map((section, index) => {
         switch (section._type) {
 
           case 'textSection':
@@ -142,7 +140,7 @@ export function SectionRenderer({
                 cta={section.cta}
                 align={section.align}
                 background={section.background}
-                padding={section.padding}
+                padding={index === 0 ? 'hero' : section.padding}
               />
             )
 
@@ -178,8 +176,7 @@ export function SectionRenderer({
                 description={section.description}
                 cta={section.cta}
                 background={section.background}
-                decorativeBlobs={section.decorativeBlobs}
-                padding={section.padding}
+                isHero={index === 0}
               />
             )
 

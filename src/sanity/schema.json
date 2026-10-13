@@ -1012,43 +1012,11 @@
             "of": [
               {
                 "type": "string",
-                "value": "light"
-              },
-              {
-                "type": "string",
-                "value": "cream"
-              },
-              {
-                "type": "string",
-                "value": "gradient"
-              },
-              {
-                "type": "string",
                 "value": "pattern"
-              }
-            ]
-          },
-          "optional": true
-        },
-        "decorativeBlobs": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
-        },
-        "padding": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "hero"
               },
               {
                 "type": "string",
-                "value": "section"
+                "value": "light"
               }
             ]
           },

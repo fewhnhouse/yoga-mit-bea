@@ -109,6 +109,7 @@ export default defineType({
         ],
         layout: "radio",
       },
+      description: "The first section on a page always uses hero padding",
       initialValue: "hero",
     }),
   ],

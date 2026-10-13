@@ -139,9 +139,7 @@ export type ImageTextSection = {
     _key: string;
   }>;
   cta?: Link;
-  background?: "light" | "cream" | "gradient" | "pattern";
-  decorativeBlobs?: boolean;
-  padding?: "hero" | "section";
+  background?: "pattern" | "light";
 };
 
 export type CtaSection = {
@@ -846,9 +844,7 @@ export type PageWithSectionsDataQueryResult = {
         text: string;
         href: string | "/datenschutz" | "/impressum" | "/kontakt";
       } | null;
-      background?: "cream" | "gradient" | "light" | "pattern";
-      decorativeBlobs?: boolean;
-      padding?: "hero" | "section";
+      background?: "light" | "pattern";
       imageUrl: string | null;
     } | {
       _key: string;
@@ -1123,9 +1119,7 @@ export type HomepageFromSettingsQueryResult = {
           text: string;
           href: string | "/datenschutz" | "/impressum" | "/kontakt";
         } | null;
-        background?: "cream" | "gradient" | "light" | "pattern";
-        decorativeBlobs?: boolean;
-        padding?: "hero" | "section";
+        background?: "light" | "pattern";
         imageUrl: string | null;
       } | {
         _key: string;

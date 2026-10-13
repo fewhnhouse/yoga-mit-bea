@@ -110,33 +110,11 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Light (warm-white)", value: "light" },
-          { title: "Cream", value: "cream" },
-          { title: "Gradient", value: "gradient" },
           { title: "Pattern", value: "pattern" },
+          { title: "Light (warm-white)", value: "light" },
         ],
       },
       initialValue: "pattern",
-    }),
-    defineField({
-      name: "decorativeBlobs",
-      title: "Show Decorative Blobs",
-      type: "boolean",
-      description: "Display organic blob shapes behind image",
-      initialValue: true,
-    }),
-    defineField({
-      name: "padding",
-      title: "Padding Style",
-      type: "string",
-      options: {
-        list: [
-          { title: "Hero (larger top padding)", value: "hero" },
-          { title: "Section (standard)", value: "section" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "section",
     }),
   ],
   preview: {

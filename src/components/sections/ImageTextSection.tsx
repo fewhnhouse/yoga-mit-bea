@@ -19,9 +19,9 @@ interface ImageTextSectionProps {
   } | null
 
   // Section styling
-  background?: 'light' | 'cream' | 'gradient' | 'pattern'
-  decorativeBlobs?: boolean
-  padding?: 'hero' | 'section'
+  background?: 'light' | 'pattern'
+  /** First section on the page: extra top padding, decorative blobs, text first on mobile */
+  isHero?: boolean
 }
 
 export default function ImageTextSection({
@@ -34,23 +34,18 @@ export default function ImageTextSection({
   cta,
 
   background = 'pattern',
-  decorativeBlobs = true,
-  padding = 'section',
+  isHero = false,
 }: ImageTextSectionProps) {
   // Background classes
   const bgClasses: Record<string, string> = {
     light: 'bg-warm-white',
-    cream: 'bg-cream',
-    gradient: 'bg-gradient-to-br from-cream via-warm-white to-primary/10',
     pattern: 'bg-warm-white section-pattern',
   }
 
   // Padding classes
-  const paddingClasses = padding === 'hero' ? 'pt-32 pb-20' : 'py-24'
+  const paddingClasses = isHero ? 'pt-32 pb-20' : 'py-24'
 
-  // Aspect ratio classes
   const isImageRight = imagePosition === 'right'
-  const isHero = padding === 'hero'
 
   // On mobile, hero sections show text first (order-2 for image, order-1 for text)
   // On desktop, respect the imagePosition setting
@@ -71,7 +66,7 @@ export default function ImageTextSection({
       className={`relative ${paddingClasses} ${bgClasses[background]} overflow-hidden`}
     >
       {/* Decorative floating blobs */}
-      {decorativeBlobs && (background === 'gradient' || isHero) && (
+      {isHero && (
         <>
           <div
             className='absolute top-20 right-10 w-64 h-64 bg-primary/5 organic-blob animate-float'
@@ -95,12 +90,12 @@ export default function ImageTextSection({
                   alt={imageAlt || title}
                   fill
                   className='object-cover rounded-2xl'
-                  priority={padding === 'hero'}
+                  priority={isHero}
                 />
               </div>
             )}
             {/* Image decorative blobs */}
-            {decorativeBlobs && (
+            {background === 'pattern' && (
               <>
                 <div
                   className={`absolute -bottom-6 ${isImageRight ? '-left-6' : '-right-6'} w-48 h-48 bg-primary/10 organic-blob -z-10`}
