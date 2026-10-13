@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import type { PricingEntry, ServiceFromQuery } from '@/sanity/types'
 import { formatLocationAddress } from '@/lib/formatLocationAddress'
@@ -8,8 +7,6 @@ interface ServiceSectionProps {
   service: ServiceFromQuery
   /** Override the service title for this section */
   title?: string
-  /** Override the service subtitle for this section */
-  subtitle?: string
   /** Background style - alternates between sections */
   background?: 'light' | 'cream'
 }
@@ -71,12 +68,10 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
 export default function ServiceSection({
   service,
   title,
-  subtitle,
   background = 'light',
 }: ServiceSectionProps) {
   const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
   const displayTitle = title ?? service.title
-  const displaySubtitle = subtitle ?? service.subtitle
 
   // Use locations from the service itself (embedded via reference)
   const serviceLocations = service.locations
@@ -94,7 +89,6 @@ export default function ServiceSection({
             service={service}
             locations={serviceLocations}
             title={displayTitle}
-            subtitle={displaySubtitle}
           />
         ) : null}
       </div>
@@ -107,12 +101,10 @@ function LocationsLayout({
   service,
   locations,
   title,
-  subtitle,
 }: {
   service: ServiceFromQuery
   locations: NonNullable<ServiceFromQuery['locations']>
   title: string
-  subtitle?: string | null
 }) {
   const hasSingleLocation = locations.length === 1
 
@@ -121,7 +113,6 @@ function LocationsLayout({
       {/* Header */}
       <div className='mb-12'>
         <SectionHeader
-          label={subtitle ?? ''}
           title={title}
           align='center'
         />
@@ -275,18 +266,6 @@ function LocationsLayout({
           </div>
         ))}
       </div>
-
-      {/* CTA */}
-      {service.cta?.text && service.cta.href && (
-        <div className='text-center mt-10'>
-          <Link
-            href={service.cta.href}
-            className='inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg bg-primary hover:bg-primary-dark'
-          >
-            {service.cta.text}
-          </Link>
-        </div>
-      )}
     </>
   )
 }

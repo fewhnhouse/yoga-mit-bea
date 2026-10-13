@@ -63,11 +63,9 @@ const sectionsProjection = `sections[] {
       _id,
       title,
       "slug": slug.current,
-      subtitle,
       shortDescription,
       "imageUrl": image.asset->url,
       icon,
-      cta ${linkProjection},
       locations[]-> {
         _id,
         name,

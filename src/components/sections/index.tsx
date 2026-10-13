@@ -90,7 +90,6 @@ interface ServiceSectionData extends BaseSection {
   _type: 'serviceSection'
   service?: ServiceFromQuery
   title?: string
-  subtitle?: string
   background?: 'light' | 'cream'
 }
 
@@ -220,7 +219,6 @@ export function SectionRenderer({
                 key={section._key}
                 service={section.service}
                 title={section.title}
-                subtitle={section.subtitle}
                 background={section.background || 'light'}
               />
             )

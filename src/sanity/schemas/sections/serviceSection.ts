@@ -18,12 +18,6 @@ export default defineType({
       description: "Select the service to display",
     }),
     defineField({
-      name: "subtitle",
-      title: "Subtitle",
-      type: "string",
-      description: "Override the service subtitle (leave empty to use the service default)",
-    }),
-    defineField({
       name: "title",
       title: "Title",
       type: "string",

@@ -44,12 +44,6 @@ export default defineType({
         "Page used for navigation links (e.g. footer service links).",
     }),
     defineField({
-      name: "subtitle",
-      title: "Subtitle",
-      type: "string",
-      description: 'e.g., "Yoga für dich" or "Körperliche Entspannung"',
-    }),
-    defineField({
       name: "shortDescription",
       title: "Short Description",
       type: "text",
@@ -83,11 +77,6 @@ export default defineType({
         ],
       },
       description: "Icon shown in service cards",
-    }),
-    defineField({
-      name: "cta",
-      title: "CTA Button",
-      type: "link",
     }),
     defineField({
       name: "locations",

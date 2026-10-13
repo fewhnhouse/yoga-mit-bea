@@ -150,13 +150,6 @@
           },
           "optional": false
         },
-        "subtitle": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
-        },
         "title": {
           "type": "objectAttribute",
           "value": {
@@ -3175,13 +3168,6 @@
         },
         "optional": true
       },
-      "subtitle": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "shortDescription": {
         "type": "objectAttribute",
         "value": {
@@ -3304,14 +3290,6 @@
               "value": "sun-moon"
             }
           ]
-        },
-        "optional": true
-      },
-      "cta": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "link"
         },
         "optional": true
       },
