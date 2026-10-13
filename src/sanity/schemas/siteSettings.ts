@@ -34,17 +34,6 @@ export default defineType({
       description: 'e.g., "yogamitbea.de"',
     }),
     defineField({
-      name: "primaryColor",
-      title: "Primary Color",
-      type: "string",
-      options: {
-        list: [
-          { title: "Sage (Green)", value: "sage" },
-          { title: "Terracotta (Brown/Orange)", value: "terracotta" },
-        ],
-      },
-    }),
-    defineField({
       name: "logo",
       title: "Logo",
       type: "image",

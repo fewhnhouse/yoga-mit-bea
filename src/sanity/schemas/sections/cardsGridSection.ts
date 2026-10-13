@@ -68,19 +68,6 @@ export default defineType({
       },
       description: "Number of columns on large screens (auto-adjusts on mobile)",
     }),
-    defineField({
-      name: "background",
-      title: "Background",
-      type: "string",
-      options: {
-        list: [
-          { title: "Light (warm-white)", value: "light" },
-          { title: "Cream", value: "cream" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "cream",
-    }),
 
     // Card styling (applies to all cards)
     defineField({

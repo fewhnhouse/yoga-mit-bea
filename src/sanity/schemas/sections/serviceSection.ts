@@ -23,32 +23,16 @@ export default defineType({
       type: "string",
       description: "Override the service title (leave empty to use the service default)",
     }),
-    defineField({
-      name: "background",
-      title: "Background",
-      type: "string",
-      options: {
-        list: [
-          { title: "Light", value: "light" },
-          { title: "Cream", value: "cream" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "light",
-    }),
   ],
   preview: {
     select: {
       title: "title",
       serviceTitle: "service.title",
-      background: "background",
-      imageUrl: "service.image.asset.url",
     },
-    prepare({ title, serviceTitle, background, imageUrl }) {
+    prepare({ title, serviceTitle }) {
       return {
         title: title || serviceTitle || "No service selected",
-        subtitle: `Service Section (${background || "light"} background)`,
-        media: imageUrl ? undefined : undefined,
+        subtitle: "Service Section",
       };
     },
   },

@@ -39,7 +39,6 @@ export type ServiceSection = {
     [internalGroqTypeReferenceTo]?: "service";
   };
   title?: string;
-  background?: "light" | "cream";
 };
 
 export type CardsGridSection = {
@@ -64,7 +63,6 @@ export type CardsGridSection = {
     _key: string;
   }>;
   columns?: 2 | 3 | 4;
-  background?: "light" | "cream";
   cardVariant?: "card" | "flat";
   cardSize?: "default" | "compact";
   cardAlign?: "center" | "left";
@@ -117,7 +115,6 @@ export type ImageTextSection = {
   };
   imageAlt?: string;
   imagePosition?: "left" | "right";
-  aspectRatio?: "4/5" | "3/4" | "4/3";
   title: string;
   description?: Array<{
     children?: Array<{
@@ -154,10 +151,6 @@ export type CtaSection = {
   ctas?: Array<{
     _key: string;
   } & Link>;
-  variant?: "solid" | "light";
-  isQuote?: boolean;
-  decorative?: boolean;
-  padding?: "default" | "large";
 };
 
 export type TextSection = {
@@ -313,7 +306,6 @@ export type SiteSettings = {
   siteId: "yoga" | "therapie";
   name: string;
   domain?: string;
-  primaryColor?: "sage" | "terracotta";
   logo?: {
     asset?: {
       _ref: string;
@@ -573,13 +565,12 @@ export type AllSanitySchemaTypes = GoogleMeetSection | TestimonialsSection | Ser
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: siteSettingsQuery
-// Query: *[_id == $siteSettingsId][0] {    _id,    siteId,    name,    domain,    primaryColor,    "logoUrl": logo.asset->url,    "ogImageUrl": ogImage.asset->url,    seoDescription,    contactEmail,    contactPhone,    businessLocation {      schemaOrgType,      streetAddress,      addressLocality,      postalCode,      addressRegion,      addressCountry,      latitude,      longitude,      serviceAreaDescription,      sameAs    }  }
+// Query: *[_id == $siteSettingsId][0] {    _id,    siteId,    name,    domain,    "logoUrl": logo.asset->url,    "ogImageUrl": ogImage.asset->url,    seoDescription,    contactEmail,    contactPhone,    businessLocation {      schemaOrgType,      streetAddress,      addressLocality,      postalCode,      addressRegion,      addressCountry,      latitude,      longitude,      serviceAreaDescription,      sameAs    }  }
 export type SiteSettingsQueryResult = {
   _id: string;
   siteId: null;
   name: null;
   domain: null;
-  primaryColor: null;
   logoUrl: null;
   ogImageUrl: null;
   seoDescription: null;
@@ -591,7 +582,6 @@ export type SiteSettingsQueryResult = {
   siteId: null;
   name: null;
   domain: null;
-  primaryColor: null;
   logoUrl: null;
   ogImageUrl: string | null;
   seoDescription: string | null;
@@ -603,7 +593,6 @@ export type SiteSettingsQueryResult = {
   siteId: null;
   name: string;
   domain: null;
-  primaryColor: null;
   logoUrl: null;
   ogImageUrl: null;
   seoDescription: null;
@@ -615,7 +604,6 @@ export type SiteSettingsQueryResult = {
   siteId: "therapie" | "yoga";
   name: string;
   domain: string | null;
-  primaryColor: "sage" | "terracotta" | null;
   logoUrl: string | null;
   ogImageUrl: string | null;
   seoDescription: string | null;
@@ -725,7 +713,6 @@ export type PageWithSectionsDataQueryResult = {
         _key: string;
       }>;
       columns?: 2 | 3 | 4;
-      background?: "cream" | "light";
       cardVariant?: "card" | "flat";
       cardSize?: "compact" | "default";
       cardAlign?: "center" | "left";
@@ -772,10 +759,6 @@ export type PageWithSectionsDataQueryResult = {
         text: string;
         href: string | null | "/datenschutz" | "/impressum" | "/kontakt";
       }> | null;
-      variant?: "light" | "solid";
-      isQuote?: boolean;
-      decorative?: boolean;
-      padding?: "default" | "large";
     } | {
       _key: string;
       _type: "googleMeetSection";
@@ -836,7 +819,6 @@ export type PageWithSectionsDataQueryResult = {
       };
       imageAlt?: string;
       imagePosition?: "left" | "right";
-      aspectRatio?: "3/4" | "4/3" | "4/5";
       title: string;
       description?: Array<{
         children?: Array<{
@@ -905,7 +887,6 @@ export type PageWithSectionsDataQueryResult = {
         }> | null;
       };
       title?: string;
-      background?: "cream" | "light";
     } | {
       _key: string;
       _type: "testimonialsSection";
@@ -1009,7 +990,6 @@ export type HomepageFromSettingsQueryResult = {
           _key: string;
         }>;
         columns?: 2 | 3 | 4;
-        background?: "cream" | "light";
         cardVariant?: "card" | "flat";
         cardSize?: "compact" | "default";
         cardAlign?: "center" | "left";
@@ -1056,10 +1036,6 @@ export type HomepageFromSettingsQueryResult = {
           text: string;
           href: string | null | "/datenschutz" | "/impressum" | "/kontakt";
         }> | null;
-        variant?: "light" | "solid";
-        isQuote?: boolean;
-        decorative?: boolean;
-        padding?: "default" | "large";
       } | {
         _key: string;
         _type: "googleMeetSection";
@@ -1120,7 +1096,6 @@ export type HomepageFromSettingsQueryResult = {
         };
         imageAlt?: string;
         imagePosition?: "left" | "right";
-        aspectRatio?: "3/4" | "4/3" | "4/5";
         title: string;
         description?: Array<{
           children?: Array<{
@@ -1189,7 +1164,6 @@ export type HomepageFromSettingsQueryResult = {
           }> | null;
         };
         title?: string;
-        background?: "cream" | "light";
       } | {
         _key: string;
         _type: "testimonialsSection";
@@ -1253,7 +1227,7 @@ export type SitemapPagesForSiteQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    domain,\n    primaryColor,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
+    "\n  *[_id == $siteSettingsId][0] {\n    _id,\n    siteId,\n    name,\n    domain,\n    \"logoUrl\": logo.asset->url,\n    \"ogImageUrl\": ogImage.asset->url,\n    seoDescription,\n    contactEmail,\n    contactPhone,\n    businessLocation {\n      schemaOrgType,\n      streetAddress,\n      addressLocality,\n      postalCode,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      serviceAreaDescription,\n      sameAs\n    }\n  }\n": SiteSettingsQueryResult;
     "\n{\n  \"headerNavigation\": *[_id == $siteSettingsId][0].headerNavigation[] {\n    _key,\n    \"label\": coalesce(label, page->title),\n    \"href\": select(\n      defined(page->slug.current) => \"/\" + page->slug.current,\n      null\n    ),\n    \"subLinks\": coalesce(\n      children[defined(page->slug.current)][] {\n        _key,\n        \"label\": coalesce(label, page->title),\n        \"href\": \"/\" + page->slug.current\n      },\n      []\n    )\n  },\n  \"services\": *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current\n  }\n}\n": NavigationDataQueryResult;
     "\n  *[_type == \"service\" && site in [$siteId, \"both\"]] | order(coalesce(order, 100) asc, title asc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    \"pageSlug\": page->slug.current,\n    shortDescription,\n    \"imageUrl\": image.asset->url,\n    locations[]-> {\n      _id,\n      name,\n      description,\n      \"imageUrl\": image.asset->url,\n      streetAddress,\n      postalCode,\n      addressLocality,\n      addressRegion,\n      addressCountry,\n      latitude,\n      longitude,\n      googleMapsUrl\n    }\n  }\n": ServicesForSiteQueryResult;
     "\n  *[_type == \"location\" && usedBy in [$siteId, \"both\"]] | order(order asc) {\n    _id,\n    name,\n    description,\n    \"imageUrl\": image.asset->url,\n    streetAddress,\n    postalCode,\n    addressLocality,\n    addressRegion,\n    addressCountry,\n    latitude,\n    longitude,\n    googleMapsUrl\n  }\n": LocationsForSiteQueryResult;

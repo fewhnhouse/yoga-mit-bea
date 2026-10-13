@@ -26,7 +26,6 @@ interface CardsGridSectionProps {
   label?: string
   title?: PortableTextBlock[]
   columns?: 2 | 3 | 4
-  background?: 'light' | 'cream'
   cardVariant?: 'card' | 'flat'
   cardSize?: 'default' | 'compact'
   cardAlign?: 'center' | 'left'
@@ -79,15 +78,11 @@ export default function CardsGridSection({
   label,
   title,
   columns,
-  background = 'cream',
   cardVariant = 'card',
   cardSize = 'default',
   cardAlign = 'center',
   cards = [],
 }: CardsGridSectionProps) {
-  // Background classes
-  const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
-
   // Determine columns class
   const cardCount = cards.length
   const effectiveColumns = columns || (cardCount >= 4 ? 4 : cardCount >= 3 ? 3 : 2)
@@ -99,7 +94,7 @@ export default function CardsGridSection({
   }
 
   return (
-    <section className={`py-24 ${bgClass}`}>
+    <section className='py-24 bg-cream'>
       <div className='container mx-auto px-6'>
         {/* Section header */}
         {(label || title) && (

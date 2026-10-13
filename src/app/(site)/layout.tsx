@@ -39,14 +39,17 @@ async function getSiteLayoutData(): Promise<SiteLayoutData> {
       sanityFetch({
         query: siteSettingsQuery,
         params: { siteSettingsId },
+        stega: false,
       }),
       sanityFetch({
         query: locationsForSiteQuery,
         params: { siteId },
+        stega: false,
       }),
       sanityFetch({
         query: servicesForSiteQuery,
         params: { siteId },
+        stega: false,
       }),
     ])
 

@@ -156,23 +156,6 @@
             "type": "string"
           },
           "optional": true
-        },
-        "background": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "light"
-              },
-              {
-                "type": "string",
-                "value": "cream"
-              }
-            ]
-          },
-          "optional": true
         }
       }
     }
@@ -355,23 +338,6 @@
               {
                 "type": "number",
                 "value": 4
-              }
-            ]
-          },
-          "optional": true
-        },
-        "background": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "light"
-              },
-              {
-                "type": "string",
-                "value": "cream"
               }
             ]
           },
@@ -810,27 +776,6 @@
           },
           "optional": true
         },
-        "aspectRatio": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "4/5"
-              },
-              {
-                "type": "string",
-                "value": "3/4"
-              },
-              {
-                "type": "string",
-                "value": "4/3"
-              }
-            ]
-          },
-          "optional": true
-        },
         "title": {
           "type": "objectAttribute",
           "value": {
@@ -1158,54 +1103,6 @@
                 "name": "link"
               }
             }
-          },
-          "optional": true
-        },
-        "variant": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "solid"
-              },
-              {
-                "type": "string",
-                "value": "light"
-              }
-            ]
-          },
-          "optional": true
-        },
-        "isQuote": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
-        },
-        "decorative": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
-        },
-        "padding": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "default"
-              },
-              {
-                "type": "string",
-                "value": "large"
-              }
-            ]
           },
           "optional": true
         }
@@ -2307,23 +2204,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
-        },
-        "optional": true
-      },
-      "primaryColor": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "sage"
-            },
-            {
-              "type": "string",
-              "value": "terracotta"
-            }
-          ]
         },
         "optional": true
       },

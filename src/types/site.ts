@@ -38,7 +38,6 @@ export interface ResolvedSiteConfig {
   id: SiteId;
   name: string;
   domain: string;
-  primaryColor: "sage" | "terracotta";
   contactEmail?: string;
   contactPhone?: string;
 }

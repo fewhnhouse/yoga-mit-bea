@@ -10,6 +10,7 @@ export async function resolveSiteDisplayName(forSiteId?: SiteId): Promise<string
   const { data: settings } = await sanityFetch({
     query: siteSettingsQuery,
     params: { siteSettingsId },
+    stega: false,
   })
   if (settings && typeof settings.name === 'string' && settings.name.trim()) {
     return settings.name.trim()

@@ -33,7 +33,6 @@ function resolveSiteConfig(
 
   const rawName = siteSettings?.name
   const rawDomain = siteSettings?.domain
-  const rawPrimaryColor = siteSettings?.primaryColor
   const rawContactEmail = siteSettings?.contactEmail
   const rawContactPhone = siteSettings?.contactPhone
 
@@ -43,17 +42,11 @@ function resolveSiteConfig(
   if (typeof rawDomain !== 'string' || rawDomain.trim().length === 0) {
     throw new Error(`[SiteContext] Missing required field "domain" for site "${siteId}".`)
   }
-  if (rawPrimaryColor !== 'sage' && rawPrimaryColor !== 'terracotta') {
-    throw new Error(
-      `[SiteContext] Missing or invalid required field "primaryColor" for site "${siteId}".`
-    )
-  }
 
   return {
     id: siteId,
     name: rawName,
     domain: rawDomain,
-    primaryColor: rawPrimaryColor,
     contactEmail:
       typeof rawContactEmail === 'string' && rawContactEmail.trim().length > 0
         ? rawContactEmail

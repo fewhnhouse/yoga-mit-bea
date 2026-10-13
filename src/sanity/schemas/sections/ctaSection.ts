@@ -28,56 +28,15 @@ export default defineType({
       type: "array",
       of: [{ type: "link" }],
     }),
-    defineField({
-      name: "variant",
-      title: "Background Variant",
-      type: "string",
-      options: {
-        list: [
-          { title: "Solid (colored background)", value: "solid" },
-          { title: "Light (gradient background)", value: "light" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "solid",
-    }),
-    defineField({
-      name: "isQuote",
-      title: "Style as Quote",
-      type: "boolean",
-      description: "Display with larger italic text styling",
-      initialValue: false,
-    }),
-    defineField({
-      name: "decorative",
-      title: "Show Decorative Elements",
-      type: "boolean",
-      description: "Display decorative circles in background",
-      initialValue: false,
-    }),
-    defineField({
-      name: "padding",
-      title: "Vertical Padding",
-      type: "string",
-      options: {
-        list: [
-          { title: "Default", value: "default" },
-          { title: "Large", value: "large" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "default",
-    }),
   ],
   preview: {
     select: {
       title: "title",
-      isQuote: "isQuote",
     },
-    prepare({ title, isQuote }) {
+    prepare({ title }) {
       return {
         title: title || "CTA Section",
-        subtitle: isQuote ? "Quote style" : "Call to action",
+        subtitle: "Call to action",
       };
     },
   },

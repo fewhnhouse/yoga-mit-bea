@@ -7,8 +7,6 @@ interface ServiceSectionProps {
   service: ServiceFromQuery
   /** Override the service title for this section */
   title?: string
-  /** Background style - alternates between sections */
-  background?: 'light' | 'cream'
 }
 
 type LocationPricing = NonNullable<ServiceFromQuery['locations']>[number]['pricing']
@@ -68,9 +66,7 @@ function normalizePricingEntries(pricing: LocationPricing): Array<{ _key?: strin
 export default function ServiceSection({
   service,
   title,
-  background = 'light',
 }: ServiceSectionProps) {
-  const bgClass = background === 'light' ? 'bg-warm-white' : 'bg-cream'
   const displayTitle = title ?? service.title
 
   // Use locations from the service itself (embedded via reference)
@@ -80,7 +76,7 @@ export default function ServiceSection({
   return (
     <section
       id={service.slug}
-      className={`py-24 ${bgClass} scroll-mt-24`}
+      className='py-24 bg-warm-white scroll-mt-24'
     >
       <div className='container mx-auto px-6'>
         {hasLocations && serviceLocations ? (

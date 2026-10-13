@@ -9,7 +9,6 @@ interface ImageTextSectionProps {
   imageUrl?: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
-  aspectRatio?: '4/5' | '3/4' | '4/3'
 
   // Text content
   title: string
@@ -29,7 +28,6 @@ export default function ImageTextSection({
   imageUrl,
   imageAlt = '',
   imagePosition = 'left',
-  aspectRatio = '4/5',
 
   title,
   description,
@@ -51,12 +49,6 @@ export default function ImageTextSection({
   const paddingClasses = padding === 'hero' ? 'pt-32 pb-20' : 'py-24'
 
   // Aspect ratio classes
-  const aspectClasses: Record<string, string> = {
-    '4/5': 'aspect-[4/5]',
-    '3/4': 'aspect-[3/4]',
-    '4/3': 'aspect-[4/3]',
-  }
-
   const isImageRight = imagePosition === 'right'
   const isHero = padding === 'hero'
 
@@ -96,7 +88,7 @@ export default function ImageTextSection({
           <div className={`relative ${imageOrderClass}`}>
             {imageUrl && (
               <div
-                className={`${aspectClasses[aspectRatio]} rounded-2xl overflow-hidden shadow-2xl relative`}
+                className='aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative'
               >
                 <Image
                   src={imageUrl}

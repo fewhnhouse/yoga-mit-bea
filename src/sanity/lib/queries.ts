@@ -105,7 +105,6 @@ export const siteSettingsQuery = defineQuery(`
     siteId,
     name,
     domain,
-    primaryColor,
     "logoUrl": logo.asset->url,
     "ogImageUrl": ogImage.asset->url,
     seoDescription,

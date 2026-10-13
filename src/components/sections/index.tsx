@@ -41,10 +41,6 @@ interface CTASectionData extends BaseSection {
   title: string
   description: string
   ctas?: Array<{ _key: string; text?: string | null; href?: string | null }>
-  variant?: 'solid' | 'light'
-  isQuote?: boolean
-  decorative?: boolean
-  padding?: 'default' | 'large'
 }
 
 interface ImageTextSectionData extends BaseSection {
@@ -52,7 +48,6 @@ interface ImageTextSectionData extends BaseSection {
   imageUrl?: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
-  aspectRatio?: '4/5' | '3/4' | '4/3'
   title: string
   description?: PortableTextBlock[] | string[] | string
   cta?: { text?: string | null; href?: string | null } | null
@@ -66,7 +61,6 @@ interface CardsGridSectionData extends BaseSection {
   label?: string
   title?: PortableTextBlock[]
   columns?: 2 | 3 | 4
-  background?: 'light' | 'cream'
   cardVariant?: 'card' | 'flat'
   cardSize?: 'default' | 'compact'
   cardAlign?: 'center' | 'left'
@@ -89,7 +83,6 @@ interface ServiceSectionData extends BaseSection {
   _type: 'serviceSection'
   service?: ServiceFromQuery
   title?: string
-  background?: 'light' | 'cream'
 }
 
 interface TestimonialsSectionData extends BaseSection {
@@ -171,10 +164,6 @@ export function SectionRenderer({
                 title={section.title}
                 description={section.description}
                 ctas={section.ctas}
-                variant={section.variant}
-                isQuote={section.isQuote}
-                decorative={section.decorative}
-                padding={section.padding}
               />
             )
 
@@ -185,7 +174,6 @@ export function SectionRenderer({
                 imageUrl={section.imageUrl}
                 imageAlt={section.imageAlt}
                 imagePosition={section.imagePosition}
-                aspectRatio={section.aspectRatio}
                 title={section.title}
                 description={section.description}
                 cta={section.cta}
@@ -202,7 +190,6 @@ export function SectionRenderer({
                 label={section.label}
                 title={section.title}
                 columns={section.columns}
-                background={section.background}
                 cardVariant={section.cardVariant}
                 cardSize={section.cardSize}
                 cardAlign={section.cardAlign}
@@ -217,7 +204,6 @@ export function SectionRenderer({
                 key={section._key}
                 service={section.service}
                 title={section.title}
-                background={section.background || 'light'}
               />
             )
 

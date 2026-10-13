@@ -39,19 +39,6 @@ export default defineType({
       },
       initialValue: "left",
     }),
-    defineField({
-      name: "aspectRatio",
-      title: "Image Aspect Ratio",
-      type: "string",
-      options: {
-        list: [
-          { title: "Portrait (4:5)", value: "4/5" },
-          { title: "Tall Portrait (3:4)", value: "3/4" },
-          { title: "Landscape (4:3)", value: "4/3" },
-        ],
-      },
-      initialValue: "4/5",
-    }),
 
     // Text content
     defineField({
