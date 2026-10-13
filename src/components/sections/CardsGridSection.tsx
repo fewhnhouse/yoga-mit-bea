@@ -25,7 +25,6 @@ interface CardItem {
 interface CardsGridSectionProps {
   label?: string
   title?: PortableTextBlock[]
-  description?: string
   columns?: 2 | 3 | 4
   background?: 'light' | 'cream'
   cardVariant?: 'card' | 'flat'
@@ -79,7 +78,6 @@ function renderInlineColorText(value?: PortableTextBlock[] | string): ReactNode 
 export default function CardsGridSection({
   label,
   title,
-  description,
   columns,
   background = 'cream',
   cardVariant = 'card',
@@ -122,11 +120,6 @@ export default function CardsGridSection({
                 background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
               }}
             />
-            {description && (
-              <p className='text-charcoal-light text-center'>
-                {description}
-              </p>
-            )}
           </div>
         )}
 

@@ -65,7 +65,6 @@ interface CardsGridSectionData extends BaseSection {
   _type: 'cardsGridSection'
   label?: string
   title?: PortableTextBlock[]
-  description?: string
   columns?: 2 | 3 | 4
   background?: 'light' | 'cream'
   cardVariant?: 'card' | 'flat'
@@ -202,7 +201,6 @@ export function SectionRenderer({
                 key={section._key}
                 label={section.label}
                 title={section.title}
-                description={section.description}
                 columns={section.columns}
                 background={section.background}
                 cardVariant={section.cardVariant}

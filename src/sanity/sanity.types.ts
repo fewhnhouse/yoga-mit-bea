@@ -63,7 +63,6 @@ export type CardsGridSection = {
     _type: "block";
     _key: string;
   }>;
-  description?: string;
   columns?: 2 | 3 | 4;
   background?: "light" | "cream";
   cardVariant?: "card" | "flat";
@@ -725,7 +724,6 @@ export type PageWithSectionsDataQueryResult = {
         _type: "block";
         _key: string;
       }>;
-      description?: string;
       columns?: 2 | 3 | 4;
       background?: "cream" | "light";
       cardVariant?: "card" | "flat";
@@ -1010,7 +1008,6 @@ export type HomepageFromSettingsQueryResult = {
           _type: "block";
           _key: string;
         }>;
-        description?: string;
         columns?: 2 | 3 | 4;
         background?: "cream" | "light";
         cardVariant?: "card" | "flat";

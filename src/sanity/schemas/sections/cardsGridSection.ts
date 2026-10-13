@@ -53,13 +53,6 @@ export default defineType({
       ],
       description: "Title with optional inline text color (size is fixed in the frontend)",
     }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-      rows: 2,
-      description: "Optional description text below the title",
-    }),
 
     // Grid configuration
     defineField({
