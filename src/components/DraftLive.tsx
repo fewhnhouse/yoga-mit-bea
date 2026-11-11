@@ -62,12 +62,38 @@ export function DraftLive({ token }: { token: string }) {
     }
   )
 
+  // The event stream ends on any network error, so resubscribe with backoff
+  // and refresh once reconnected to pick up edits made while it was down.
   useEffect(() => {
-    const subscription = client.live
-      .events({ includeDrafts: true, tag: 'next-loader.live' })
-      .subscribe({ next: onEvent, error: (error) => console.error(error) })
-    return () => subscription.unsubscribe()
-  }, [client])
+    let subscription: { unsubscribe: () => void } | undefined
+    let retryTimer: ReturnType<typeof setTimeout> | undefined
+    let attempt = 0
+
+    const connect = () => {
+      subscription = client.live
+        .events({ includeDrafts: true, tag: 'next-loader.live' })
+        .subscribe({
+          next: (event) => {
+            if (event.type === 'welcome' && attempt > 0) {
+              attempt = 0
+              startTransition(() => router.refresh())
+            }
+            onEvent(event)
+          },
+          error: (error) => {
+            console.warn('[DraftLive] live connection lost, reconnecting', error)
+            attempt += 1
+            retryTimer = setTimeout(connect, Math.min(1000 * 2 ** attempt, 30_000))
+          },
+        })
+    }
+
+    connect()
+    return () => {
+      clearTimeout(retryTimer)
+      subscription?.unsubscribe()
+    }
+  }, [client, router])
 
   return null
 }
