@@ -18,6 +18,8 @@ const SITE_LOGOS = {
   },
 } as const;
 
+const currentYear = new Date().getFullYear();
+
 export default function Footer() {
   const { currentSite, footerServiceLinks, footerInfoLinks, isYoga, siteId } = useSite();
   const phoneNumber = currentSite.contactPhone || "+49 151 2220011";
@@ -146,7 +148,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-sand/50 flex flex-col md:flex-row items-center gap-4 text-sm text-charcoal-light">
-          <p className="md:flex-1 text-center md:text-left">© {new Date().getFullYear()} {currentSite.name}. Alle Rechte vorbehalten.</p>
+          <p className="md:flex-1 text-center md:text-left">© {currentYear} {currentSite.name}. Alle Rechte vorbehalten.</p>
           <SiteSwitcher />
           <p className="md:flex-1 flex items-center justify-center md:justify-end gap-2">
             Mit{" "}

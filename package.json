@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "oxlint"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
@@ -27,10 +27,9 @@
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "eslint": "^10.14.0",
-    "eslint-config-next": "16.4.6",
+    "oxlint": "^1.93.0",
     "playwright": "^1.65.0",
     "tailwindcss": "^4.3.5",
-    "typescript": "^6.0.3"
+    "typescript": "7.1.0-beta"
   }
 }
