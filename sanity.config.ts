@@ -30,4 +30,14 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  // The project is on the Free plan, which doesn't include these features.
+  // Hide them instead of showing tools that fail or prompt for an upgrade.
+  releases: { enabled: false },
+  scheduledDrafts: { enabled: false },
+  scheduledPublishing: { enabled: false },
+  tasks: { enabled: false },
+  document: {
+    comments: { enabled: false },
+  },
 })
