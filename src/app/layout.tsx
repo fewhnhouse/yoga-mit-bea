@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto, Noto_Sans } from 'next/font/google'
-import { draftMode, headers } from 'next/headers'
-import { VisualEditing } from 'next-sanity/visual-editing'
+import { headers } from 'next/headers'
 import './globals.css'
-import { SanityLive } from '@/sanity/lib/live'
-import { DisableDraftMode } from '@/components/DisableDraftMode'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { sanityFetch } from '@/sanity/lib/live'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
@@ -133,25 +130,16 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const { isEnabled: isDraftMode } = await draftMode()
-
   return (
     <html lang='de' data-scroll-behavior='smooth' className={`${cormorant.variable} ${lora.variable}`}>
       <Analytics />
       <body className='antialiased min-h-screen flex flex-col'>
         {children}
-        <SanityLive />
-        {isDraftMode && (
-          <>
-            <VisualEditing />
-            <DisableDraftMode />
-          </>
-        )}
       </body>
     </html>
   )

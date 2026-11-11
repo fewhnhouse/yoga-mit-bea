@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import DynamicHomeContent from './DynamicHomeContent'
 import { sanityFetch } from '@/sanity/lib/live'
+import { LiveTags } from '@/components/DraftLive'
 import { homepageFromSettingsQuery } from '@/sanity/lib/queries'
 import { getSiteId, getSingletonIds } from '@/lib/getSiteId'
 import { notFound } from 'next/navigation'
@@ -59,7 +60,7 @@ export default async function HomePage() {
   const { siteSettingsId } = getSingletonIds(siteId)
 
   // Fetch homepage from site settings
-  const { data } = await sanityFetch({
+  const { data, tags } = await sanityFetch({
     query: homepageFromSettingsQuery,
     params: {
       siteId,
@@ -76,9 +77,12 @@ export default async function HomePage() {
   }
 
   return (
-    <DynamicHomeContent
-      page={homepage}
-      testimonials={data?.testimonials || []}
-    />
+    <>
+      <DynamicHomeContent
+        page={homepage}
+        testimonials={data?.testimonials || []}
+      />
+      <LiveTags tags={tags} />
+    </>
   )
 }
