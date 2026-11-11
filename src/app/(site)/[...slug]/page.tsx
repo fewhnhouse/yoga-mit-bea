@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound, permanentRedirect } from 'next/navigation'
 import { sanityFetch } from '@/sanity/lib/live'
+import { LiveTags } from '@/components/DraftLive'
 import {
   pageWithSectionsDataQuery,
   allPageSlugsQuery,
@@ -74,7 +75,7 @@ export default async function DynamicPage({ params }: PageProps) {
 
   const siteId = await getSiteId()
 
-  const { data } = await sanityFetch({
+  const { data, tags } = await sanityFetch({
     query: pageWithSectionsDataQuery,
     params: { slug, siteId },
   })
@@ -88,9 +89,12 @@ export default async function DynamicPage({ params }: PageProps) {
   }
 
   return (
-    <DynamicPageContent
-      page={data.page}
-      testimonials={data.testimonials || []}
-    />
+    <>
+      <DynamicPageContent
+        page={data.page}
+        testimonials={data.testimonials || []}
+      />
+      <LiveTags tags={tags} />
+    </>
   )
 }

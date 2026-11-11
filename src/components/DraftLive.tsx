@@ -1,0 +1,99 @@
+'use client'
+
+import { createClient } from 'next-sanity'
+import { useRouter } from 'next/navigation'
+import { startTransition, useEffect, useEffectEvent, useMemo } from 'react'
+import { apiVersion, dataset, projectId } from '@/sanity/config'
+
+// Sync tags of every query rendered on the current page, ref-counted because
+// several components can register the same tag.
+const pageTags = new Map<string, number>()
+
+/**
+ * Registers the cache tags returned by `sanityFetch` so draft edits to the
+ * documents behind them refresh the page.
+ */
+export function LiveTags({ tags }: { tags: string[] }) {
+  const key = tags.join(',')
+  useEffect(() => {
+    const registered = key.split(',').filter(Boolean)
+    for (const tag of registered) pageTags.set(tag, (pageTags.get(tag) ?? 0) + 1)
+    return () => {
+      for (const tag of registered) {
+        const count = (pageTags.get(tag) ?? 1) - 1
+        if (count > 0) pageTags.set(tag, count)
+        else pageTags.delete(tag)
+      }
+    }
+  }, [key])
+  return null
+}
+
+/**
+ * Draft-mode replacement for `<SanityLive />`. The stock component refreshes
+ * the page on every draft change in the dataset; this one only refreshes when
+ * a change touches a query the current page rendered.
+ */
+export function DraftLive({ token }: { token: string }) {
+  const router = useRouter()
+  const client = useMemo(
+    () =>
+      createClient({
+        projectId,
+        dataset,
+        apiVersion,
+        token,
+        useCdn: false,
+        ignoreBrowserTokenWarning: true,
+      }),
+    [token]
+  )
+
+  const onEvent = useEffectEvent(
+    (event: { type: string; tags?: string[] }) => {
+      if (event.type === 'restart') {
+        startTransition(() => router.refresh())
+        return
+      }
+      if (event.type !== 'message') return
+      if (event.tags?.some((tag) => pageTags.has(`sanity:${tag}`))) {
+        startTransition(() => router.refresh())
+      }
+    }
+  )
+
+  // The event stream ends on any network error, so resubscribe with backoff
+  // and refresh once reconnected to pick up edits made while it was down.
+  useEffect(() => {
+    let subscription: { unsubscribe: () => void } | undefined
+    let retryTimer: ReturnType<typeof setTimeout> | undefined
+    let attempt = 0
+
+    const connect = () => {
+      subscription = client.live
+        .events({ includeDrafts: true, tag: 'next-loader.live' })
+        .subscribe({
+          next: (event) => {
+            if (event.type === 'welcome' && attempt > 0) {
+              attempt = 0
+              startTransition(() => router.refresh())
+            }
+            onEvent(event)
+          },
+          error: (error) => {
+            console.warn('[DraftLive] live connection lost, reconnecting', error)
+            attempt += 1
+            retryTimer = setTimeout(connect, Math.min(1000 * 2 ** attempt, 30_000))
+          },
+        })
+    }
+
+    connect()
+    return () => {
+      clearTimeout(retryTimer)
+      subscription?.unsubscribe()
+    }
+  }, [client, router])
+
+  return null
+}
